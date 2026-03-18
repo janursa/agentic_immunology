@@ -1,0 +1,11 @@
+# Large data files — tracked elsewhere
+data_lake/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+tools/tool/__pycache__/
+tools/tool/schema_db/
+tools/tool/protocols/
