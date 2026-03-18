@@ -1,9 +1,15 @@
 # Immunology — Function Reference
 
-> Module: `biomni.tool.immunology`
-> Import: `from biomni.tool.immunology import <function_name>`
+> Module: `tool.immunology`
+> Import: `from tool.immunology import <function_name>`
 
 **10 functions** — ATAC-seq, TCR/BCR analysis, immune cell phenotyping, cytokine modeling
+
+```python
+import sys
+sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools')
+from tool.immunology import <function_name>
+```
 
 ---
 

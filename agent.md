@@ -6,39 +6,54 @@ When given a biomedical research task, use available data and tools ONLY in this
 ---
 
 ## Main
-- **main dir**: `/vol/projects/BIIM/agentic_central/`
-- **Data lake**: descriptions located in `datalake.md`
-- **Tools**: descriptions located in `tools.md` #TODO: add this
-- **know-hows**: located in folder `know_how`. currently, we have:
-    - single cell annotation for immune cells
+- **Main dir**: `/vol/projects/BIIM/agentic_central/agentic/`
+- **Data lake**: files in `data_lake/` — descriptions in [`datalake.md`](datalake.md)
+- **Tools**: 6 retained modules in `tools/` — descriptions and usage in [`tools.md`](tools.md)
+- **Packages**: all pre-installed packages for `biomni_e1` listed in [`packages.md`](packages.md)
+- **Know-hows**: methodology guides in `know_how/`:
+    - [`single_cell_annotation.md`](know_how/single_cell_annotation.md) — single cell annotation for immune cells
 
-- **Temp outputs**: write all output files to `temp/` inside the project root
-- **How to run**: Only this this env for running. NO installation. If a package is used but not available, give error and stop he pipeline. 
+- **Temp outputs**: write all output files to `temp/` inside the main dir
+- **How to run**: use only this env. NO installation. If a package is unavailable, raise an error and stop.
 ```bash
 conda run -n biomni_e1 python3 temp/script.py
 ```
 
-**Standard approach in loading a data from datalake:**
+**Standard approach for loading data from the data lake:**
 ```python
-#TODO: fix this
+import pandas as pd, os, pickle
+
+DATA_LAKE = '/vol/projects/BIIM/agentic_central/agentic/data_lake'
+
+# Parquet
+df = pd.read_parquet(os.path.join(DATA_LAKE, '<filename>.parquet'))
+
+# CSV
+df = pd.read_csv(os.path.join(DATA_LAKE, '<filename>.csv'))
+
+# Pickle
+with open(os.path.join(DATA_LAKE, '<filename>.pkl'), 'rb') as f:
+    obj = pickle.load(f)
 ```
 
-**Standard approach in using a tool:**
+**Standard approach for using a tool:**
 ```python
 import sys
-sys.path.insert(0, '/vol/projects/BIIM/agentic_central/')
-from biomni.tool.<module_name> import <function_name>
+sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools')
+from tool.<module_name> import <function_name>
 result = <function_name>(required_arg, optional_kwarg=value)
 ```
+
+> See [`tools.md`](tools.md) for the list of available modules and [`tools/<module>.md`](tools/) for full function signatures.
 
 ---
 
 ## Task Strategy
 
 1. **Decompose** — break the task into a numbered checklist before writing any code. Wait for the user to confirm.
-2. **Select** — identify relevant tool modules, data lake files, and know-how docs from below.
-4. **Code** — prefer biomni tools over reimplementing. Write custom scripts to `temp/`.
-5. **Execute & observe** — run the code, read stdout/errors, iterate.
-6. **Report** — state file paths for any saved outputs (plots, tables).
+2. **Select** — identify relevant tool modules, data lake files, and know-how docs from the overview files above.
+3. **Code** — prefer biomni tools over reimplementing. Write custom scripts to `temp/`.
+4. **Execute & observe** — run the code, read stdout/errors, iterate.
+5. **Report** — state file paths for any saved outputs (plots, tables).
 
 ---

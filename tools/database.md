@@ -1,9 +1,15 @@
 # Database — Function Reference
 
-> Module: `biomni.tool.database`
-> Import: `from biomni.tool.database import <function_name>`
+> Module: `tool.database`
+> Import: `from tool.database import <function_name>`
 
 **40 functions** — UniProt, GWAS Catalog, Ensembl, ClinVar, dbSNP, GnomAD, GEO, PubChem, DrugBank
+
+```python
+import sys
+sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools')
+from tool.database import <function_name>
+```
 
 ---
 

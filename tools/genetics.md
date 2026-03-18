@@ -1,9 +1,15 @@
 # Genetics — Function Reference
 
-> Module: `biomni.tool.genetics`
-> Import: `from biomni.tool.genetics import <function_name>`
+> Module: `tool.genetics`
+> Import: `from tool.genetics import <function_name>`
 
 **9 functions** — Liftover, fine-mapping, CRISPR analysis, TF binding, PCR simulation
+
+```python
+import sys
+sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools')
+from tool.genetics import <function_name>
+```
 
 ---
 

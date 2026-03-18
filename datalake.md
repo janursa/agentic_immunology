@@ -2,11 +2,22 @@
 
 ## 📊 Data Lake (76 files)
 
-DATA_LAKE: `/vol/projects/BIIM/agentic_central/data/biomni_data/data_lake/`
+`DATA_LAKE = '/vol/projects/BIIM/agentic_central/agentic/data_lake'`
 
 ```python
-import pandas as pd, os
-df = pd.read_parquet(os.path.join(DATA_LAKE, '<filename>'))
+import pandas as pd, os, pickle
+
+DATA_LAKE = '/vol/projects/BIIM/agentic_central/agentic/data_lake'
+
+# Parquet
+df = pd.read_parquet(os.path.join(DATA_LAKE, '<filename>.parquet'))
+
+# CSV
+df = pd.read_csv(os.path.join(DATA_LAKE, '<filename>.csv'))
+
+# Pickle
+with open(os.path.join(DATA_LAKE, '<filename>.pkl'), 'rb') as f:
+    obj = pickle.load(f)
 ```
 
 | File | Description |

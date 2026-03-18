@@ -1,9 +1,15 @@
 # Literature — Function Reference
 
-> Module: `biomni.tool.literature`
-> Import: `from biomni.tool.literature import <function_name>`
+> Module: `tool.literature`
+> Import: `from tool.literature import <function_name>`
 
 **8 functions** — PubMed/Semantic Scholar search, paper retrieval, citation analysis
+
+```python
+import sys
+sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools')
+from tool.literature import <function_name>
+```
 
 ---
 

@@ -1,5 +1,18 @@
 # Genomics — Function Reference
 
+> Module: `tool.genomics`
+> Import: `from tool.genomics import <function_name>`
+
+**18 functions** — scRNA-seq annotation, batch integration, gene set enrichment, ChIP-seq, embeddings
+
+```python
+import sys
+sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools')
+from tool.genomics import <function_name>
+```
+
+---
+
 ### `annotate_celltype_scRNA`
 Annotate cell types based on gene markers and transferred labels using LLM. After leiden clustering, annotate clusters using differentially expressed genes and optionally incorporate transferred labels from reference datasets.
 
