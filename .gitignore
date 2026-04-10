@@ -1,5 +1,8 @@
 # Large data files — tracked elsewhere
 data_lake/
+datalake/
+summary_stats/
+temp/
 
 # Python
 __pycache__/

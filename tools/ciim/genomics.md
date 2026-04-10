@@ -1,19 +1,10 @@
 # Genomics — Custom Extensions
 
-> Module: `genomics`
-> Import: `from genomics import <function_name>`
-
 **6 functions** — counts detection, CellTypist annotation, consensus GRN loader, GRN inference, single-cell QC, annotation quality assessment
 
-```python
-import sys
-sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools/ciim/code')
-from genomics import <function_name>
-```
-
----
 
 ### `identify_counts_layer`
+*Raw Counts Detection*
 Identify which slot in an AnnData object holds raw integer counts. Checks `adata.layers['counts']`, then `adata.layers['count']`, then tests `adata.X` for non-negative integer values. Raises `ValueError` if none found.
 
 **Required:** `adata` (AnnData)
@@ -23,6 +14,7 @@ Identify which slot in an AnnData object holds raw integer counts. Checks `adata
 ---
 
 ### `annotate_celltype_celltypist`
+*CellTypist Annotation*
 Annotate immune cell types using CellTypist with Leiden-based majority voting. Receives the AnnData directly (no file loading).
 
 **Pipeline:**
@@ -48,6 +40,7 @@ Annotate immune cell types using CellTypist with Leiden-based majority voting. R
 ---
 
 ### `get_immune_grn`
+*Immune GRN Loader*
 Load pre-computed consensus immune GRN(s) for one or more major immune cell types (CD4T, CD8T, NK, B, MONO). Returns edges from the HIARA multi-cohort consensus networks (minDegree2 filtered). Optionally restrict to promoter-supported edges, filter by edge weight, or look up a specific TF source or target gene.
 
 **Required:** *(none — all parameters optional)*
@@ -64,6 +57,7 @@ Load pre-computed consensus immune GRN(s) for one or more major immune cell type
 ---
 
 ### `infer_grn_spearman`
+*Spearman GRN Inference*
 Infer a gene regulatory network (GRN) from expression data (single-cell or bulk) using pairwise Spearman correlation. Applies Benjamini-Hochberg FDR correction, filters edges to known transcription factors (TFs) from `data_lake/ciim/tf_all.csv`, and optionally annotates promoter-based edges. Returns a directed edge list CSV with columns `source`, `target`, `weight` (Spearman rho), and `promotor_based` (bool, if skeleton file present).
 
 **Required:** `adata_path` (str), `output_file` (str)
@@ -72,6 +66,7 @@ Infer a gene regulatory network (GRN) from expression data (single-cell or bulk)
 ---
 
 ### `qc_sc_transcriptomics`
+*scRNA QC Filter*
 Apply the standard single-cell RNA-seq QC protocol to a raw-count AnnData object. Flags mitochondrial genes, filters low-quality / dying cells, removes lowly expressed genes, sanity-checks that `adata.X` contains raw integer counts, and writes the filtered AnnData to disk.
 
 **Required:** `adata_path` (str), `output_path` (str)
@@ -80,6 +75,7 @@ Apply the standard single-cell RNA-seq QC protocol to a raw-count AnnData object
 ---
 
 ### `analyze_cluster_celltype_annotation_quality`
+*Annotation Quality*
 Assess the quality of cell type annotations at the cluster level. For each cluster (e.g. Leiden), computes dominant label, consistency score (fraction of cells carrying the dominant label), Shannon entropy of the label distribution, and cell count across one or more annotation columns. Flags clusters with consistency below threshold as ambiguous or heterogeneous. Saves a full stats CSV, a flagged-clusters CSV, a consistency heatmap, and a per-annotation entropy bar plot.
 
 **Required:** `adata_or_path` (AnnData or str — pass a loaded AnnData object or a path to an `.h5ad` file), `output_dir` (str)
@@ -94,6 +90,7 @@ Assess the quality of cell type annotations at the cluster level. For each clust
 ---
 
 ### `annotate_celltype_ulm`
+*ULM Pseudobulk Annotation*
 Annotate cell types using decoupler ULM on **pseudobulk profiles per cluster**. Receives the AnnData directly (no file loading). Uses Leiden cluster columns already computed by `annotate_celltype_celltypist` — does **not** re-cluster.
 
 **Pipeline:**
@@ -116,6 +113,7 @@ Annotate cell types using decoupler ULM on **pseudobulk profiles per cluster**. 
 ---
 
 ### `infer_tf_activity`
+*TF Activity Inference*
 Infer TF activity from expression data using decoupler. Works with any AnnData (single-cell, pseudobulk, or bulk) — no assumptions about data type. Caller provides log-normalised expression in `adata.X` and the regulatory network.
 
 **Required:**
