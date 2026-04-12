@@ -10,7 +10,7 @@ from scipy.stats import fisher_exact
 
 
 DEFAULT_INPUT = Path(
-    "/vol/projects/CIIM/agentic_central/agentic/datalake/biomni/"
+    "/vol/projects/CIIM/agentic_central/datalake/biomni/"
     "broad_repurposing_hub_phase_moa_target_info.parquet"
 )
 

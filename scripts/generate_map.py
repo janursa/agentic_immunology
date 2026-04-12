@@ -6,7 +6,7 @@ Parses the agentic repo markdown files and generates agentic_map.html —
 an interactive D3.js force-directed graph of all tools, data, know-how, and images.
 
 Run: python3 generate_map.py
-Output: /vol/projects/CIIM/agentic_central/agentic/agentic_map.html
+Output: /vol/projects/CIIM/agentic_central/agentic_map.html
 """
 
 import re

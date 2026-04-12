@@ -7,7 +7,7 @@ All signature files are loaded via the unified `retrieve_summary_stats(context, 
 
 ```python
 import sys
-sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools/ciim/code')
+sys.path.insert(0, '/vol/projects/BIIM/agentic_central/tools/ciim/code')
 from hiara import retrieve_summary_stats
 ```
 

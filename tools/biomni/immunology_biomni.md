@@ -7,7 +7,7 @@
 
 ```python
 import sys
-sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools')
+sys.path.insert(0, '/vol/projects/BIIM/agentic_central/tools')
 from tool.immunology import <function_name>
 ```
 

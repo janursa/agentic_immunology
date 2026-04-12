@@ -16,8 +16,8 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-DATA_DIR = Path("/vol/projects/CIIM/agentic_central/agentic/datalake/virtualbiotech")
-OUT_DIR  = Path("/vol/projects/CIIM/agentic_central/agentic/summary_stats/virtualbiotech")
+DATA_DIR = Path("/vol/projects/CIIM/agentic_central/datalake/virtualbiotech")
+OUT_DIR  = Path("/vol/projects/CIIM/agentic_central/summary_stats/virtualbiotech")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ── Load data ──────────────────────────────────────────────────────────────────

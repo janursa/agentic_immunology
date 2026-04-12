@@ -3,7 +3,7 @@
 
 ```python
 import sys
-sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools/{biomni or ciim}/code')
+sys.path.insert(0, '/vol/projects/BIIM/agentic_central/tools/{biomni or ciim}/code')
 from <module_name> import <function_name>   
 ```
 

@@ -2,6 +2,7 @@
 data_lake/
 datalake/
 temp/
+singularity/
 
 # Python
 __pycache__/

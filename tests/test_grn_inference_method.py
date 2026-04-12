@@ -5,7 +5,7 @@ Validates that the function produces well-formed, cell-type-specific GRNs from
 the zhang single-cell dataset (Major_CT groups).
 
 Run with:
-    bash /vol/projects/BIIM/agentic_central/agentic/tests/test_grn_inference.sh
+    bash /vol/projects/BIIM/agentic_central/tests/test_grn_inference.sh
 """
 
 import sys
@@ -15,13 +15,13 @@ import pandas as pd
 import anndata as ad
 import scanpy as sc
 
-sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools/code')
+sys.path.insert(0, '/vol/projects/BIIM/agentic_central/tools/code')
 from genomics import infer_grn_spearman
 
 # ── paths ─────────────────────────────────────────────────────────────────────
 DATASET_PATH  = '/vol/projects/jnourisa/hiara/datasets/sc/zhang.h5ad'
-TF_LIST_PATH  = '/vol/projects/BIIM/agentic_central/agentic/data_lake/ciim/tf_all.csv'
-OUTPUT_DIR    = '/vol/projects/BIIM/agentic_central/agentic/temp/test_grn_output'
+TF_LIST_PATH  = '/vol/projects/BIIM/agentic_central/data_lake/ciim/tf_all.csv'
+OUTPUT_DIR    = '/vol/projects/BIIM/agentic_central/temp/test_grn_output'
 MINI_ADATA    = os.path.join(OUTPUT_DIR, 'zhang_mini.h5ad')
 GROUP_COL     = 'Major_CT'
 # Use a small but representative subset of cell types for speed
@@ -281,7 +281,7 @@ def test_consistency_with_hiara():
     # ── hiara reference ───────────────────────────────────────────────────────
     # Apply same TF filter as our tool (hiara returns all-gene sources by default)
     tf_all = set(np.loadtxt(
-        '/vol/projects/BIIM/agentic_central/agentic/data_lake/ciim/tf_all.csv',
+        '/vol/projects/BIIM/agentic_central/data_lake/ciim/tf_all.csv',
         dtype=str))
     net_hiara = hiara.main(X_norm, gene_names, weight_t=0.05)
     net_hiara = net_hiara[net_hiara['source'].isin(tf_all)]
