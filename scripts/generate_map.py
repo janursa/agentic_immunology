@@ -440,13 +440,16 @@ def build_graph() -> tuple:
         add_link('DCAT_biomni', g['id'])
 
     # ── Summary Stats
-    # HIaRA is the only module — reuse the existing T_CIIM_hiara tool node as the hub.
-    # CAT_SUMSTATS links to it, and all sumstat files hang off it directly.
     ss_text   = (BASE / 'summary_stats.md').read_text()
     ss_groups = parse_summary_stats(ss_text)
+    existing_node_ids = {n['id'] for n in nodes}
     for module_name, files in ss_groups.items():
-        # Map module name → existing CIIM tool node id
+        # Use existing CIIM tool node if present, otherwise create a hub node.
         tool_node_id = f'T_CIIM_{module_name.lower()}'
+        if tool_node_id not in existing_node_ids:
+            add_node(id=tool_node_id, label=module_name.capitalize(), type='tool_group', r=20,
+                     desc=f'Summary stats module: {module_name}')
+            existing_node_ids.add(tool_node_id)
         add_link('CAT_SUMSTATS', tool_node_id)
         for f in files:
             add_node(id=f['id'], label=f['pretty'], type='sumstat', r=13, desc=f['desc'])

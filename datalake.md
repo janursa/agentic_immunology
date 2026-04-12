@@ -15,3 +15,8 @@ Files are listed in `datalake/omnipath/list.md`
 Large collection of general biomedical reference databases sourced from Biomni: drug binding affinities, CRISPR gene effect screens, gene-disease associations, protein-protein interactions, GWAS, gene sets (MSigDB, MouseMine, GO), TCR sequences, miRNA targets, and more.  
 Files are listed in `datalake/biomni/list.md`
 
+### virtualbiotech
+Data from the Virtual Biotech study (bioRxiv 2024, harrisongzhang/TheVirtualBiotech). Contains single-cell expression features for 1,511 human target genes (tau, bimodality, AE-risk scores derived from Tabula Sapiens), ChEMBL clinical trial–target–disease mappings, and LLM-labelled outcomes for 56,707 clinical trials.  
+Files are listed in `datalake/virtualbiotech/list.md`
+
+
