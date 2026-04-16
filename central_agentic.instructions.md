@@ -49,5 +49,8 @@ from genomics import annotate_celltype_scRNA  # example
 
 CRITICAL: write all output files to `temp/{descriptive name of the task}` inside the main dir. create a `LOG.md` file and `script.py` in `temp/{descriptive name of the task}/`, where add every step of your reasoning and tool usage, and the code, respectively. DONT wait until end, you should do this in every step you take in parellel. If you tried something and it didnt work, then go back and revis it. If i run `code.py`, it should be able to run from start to finish without any errors, and produce the final outputs you reported in the last step.
 
-
+## How to create overview map (agentic_map.html)
+The code to generate should be in `scripts/generate_map.py`. It should plot from the major categories to all the way minor data and function. For example, datalake -> omics -> hiara -> op_sc.h5ad. 
+Each node should be shown with its pretty name (*pretty name* under each section in md files). 
+Important: all the modules/datasets/methods should be shown on the graph. For the leafs (the most dowstram nodes), they should be shown with a option of having a + on their mother node -> if the plus hit, they should be shown on the graph, if not, they should be hidden.
 ---

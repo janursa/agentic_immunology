@@ -1,0 +1,1018 @@
+meta:
+  title: Agentic Ecosystem Map
+  version: '1.0'
+  note: Edit this file to add/remove/rename nodes. Run generate_map.py to rebuild the HTML.
+core:
+  id: LLM
+  label: '🧬 LLM Core'
+  desc: Central AI agent orchestrating all tools, data lake resources, know-how, and compute environments.
+categories:
+- id: CAT_TOOLS
+  label: 🔧 Tools
+  desc: Python tool modules for genomics, immunology, pharmacology, literature, databases, and genetics.
+  children:
+  - id: CAT_BIOMNI
+    label: Biomni
+    type: tool_group
+    desc: Biomni tool suite — 6 modules covering databases, genetics, genomics, immunology, literature, and pharmacology.
+    children:
+    - id: T_BIOMNI_database_biomni
+      label: Biomedical DB APIs
+      type: tool
+      module: database_biomni
+      desc: Queries 30+ biomedical REST APIs using natural language or direct endpoints.
+      children:
+      - label: UniProt Query
+        desc: '`query_uniprot` — function of Biomedical DB APIs'
+      - label: AlphaFold Structures
+        desc: '`query_alphafold` — function of Biomedical DB APIs'
+      - label: InterPro Domains
+        desc: '`query_interpro` — function of Biomedical DB APIs'
+      - label: PDB Structure Search
+        desc: '`query_pdb` — function of Biomedical DB APIs'
+      - label: PDB Data Retrieval
+        desc: '`query_pdb_identifiers` — function of Biomedical DB APIs'
+      - label: KEGG Pathways
+        desc: '`query_kegg` — function of Biomedical DB APIs'
+      - label: STRING Interactions
+        desc: '`query_stringdb` — function of Biomedical DB APIs'
+      - label: IUCN Red List
+        desc: '`query_iucn` — function of Biomedical DB APIs'
+      - label: Paleobiology DB
+        desc: '`query_paleobiology` — function of Biomedical DB APIs'
+      - label: JASPAR TF Profiles
+        desc: '`query_jaspar` — function of Biomedical DB APIs'
+      - label: Marine Species DB
+        desc: '`query_worms` — function of Biomedical DB APIs'
+      - label: cBioPortal Cancer
+        desc: '`query_cbioportal` — function of Biomedical DB APIs'
+      - label: ClinVar Variants
+        desc: '`query_clinvar` — function of Biomedical DB APIs'
+      - label: GEO Expression DB
+        desc: '`query_geo` — function of Biomedical DB APIs'
+      - label: dbSNP Variants
+        desc: '`query_dbsnp` — function of Biomedical DB APIs'
+      - label: UCSC Genome Browser
+        desc: '`query_ucsc` — function of Biomedical DB APIs'
+      - label: Ensembl REST API
+        desc: '`query_ensembl` — function of Biomedical DB APIs'
+      - label: OpenTargets Platform
+        desc: '`query_opentarget` — function of Biomedical DB APIs'
+      - label: Monarch Disease DB
+        desc: '`query_monarch` — function of Biomedical DB APIs'
+      - label: OpenFDA Drug Data
+        desc: '`query_openfda` — function of Biomedical DB APIs'
+      - label: GWAS Catalog
+        desc: '`query_gwas_catalog` — function of Biomedical DB APIs'
+      - label: GnomAD Variants
+        desc: '`query_gnomad` — function of Biomedical DB APIs'
+      - label: NCBI BLAST Search
+        desc: '`blast_sequence` — function of Biomedical DB APIs'
+      - label: Reactome Pathways
+        desc: '`query_reactome` — function of Biomedical DB APIs'
+      - label: RegulomeDB Elements
+        desc: '`query_regulomedb` — function of Biomedical DB APIs'
+      - label: PRIDE Proteomics
+        desc: '`query_pride` — function of Biomedical DB APIs'
+      - label: GtoPdb Pharmacology
+        desc: '`query_gtopdb` — function of Biomedical DB APIs'
+      - label: ReMap TF Binding
+        desc: '`query_remap` — function of Biomedical DB APIs'
+      - label: Mouse Phenome DB
+        desc: '`query_mpd` — function of Biomedical DB APIs'
+      - label: EMDB Cryo-EM
+        desc: '`query_emdb` — function of Biomedical DB APIs'
+      - label: Synapse Datasets
+        desc: '`query_synapse` — function of Biomedical DB APIs'
+      - label: PubChem Compounds
+        desc: '`query_pubchem` — function of Biomedical DB APIs'
+      - label: ChEMBL Drug DB
+        desc: '`query_chembl` — function of Biomedical DB APIs'
+      - label: UniChem Cross-Refs
+        desc: '`query_unichem` — function of Biomedical DB APIs'
+      - label: Clinical Trials DB
+        desc: '`query_clinicaltrials` — function of Biomedical DB APIs'
+      - label: DailyMed Drug Labels
+        desc: '`query_dailymed` — function of Biomedical DB APIs'
+      - label: QuickGO Ontology
+        desc: '`query_quickgo` — function of Biomedical DB APIs'
+      - label: ENCODE Genomics
+        desc: '`query_encode` — function of Biomedical DB APIs'
+      - label: SCREEN cCRE Regions
+        desc: '`region_to_ccre_screen` — function of Biomedical DB APIs'
+      - label: Genes Near cCRE
+        desc: '`get_genes_near_ccre` — function of Biomedical DB APIs'
+    - id: T_BIOMNI_genetics_biomni
+      label: Genetics & CRISPR
+      type: tool
+      module: genetics_biomni
+      desc: Liftover, fine-mapping, CRISPR analysis, TF binding site identification, phylogenetic analysis.
+      children:
+      - label: Coordinate Liftover
+        desc: '`liftover_coordinates` — function of Genetics & CRISPR'
+      - label: Bayesian Fine-Mapping
+        desc: '`bayesian_finemapping_with_deep_vi` — function of Genetics & CRISPR'
+      - label: Cas9 Mutation Analysis
+        desc: '`analyze_cas9_mutation_outcomes` — function of Genetics & CRISPR'
+      - label: CRISPR Edit Analysis
+        desc: '`analyze_crispr_genome_editing` — function of Genetics & CRISPR'
+      - label: Demographic Simulation
+        desc: '`simulate_demographic_history` — function of Genetics & CRISPR'
+      - label: TF Binding Sites
+        desc: '`identify_transcription_factor_binding_sites` — function of Genetics & CRISPR'
+      - label: Genomic Prediction Model
+        desc: '`fit_genomic_prediction_model` — function of Genetics & CRISPR'
+      - label: PCR & Gel Electrophoresis
+        desc: '`perform_pcr_and_gel_electrophoresis` — function of Genetics & CRISPR'
+      - label: Protein Phylogeny
+        desc: '`analyze_protein_phylogeny` — function of Genetics & CRISPR'
+    - id: T_BIOMNI_genomics_biomni
+      label: Single-Cell Genomics
+      type: tool
+      module: genomics_biomni
+      desc: scRNA-seq cell type annotation, batch integration, gene set enrichment, ChIP-seq, embeddings.
+      children:
+      - label: LLM Cell Annotation
+        desc: '`annotate_celltype_scRNA` — function of Single-Cell Genomics'
+      - label: Panhuman Annotation
+        desc: '`annotate_celltype_with_panhumanpy` — function of Single-Cell Genomics'
+      - label: scVI/scANVI Embeddings
+        desc: '`create_scvi_embeddings_scRNA` — function of Single-Cell Genomics'
+      - label: Harmony Integration
+        desc: '`create_harmony_embeddings_scRNA` — function of Single-Cell Genomics'
+      - label: UCE Embeddings
+        desc: '`get_uce_embeddings_scRNA` — function of Single-Cell Genomics'
+      - label: IMA Atlas Mapping
+        desc: '`map_to_ima_interpret_scRNA` — function of Single-Cell Genomics'
+      - label: ARCHS4 Expression
+        desc: '`get_rna_seq_archs4` — function of Single-Cell Genomics'
+      - label: GSEA Database List
+        desc: '`get_gene_set_enrichment_analysis_supported_database_list` — function of Single-Cell Genomics'
+      - label: Gene Set Enrichment
+        desc: '`gene_set_enrichment_analysis` — function of Single-Cell Genomics'
+      - label: Hi-C Chromatin
+        desc: '`analyze_chromatin_interactions` — function of Single-Cell Genomics'
+      - label: Haplotype Analysis
+        desc: '`analyze_comparative_genomics_and_haplotypes` — function of Single-Cell Genomics'
+      - label: ChIP-seq Peak Calling
+        desc: '`perform_chipseq_peak_calling_with_macs2` — function of Single-Cell Genomics'
+      - label: HOMER Motif Discovery
+        desc: '`find_enriched_motifs_with_homer` — function of Single-Cell Genomics'
+      - label: Genomic Region Overlap
+        desc: '`analyze_genomic_region_overlap` — function of Single-Cell Genomics'
+      - label: popV Label Transfer
+        desc: '`unsupervised_celltype_transfer_between_scRNA_datasets` — function of Single-Cell Genomics'
+      - label: STATE Embeddings
+        desc: '`generate_embeddings_with_state` — function of Single-Cell Genomics'
+      - label: Interspecies Gene Map
+        desc: '`interspecies_gene_conversion` — function of Single-Cell Genomics'
+      - label: ESM Protein Embeddings
+        desc: '`generate_gene_embeddings_with_ESM_models` — function of Single-Cell Genomics'
+      - label: Transcriptformer Embeddings
+        desc: '`generate_transcriptformer_embeddings` — function of Single-Cell Genomics'
+      - label: Spearman GRN Inference
+        desc: '`infer_grn_spearman` — function of Single-Cell Genomics'
+      - label: scRNA QC Filter
+        desc: '`qc_sc_transcriptomics` — function of Single-Cell Genomics'
+    - id: T_BIOMNI_immunology_biomni
+      label: Immunology Assays
+      type: tool
+      module: immunology_biomni
+      desc: ATAC-seq, immune cell phenotyping, cytokine assays, flow cytometry, histology.
+      children:
+      - label: ATAC-seq Accessibility
+        desc: '`analyze_atac_seq_differential_accessibility` — function of Immunology Assays'
+      - label: Bacterial Growth Curve
+        desc: '`analyze_bacterial_growth_curve` — function of Immunology Assays'
+      - label: Immune Cell Isolation
+        desc: '`isolate_purify_immune_cells` — function of Immunology Assays'
+      - label: Cell Cycle Estimation
+        desc: '`estimate_cell_cycle_phase_durations` — function of Immunology Assays'
+      - label: Flow Cell Tracking
+        desc: '`track_immune_cells_under_flow` — function of Immunology Assays'
+      - label: CFSE Proliferation
+        desc: '`analyze_cfse_cell_proliferation` — function of Immunology Assays'
+      - label: CD4T Cytokine Analysis
+        desc: '`analyze_cytokine_production_in_cd4_tcells` — function of Immunology Assays'
+      - label: EBV ELISA Titers
+        desc: '`analyze_ebv_antibody_titers` — function of Immunology Assays'
+      - label: CNS Lesion Histology
+        desc: '`analyze_cns_lesion_histology` — function of Immunology Assays'
+      - label: IHC Image Analysis
+        desc: '`analyze_immunohistochemistry_image` — function of Immunology Assays'
+    - id: T_BIOMNI_literature_biomni
+      label: Literature Search
+      type: tool
+      module: literature_biomni
+      desc: PubMed/arXiv/Scholar search, paper/supplementary retrieval, web search, PDF extraction.
+      children:
+      - label: Supplementary Retrieval
+        desc: '`fetch_supplementary_info_from_doi` — function of Literature Search'
+      - label: arXiv Search
+        desc: '`query_arxiv` — function of Literature Search'
+      - label: Google Scholar
+        desc: '`query_scholar` — function of Literature Search'
+      - label: PubMed Search
+        desc: '`query_pubmed` — function of Literature Search'
+      - label: Google Search
+        desc: '`search_google` — function of Literature Search'
+      - label: URL Content Extraction
+        desc: '`extract_url_content` — function of Literature Search'
+      - label: PDF Content Extraction
+        desc: '`extract_pdf_content` — function of Literature Search'
+      - label: Advanced Web Search
+        desc: '`advanced_web_search_claude` — function of Literature Search'
+    - id: T_BIOMNI_pharmacology_biomni
+      label: Drug & Pharmacology
+      type: tool
+      module: pharmacology_biomni
+      desc: Molecular docking (DiffDock, Vina), ADMET prediction, drug-drug interactions (DDInter), FDA data, drug repurposing
+        (TxGNN).
+      children:
+      - label: DiffDock Docking
+        desc: '`run_diffdock_with_smiles` — function of Drug & Pharmacology'
+      - label: AutoDock Vina
+        desc: '`docking_autodock_vina` — function of Drug & Pharmacology'
+      - label: AutoSite Binding Sites
+        desc: '`run_autosite` — function of Drug & Pharmacology'
+      - label: TxGNN Drug Repurposing
+        desc: '`retrieve_topk_repurposing_drugs_from_disease_txgnn` — function of Drug & Pharmacology'
+      - label: ADMET Prediction
+        desc: '`predict_admet_properties` — function of Drug & Pharmacology'
+      - label: Binding Affinity
+        desc: '`predict_binding_affinity_protein_1d_sequence` — function of Drug & Pharmacology'
+      - label: Formulation Stability
+        desc: '`analyze_accelerated_stability_of_pharmaceutical_formulations` — function of Drug & Pharmacology'
+      - label: Chondrogenesis Assay
+        desc: '`run_3d_chondrogenic_aggregate_assay` — function of Drug & Pharmacology'
+      - label: Adverse Event Grading
+        desc: '`grade_adverse_events_using_vcog_ctcae` — function of Drug & Pharmacology'
+      - label: Antibody Biodistribution
+        desc: '`analyze_radiolabeled_antibody_biodistribution` — function of Drug & Pharmacology'
+      - label: Radiotherapy Dosimetry
+        desc: '`estimate_alpha_particle_radiotherapy_dosimetry` — function of Drug & Pharmacology'
+      - label: CYP2C19 Methylome MWAS
+        desc: '`perform_mwas_cyp2c19_metabolizer_status` — function of Drug & Pharmacology'
+      - label: Drug Physicochemistry
+        desc: '`calculate_physicochemical_properties` — function of Drug & Pharmacology'
+      - label: Xenograft TGI
+        desc: '`analyze_xenograft_tumor_growth_inhibition` — function of Drug & Pharmacology'
+      - label: Blot Pixel Distribution
+        desc: '`analyze_pixel_distribution` — function of Drug & Pharmacology'
+      - label: Blot ROI Detection
+        desc: '`find_roi_from_image` — function of Drug & Pharmacology'
+      - label: Western Blot Analysis
+        desc: '`analyze_western_blot` — function of Drug & Pharmacology'
+      - label: DDInter Interactions
+        desc: '`query_drug_interactions` — function of Drug & Pharmacology'
+      - label: Drug Combo Safety
+        desc: '`check_drug_combination_safety` — function of Drug & Pharmacology'
+      - label: Drug Mechanism Analysis
+        desc: '`analyze_interaction_mechanisms` — function of Drug & Pharmacology'
+      - label: Alternative Drug Finder
+        desc: '`find_alternative_drugs_ddinter` — function of Drug & Pharmacology'
+      - label: FDA Adverse Events
+        desc: '`query_fda_adverse_events` — function of Drug & Pharmacology'
+      - label: FDA Drug Labels
+        desc: '`get_fda_drug_label_info` — function of Drug & Pharmacology'
+      - label: FDA Drug Recalls
+        desc: '`check_fda_drug_recalls` — function of Drug & Pharmacology'
+      - label: FDA Safety Signals
+        desc: '`analyze_fda_safety_signals` — function of Drug & Pharmacology'
+  - id: CAT_CIIM
+    label: CIIM
+    type: tool_group
+    desc: CIIM tool suite — 2 modules for immune single-cell genomics and HIaRA aging clock analysis.
+    children:
+    - id: T_CIIM_genomics
+      label: Genomics
+      type: tool_ciim
+      module: genomics
+      desc: Raw counts detection, CellTypist annotation, ULM annotation, GRN loader & inference, scRNA QC, annotation quality,
+        TF activity inference.
+      children:
+      - label: Raw Counts Detection
+        desc: '`identify_counts_layer` — function of Genomics'
+      - label: CellTypist Annotation
+        desc: '`annotate_celltype_celltypist` — function of Genomics'
+      - label: ULM Pseudobulk Annotation
+        desc: '`annotate_celltype_ulm` — function of Genomics'
+      - label: Immune GRN Loader
+        desc: '`get_immune_grn` — function of Genomics'
+      - label: Spearman GRN Inference
+        desc: '`infer_grn_spearman` — function of Genomics'
+      - label: scRNA QC Filter
+        desc: '`qc_sc_transcriptomics` — function of Genomics'
+      - label: Annotation Quality
+        desc: '`analyze_cluster_celltype_annotation_quality` — function of Genomics'
+      - label: TF Activity Inference
+        desc: '`infer_tf_activity` — function of Genomics'
+    - id: T_CIIM_hiara
+      label: HIaRA
+      type: tool_ciim
+      module: hiara
+      desc: GRN-based immune age prediction (CD4T/CD8T) and unified loader for all immune signatures (aging, SLE, drug, cytokine).
+      children:
+      - label: GRN Immune Age Clock
+        desc: '`predict_immune_age_grn_clock` — function of HIaRA'
+      - label: Immune Summary Stats
+        desc: '`retrieve_summary_stats` — function of HIaRA'
+- id: CAT_DATA
+  label: 📊 Data Lake
+  desc: 'Curated biomedical datasets: raw scRNA-seq cohorts, OmniPath signaling, and general reference databases.'
+  children:
+  - id: DCAT_omics
+    label: 🧫 Omics
+    type: data_cat
+    desc: Raw omics data grouped by study cohort.
+    children:
+    - id: DCAT_hiara
+      label: HIaRA
+      type: data_cat
+      desc: PBMC gene expression (scRNA-seq + pseudobulk) across healthy aging cohorts, disease conditions, and drug/cytokine
+        perturbations.
+      children:
+      - id: DO_aida
+        pretty: AIDA
+        desc: 'Single-cell RNA-seq. Multi-ethnic Asian healthy PBMC cohort (625 donors, ages 19-77, 350 F / 275 M). Cells:
+          1,265,245 | Genes: 13,772 obs columns: donor_id, age, sex, race, batch_info, dataset, donor_age, bulk_group, Major_CT,
+          Sub_CT, ct_major_published, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident'
+        children:
+        - label: AIDA Single-Cell
+          desc: 'Single-cell RNA-seq. Multi-ethnic Asian healthy PBMC cohort (625 donors, ages 19-77, 350 F / 275 M). Cells:
+            1,265,245 | Genes: 13,772 obs columns: donor_id, age, sex, race, batch_info, dataset, donor_age, bulk_group, Major_CT,
+            Sub_CT, ct_major_published, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident'
+        - label: AIDA Bulk
+          desc: 'Pseudobulked from aida_sc by donor_id x Major_CT. Samples: 3,963 | Genes: 13,772 obs columns: donor_id, age,
+            sex, race, batch_info, dataset, donor_age, bulk_group, Major_CT, cell_count, sum_by, orig.ident'
+        - label: AIDA Bulk Minor
+          desc: 'Pseudobulked from aida_sc by donor_id x Sub_CT. Samples: 8,439 | Genes: 13,772 obs columns: donor_id, age,
+            sex, race, batch_info, dataset, donor_age, bulk_group, Major_CT, Sub_CT, cell_count, sum_by, orig.ident'
+      - id: DO_abf300
+        pretty: ABF300
+        desc: 'Single-cell RNA-seq. Healthy PBMC cohort (166 donors, ages 25-81, 36 F / 130 M). Cells: 1,916,367 | Genes:
+          15,437 obs columns: donor_id, age, sex, batch_info, ct_major_published, dataset, donor_age, bulk_group, Major_CT,
+          Sub_CT, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident'
+        children:
+        - label: ABF300 Single-Cell
+          desc: 'Single-cell RNA-seq. Healthy PBMC cohort (166 donors, ages 25-81, 36 F / 130 M). Cells: 1,916,367 | Genes:
+            15,437 obs columns: donor_id, age, sex, batch_info, ct_major_published, dataset, donor_age, bulk_group, Major_CT,
+            Sub_CT, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident'
+        - label: ABF300 Bulk
+          desc: 'Pseudobulked from abf300_sc by donor_id x Major_CT. Samples: 1,915 | Genes: 15,437 obs columns: donor_id,
+            age, sex, dataset, bulk_group, Major_CT, donor_age, cell_count, sum_by, orig.ident'
+        - label: ABF300 Bulk Minor
+          desc: 'Pseudobulked from abf300_sc by donor_id x Sub_CT. Samples: 4,238 | Genes: 15,437 obs columns: donor_id, age,
+            sex, dataset, bulk_group, Major_CT, Sub_CT, donor_age, cell_count, sum_by, orig.ident'
+      - id: DO_onek1k
+        pretty: OneK1K
+        desc: 'Single-cell RNA-seq. Australian European healthy PBMC cohort (981 donors, ages 19-97, 565 F / 416 M). Cells:
+          1,248,940 | Genes: 9,894 obs columns: donor_id, age, sex, batch_info, ct_major_published, dataset, donor_age, bulk_group,
+          Major_CT, Sub_CT, nCount_RNA, nFeature_RNA, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes,
+          orig.ident'
+        children:
+        - label: OneK1K Single-Cell
+          desc: 'Single-cell RNA-seq. Australian European healthy PBMC cohort (981 donors, ages 19-97, 565 F / 416 M). Cells:
+            1,248,940 | Genes: 9,894 obs columns: donor_id, age, sex, batch_info, ct_major_published, dataset, donor_age,
+            bulk_group, Major_CT, Sub_CT, nCount_RNA, nFeature_RNA, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt,
+            n_genes, orig.ident'
+        - label: OneK1K Bulk
+          desc: 'Pseudobulked from onek1k_sc by donor_id x Major_CT. Samples: 4,961 | Genes: 9,894 obs columns: donor_id,
+            age, sex, batch_info, dataset, bulk_group, Major_CT, donor_age, total_counts_mt, pct_counts_mt, cell_count, sum_by,
+            orig.ident'
+        - label: OneK1K Bulk Minor
+          desc: 'Pseudobulked from onek1k_sc by donor_id x Sub_CT. Samples: 9,507 | Genes: 9,894 obs columns: donor_id, age,
+            sex, batch_info, dataset, bulk_group, Major_CT, Sub_CT, donor_age, total_counts_mt, pct_counts_mt, cell_count,
+            sum_by, orig.ident'
+      - id: DO_perez_sle
+        pretty: Perez SLE
+        desc: 'Single-cell RNA-seq. SLE patients and healthy controls (261 donors, ages 20-83, 244 F / 17 M; European, Asian,
+          African American, Hispanic). Use condition column to split cases (systemic lupus erythematosus) vs controls (normal).
+          Cells: 1,263,676 | Genes: 11,918 obs columns: donor_id, age, sex, race, condition, disease_state, batch_info, ct_major_published,
+          dataset, donor_age, bulk_group, Major_CT, Sub_CT, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt,
+          n_genes, orig.ident'
+        children:
+        - label: Perez SLE Single-Cell
+          desc: 'Single-cell RNA-seq. SLE patients and healthy controls (261 donors, ages 20-83, 244 F / 17 M; European, Asian,
+            African American, Hispanic). Use condition column to split cases (systemic lupus erythematosus) vs controls (normal).
+            Cells: 1,263,676 | Genes: 11,918 obs columns: donor_id, age, sex, race, condition, disease_state, batch_info,
+            ct_major_published, dataset, donor_age, bulk_group, Major_CT, Sub_CT, n_genes_by_counts, total_counts, total_counts_mt,
+            pct_counts_mt, n_genes, orig.ident'
+        - label: Perez SLE Bulk
+          desc: 'Pseudobulked from perez_sle_sc by donor_id x Major_CT x condition. Samples: 1,708 | Genes: 11,918 obs columns:
+            donor_id, age, sex, race, condition, dataset, bulk_group, Major_CT, donor_age, cell_count, sum_by, orig.ident'
+        - label: Perez SLE Bulk Minor
+          desc: 'Pseudobulked from perez_sle_sc by donor_id x Sub_CT x condition. Samples: 4,359 | Genes: 11,918 obs columns:
+            donor_id, age, sex, race, condition, dataset, bulk_group, Major_CT, Sub_CT, donor_age, cell_count, sum_by, orig.ident'
+      - id: DO_zhang
+        pretty: Zhang
+        desc: 'Single-cell RNA-seq. Broad age-range healthy PBMC cohort (61 donors, ages 0-90, 32 M / 29 F; pediatric to elderly).
+          Cells: 538,266 | Genes: 14,468 obs columns: donor_id, age, sex, batch_info, ct_major_published, dataset, donor_age,
+          bulk_group, Major_CT, Sub_CT, nCount_RNA, nFeature_RNA, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt,
+          n_genes, orig.ident'
+        children:
+        - label: Zhang Single-Cell
+          desc: 'Single-cell RNA-seq. Broad age-range healthy PBMC cohort (61 donors, ages 0-90, 32 M / 29 F; pediatric to
+            elderly). Cells: 538,266 | Genes: 14,468 obs columns: donor_id, age, sex, batch_info, ct_major_published, dataset,
+            donor_age, bulk_group, Major_CT, Sub_CT, nCount_RNA, nFeature_RNA, n_genes_by_counts, total_counts, total_counts_mt,
+            pct_counts_mt, n_genes, orig.ident'
+        - label: Zhang Bulk
+          desc: 'Pseudobulked from zhang_sc by donor_id x Major_CT. Samples: 404 | Genes: 14,468 obs columns: donor_id, age,
+            sex, batch_info, dataset, bulk_group, Major_CT, donor_age, cell_count, sum_by, orig.ident'
+        - label: Zhang Bulk Minor
+          desc: 'Pseudobulked from zhang_sc by donor_id x Sub_CT. Samples: 981 | Genes: 14,468 obs columns: donor_id, age,
+            sex, batch_info, dataset, bulk_group, Major_CT, Sub_CT, donor_age, cell_count, sum_by, orig.ident'
+      - id: DO_CXCL9
+        pretty: CXCL9
+        desc: 'Single-cell RNA-seq. Ex-vivo cytokine/drug stimulation cohort (7 donors, ages 25-31, 4 F / 3 M). Conditions:
+          rhCXCL9, rhIFN-gamma, LPS, metformin, ruxolitinib, and combinations (24h timepoint). Cells: 253,390 | Genes: 17,011
+          obs columns: donor_id, age, sex, condition, treatment_id, batch_info, pool_id, donor_letter, dataset, donor_age,
+          bulk_group, Major_CT, Sub_CT, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident'
+        children:
+        - label: CXCL9 Single-Cell
+          desc: 'Single-cell RNA-seq. Ex-vivo cytokine/drug stimulation cohort (7 donors, ages 25-31, 4 F / 3 M). Conditions:
+            rhCXCL9, rhIFN-gamma, LPS, metformin, ruxolitinib, and combinations (24h timepoint). Cells: 253,390 | Genes: 17,011
+            obs columns: donor_id, age, sex, condition, treatment_id, batch_info, pool_id, donor_letter, dataset, donor_age,
+            bulk_group, Major_CT, Sub_CT, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident'
+        - label: CXCL9 Bulk
+          desc: 'Pseudobulked from CXCL9_sc by donor_id x Major_CT x condition. Samples: 597 | Genes: 17,011 obs columns:
+            donor_id, age, sex, condition, treatment_id, batch_info, pool_id, donor_letter, dataset, bulk_group, Major_CT,
+            cell_count, sum_by, orig.ident'
+        - label: CXCL9 Bulk Minor
+          desc: 'Pseudobulked from CXCL9_sc by donor_id x Sub_CT x condition. Samples: 1,190 | Genes: 17,011 obs columns:
+            donor_id, age, sex, condition, treatment_id, batch_info, pool_id, donor_letter, dataset, bulk_group, Major_CT,
+            Sub_CT, cell_count, sum_by, orig.ident'
+      - id: DO_op
+        pretty: OP Drug
+        desc: 'Single-cell RNA-seq. Ex-vivo drug perturbation cohort (3 donors, ages 45-52, 2 M / 1 F). ~150 drugs at 24h
+          timepoint. No pseudobulk available. Use condition and is_control columns to define comparisons. Cells: 299,045 |
+          Genes: 11,606 obs columns: donor_id, age, sex, condition, is_control, is_positive_control, dose_uM, timepoint_hr,
+          cell_type, plate_name, well, row, col, container_format, hashtag_id, raw_cell_id, cell_id, split, dataset, donor_age,
+          bulk_group, Major_CT, Sub_CT, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes'
+        children:
+        - label: OP Drug Perturbation
+          desc: 'Single-cell RNA-seq. Ex-vivo drug perturbation cohort (3 donors, ages 45-52, 2 M / 1 F). ~150 drugs at 24h
+            timepoint. No pseudobulk available. Use condition and is_control columns to define comparisons. Cells: 299,045
+            | Genes: 11,606 obs columns: donor_id, age, sex, condition, is_control, is_positive_control, dose_uM, timepoint_hr,
+            cell_type, plate_name, well, row, col, container_format, hashtag_id, raw_cell_id, cell_id, split, dataset, donor_age,
+            bulk_group, Major_CT, Sub_CT, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes'
+      - id: DO_parsebioscience
+        pretty: ParseBioscience Cytokine
+        desc: 'Pseudobulk RNA-seq. Ex-vivo cytokine stimulation cohort (12 healthy donors, ages 34-75). 90 cytokines + PBS
+          control on PBMCs. Pseudobulked by donor_id x Major_CT x condition. Samples: 5,760 | Genes: 20,968 obs columns:
+          sum_by, Major_CT_original, Major_CT, well, donor_id, dataset, perturbation_type, condition, cell_type, is_control,
+          age, donor_age, bulk_group, cell_count'
+        children:
+        - label: ParseBioscience Bulk
+          desc: 'Pseudobulk RNA-seq. Ex-vivo cytokine stimulation cohort (12 healthy donors, ages 34-75). 90 cytokines (IFNs,
+            ILs, TNF-alpha, TGF-beta1, GM-CSF, and more) + PBS control. Pseudobulked by donor_id x Major_CT x condition.
+            Samples: 5,760 | Genes: 20,968 Cell types: B, CD4T, CD8T, MONO, NK. Control: PBS (is_control=True). File:
+            parsebioscience_bulk.h5ad'
+  - id: DCAT_prior
+    label: 📋 Prior
+    type: data_cat
+    desc: 'Curated reference files: immune cell type markers and TF list.'
+    children:
+    - id: DP_0
+      label: Immune Marker Genes
+      desc: 'Curated immune cell type marker genes. Two levels: - Major (10 lineages): CD4T, CD8T, NK, B, MONO, DC, HSC, Megakaryocyte,
+        Erythroid, ILC - Minor (22 subtypes): Tcm_Naive_CD4, Tem_Effector_CD4, Treg, Tcm_Naive_CD8, Tem_Temra_CD8, Tem_Trm_CD8,
+        MAIT, CD8a/a, CD16_NK, NK, Naive_B, Memory_B, Aged_B, Bcells, Plasma_B, Plasmablasts_B, Classic_MONO, NonClassic_MONO,
+        pDC, DC1, DC2, Platelet'
+      filename: marker_genes.json
+    - id: DP_1
+      label: Human TF List
+      desc: List of 1,638 human transcription factors.
+      filename: tf_all.csv
+  - id: DCAT_omnipath
+    label: 🔗 OmniPath
+    type: data_cat
+    desc: Signaling network data from the OmniPath REST API.
+    children:
+    - id: DOP_0
+      label: Directed PPI
+      desc: 'Directed post-translational protein interactions (85,217 rows). Columns: source, target, source_genesymbol, target_genesymbol,
+        is_directed, is_stimulation, is_inhibition, consensus_stimulation, consensus_inhibition, sources (contributing DBs),
+        references, curation_effort. Sources include SIGNOR, HPRD, PhosphoSite, ProtMapper, iPTMnet, SPIKE, KEA, and ~15 others.'
+      filename: interactions_directed.tsv
+    - id: DOP_1
+      label: Kinase-Substrate
+      desc: 'Kinase/enzyme to substrate phosphorylation sites (41,506 rows). Columns: enzyme, enzyme_genesymbol, substrate,
+        substrate_genesymbol, residue_type, residue_offset, modification (phosphorylation 94%, dephosphorylation, acetylation,
+        methylation, etc.), sources, references.'
+      filename: enzyme_substrate.tsv
+    - id: DOP_2
+      label: Intercellular Roles
+      desc: 'Per-gene intercellular role annotations from multiple databases (388,239 rows). Columns: category, parent, database,
+        genesymbol, entity_type, consensus_score, transmitter, receiver, secreted, plasma_membrane_transmembrane. Useful for
+        classifying signaling nodes as receptors, ligands, etc.'
+      filename: intercell_annotations.tsv
+    - id: DOP_3
+      label: Intercell Summary
+      desc: Compact intercellular annotation table (9 rows). Subset or summary of intercell_annotations.tsv.
+      filename: intercell.tsv
+    - id: DOP_4
+      label: Ligand-Receptor
+      desc: 'Ligand-receptor interaction pairs (6,890 rows). Columns: source, target, source_genesymbol, target_genesymbol,
+        is_directed, is_stimulation, is_inhibition, consensus_direction, and others. Use to identify upstream ligand-receptor
+        pairs driving signaling.'
+      filename: ligrec_interactions.tsv
+    - id: DOP_5
+      label: TF Regulons
+      desc: DoRothEA TF to target gene regulons (15,267 rows). Directed, with is_stimulation/is_inhibition flags.
+      filename: dorothea_tf_regulon.tsv
+  - id: DCAT_biomni
+    label: 🗄️ Biomni
+    type: data_cat
+    desc: Large collection of general biomedical reference databases sourced from Biomni.
+    children:
+    - id: DBG_0
+      label: DDInter Drug-Drug
+      desc: 8 files — DDInter Alimentary, DDInter Antineoplastic, DDInter Antiparasitic...
+      children:
+      - label: DDInter Alimentary
+        desc: Drug-drug interactions for alimentary tract and metabolism drugs from DDInter 2.0 database.
+      - label: DDInter Antineoplastic
+        desc: Drug-drug interactions for antineoplastic and immunomodulating agents from DDInter 2.0 database.
+      - label: DDInter Antiparasitic
+        desc: Drug-drug interactions for antiparasitic products from DDInter 2.0 database.
+      - label: DDInter Blood
+        desc: Drug-drug interactions for blood and blood forming organs drugs from DDInter 2.0 database.
+      - label: DDInter Dermatological
+        desc: Drug-drug interactions for dermatological drugs from DDInter 2.0 database.
+      - label: DDInter Hormonal
+        desc: Drug-drug interactions for systemic hormonal preparations from DDInter 2.0 database.
+      - label: DDInter Respiratory
+        desc: Drug-drug interactions for respiratory system drugs from DDInter 2.0 database.
+      - label: DDInter Various
+        desc: Drug-drug interactions for various drugs from DDInter 2.0 database.
+    - id: DBG_1
+      label: DepMap CRISPR
+      desc: 4 files — DepMap Gene Dependency, DepMap Gene Effect, DepMap Models...
+      children:
+      - label: DepMap Gene Dependency
+        desc: Gene dependency probability estimates for cancer cell lines, including all DepMap models.
+      - label: DepMap Gene Effect
+        desc: Genome-wide CRISPR gene effect estimates for cancer cell lines, including all DepMap models.
+      - label: DepMap Models
+        desc: Metadata describing all cancer models/cell lines which are referenced by a dataset contained within the DepMap
+          portal.
+      - label: DepMap Expression
+        desc: Gene expression in TPMs for cancer cell lines, including all DepMap models.
+    - id: DBG_2
+      label: Gene Sets (MSigDB/MouseMine/GO)
+      desc: 17 files — Gene Ontology, MouseMine Positional, MouseMine Curated...
+      children:
+      - label: Gene Ontology
+        desc: Gene ontology data for functional gene annotations.
+      - label: MouseMine Positional
+        desc: Positional gene sets from MouseMine.
+      - label: MouseMine Curated
+        desc: Curated gene sets from MouseMine.
+      - label: MouseMine Regulatory
+        desc: Regulatory target gene sets from MouseMine.
+      - label: MouseMine Ontology
+        desc: Ontology-based gene sets from MouseMine.
+      - label: MouseMine Cell Type
+        desc: Cell type signature gene sets from MouseMine.
+      - label: MouseMine Hallmark
+        desc: Hallmark gene sets from MouseMine.
+      - label: MSigDB Positional
+        desc: Human positional gene sets from MSigDB.
+      - label: MSigDB Curated
+        desc: Curated human gene sets from MSigDB.
+      - label: MSigDB Regulatory
+        desc: Regulatory target gene sets from MSigDB.
+      - label: MSigDB TF Targets
+        desc: Transcription factor targets from GTRD/MSigDB.
+      - label: MSigDB Computational
+        desc: Computationally derived gene sets from MSigDB.
+      - label: MSigDB Ontology
+        desc: Ontology-based gene sets from MSigDB.
+      - label: MSigDB Oncogenic
+        desc: Oncogenic signatures from MSigDB.
+      - label: MSigDB Immunologic
+        desc: Immunologic signatures from MSigDB.
+      - label: MSigDB Cell Type
+        desc: Cell type signatures from MSigDB.
+      - label: MSigDB Hallmark
+        desc: Hallmark gene sets from MSigDB.
+    - id: DBG_3
+      label: Disease Associations (DisGeNET/OMIM/HPO)
+      desc: 3 files — DisGeNET, Human Phenotype Ontology, OMIM
+      children:
+      - label: DisGeNET
+        desc: Gene-disease associations from multiple sources.
+      - label: Human Phenotype Ontology
+        desc: Official HPO release in obographs format
+      - label: OMIM
+        desc: Genetic disorders and associated genes from OMIM.
+    - id: DBG_4
+      label: PPI Networks
+      desc: 12 files — Affinity Capture MS, Affinity Capture RNA, Co-Fractionation PPI...
+      children:
+      - label: Affinity Capture MS
+        desc: Protein-protein interactions detected via affinity capture and mass spectrometry.
+      - label: Affinity Capture RNA
+        desc: Protein-RNA interactions detected by affinity capture.
+      - label: Co-Fractionation PPI
+        desc: Protein-protein interactions from co-fractionation experiments.
+      - label: Dosage Growth Defect
+        desc: Gene dosage changes affecting growth.
+      - label: Genetic Interactions
+        desc: Genetic interactions between genes.
+      - label: Proximity Label MS
+        desc: Protein interactions via proximity labeling and mass spectrometry.
+      - label: Reconstituted Complexes
+        desc: Protein complexes reconstituted in vitro.
+      - label: Synthetic Growth Defect
+        desc: Synthetic growth defects from genetic interactions.
+      - label: Synthetic Lethality
+        desc: Synthetic lethal interactions.
+      - label: Synthetic Rescue
+        desc: Genetic interactions rescuing phenotypes.
+      - label: Yeast Two-Hybrid
+        desc: Protein-protein interactions detected by yeast two-hybrid assays.
+      - label: Virus-Host PPI
+        desc: Virus-host protein-protein interactions from P-HIPSTER.
+    - id: DBG_5
+      label: Drug Discovery (BindingDB/Broad/EveBio)
+      desc: 12 files — BindingDB, Broad Hub Molecules, Broad Hub Targets...
+      children:
+      - label: BindingDB
+        desc: Measured binding affinities between proteins and small molecules for drug discovery.
+      - label: Broad Hub Molecules
+        desc: Molecules from Broad Institute's Drug Repurposing Hub with SMILES annotations.
+      - label: Broad Hub Targets
+        desc: Drug phases, mechanisms of action, and target information from Broad Institute.
+      - label: Enamine Library
+        desc: Compounds from Enamine REAL library with SMILES annotations.
+      - label: EveBio Assays
+        desc: Assay metadata with one row per assay from EveBio pharmome mapping.
+      - label: EveBio Bundles
+        desc: Target subfamily bundles used for screening-to-profiling progression.
+      - label: EveBio Compounds
+        desc: Compound metadata with common identifiers from EveBio screening.
+      - label: EveBio Controls
+        desc: Control datapoints for all screening and profiling plates.
+      - label: EveBio Detailed Results
+        desc: Expanded results on evebio_summary_result_table with curve fit parameters and phase categories.
+      - label: EveBio Observed Points
+        desc: Raw observed datapoints from all screening and profiling experiments.
+      - label: EveBio Summary Results
+        desc: Succinct summary of results for each assay-compound combination.
+      - label: EveBio Targets
+        desc: Target metadata with common identifiers from EveBio screening.
+    - id: DBG_6
+      label: GWAS / Variants (GeneBass)
+      desc: 5 files — GeneBass Missense, GeneBass pLoF, GeneBass Synonymous...
+      children:
+      - label: GeneBass Missense
+        desc: Filtered missense variants from GeneBass.
+      - label: GeneBass pLoF
+        desc: Predicted loss-of-function variants from GeneBass.
+      - label: GeneBass Synonymous
+        desc: Filtered synonymous variants from GeneBass.
+      - label: GWAS Catalog
+        desc: Genome-wide association studies (GWAS) results.
+      - label: Variant Table
+        desc: Annotated genetic variants table.
+    - id: DBG_7
+      label: miRNA Databases
+      desc: 4 files — miRDB Targets, miRTarBase Interactions, miRTarBase PubMed...
+      children:
+      - label: miRDB Targets
+        desc: Predicted microRNA targets from miRDB.
+      - label: miRTarBase Interactions
+        desc: Experimentally validated microRNA-target interactions from miRTarBase.
+      - label: miRTarBase PubMed
+        desc: PubMed abstracts for microRNA-target interactions in miRTarBase.
+      - label: miRTarBase Sites
+        desc: Binding sites of microRNAs on target genes from miRTarBase.
+    - id: DBG_8
+      label: Drug Repurposing (TxGNN)
+      desc: 2 files — TXGNN Name Map, TXGNN Predictions
+      children:
+      - label: TXGNN Name Map
+        desc: Name mapping for TXGNN.
+      - label: TXGNN Predictions
+        desc: Prediction data for TXGNN.
+    - id: DBG_9
+      label: Cell & Immune Resources
+      desc: 9 files — CZI Cell Census, Gene Info, GTEx Expression...
+      children:
+      - label: CZI Cell Census
+        desc: Datasets from the Chan Zuckerberg Initiative's Cell Census.
+      - label: Gene Info
+        desc: Comprehensive gene information.
+      - label: GTEx Expression
+        desc: Gene expression (TPM) across human tissues from GTEx.
+      - label: Precision Medicine KG
+        desc: Precision medicine knowledge graph with 17,080 diseases and 4+ million relationships across biological scales.
+      - label: Cell Type Markers
+        desc: Cell type marker genes for identification.
+      - label: McPAS TCR
+        desc: T-cell receptor sequences and specificity data from McPAS database.
+      - label: Protein Atlas
+        desc: Protein expression data from Human Protein Atlas.
+      - label: Mouse sgRNA KO
+        desc: sgRNA knockout data for mouse.
+      - label: Human sgRNA KO
+        desc: sgRNA knockout data for human.
+  - id: DCAT_dice
+    label: 🧬 DICE
+    type: data_cat
+    desc: Gene expression (TPM) and cis-eQTL data across 15 primary human immune cell subtypes.
+    children:
+    - id: DDICE_0
+      label: Expression
+      desc: ''
+      children:
+      - label: CD4 T cell, naive (resting)
+        desc: Unstimulated naive CD4+ T cells. Baseline state for naive CD4 T cell gene expression.
+      - label: CD4 T cell, naive (TCR-activated)
+        desc: Naive CD4+ T cells stimulated via TCR + CD28. Built-in perturbation comparison against CD4_NAIVE for identifying
+          the TCR activation gene program.
+      - label: CD4 T cell, Th1
+        desc: In vitro differentiated Th1 effector cells (IFN-γ producing). Use to characterize the Th1 effector gene program.
+      - label: CD4 T cell, Th2
+        desc: In vitro differentiated Th2 effector cells (IL-4/IL-13 producing).
+      - label: CD4 T cell, Th17
+        desc: In vitro differentiated Th17 effector cells (IL-17 producing).
+      - label: CD4 T cell, Th1/17 (Th1*)
+        desc: Intermediate Th1/Th17 cells co-producing IFN-γ and IL-17.
+      - label: CD4 T cell, T follicular helper (Tfh)
+        desc: Tfh cells that support B cell responses in germinal centers.
+      - label: CD4 T cell, naive Treg
+        desc: Naive (thymic) regulatory T cells. FOXP3+ suppressor lineage.
+      - label: CD4 T cell, memory Treg
+        desc: Memory regulatory T cells. Antigen-experienced FOXP3+ suppressor lineage.
+      - label: CD8 T cell, naive (resting)
+        desc: Unstimulated naive CD8+ T cells. Baseline for cytotoxic lineage.
+      - label: CD8 T cell, naive (TCR-activated)
+        desc: Naive CD8+ T cells stimulated via TCR + CD28. Built-in perturbation comparison for the CD8 activation program.
+      - label: B cell, naive
+        desc: Naive B cells. Baseline B cell gene expression.
+      - label: NK cell, CD56dim CD16+
+        desc: Mature cytotoxic NK cells (CD56dim CD16-bright). The dominant NK subset in peripheral blood.
+      - label: Monocyte, classical (CD14++)
+        desc: Classical inflammatory monocytes.
+      - label: Monocyte, non-classical (CD16+)
+        desc: Non-classical patrolling monocytes.
+    - id: DDICE_1
+      label: eQTL
+      desc: Cis-eQTL data in VCF format. SNPs with adjusted p-value < 0.05, raw p-value < 0.0001, TPM > 1.0. VCF INFO fields include Gene, GeneSymbol, Pvalue, Beta, ANOVA, FDR.
+      children:
+      - label: CD4_NAIVE.vcf
+        desc: CD4 T cell, naive
+      - label: CD4_STIM.vcf
+        desc: CD4 T cell, naive activated
+      - label: TH1.vcf
+        desc: Th1
+      - label: TH2.vcf
+        desc: Th2
+      - label: TH17.vcf
+        desc: Th17
+      - label: THSTAR.vcf
+        desc: Th1/17
+      - label: TFH.vcf
+        desc: T follicular helper
+      - label: TREG_NAIVE.vcf
+        desc: Naive Treg
+      - label: TREG_MEM.vcf
+        desc: Memory Treg
+      - label: CD8_NAIVE.vcf
+        desc: CD8 T cell, naive
+      - label: CD8_STIM.vcf
+        desc: CD8 T cell, naive activated
+      - label: B_CELL_NAIVE.vcf
+        desc: Naive B cell
+      - label: NK.vcf
+        desc: NK cell
+      - label: MONOCYTES.vcf
+        desc: Classical monocyte
+      - label: M2.vcf
+        desc: Non-classical monocyte
+  - id: DCAT_kg
+    label: 🕸️ KG
+    type: data_cat
+    desc: Large-scale knowledge graphs for biomedical reasoning.
+    children:
+    - id: DKG_0
+      label: PrimeKG — Precision Medicine Knowledge Graph
+      desc: A multiplex biomedical knowledge graph integrating 20 high-quality databases across 10 biological scales.
+      filename: PrimeKG.csv
+  - id: DCAT_nichenet
+    label: 📡 NicheNet
+    type: data_cat
+    desc: NicheNet v2 prior model networks for cell-cell communication analysis.
+    children:
+    - id: DNN_0
+      label: Core Networks
+      desc: ''
+      children:
+      - label: Ligand-Receptor Network
+        desc: '4,986 ligand-receptor pairs. Columns: `from` (ligand), `to` (receptor), `database`, `source`. Source databases
+          include CellChat, CellPhoneDB, ICELLNET, NicheNet v1, connectomeDB2020, and others. This is the entry layer of the
+          NicheNet prior: the set of all possible extracellular L-R interactions.'
+      - label: Intracellular Signaling Network
+        desc: '5,169,518 directed edges. Columns: `from`, `to`, `source`, `database`. Represents the intracellular signaling
+          paths that connect receptor activation to downstream molecules and TFs. Sources include OmniPath, Reactome, KEGG,
+          PhosphoSitePlus, SIGNOR, and others. This is the middle layer: receptor → signaling cascade.'
+      - label: Gene Regulatory Network
+        desc: '5,870,450 directed TF→target edges. Columns: `from` (TF), `to` (target gene), `source`, `database`. Represents
+          the transcriptional regulation layer. Sources include DoRothEA, TRRUST, RegNetwork, ENCODE, and ChIP-Atlas. This
+          is the final layer: TF → target gene expression.'
+    - id: DNN_1
+      label: Weighted Networks
+      desc: ''
+      children:
+      - label: Weighted Prior Network
+        desc: 'The NicheNet prior model after empirical calibration. Edges from the signaling and GR networks are weighted
+          by how well they predict observed gene expression changes in ~600 published perturbation experiments. Two tables:
+          - `weighted_networks_lr_sig.parquet`: 3,923,501 weighted L-R + signaling edges (`from`, `to`, `weight`) - `weighted_networks_gr.parquet`:
+          4,640,268 weighted GR edges (`from`, `to`, `weight`)'
+      - label: Ligand → TF Weight Matrix
+        desc: 33,354 ligands × 1,226 TFs. Each value = how strongly a ligand is predicted to regulate a given TF, based on
+          path traversal through the weighted prior network. Rows = ligands (with a `ligand` column added), columns = TF names.
+          Use to identify which ligands most likely drive observed TF activity changes.
+      - label: Ligand → Target Gene Weight Matrix (long format)
+        desc: '34,326,358 rows. Columns: `ligand`, `target`, `weight`. Originally a 33,354 × 1,226 dense matrix, converted
+          to long format (non-zero weights only) for efficient storage (353MB parquet vs. 250MB RDS). Each row = predicted
+          regulatory influence of a ligand on a target gene. This is the primary output used in NicheNet ligand activity analysis.'
+  - id: DCAT_virtualbiotech
+    label: 💊 VirtualBiotech
+    type: data_cat
+    desc: Data from the Virtual Biotech study (Zhang et al. 2026). Clinical trial outcomes and target-level biology.
+    children:
+    - id: DVB_0
+      label: Clinical Trial Outcome Labels
+      desc: 56,707 clinical trials from ClinicalTrials.gov with LLM-curated outcome labels. The most valuable piece of the
+        dataset — extracting these from raw trial text is what the paper's main contribution is. Columns include trial phase,
+        status (Active/Terminated/Withdrawn/Suspended), stop reason and category, primary/secondary endpoint result (POSITIVE/NEGATIVE/MIXED/NA),
+        Phase I→II progression flag, and adverse event rates by organ system.
+      filename: clinical_trial_labels.csv
+    - id: DVB_1
+      label: ChEMBL NCT–Target Mapping
+      desc: '488,361 rows mapping NCT trial IDs to drug targets (Ensembl gene IDs) and diseases (EFO IDs + disease name) via
+        ChEMBL. The bridge between trial labels and gene-level biology. Key columns: `nct_id`, `targetId` (Ensembl), `diseaseId`
+        (EFO), `disease_name`, `drugId` (ChEMBL), `phase`, `status`, `mechanism_of_action`.'
+      filename: chembl_clinical_nct_data.parquet
+    - id: DVB_2
+      label: SC Target Features
+      desc: Precomputed single-cell expression features for 1,511 human target genes derived from the Tabula Sapiens healthy
+        human atlas. 127 columns covering cell-type and tissue specificity (tau), bimodality, cell-type-specific expression
+        per 62 cell types, predicted AE risk per organ system, and composite attrition/safety risk scores. This is the gene-level
+        feature table used in all regression analyses — see `summary_stats/virtualbiotech/target_sc_features.csv` for a leaner
+        version with the key columns only.
+      filename: comprehensive_features_aggregated_v2_optimized.parquet
+    - id: DVB_3
+      label: Tahoe-100M Drug Efficacy Features
+      desc: '2.9M rows of functional drug efficacy scores from the Tahoe-100M perturbation atlas — drugs tested across cancer
+        cell lines at multiple concentrations. Long-format: one row per drug × cell line × concentration × feature. Feature
+        types include pan-cancer functional scores (apoptosis, proliferation suppression, cell cycle arrest, DNA damage, stress
+        response) and scores stratified by mutation context (KRAS/TP53/PIK3CA/BRAF mutant vs wild-type). **Cancer-only**;
+        links drugs not targets directly. Not yet used in our analyses.'
+      filename: tahoe_efficacy_features_long.parquet
+- id: CAT_SUMSTATS
+  label: 📈 Summary Stats
+  desc: 'Precomputed CIIM signature files: aging, SLE, drug, cytokine TF/GEX/CCC statistics and immune GRN models.'
+  children:
+  - id: SS_hiara
+    label: HIaRA
+    type: sumstat_group
+    desc: Summary stats from the hiara module (8 files).
+    children:
+    - id: SS_immune_aging_tf_signatures_major_celltypes_csv
+      label: Aging TF Signatures — Major
+      type: sumstat
+      desc: 'Per-TF aging statistics across 5 major immune cell types (CD4T, CD8T, NK, B, MONO) from multi-cohort TF activity
+        analysis (cohorts: onek1k, abf300, aida, perez_sle; healthy donors only).<br><span style="color:#8b949e;font-size:11px">Load:
+        <code>retrieve_summary_stats(''aging'')</code></span>'
+    - id: SS_immune_aging_tf_signatures_minor_celltypes_csv
+      label: Aging TF Signatures — Minor
+      type: sumstat
+      desc: 'Per-TF aging statistics across 11 minor (sub) immune cell types (CD16_NK, Classic_MONO, MAIT, Memory_B, Naive_B,
+        NonClassic_MONO, Tcm_Naive_CD4, Tcm_Naive_CD8, Tem_Effector_CD4, Tem_Temra_CD8, Tem_Trm_CD8) from multi-cohort TF
+        activity analysis (cohorts: onek1k, abf300, aida, perez_sle; healthy donors only).<br><span style="color:#8b949e;font-size:11px">Load:
+        <code>retrieve_summary_stats(''aging'', cell_resolution=''minor'')</code></span>'
+    - id: SS_immune_aging_gene_expression_signatures_major_celltypes_csv
+      label: Aging Gene Expression Signatures
+      type: sumstat
+      desc: 'Per-gene aging statistics across 5 major immune cell types from multi-cohort bulk gene expression analysis (cohorts:
+        onek1k, abf300, aida, perez_sle; healthy donors only).<br><span style="color:#8b949e;font-size:11px">Load: <code>retrieve_summary_stats(''aging'',
+        feature_type=''gene_expression'')</code></span>'
+    - id: SS_immune_aging_ccc_signatures_major_celltypes_csv
+      label: Aging Cell-Cell Communication
+      type: sumstat
+      desc: 'Cell-cell communication (L-R pair) aging statistics across major immune cell types (LIANA rank_aggregate). The
+        `gene` column encodes interactions as `source_ct__ligand__target_ct__receptor` (double underscore) — parse in your
+        analysis.<br><span style="color:#8b949e;font-size:11px">Load: <code>retrieve_summary_stats(''aging'', feature_type=''ccc'')</code></span>'
+    - id: SS_sle_tf_signatures_major_celltypes_csv
+      label: SLE TF Signatures
+      type: sumstat
+      desc: 'Differential TF activity statistics for SLE vs healthy across 5 major immune cell types (Perez cohort).<br><span
+        style="color:#8b949e;font-size:11px">Load: <code>retrieve_summary_stats(''sle'')</code></span>'
+    - id: SS_drug_tf_signatures_major_immune_celltypes_csv
+      label: Drug TF Signatures
+      type: sumstat
+      desc: '145 named drug perturbations (vs DMSO) differential TF activity from the OP ex-vivo drug study across 5 major
+        immune cell types. Drug names (`condition` / `comparison`): `5-(9-Isopropyl-8-methyl-2-morpholino-9H-purin-6-yl)pyrimidin-2-amine`,
+        `ABT-199 (GDC-0199)`, `ABT737`, `AMD-070 (hydrochloride)`, `AT 7867`, `AT13387`, `AVL-292`, `AZ628`, `AZD-8330`, `AZD3514`,
+        `AZD4547`, `Alogliptin`, `Amiodarone`, `Atorvastatin`, `Azacitidine`, `BAY 61-3606`, `BAY 87-2243`, `BI-D1870`, `BMS-265246`,
+        `BMS-387032`, `BMS-536924`, `BMS-777607`, `BX 912`, `Belinostat`, `Bosutinib`, `Buspirone`, `CC-401`, `CEP-18770 (Delanzomib)`,
+        `CEP-37440`, `CGM-097`, `CGP 60474`, `CHIR-99021`, `Cabozantinib`, `Canertinib`, `Ceritinib`, `Chlorpheniramine`,
+        `Clemastine`, `Clomipramine`, `Clotrimazole`, `Colchicine`, `Colforsin`, `Crizotinib`, `Dabrafenib`, `Dactolisib`,
+        `Dasatinib`, `Decitabine`, `Defactinib`, `Desloratadine`, `Disulfiram`, `Dovitinib`, `Doxorubicin`, `FK 866`, `Flutamide`,
+        `Foretinib`, `GLPG0634`, `GO-6976`, `GSK-1070916`, `GSK256066`, `GW843682X`, `Ganetespib (STA-9090)`, `HMN-214`, `HYDROXYUREA`,
+        `I-BET151`, `IKK Inhibitor VII`, `IMD-0354`, `IN1451`, `Idelalisib`, `Imatinib`, `Isoniazid`, `Ixabepilone`, `K-02288`,
+        `Ketoconazole`, `LDN 193189`, `LY2090314`, `Lamivudine`, `Lapatinib`, `Linagliptin`, `MGCD-265`, `MK-5108`, `MLN 2238`,
+        `Masitinib`, `Methotrexate`, `Midostaurin`, `Mometasone Furoate`, `Mubritinib (TAK 165)`, `Navitoclax`, `Nefazodone`,
+        `Nilotinib`, `O-Demethylated Adapalene`, `OSI-930`, `Oprozomib (ONX 0912)`, `Oxybenzone`, `PD-0325901`, `PF-03814735`,
+        `PF-04691502`, `PRT-062607`, `Palbociclib`, `Penfluridol`, `Perhexiline`, `Phenylbutazone`, `Pitavastatin Calcium`,
+        `Pomalidomide`, `Porcn Inhibitor III`, `Prednisolone`, `Proscillaridin A;Proscillaridin-A`, `Protriptyline`, `Quizartinib`,
+        `R428`, `RG7090`, `RG7112`, `RN-486`, `RVX-208`, `Raloxifene`, `Resminostat`, `Ricolinostat`, `Riociguat`, `Ruxolitinib`,
+        `SB525334`, `SCH-58261`, `SLx-2119`, `STK219801`, `Saracatinib`, `Scriptaid`, `Selumetinib`, `Sgc-cbp30`, `Sunitinib`,
+        `TGX 221`, `TIE2 Kinase Inhibitor`, `TL_HRAS26`, `TPCA-1`, `TR-14035`, `Tacalcitol`, `Tamatinib`, `Tipifarnib`, `Tivantinib`,
+        `Tivozanib`, `Topotecan`, `Tosedostat`, `Trametinib`, `Vandetanib`, `Vanoxerine`, `Vardenafil`, `Vorinostat`, `YK
+        4-279`, `UNII-BXU45ZH6LI`.<br><span style="color:#8b949e;font-size:11px">Load: <code>retrieve_summary_stats(''drug'')</code></span>'
+    - id: SS_cytokine_tf_signatures_major_immune_celltypes_csv
+      label: Cytokine TF Signatures
+      type: sumstat
+      desc: '90 cytokine perturbations (vs PBS) differential TF activity from the ParseBioscience ex-vivo cytokine stimulation
+        study across 5 major immune cell types. Cytokine names (`condition` / `comparison`): `4-1BBL`, `ADSF`, `APRIL`, `BAFF`,
+        `C3a`, `C5a`, `CD27L`, `CD30L`, `CD40L`, `CT-1`, `Decorin`, `EGF`, `EPO`, `FGF-beta`, `FLT3L`, `FasL`, `G-CSF`, `GDNF`,
+        `GITRL`, `GM-CSF`, `HGF`, `IFN-alpha1`, `IFN-beta`, `IFN-epsilon`, `IFN-gamma`, `IFN-lambda1`, `IFN-lambda2`, `IFN-lambda3`,
+        `IFN-omega`, `IGF-1`, `IL-1-alpha`, `IL-1-beta`, `IL-10`, `IL-11`, `IL-12`, `IL-13`, `IL-15`, `IL-16`, `IL-17A`, `IL-17B`,
+        `IL-17C`, `IL-17D`, `IL-17E`, `IL-17F`, `IL-18`, `IL-19`, `IL-1Ra`, `IL-2`, `IL-20`, `IL-21`, `IL-22`, `IL-23`, `IL-24`,
+        `IL-26`, `IL-27`, `IL-3`, `IL-31`, `IL-32-beta`, `IL-33`, `IL-34`, `IL-35`, `IL-36-alpha`, `IL-36Ra`, `IL-4`, `IL-5`,
+        `IL-6`, `IL-7`, `IL-8`, `IL-9`, `LIF`, `LIGHT`, `LT-alpha1-beta2`, `LT-alpha2-beta1`, `Leptin`, `M-CSF`, `Noggin`,
+        `OSM`, `OX40L`, `PRL`, `PSPN`, `RANKL`, `SCF`, `TGF-beta1`, `TL1A`, `TNF-alpha`, `TPO`, `TRAIL`, `TSLP`, `TWEAK`,
+        `VEGF`.<br><span style="color:#8b949e;font-size:11px">Load: <code>retrieve_summary_stats(''cytokine'')</code></span>'
+    - id: SS_immune_gene_regulatory_networks_major_cts_csv
+      label: Immune GRN Models
+      type: sumstat
+      desc: 'GRN models for 5 major immune cell types (CD4T, CD8T, NK, B, MONO) inferred from aging cohorts of AIDA, ABF300,
+        OneK1K, and Perez_SLE.<br><span style="color:#8b949e;font-size:11px">Load: <code>get_immune_grn()</code></span>'
+  - id: SS_virtualbiotech
+    label: VirtualBiotech
+    type: sumstat_group
+    desc: Summary stats from the virtualbiotech module (3 files).
+    children:
+    - id: SS_virtualbiotech_target_sc_features_csv
+      label: Target expression features
+      type: sumstat
+      desc: 'Expression features precomputed from the Tabula Sapiens healthy human atlas. Covers expression specificity, bimodality,
+        and predicted AE risk per organ system. Key columns: - `ensembl_id` — Ensembl gene ID - `tau_cell_type`, `tau_cell_type_max/min`
+        — cell-type specificity (0 = ubiquitous, 1 = one cell type only) - `tissue_tau` — tissue-level specificity - `bimodality_score`
+        — on/off expression pattern across cells (higher = cleaner switch) - `ae_risk_cardiac/hepatic/renal/neural/...` —
+        predicted adverse event risk per organ system - `attrition_risk_phase1/2/3` — predicted trial attrition risk per phase
+        - `overall_safety_risk`, `multi_system_ae_count` — composite safety metrics ---'
+    - id: SS_virtualbiotech_target_clinical_success_overall_csv
+      label: Target clinical success overall
+      type: sumstat
+      desc: 'Empirical trial outcome rates per target gene across all diseases, derived from 56,707 ChEMBL-mapped trials.
+        Key columns: - `targetId` — Ensembl gene ID - `targetFromSourceId` — UniProt ID - `n_trials` — number of trials involving
+        this target - `pct_reached_phase3` — % of trials that reached Phase III+ - `pct_terminated`, `pct_withdrawn` — % stopped
+        prematurely - `pct_endpoint_either` — % with positive primary or secondary endpoint - `pct_phase1_to_phase2` — % of
+        Phase I trials that progressed to Phase II ---'
+    - id: SS_virtualbiotech_target_clinical_success_by_disease_csv
+      label: Target clinical success by disease
+      type: sumstat
+      desc: 'Same as above but stratified by `disease_name` from ChEMBL. Useful for target-disease-specific queries, e.g.
+        "how does EGFR perform in lung cancer vs breast cancer?" Key columns: same as overall file plus `disease_name`.'
+- id: CAT_KNOWHOW
+  label: 📚 Know-How
+  desc: Methodology guides and workflow documentation for common agentic tasks.
+  children:
+  - id: KH_computing_sbatch
+    label: 'Computing: Running Jobs with SBATCH'
+    type: knowhow
+    desc: 'Use SLURM `sbatch` to run long or heavy jobs on the cluster instead of running them interactively. Edit them based
+      on given task. CRITICAL: if you submit a job using sbatch, keep an eye on it (monitor every 10 mins), and continue the
+      pipeline once it''s finished.'
+  - id: KH_drug_screening
+    label: Drug Screening for Immune Aging / Disease
+    type: knowhow
+    desc: Covers the workflow for nominating and prioritizing drug candidates targeting immune aging or immune-mediated disease,
+      using available data lake resources.
+  - id: KH_single_cell_rna_analysis
+    label: Single-Cell RNA-seq Analysis
+    type: knowhow
+    desc: 'Covers the full scRNA-seq workflow: QC → Cell Type Annotation → TF Activity → GRN Inference.'
+- id: CAT_IMAGES
+  label: 🐳 Images
+  desc: Singularity container images with pre-installed environments for all tool modules.
+  children:
+  - id: IMG_biomni_full_sif
+    label: biomni_full.sif
+    type: image
+    desc: Default — full bio stack (genomics, pharmacology, ML, NLP)
+  - id: IMG_ciim_sif
+    label: ciim.sif
+    type: image
+    desc: CIIM tasks — single-cell immunology + immune aging clock
+  - id: IMG_rapids_sif
+    label: rapids.sif
+    type: image
+    desc: GPU-accelerated tasks (RAPIDS, CellTypist GPU)
