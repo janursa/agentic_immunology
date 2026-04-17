@@ -12,3 +12,6 @@ __pycache__/
 tools/tool/__pycache__/
 tools/tool/schema_db/
 tools/tool/protocols/
+.env
+server/ngrok
+server/logs/

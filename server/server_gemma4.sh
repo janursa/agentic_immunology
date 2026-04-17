@@ -21,6 +21,10 @@ echo "  base_url = 'http://$(hostname):8080/v1'"
 echo ""
 
 MODEL=/home/jnourisa/.cache/llama.cpp/unsloth_gemma-4-26B-A4B-it-GGUF_UD-Q5_K_M.gguf
+ENV_FILE=/vol/projects/CIIM/agentic_central/.env
+
+# Read API key from .env
+API_KEY=$(grep '^GEMMA_API_KEY=' "$ENV_FILE" | cut -d'=' -f2-)
 
 singularity exec --nv \
     --bind /vol/projects:/vol/projects \
@@ -33,4 +37,5 @@ singularity exec --nv \
         --port 8080 \
         --ctx-size 32768 \
         --n-gpu-layers 99 \
-        --no-warmup
+        --no-warmup \
+        --api-key "${API_KEY}"

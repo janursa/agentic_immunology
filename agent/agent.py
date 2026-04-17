@@ -20,7 +20,7 @@ from typing import Optional
 sys.path.insert(0, os.path.dirname(__file__))
 from config import (
     MAIN_DIR, MODEL_NAME, MAX_TOKENS, TEMPERATURE,
-    MAX_TOOL_ROUNDS, SERVER_PORT,
+    MAX_TOOL_ROUNDS, SERVER_PORT, GEMMA_URL, GEMMA_API_KEY,
 )
 import tools as tool_module
 from memory import Memory
@@ -36,7 +36,12 @@ except ImportError:
 # ─── Server discovery ──────────────────────────────────────────────────────────
 
 def discover_server() -> Optional[str]:
-    """Return the base_url of the running gemma4-server SLURM job, or None."""
+    """Return server URL: prefers GEMMA_URL from .env if it looks like a public URL,
+    otherwise falls back to SLURM node discovery."""
+    # If .env has a non-localhost URL (e.g. ngrok), use it directly
+    if GEMMA_URL and not GEMMA_URL.startswith("http://localhost") and not GEMMA_URL.startswith("http://127"):
+        return GEMMA_URL
+    # SLURM discovery
     try:
         node = subprocess.check_output(
             "squeue -u $USER --name=gemma4-server -h -o '%N' 2>/dev/null",
@@ -64,8 +69,8 @@ def discover_server() -> Optional[str]:
 # ─── Core agent ───────────────────────────────────────────────────────────────
 
 class GemmaAgent:
-    def __init__(self, base_url: str, memory: Memory):
-        self.client   = OpenAI(base_url=base_url, api_key="none")
+    def __init__(self, base_url: str, memory: Memory, api_key: str = "none"):
+        self.client   = OpenAI(base_url=base_url, api_key=api_key)
         self.memory   = memory
         self.messages: list[dict] = []
 
@@ -185,7 +190,7 @@ def main():
 
     # Start agent
     memory = Memory()
-    agent  = GemmaAgent(base_url=url, memory=memory)
+    agent  = GemmaAgent(base_url=url, memory=memory, api_key=GEMMA_API_KEY)
     agent.start()
 
     past = len(memory.sessions)
