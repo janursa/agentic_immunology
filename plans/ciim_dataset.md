@@ -1,26 +1,7 @@
 # CIIM Dataset Overview
 
-All data lives under `/vol/projects/CIIM/`. This document catalogues what omics data is available across the institute, distinguishing what is already integrated into `agentic_central/datalake/` from what exists on disk but has not yet been ingested.
+All data lives under `/vol/projects/CIIM/`.
 
----
-
-## ✅ Already in `agentic_central/datalake/omics/`
-
-Fully processed, pseudobulked, and ready to use. See `datalake/omics/list.md` for column-level details.
-
-| Dataset | Type | Donors | Cells/Samples | Notes |
-|---|---|---|---|---|
-| AIDA | scRNA-seq | 625 | 1,265,245 cells | Healthy PBMC, multi-ethnic Asian, ages 19–77 |
-| ABF300 | scRNA-seq | 166 | 1,916,367 cells | Healthy PBMC, ages 25–81 |
-| OneK1K | scRNA-seq | 981 | 1,248,940 cells | Healthy PBMC, Australian European, ages 19–97 |
-| Zhang | scRNA-seq | 61 | 538,266 cells | Healthy PBMC, broad age range 0–90 |
-| Perez SLE | scRNA-seq | 261 | 1,263,676 cells | SLE vs healthy, multi-ethnic |
-| OP drug perturbation | scRNA-seq | 3 | 299,045 cells | ~150 ex-vivo drugs, 24h |
-| CXCL9 cytokine | scRNA-seq | 7 | 253,390 cells | Ex-vivo cytokine/drug stimulation (CXCL9, IFN-γ, ruxolitinib, etc.) |
-
-All datasets available as `_sc.h5ad` (single-cell), `_bulk.h5ad` (pseudobulked by major cell type), and `_bulk_minor.h5ad` (pseudobulked by minor cell type).
-
----
 
 ## 🆕 On Disk — Not Yet in Datalake
 
@@ -31,7 +12,6 @@ All datasets available as `_sc.h5ad` (single-cell), `_bulk.h5ad` (pseudobulked b
 | **Healthy mega-atlas (4M)** | `Healthy_Single_Cell_Data/output/processed_data/processed_data_4Mcells.h5ad` | ~1,500+ | ~4,000,000 | Merged from 12 cohorts (OneK1K, COVID-19-UK, IAV, BCG, Pbmc_ageing, MS-Zhang, HCA1M, 1M-scBloodNL, etc.); 273 GB |
 | Per-cell-type atlases | `Healthy_Single_Cell_Data/output/processed_data/processed_data_per_celltype/` | — | — | Individual h5ad per major and minor cell type |
 | TrajDynamics data | `Healthy_Single_Cell_Data/output/TrajDynamics_data/` | — | — | Processed per cohort for trajectory analysis |
-| Parse 10M PBMC cytokines | `PerturbationDataset/Perturb_seq_dataset_Xiara/Parse_10M_PBMC_cytokines.h5ad` | — | ~10,000,000 | Large-scale ex-vivo cytokine perturbation |
 
 ### scRNA-seq — Disease (processed, ready to use)
 
@@ -54,11 +34,11 @@ All datasets available as `_sc.h5ad` (single-cell), `_bulk.h5ad` (pseudobulked b
 
 ### Multiome (scRNA-seq + scATAC-seq)
 
-| Cohort | Location | Notes |
-|---|---|---|
-| **IBD multiome** | `cohorts/IBD/multiome_processed/` | `rna.h5ad` + `atac.h5ad` + `seurat.rds` |
-| **Long COVID multiome** | `cohorts/LongCovid/multiome_processed/` | — |
-| **DSolve/HDV multiome** | `cohorts/Dsolve_HDV/scATACseq_processed/` + `scRNAseq_processed/` | HDV/HBV patients |
+| Cohort | Location | Disease | Donors | Cells | Age | Sex | Paired RNA+ATAC | Stimulation | Modalities | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **IBD multiome** | `cohorts/IBD/multiome_processed/` | Crohn's Disease + Ulcerative Colitis | 79 sample visits (subset of 221 donors in phenotype) | 120,361 | 18–74 (median 36.5) | Mixed (F > M) | ✅ Yes (10x Multiome, same cells) | LPS, S. salmonella, RPMI (unstimulated) | RNA (`rna.h5ad`, 24,978 genes) + ATAC (`atac.h5ad`, 182,416 peaks) + Seurat (`seurat.rds`); clinical metadata in `phenotype.xlsx` | ✅ Ready |
+| **Long COVID multiome** | `cohorts/LongCovid/multiome_processed/` | Long COVID + Psoriatic Arthritis (PA) | ~36 (9 pools × 4 donors; genotype README: 25 LC + 6 healthy) | — | — | — | ✅ Yes (10x Multiome) | With/without ex-vivo stimulation | Seurat RDS only (`bothCohorts_annotated_4Mods_WithLinkedPeaks.rds`, `stim_lc_peak_chromvar_alllinks_clinic.rds`); no h5ad | ⚠️ R/Seurat only |
+| **DSolve/HDV multiome** | `cohorts/Dsolve_HDV/scATACseq_processed/` + `scRNAseq_processed/` | Hepatitis D/B (HDV/HBV) + 6 Healthy-IBD controls | 106 total (100 HDV, 6 Healthy-IBD); 93 with both RNA+ATAC assigned | — | — | — | ⚠️ Separate pipelines (RNA and ATAC processed independently) | None (longitudinal: 6 visit timepoints) | Count folders only; no merged h5ad | ⚠️ Raw counts only |
 
 ### scATAC-seq only
 

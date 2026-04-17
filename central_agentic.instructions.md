@@ -7,11 +7,11 @@ CRITICAL: only use /vol/projects/CIIM/agentic_central/ as your workspace, for bo
 
 ## Main
 - **Main dir**: `/vol/projects/CIIM/agentic_central/`
-- **Know-hows**: descriptions of methodology guides in `knowhow` folder:
+- **Know-hows**: descriptions of methodology guides in `knowhow` folder. Only use this when you need to perform a task and want to check if there is a guide for it. Key guides:
   - `single_cell_rna_analysis.md`: full scRNA-seq workflow — QC, cell type annotation (CellTypist + ULM), TF activity inference, and GRN inference
   - `computing_sbatch.md`: how to run CPU and GPU jobs on the cluster using SLURM `sbatch`
 - **Tools**: bioinformatics tools available. descriptions and usage in [`tools.md`](tools.md)
-- **Summary stats**: results of previous analysis. descriptions in [`summary_stats.md`](summary_stats.md)
+- **Summary stats**: pre-computed results — **start here for any question requiring data analysis**. Contains aging/disease/perturbation signatures, and GRN models as well as target expression features and target clinical success stats. Full descriptions and load instructions in [`summary_stats.md`](summary_stats.md)
 - **Data lake**: omics + all bioinformatics data. descriptions in [`datalake.md`](datalake.md)
 - **How to run**:  Use the right singularity image from images.md for a given task.
 available images:
