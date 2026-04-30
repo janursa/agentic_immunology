@@ -221,7 +221,6 @@ def predict_immune_age_grn_clock(
     --------
     # Predict age for CD4T pseudobulk samples
     import sys
-    sys.path.insert(0, '/vol/projects/BIIM/agentic_central/tools/ciim/code')
     from aging import predict_immune_age_grn_clock
 
     log = predict_immune_age_grn_clock(adata_cd4t, cell_type='CD4T', output_dir='/my/output/')

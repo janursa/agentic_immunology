@@ -170,8 +170,11 @@ def main():
             print(f"found: {url}")
         else:
             print("not found.")
-            raw = input("Enter server (e.g. bioinf025:8080): ").strip()
-            url = f"http://{raw}/v1" if not raw.startswith("http") else raw
+            print("\nNo GEMMA_URL set. Create a .env file in the repo root with:")
+            print("  GEMMA_URL=https://<ngrok-url>/v1")
+            print("  GEMMA_API_KEY=sk-<api-key>")
+            print("(get these from the server admin, or see .env.example)\n")
+            sys.exit(1)
 
     # Check connectivity
     try:

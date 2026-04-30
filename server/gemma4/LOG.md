@@ -30,13 +30,13 @@ any node / login node
 
 ### Step 1 — Build Singularity image
 ```bash
-cd /vol/projects/CIIM/agentic_central/singularity
+cd agentic_immunology/singularity
 singularity build --fakeroot gemma4.sif gemma4.def
 ```
 
 ### Step 2 — Launch server on bioinf040
 ```bash
-cd /vol/projects/CIIM/agentic_central/server/gemma4
+cd agentic_immunology/server/gemma4
 sbatch server.sh
 # Note job ID, check log for hostname + "server listening" message
 tail -f logs/server_<JOBID>.log
@@ -53,7 +53,7 @@ python3 test_client.py --host bioinf040 --port 8080 --interactive
 
 ## Status
 - [x] `gemma4.def` written (`ggml-org/llama.cpp:server-cuda` base)
-- [x] `gemma4.sif` built (2.2 GB, `/vol/projects/CIIM/agentic_central/singularity/gemma4.sif`)
+- [x] `gemma4.sif` built (2.2 GB, `agentic_immunology/singularity/gemma4.sif`)
 - [x] `server.sh` submitted — job **10208234**, estimated start ~17:13
 - [ ] Server running
 - [ ] Client test passed

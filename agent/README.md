@@ -5,11 +5,11 @@
 
 ```bash
 # Start the LLM server (if not running — check with: squeue -u $USER)
-cd /vol/projects/CIIM/agentic_central/server
+cd agentic_immunology/server
 sbatch server_gemma4.sh
 
 # Launch the agent (server is auto-discovered from SLURM)
-cd /vol/projects/CIIM/agentic_central/agent
+cd agentic_immunology/agent
 python agent.py
 
 # Or specify the server explicitly

@@ -6,7 +6,7 @@ GRNimmuneClock, adds results to adata.obs, handles alignment to the GRN
 feature space, and saves optional CSV output.
 
 Run with:
-    bash /vol/projects/BIIM/agentic_central/tests/test_aging_clock.sh
+    bash agentic_immunology/tests/test_aging_clock.sh
 """
 
 import sys
@@ -16,7 +16,8 @@ import numpy as np
 import pandas as pd
 import anndata as ad
 
-sys.path.insert(0, '/vol/projects/BIIM/agentic_central/tools/ciim/code')
+_TOOLS_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools', 'ciim', 'code'))
+sys.path.insert(0, _TOOLS_DIR)
 from aging import predict_immune_age_grn_clock
 
 # ── helpers ───────────────────────────────────────────────────────────────────

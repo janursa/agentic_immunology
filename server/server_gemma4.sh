@@ -22,7 +22,7 @@ echo "  base_url = 'http://$(hostname):8080/v1'"
 echo ""
 
 MODEL=/home/jnourisa/.cache/llama.cpp/unsloth_gemma-4-26B-A4B-it-GGUF_UD-Q5_K_M.gguf
-ENV_FILE=/vol/projects/CIIM/agentic_central/.env
+ENV_FILE=/vol/projects/CIIM/agentic_immunology/.env
 
 # Read API key from .env
 API_KEY=$(grep '^GEMMA_API_KEY=' "$ENV_FILE" | cut -d'=' -f2-)
@@ -31,7 +31,7 @@ singularity exec --nv \
     --bind /vol/projects:/vol/projects \
     --bind /home/jnourisa:/home/jnourisa \
     --env LD_LIBRARY_PATH=/app \
-    /vol/projects/CIIM/agentic_central/singularity/gemma4.sif \
+    /vol/projects/CIIM/agentic_immunology/singularity/gemma4.sif \
     llama-server \
         -m "${MODEL}" \
         --host 0.0.0.0 \

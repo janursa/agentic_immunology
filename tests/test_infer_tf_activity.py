@@ -13,15 +13,17 @@ Tests cover:
   9. Error raised when no gene overlap between adata and net
 
 Run with:
-    bash /vol/projects/BIIM/agentic_central/tests/test_infer_tf_activity.sh
+    bash tests/test_infer_tf_activity.sh
 """
 
 import sys
 import numpy as np
 import pandas as pd
 import anndata as ad
+import os
 
-sys.path.insert(0, '/vol/projects/BIIM/agentic_central/tools/ciim/code')
+_TOOLS_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools', 'ciim', 'code'))
+sys.path.insert(0, _TOOLS_DIR)
 from genomics import infer_tf_activity, get_immune_grn
 
 # ── helpers ───────────────────────────────────────────────────────────────────

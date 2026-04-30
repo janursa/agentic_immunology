@@ -13,7 +13,7 @@ import time
 import re
 import os
 
-LOG_DIR = "/vol/projects/CIIM/agentic_central/server/gemma4/logs"
+LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
 
 
 def get_job_state(job_id: str) -> str:

@@ -8,7 +8,7 @@
 #
 # Optional: set NGROK_AUTHTOKEN in .env to avoid 2-hour session limit
 
-MAIN_DIR=/vol/projects/CIIM/agentic_central
+MAIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ENV_FILE="$MAIN_DIR/.env"
 NGROK="$MAIN_DIR/server/ngrok"
 

@@ -6,8 +6,6 @@
 **8 functions** — PubMed/Semantic Scholar search, paper retrieval, citation analysis
 
 ```python
-import sys
-sys.path.insert(0, '/vol/projects/BIIM/agentic_central/tools')
 from tool.literature import <function_name>
 ```
 

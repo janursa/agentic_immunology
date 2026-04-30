@@ -57,7 +57,7 @@ A dedicated, published, molecularly-resolved **T cell aging KG** does not exist.
 
 ## What We Already Have That Could Seed a T Cell KG
 
-From our data lake at `/vol/projects/CIIM/agentic_central/agentic/datalake/`:
+From our data lake at `agentic_immunology/datalake/`:
 
 | File | Layer |
 |---|---|

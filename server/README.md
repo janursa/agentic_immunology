@@ -36,7 +36,7 @@ NGROK_AUTHTOKEN=your_token_here
 Without this the tunnel expires after 2 hours. With it, it stays up indefinitely.
 
 ### 2. The `.env` file
-Located at `/vol/projects/CIIM/agentic_central/.env`. Contains:
+Located at `agentic_immunology/.env`. Contains:
 ```
 GEMMA_URL=https://xxxx.ngrok.io/v1    # updated automatically by start_ngrok.sh
 GEMMA_API_KEY=sk-...                   # secret — share only with trusted users
@@ -50,7 +50,7 @@ NGROK_AUTHTOKEN=...                    # your ngrok token
 
 ### Step 1 — Start the model (SLURM job, compute node)
 ```bash
-cd /vol/projects/CIIM/agentic_central/server
+cd agentic_immunology/server
 sbatch server_gemma4.sh
 ```
 - Runs on **bioinf034** (A100 GPU)
@@ -60,7 +60,7 @@ sbatch server_gemma4.sh
 
 ### Step 2 — Start the tunnel (login node, keep terminal open)
 ```bash
-bash /vol/projects/CIIM/agentic_central/server/start_ngrok.sh
+bash agentic_immunology/server/start_ngrok.sh
 ```
 - Waits for the model to be reachable, then opens the tunnel
 - Prints the public URL
@@ -103,14 +103,14 @@ curl https://xxxx.ngrok.io/v1/chat/completions \
 ## Running the agent (interactive CLI)
 The agent reads `GEMMA_URL` and `GEMMA_API_KEY` from `.env` automatically:
 ```bash
-python /vol/projects/CIIM/agentic_central/agent/agent.py
+python agentic_immunology/agent/agent.py
 ```
 - If ngrok is running → uses public URL (works from anywhere)
 - If ngrok is off → falls back to SLURM node discovery (cluster-only)
 
 ## Running tests
 ```bash
-cd /vol/projects/CIIM/agentic_central/server
+cd agentic_immunology/server
 bash test.sh   # or: python test.py
 ```
 

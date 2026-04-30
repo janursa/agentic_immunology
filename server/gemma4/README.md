@@ -21,13 +21,13 @@ a normal API.
 
 ### 1. Submit the server job
 ```bash
-sbatch /vol/projects/CIIM/agentic_central/server/gemma4/server.sh
+sbatch /vol/projects/CIIM/agentic_immunology/server/gemma4/server.sh
 # → note the job ID printed, e.g. "Submitted batch job 10219185"
 ```
 
 ### 2. Wait for it to start and run the test
 ```bash
-cd /vol/projects/CIIM/agentic_central/server/gemma4
+cd /vol/projects/CIIM/agentic_immunology/server/gemma4
 python3 wait_and_test.py --job <JOB_ID>
 ```
 This polls SLURM until the job is RUNNING, reads the node from the log, waits for the HTTP
@@ -71,7 +71,7 @@ conversation.append({"role": "assistant", "content": reply})  # keep history for
 
 | Item | Detail |
 |---|---|
-| **Singularity image** | `/vol/projects/CIIM/agentic_central/singularity/gemma4.sif` |
+| **Singularity image** | `agentic_immunology/singularity/gemma4.sif` |
 | **Image base** | `nvidia/cuda:12.3.2-devel-ubuntu22.04` + llama.cpp built from source |
 | **Model file** | `~/.cache/llama.cpp/ggml-org_gemma-4-E4B-it-GGUF_gemma-4-E4B-it-Q4_K_M.gguf` (~5 GB, Q4_K_M quant) |
 | **SLURM partition** | `gpu`, 1 GPU, 40 GB RAM, 24-hour limit |
@@ -98,7 +98,7 @@ interactive mode or clear the list in code to start a fresh topic.
 ### Job time limit
 Each job runs for **24 hours** then expires. After expiry, just resubmit:
 ```bash
-sbatch /vol/projects/CIIM/agentic_central/server/gemma4/server.sh
+sbatch agentic_immunology/server/gemma4/server.sh
 ```
 The model is cached locally so restart takes ~1 minute (no download).
 

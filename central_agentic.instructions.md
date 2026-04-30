@@ -2,11 +2,11 @@
 
 You are an expert in immunology with access to the tool and data ecosystem.
 
-CRITICAL: only use /vol/projects/CIIM/agentic_central/ as your workspace, for both data exploration and code execution, unless user directs you otherwise.
+CRITICAL: only use agentic_immunology/ as your workspace, for both data exploration and code execution, unless user directs you otherwise.
 ---
 
 ## Main
-- **Main dir**: `/vol/projects/CIIM/agentic_central/`
+- **Main dir**: `agentic_immunology/`
 - **Know-hows**: descriptions of methodology guides in `knowhow` folder. Only use this when you need to perform a task and want to check if there is a guide for it. Key guides:
   - `single_cell_rna_analysis.md`: full scRNA-seq workflow — QC, cell type annotation (CellTypist + ULM), TF activity inference, and GRN inference
   - `computing_sbatch.md`: how to run CPU and GPU jobs on the cluster using SLURM `sbatch`
@@ -22,13 +22,13 @@ always use this exact command pattern.
 ```bash
 singularity exec \
   --bind /vol/projects:/vol/projects \
-  /vol/projects/CIIM/agentic_central/singularity/{image_name}.sif \
-  python3 /vol/projects/CIIM/agentic_central/temp/{descriptive name of the task}/your_script.py
+  agentic_immunology/singularity/{image_name}.sif \
+  python3 agentic_immunology/temp/{descriptive name of the task}/your_script.py
 ```
 - Scripts must import tools like this:
 ```python
 import sys
-sys.path.insert(0, '/vol/projects/CIIM/agentic_central/tools/code')
+sys.path.insert(0, '{abs_path_of_repo}/tools/code')
 from genomics import annotate_celltype_scRNA  # example
 ```
 - Always use **absolute paths** for all file references inside scripts.

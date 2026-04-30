@@ -13,7 +13,7 @@ Two main resources for SNP → disease/trait associations:
 
 ## GWAS Catalog
 
-**Local path**: `/vol/projects/CIIM/agentic_central/datalake/biomni/gwas_catalog.pkl`  
+**Local path**: `agentic_immunology/datalake/biomni/gwas_catalog.pkl`  
 **Size**: 622,784 associations, 34 columns  
 **UKB entries**: ~64k (filter by `INITIAL SAMPLE SIZE` containing `"UK Biobank"`)
 
@@ -42,7 +42,7 @@ hits[['SNPS', 'DISEASE/TRAIT', 'PVALUE_MLOG']].head()
 
 **Website**: https://api.opengwas.io  
 **Authentication**: JWT token (free registration required)  
-**Token storage**: `/vol/projects/CIIM/agentic_central/.env` as `OPENGWAS_TOKEN=<jwt>`  
+**Token storage**: `agentic_immunology/.env` as `OPENGWAS_TOKEN=<jwt>`  
 **Token expiry**: ~2 weeks; renew at https://api.opengwas.io/
 
 ### API Details

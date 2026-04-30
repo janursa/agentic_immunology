@@ -6,8 +6,6 @@
 **25 functions** — DiffDock docking, ADMET prediction, drug scoring, target interaction
 
 ```python
-import sys
-sys.path.insert(0, '/vol/projects/BIIM/agentic_central/tools')
 from tool.pharmacology import <function_name>
 ```
 

@@ -27,7 +27,7 @@ OpenGWAS (MRC IEU) indexes >10,000 GWAS studies including the full Neale Lab UKB
 and Pan-UKBB (~7,200 phenotypes). Use this to look up SNPs across all phenotypes (PheWAS).
 
 API: https://api.opengwas.io/api/
-Auth: JWT token stored in /vol/projects/CIIM/agentic_central/.env as OPENGWAS_TOKEN
+Auth: JWT token stored in agentic_immunology/.env as OPENGWAS_TOKEN
       Token must be passed as header: "X-Api-Token: <token>"
       Free registration at https://api.opengwas.io/ (token expires ~2 weeks)
 
@@ -45,7 +45,7 @@ Batch query: send up to ~100 SNPs per POST request; use pval threshold to limit 
 Python snippet:
     import requests, json, os
     from dotenv import load_dotenv
-    load_dotenv('/vol/projects/CIIM/agentic_central/.env')
+    load_dotenv('agentic_immunology/.env')
     token = os.environ['OPENGWAS_TOKEN']
     r = requests.post('https://api.opengwas.io/api/associations',
                       headers={'X-Api-Token': token, 'Content-Type': 'application/json'},

@@ -19,7 +19,7 @@ import json
 import yaml
 from pathlib import Path
 
-BASE   = Path('/vol/projects/CIIM/agentic_central')
+BASE   = Path(__file__).resolve().parent.parent
 SCHEMA = BASE / 'map_schema.yaml'
 OUTPUT = BASE / 'agentic_map.html'
 

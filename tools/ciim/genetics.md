@@ -12,7 +12,7 @@ PheWAS look-up across **all** OpenGWAS indexed studies. Best for comprehensive d
 
 ```python
 import sys
-sys.path.insert(0, '/vol/projects/CIIM/agentic_central/tools/ciim/code')
+sys.path.insert(0, './tools/ciim/code')
 from genetics import phewas_opengwas
 
 hits = phewas_opengwas(['rs10944479', 'rs1004870'], pval=1e-5)
@@ -48,7 +48,7 @@ hits[['SNPS', 'DISEASE/TRAIT', 'PVALUE_MLOG']].head()
 
 ## Notes
 
-- Token must be stored in `/vol/projects/CIIM/agentic_central/.env` as `OPENGWAS_TOKEN=<jwt>`
+- Token must be stored in `agentic_immunology/.env` as `OPENGWAS_TOKEN=<jwt>`
 - Tokens expire ~2 weeks after issue; renew at https://api.opengwas.io/
 - Study ID prefixes: `ukb-b-*` = Neale Lab UKB, `ukb-d-*` = IEU disease, `ieu-b-*` = IEU curated, `eqtl-*` = eQTL studies (auto-filtered)
 - See `knowhow/gwas.md` for full resource comparison and recommended thresholds

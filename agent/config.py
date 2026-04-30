@@ -24,10 +24,10 @@ def _get(key: str, default: str = "") -> str:
     return os.environ.get(key) or _env.get(key) or default
 
 
-MAIN_DIR          = "/vol/projects/CIIM/agentic_central"
-AGENT_DIR         = f"{MAIN_DIR}/agent"
-TEMP_DIR          = f"{MAIN_DIR}/temp"
-INSTRUCTIONS_FILE = f"{MAIN_DIR}/central_agentic.instructions.md"
+MAIN_DIR          = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+AGENT_DIR         = os.path.join(MAIN_DIR, "agent")
+TEMP_DIR          = os.path.join(MAIN_DIR, "temp")
+INSTRUCTIONS_FILE = os.path.join(MAIN_DIR, "central_agentic.instructions.md")
 
 # Connection — read from .env, fallback to cluster-local address
 GEMMA_URL     = _get("GEMMA_URL", f"http://localhost:8080/v1")
@@ -41,8 +41,8 @@ MAX_TOOL_ROUNDS = 30
 TOOL_TIMEOUT    = 120
 
 ALLOWED_WRITE_PREFIXES = [
-    f"{MAIN_DIR}/temp/",
-    f"{MAIN_DIR}/agent/",
+    os.path.join(MAIN_DIR, "temp") + os.sep,
+    os.path.join(MAIN_DIR, "agent") + os.sep,
 ]
 BLOCKED_COMMANDS = [
     "rm -rf", "rm -f /", "mkfs", "dd if=",
