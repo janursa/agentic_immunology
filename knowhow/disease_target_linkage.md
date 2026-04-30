@@ -20,3 +20,34 @@ technical feasibility of drug development:
     -> druggability 
     -> target family (member of a protein familty that is well established)
     -> drug with clear clinical biomarker
+
+
+## OpenGWAS PheWAS (UK Biobank + published GWAS)
+OpenGWAS (MRC IEU) indexes >10,000 GWAS studies including the full Neale Lab UKB (~4,000 phenotypes)
+and Pan-UKBB (~7,200 phenotypes). Use this to look up SNPs across all phenotypes (PheWAS).
+
+API: https://api.opengwas.io/api/
+Auth: JWT token stored in /vol/projects/CIIM/agentic_central/.env as OPENGWAS_TOKEN
+      Token must be passed as header: "X-Api-Token: <token>"
+      Free registration at https://api.opengwas.io/ (token expires ~2 weeks)
+
+Key endpoints:
+  POST /associations  - body: {"variant_id": ["rsXXX", ...], "pval": 5e-8}
+                        Returns all associations across all indexed GWAS studies
+  GET  /gwasinfo       - list all available studies with metadata
+
+UKB study ID prefixes in OpenGWAS:
+  ukb-b-*   Neale Lab UKB GWAS (binary + continuous traits)
+  ukb-d-*   IEU UKB GWAS (ICD10 disease endpoints)
+  ieu-b-*   IEU curated studies
+
+Batch query: send up to ~100 SNPs per POST request; use pval threshold to limit results.
+Python snippet:
+    import requests, json, os
+    from dotenv import load_dotenv
+    load_dotenv('/vol/projects/CIIM/agentic_central/.env')
+    token = os.environ['OPENGWAS_TOKEN']
+    r = requests.post('https://api.opengwas.io/api/associations',
+                      headers={'X-Api-Token': token, 'Content-Type': 'application/json'},
+                      json={'variant_id': snp_list, 'pval': 5e-8})
+    hits = r.json()

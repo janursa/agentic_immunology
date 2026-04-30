@@ -4,9 +4,8 @@ import os
 from config import INSTRUCTIONS_FILE
 
 
-def build_system_prompt(session_dir: str, history_block: str) -> str:
+def build_system_prompt(session_dir: str) -> str:
     instructions = _read(INSTRUCTIONS_FILE)
-    history_section = ("\n---\n" + history_block + "\n") if history_block.strip() else ""
 
     behaviour = """
 ---
@@ -33,7 +32,7 @@ Handle the errors raised from your own code. If that belongs to the agentic syst
 """
 
     behaviour = behaviour.replace("SESSION_DIR_PLACEHOLDER", session_dir)
-    return instructions + history_section + behaviour
+    return instructions + behaviour
 
 
 def _read(path: str) -> str:

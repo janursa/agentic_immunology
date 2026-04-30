@@ -13,7 +13,7 @@ def _read_env() -> dict:
                 if line and not line.startswith('#') and '=' in line:
                     k, _, v = line.partition('=')
                     result[k.strip()] = v.strip()
-    except FileNotFoundError:
+    except (FileNotFoundError, PermissionError):
         pass
     return result
 
@@ -26,7 +26,6 @@ def _get(key: str, default: str = "") -> str:
 
 MAIN_DIR          = "/vol/projects/CIIM/agentic_central"
 AGENT_DIR         = f"{MAIN_DIR}/agent"
-SESSIONS_INDEX    = f"{AGENT_DIR}/sessions.json"
 TEMP_DIR          = f"{MAIN_DIR}/temp"
 INSTRUCTIONS_FILE = f"{MAIN_DIR}/central_agentic.instructions.md"
 

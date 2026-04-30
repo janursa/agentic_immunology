@@ -77,8 +77,7 @@ class GemmaAgent:
     def start(self):
         """Initialise conversation with the system prompt."""
         system_prompt = build_system_prompt(
-            session_dir   = self.memory.session_dir,
-            history_block = self.memory.history_block(),
+            session_dir = self.memory.session_dir,
         )
         self.messages = [{"role": "system", "content": system_prompt}]
 
@@ -144,18 +143,10 @@ class GemmaAgent:
         return "[agent] Reached max tool rounds without a final response."
 
     def end_session(self):
-        """Ask model to summarise, save to memory, close out."""
         if len(self.messages) <= 1:
             return
-        print("\nSaving session…")
-        summary = self.respond(
-            "Summarise this session in 1–2 sentences for the memory log. "
-            "Include: what was asked, what was done, key output file paths if any. "
-            "Reply with only the summary text, no preamble."
-        )
-        self.memory.append_log(f"Session ended.\nSummary: {summary}")
-        self.memory.save_session(summary)
-        print(f"  Session saved → {self.memory.session_dir}")
+        self.memory.append_log("Session ended.")
+        print(f"\n  Session log → {self.memory.session_dir}")
 
 
 # ─── CLI ──────────────────────────────────────────────────────────────────────
@@ -193,13 +184,11 @@ def main():
     agent  = GemmaAgent(base_url=url, memory=memory, api_key=GEMMA_API_KEY)
     agent.start()
 
-    past = len(memory.sessions)
     print(f"\n{'═'*62}")
     print("  Gemma Agent — Immunology Research Assistant")
     print(f"  Server  : {url}")
     print(f"  Session : {memory.session_dir}")
-    print(f"  History : {past} past session{'s' if past != 1 else ''}")
-    print("  Commands: 'history' | 'reset' | 'exit'")
+    print("  Commands: 'reset' | 'exit'")
     print(f"{'═'*62}\n")
 
     # Main loop
@@ -222,11 +211,7 @@ def main():
 
         if low == "reset":
             agent.start()
-            print("[Conversation reset — memory kept.]\n")
-            continue
-
-        if low in ("history", "memory"):
-            print(memory.history_block() or "(no past sessions yet)")
+            print("[Conversation reset.]\n")
             continue
 
         print()

@@ -69,6 +69,13 @@ Molecular docking (DiffDock, Vina), ADMET prediction, drug-drug interactions (DD
 
 ## CIIM
 
+### `genetics`
+*Genetics*
+
+GWAS look-up for SNPs: PheWAS across all OpenGWAS studies (Neale Lab UKB ~4k phenotypes, Pan-UKBB ~7k, IEU curated + 10k published) and local GWAS Catalog (622k published associations). Requires a JWT token in `.env`. → [genetics.md](tools/ciim/genetics.md)
+
+`phewas_opengwas` · `query_gwas_catalog`
+
 ### `genomics`
 *Genomics*
 

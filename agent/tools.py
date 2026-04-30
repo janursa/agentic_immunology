@@ -174,9 +174,11 @@ def _run_command(command: str, working_dir: str) -> str:
             return f"[blocked] Dangerous command pattern: '{blocked}'"
     if not os.path.isdir(working_dir):
         working_dir = MAIN_DIR
+    env = os.environ.copy()
+    env["PATH"] = "/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin:" + env.get("PATH", "")
     result = subprocess.run(
         command, shell=True, capture_output=True, text=True,
-        cwd=working_dir, timeout=TOOL_TIMEOUT,
+        cwd=working_dir, timeout=TOOL_TIMEOUT, env=env,
     )
     out = (result.stdout + result.stderr).strip()
     if len(out) > 6000:
