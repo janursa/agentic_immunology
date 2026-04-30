@@ -1,8 +1,5 @@
 # Gemma Agent
 
-Conversational immunology research agent powered by a local Gemma LLM server.
-Behaves like an expert assistant: thinks before responding, uses tools proactively,
-proposes plans for complex tasks, and remembers what it did in past sessions.
 
 ## Quick Start
 
