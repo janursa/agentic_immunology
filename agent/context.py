@@ -1,16 +1,17 @@
 """Builds the system prompt: instructions file + session context."""
 
 import os
-from config import INSTRUCTIONS_FILE
+from config import INSTRUCTIONS_FILE, MAIN_DIR
 
 
 def build_system_prompt(session_dir: str) -> str:
-    instructions = _read(INSTRUCTIONS_FILE)
+    instructions = _read(INSTRUCTIONS_FILE).replace("MAIN_DIR", MAIN_DIR)
 
-    behaviour = """
+    behaviour = f"""
 ---
 ## This Session
-Session workspace: SESSION_DIR_PLACEHOLDER
+Main directory: {MAIN_DIR}
+Session workspace: {session_dir}
 ---
 ## How to behave
 
@@ -31,7 +32,6 @@ Handle the errors raised from your own code. If that belongs to the agentic syst
 
 """
 
-    behaviour = behaviour.replace("SESSION_DIR_PLACEHOLDER", session_dir)
     return instructions + behaviour
 
 
