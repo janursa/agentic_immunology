@@ -1,6 +1,7 @@
 # Agentic Central — Change Log
 
 ---
+### VirtualBiotech
 
 ## 2026-04-15
 

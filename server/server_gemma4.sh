@@ -1,9 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=gemma4-server
+#SBATCH --job-name=nourisa
 #SBATCH --partition=gpu
-#SBATCH --nodelist=bioinf034
-#SBATCH --gres=gpu:a100:1
-#SBATCH --mem=60G
+#SBATCH --gres=gpu:h100:1
+#SBATCH --mem=48G
 #SBATCH --cpus-per-task=8
 #SBATCH --time=30-00:00:00
 #SBATCH --qos=verylong

@@ -16,6 +16,8 @@ from hiara import retrieve_summary_stats
 ## hiara
 *HIaRA*
 
+In analysing aging signatures, you should always consider the unique features per catergory (e.g. aging TFs are reported per dataset, so if you just look at the number of rows, the number is not accurate -> take unique).
+
 ### `immune_aging_tf_signatures_major_celltypes.csv`
 *Aging TF Signatures — Major*
 
