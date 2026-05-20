@@ -1,7 +1,11 @@
 # Pharmacology — Function Reference
 
-> Module: `tool.pharmacology`
-> Import: `from tool.pharmacology import <function_name>`
+> Source: `external/biomni/biomni/tool/pharmacology.py`
+> Import:
+> ```python
+> import sys; sys.path.insert(0, 'external/biomni')
+> from biomni.tool.pharmacology import <function_name>
+> ```
 
 **25 functions** — DiffDock docking, ADMET prediction, drug scoring, target interaction
 

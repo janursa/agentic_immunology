@@ -16,4 +16,5 @@ tools/tool/protocols/
 server/ngrok
 server/logs/
 iagent_env/
+external/
 

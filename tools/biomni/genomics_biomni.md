@@ -1,5 +1,12 @@
 # Genomics — Function Reference
 
+> Source: `external/biomni/biomni/tool/genomics.py`
+> Import:
+> ```python
+> import sys; sys.path.insert(0, 'external/biomni')
+> from biomni.tool.genomics import <function_name>
+> ```
+
 ### `annotate_celltype_scRNA`
 *LLM Cell Annotation*
 Annotate cell types based on gene markers and transferred labels using LLM. After leiden clustering, annotate clusters using differentially expressed genes and optionally incorporate transferred labels from reference datasets.

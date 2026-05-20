@@ -1,1 +1,63 @@
+# Core scientific stack
+numpy
+pandas
+scipy
+scikit-learn
+statsmodels
+joblib
+tqdm
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# Single-cell core
+scanpy
+anndata
+leidenalg
+python-igraph
+umap-learn
+numba
+
+# Batch correction / integration
+harmonypy
+bbknn
+scanorama
+
+# RNA velocity & trajectory
+scvelo
+cellrank
+
+# Variational inference (scVI, totalVI, etc.)
+scvi-tools
+
+# TF activity & GRN
+decoupler
+pyscenic
+
+# Cell-cell communication
+liana
+
+# Multi-omics
+muon
+
+# Spatial transcriptomics
+squidpy
+
+# Differential expression
+pydeseq2
+
+# IO / file formats
+h5py
+zarr
+loompy
+openpyxl
+
+# Genetics / genomics
+biopython
+pybedtools
+
+# LLM / agents
 openai>=1.0.0
+anthropic

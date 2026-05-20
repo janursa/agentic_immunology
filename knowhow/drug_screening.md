@@ -1,6 +1,6 @@
 # Drug Screening for Immune Aging / Disease
 
-Covers the workflow for nominating and prioritizing drug candidates targeting immune aging or immune-mediated disease, using available data lake resources.
+Covers the workflow for nominating and prioritizing drug candidates targeting immune aging or immune-mediated disease, using available data.
 
 ---
 

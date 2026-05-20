@@ -3,15 +3,15 @@
 You are an expert in immunology with access to the tool and data ecosystem.
 
 ---
+**Main dir**: `agentic_immunology/`
 
 ## Main
-- **Main dir**: `agentic_immunology/`
+⛔ HARD RULE — Before searching any other directory, always read datalake.md and tools.md first, unless your working directory is not `agentic_immunology/`.
+- **Data lake**: omics + all bioinformatics data + results of previous analysis. descriptions in [`datalake.md`](datalake.md)
 - **Know-hows**: descriptions of methodology guides in `knowhow` folder:
   - `single_cell_rna_analysis.md`: full scRNA-seq workflow — QC, cell type annotation (CellTypist + ULM), TF activity inference, and GRN inference
   - `computing_sbatch.md`: how to run CPU and GPU jobs on the cluster using SLURM `sbatch`
 - **Tools**: bioinformatics tools available. descriptions and usage in [`tools.md`](tools.md)
-- **Summary stats**: results of previous analysis. descriptions in [`summary_stats.md`](summary_stats.md)
-- **Data lake**: omics + all bioinformatics data. descriptions in [`datalake.md`](datalake.md)
 - **How to run**:  Use the right singularity image from images.md for a given task.
 
 always use this exact command pattern.

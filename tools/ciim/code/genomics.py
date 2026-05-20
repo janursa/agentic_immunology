@@ -1196,3 +1196,286 @@ def infer_tf_activity(
     scores = adata.obsm[score_key].copy()
     scores.index = adata.obs_names
     return scores
+
+
+# ── CellxGene Census ──────────────────────────────────────────────────────────
+
+def _cellxgene_open(census_version: str = "stable"):
+    import cellxgene_census
+    return cellxgene_census.open_soma(census_version=census_version)
+
+
+def _cellxgene_filter(*clauses) -> str | None:
+    parts = [c for c in clauses if c]
+    return " and ".join(parts) if parts else None
+
+
+def _cellxgene_in(col, val) -> str | None:
+    if val is None:
+        return None
+    if isinstance(val, str):
+        return f"{col} == '{val}'"
+    quoted = ", ".join(f"'{v}'" for v in val)
+    return f"{col} in [{quoted}]"
+
+
+def cellxgene_query_obs(
+    cell_type=None,
+    tissue=None,
+    disease=None,
+    sex: str | None = None,
+    organism: str = "homo_sapiens",
+    extra_filter: str | None = None,
+    columns: list | None = None,
+    census_version: str = "stable",
+) -> pd.DataFrame:
+    """Query cell-level metadata from CellxGene Census without downloading expression data.
+
+    Parameters
+    ----------
+    cell_type : str or list[str]
+        Cell Ontology label(s), e.g. "CD4-positive, alpha-beta T cell".
+    tissue : str or list[str]
+        UBERON tissue label(s), e.g. "blood", "lung".
+    disease : str or list[str]
+        Disease label(s), e.g. "normal", "systemic lupus erythematosus".
+    sex : str
+        "male" or "female".
+    organism : str
+        "homo_sapiens" (default) or "mus_musculus".
+    extra_filter : str
+        Raw TileDB SOMA filter appended with AND.
+    columns : list[str]
+        Which obs columns to return. None → all available.
+        Key columns: soma_joinid, dataset_id, cell_type, tissue, disease,
+        sex, donor_id, development_stage, assay, self_reported_ethnicity.
+    census_version : str
+        "stable" = latest stable release.
+
+    Returns
+    -------
+    pd.DataFrame
+    """
+    value_filter = _cellxgene_filter(
+        _cellxgene_in("cell_type", cell_type),
+        _cellxgene_in("tissue", tissue),
+        _cellxgene_in("disease", disease),
+        _cellxgene_in("sex", sex),
+        extra_filter,
+    )
+    with _cellxgene_open(census_version) as census:
+        df = (census["census_data"][organism].obs
+              .read(value_filter=value_filter, column_names=columns)
+              .concat().to_pandas())
+    return df
+
+
+def cellxgene_get_anndata(
+    cell_type=None,
+    tissue=None,
+    disease=None,
+    sex: str | None = None,
+    genes: list | None = None,
+    organism: str = "homo_sapiens",
+    extra_filter: str | None = None,
+    census_version: str = "stable",
+    max_cells: int = 10_000,
+    seed: int = 42,
+):
+    """Fetch a subsampled AnnData slice (raw counts) from CellxGene Census.
+
+    Samples soma_joinids BEFORE downloading the expression matrix to avoid
+    streaming the full matching set. Compatible with qc_sc_transcriptomics
+    and annotate_celltype_celltypist.
+
+    Parameters
+    ----------
+    genes : list[str]
+        HGNC gene symbols. None → all genes (very large — avoid without genes list).
+    max_cells : int
+        Subsample cap applied before X download (default 10_000).
+    seed : int
+        Random seed for reproducible subsampling.
+
+    Returns
+    -------
+    AnnData  obs × var, X = raw counts (sparse).
+    var has feature_name (HGNC) and feature_id (Ensembl).
+    """
+    import cellxgene_census
+
+    obs_filter = _cellxgene_filter(
+        _cellxgene_in("cell_type", cell_type),
+        _cellxgene_in("tissue", tissue),
+        _cellxgene_in("disease", disease),
+        _cellxgene_in("sex", sex),
+        extra_filter,
+    )
+    var_filter = None
+    if genes:
+        quoted = ", ".join(f"'{g}'" for g in genes)
+        var_filter = f"feature_name in [{quoted}]"
+
+    with _cellxgene_open(census_version) as census:
+        joinids = (census["census_data"][organism].obs
+                   .read(value_filter=obs_filter, column_names=["soma_joinid"])
+                   .concat().to_pandas()["soma_joinid"].values)
+
+        if len(joinids) > max_cells:
+            rng = np.random.default_rng(seed)
+            joinids = rng.choice(joinids, max_cells, replace=False)
+
+        adata = cellxgene_census.get_anndata(
+            census=census,
+            organism=organism,
+            obs_coords=joinids,
+            var_value_filter=var_filter,
+        )
+    return adata
+
+
+def cellxgene_list_datasets(
+    tissue=None,
+    disease=None,
+    organism: str = "homo_sapiens",
+    census_version: str = "stable",
+) -> pd.DataFrame:
+    """List datasets in the CellxGene Census with optional tissue/disease filters.
+
+    Returns a DataFrame with dataset_id, dataset_title, dataset_cell_count,
+    and other collection-level metadata.
+    """
+    with _cellxgene_open(census_version) as census:
+        datasets = census["census_info"]["datasets"].read().concat().to_pandas()
+
+    if tissue:
+        ids = cellxgene_query_obs(tissue=tissue, organism=organism,
+                                  columns=["dataset_id"],
+                                  census_version=census_version)["dataset_id"].unique()
+        datasets = datasets[datasets["dataset_id"].isin(ids)]
+    if disease:
+        ids = cellxgene_query_obs(disease=disease, organism=organism,
+                                  columns=["dataset_id"],
+                                  census_version=census_version)["dataset_id"].unique()
+        datasets = datasets[datasets["dataset_id"].isin(ids)]
+
+    return datasets.reset_index(drop=True)
+
+
+def infer_ccc(
+    adata,
+    groupby: str,
+    sample_key: str,
+    resource_name: str = "consensus",
+    expr_prop: float = 0.1,
+    n_jobs: int = 1,
+    min_cell_types: int = 2,
+) -> pd.DataFrame:
+    """Infer cell-cell communication (CCC) scores per sample using LIANA rank_aggregate.
+
+    Runs LIANA's ``rank_aggregate`` independently for each sample (donor/condition),
+    aggregating L-R interaction scores across all cell type pairs. Returns a
+    sample × L-R feature matrix analogous to TF activity from :func:`infer_tf_activity`.
+
+    Parameters
+    ----------
+    adata : AnnData
+        Cells × genes. ``adata.X`` must contain log-normalised expression
+        (e.g. log1p(CPM)).  Raw counts will produce incorrect scores.
+    groupby : str
+        ``adata.obs`` column with cell type labels (e.g. ``'CT_Major'``).
+    sample_key : str
+        ``adata.obs`` column that identifies individual samples/donors
+        (e.g. ``'donor_id'``).
+    resource_name : str
+        LIANA ligand-receptor database. Default ``'consensus'``
+        (aggregated consensus resource).
+    expr_prop : float
+        Minimum fraction of cells in a cell type that must express the gene
+        for it to be considered. Default 0.1.
+    n_jobs : int
+        Parallel jobs passed to LIANA. Default 1.
+    min_cell_types : int
+        Skip samples with fewer than this many cell types present. Default 2.
+
+    Returns
+    -------
+    pd.DataFrame
+        Shape (n_samples × n_lr_pairs). Columns are named
+        ``source__ligand__target__receptor``. Rows are indexed by sample.
+        Missing L-R pairs for a sample are NaN.
+
+    Examples
+    --------
+    # Major cell types, one score per donor
+    ccc_df = infer_ccc(adata, groupby='CT_Major', sample_key='donor_id')
+
+    # Sub cell types with more parallelism
+    ccc_df = infer_ccc(adata, groupby='CT_Minor', sample_key='donor_id', n_jobs=8)
+    """
+    import liana as li
+    from tqdm import tqdm
+
+    samples = sorted(adata.obs[sample_key].unique())
+    comm_scores: dict[str, pd.Series] = {}
+
+    for sample in tqdm(samples, desc="CCC per sample"):
+        adata_s = adata[adata.obs[sample_key] == sample].copy()
+
+        ct_counts = adata_s.obs[groupby].value_counts()
+        if (ct_counts == 0).any() or len(ct_counts) < min_cell_types:
+            continue
+
+        lr_results = li.mt.rank_aggregate(
+            adata_s,
+            groupby=groupby,
+            resource_name=resource_name,
+            n_jobs=n_jobs,
+            expr_prop=expr_prop,
+            n_perms=None,
+            verbose=False,
+            use_raw=False,
+            inplace=False,
+        )
+
+        for _, row in lr_results.iterrows():
+            score = row["lrscore"]
+            if pd.isna(score):
+                continue
+            feature = f"{row['source']}__{row['ligand_complex']}__{row['target']}__{row['receptor_complex']}"
+            if feature not in comm_scores:
+                comm_scores[feature] = pd.Series(index=samples, dtype=float)
+            comm_scores[feature].loc[sample] = score
+
+    if not comm_scores:
+        return pd.DataFrame(index=samples)
+
+    df = pd.DataFrame(comm_scores)
+    df = df.dropna(how="all")
+    return df
+
+
+def cellxgene_get_schema(
+    organism: str = "homo_sapiens",
+    census_version: str = "stable",
+) -> dict:
+    """Return valid filter values for cell_type, tissue, disease and all obs column names.
+
+    Use this to discover correct label strings before calling cellxgene_query_obs
+    or cellxgene_get_anndata.
+
+    Returns
+    -------
+    dict with keys: obs_columns, unique_cell_types, unique_tissues, unique_diseases
+    """
+    with _cellxgene_open(census_version) as census:
+        obs = census["census_data"][organism].obs
+        columns = obs.schema.names
+        sample = (obs.read(column_names=["cell_type", "tissue", "disease"])
+                  .concat().to_pandas())
+    return {
+        "obs_columns":        list(columns),
+        "unique_cell_types":  sorted(sample["cell_type"].dropna().unique().tolist()),
+        "unique_tissues":     sorted(sample["tissue"].dropna().unique().tolist()),
+        "unique_diseases":    sorted(sample["disease"].dropna().unique().tolist()),
+    }

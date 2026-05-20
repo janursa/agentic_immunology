@@ -1,16 +1,6 @@
 # Tools — Overview
 
 
-```python
-import sys
-sys.path.insert(0, 'agentic_immunology/tools/{biomni or ciim}/code')
-from <module_name> import <function_name>   
-```
-
-Two major modules: biomni, ciim
-
-
-
 ## biomni
 
 ### `database_biomni`
@@ -72,16 +62,17 @@ Molecular docking (DiffDock, Vina), ADMET prediction, drug-drug interactions (DD
 ### `genetics`
 *Genetics*
 
-GWAS look-up for SNPs: PheWAS across all OpenGWAS studies (Neale Lab UKB ~4k phenotypes, Pan-UKBB ~7k, IEU curated + 10k published) and local GWAS Catalog (622k published associations). Requires a JWT token in `.env`. → [genetics.md](tools/ciim/genetics.md)
+tools/ciim/genetics.md
 
-`phewas_opengwas` · `query_gwas_catalog`
+`phewas_opengwas` · `query_gwas_catalog` · `query_opentarget_platform` · `get_disease_credible_sets` · `run_coloc` · `run_mr`
+
 
 ### `genomics`
 *Genomics*
 
-Raw counts detection, CellTypist annotation, ULM annotation, GRN loader & inference, scRNA QC, annotation quality, TF activity inference. → [genomics.md](tools/ciim/genomics.md)
+Raw counts detection, CellTypist annotation, ULM annotation, GRN loader & inference, scRNA QC, annotation quality, TF activity inference, CellxGene Census access. → [genomics.md](tools/ciim/genomics.md)
 
-`identify_counts_layer` · `annotate_celltype_celltypist` · `annotate_celltype_ulm` · `get_immune_grn` · `infer_grn_spearman` · `qc_sc_transcriptomics` · `analyze_cluster_celltype_annotation_quality` · `infer_tf_activity`
+`identify_counts_layer` · `annotate_celltype_celltypist` · `annotate_celltype_ulm` · `get_immune_grn` · `infer_grn_spearman` · `qc_sc_transcriptomics` · `analyze_cluster_celltype_annotation_quality` · `infer_tf_activity` · `infer_ccc` · `cellxgene_query_obs` · `cellxgene_get_anndata` · `cellxgene_list_datasets` · `cellxgene_get_schema`
 
 ---
 

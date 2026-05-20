@@ -1,12 +1,15 @@
 import os
 import pandas as pd
 
-from config import AGING_TF_SIGNATURES, AGING_TF_SIGNATURES_MINOR, AGING_GE_SIGNATURES, AGING_CCC_SIGNATURES, SLE_TF_SIGNATURES, DRUG_TF_SIGNATURES, CYTOKINE_TF_SIGNATURES
+from config import AGING_TF_SIGNATURES, AGING_TF_SIGNATURES_MINOR, AGING_GE_SIGNATURES, AGING_CCC_SIGNATURES, SLE_TF_SIGNATURES, SLE_TF_SIGNATURES_MINOR, SLE_GE_SIGNATURES, SLE_GE_SIGNATURES_MINOR, DRUG_TF_SIGNATURES, CYTOKINE_TF_SIGNATURES
 
 _CONTEXT_PATHS = {
-    'sle':      SLE_TF_SIGNATURES,
-    'drug':     DRUG_TF_SIGNATURES,
-    'cytokine': CYTOKINE_TF_SIGNATURES,
+    ('sle',      'tf_activity',     'major'): SLE_TF_SIGNATURES,
+    ('sle',      'tf_activity',     'minor'): SLE_TF_SIGNATURES_MINOR,
+    ('sle',      'gene_expression', 'major'): SLE_GE_SIGNATURES,
+    ('sle',      'gene_expression', 'minor'): SLE_GE_SIGNATURES_MINOR,
+    ('drug',     'tf_activity',     'major'): DRUG_TF_SIGNATURES,
+    ('cytokine', 'tf_activity',     'major'): CYTOKINE_TF_SIGNATURES,
 }
 
 _AGING_FEATURE_PATHS = {
@@ -139,6 +142,8 @@ def retrieve_summary_stats(
             raise ValueError("cell_resolution='minor' is only available for feature_type='tf_activity'")
 
         path = _AGING_FEATURE_PATHS[(cell_resolution, feature_type)]
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"Summary stats file not found: {path}")
         df = pd.read_csv(path)
 
         if cell_type is not None:
@@ -158,7 +163,18 @@ def retrieve_summary_stats(
 
     # ── sle / drug / cytokine ──────────────────────────────────────────────
     else:
-        df = pd.read_csv(_CONTEXT_PATHS[context])
+        resolution = cell_resolution if context == 'sle' else 'major'
+        key = (context, feature_type, resolution)
+        if key not in _CONTEXT_PATHS:
+            supported = [(ft, res) for (ctx, ft, res) in _CONTEXT_PATHS if ctx == context]
+            raise ValueError(
+                f"feature_type='{feature_type}', cell_resolution='{resolution}' is not available for context='{context}'. "
+                f"Supported (feature_type, cell_resolution): {supported}"
+            )
+        path = _CONTEXT_PATHS[key]
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"Summary stats file not found: {path}")
+        df = pd.read_csv(path)
 
         if cell_type is not None:
             cell_type = [cell_type] if isinstance(cell_type, str) else cell_type

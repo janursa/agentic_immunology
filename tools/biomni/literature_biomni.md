@@ -1,7 +1,11 @@
 # Literature — Function Reference
 
-> Module: `tool.literature`
-> Import: `from tool.literature import <function_name>`
+> Source: `external/biomni/biomni/tool/literature.py`
+> Import:
+> ```python
+> import sys; sys.path.insert(0, 'external/biomni')
+> from biomni.tool.literature import <function_name>
+> ```
 
 **8 functions** — PubMed/Semantic Scholar search, paper retrieval, citation analysis
 

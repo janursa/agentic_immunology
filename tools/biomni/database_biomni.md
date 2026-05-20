@@ -1,7 +1,11 @@
 # Database — Function Reference
 
-> Module: `tool.database`
-> Import: `from tool.database import <function_name>`
+> Source: `external/biomni/biomni/tool/database.py`
+> Import:
+> ```python
+> import sys; sys.path.insert(0, 'external/biomni')
+> from biomni.tool.database import <function_name>
+> ```
 
 **40 functions** — UniProt, GWAS Catalog, Ensembl, ClinVar, dbSNP, GnomAD, GEO, PubChem, DrugBank
 
@@ -127,9 +131,10 @@ Query the Ensembl REST API using natural language or a direct endpoint.
 **Required:** `prompt` (str)
 **Optional:** `endpoint=None` (str), `verbose=True` (bool)
 
-### `query_opentarget`
-*OpenTargets Platform*
-Query the OpenTargets Platform API using natural language or a direct GraphQL query.
+### ~~`query_opentarget`~~ *(DEPRECATED)*
+*OpenTargets Platform — use `query_opentarget_platform` from `tools/ciim/code/genetics.py` instead*
+
+> ⚠️ **Deprecated.** Open Targets Genetics Portal was shut down 9 July 2025. This function used LLM-mediated GraphQL construction against the now-defunct Genetics Portal schema. Use `query_opentarget_platform` / `get_disease_credible_sets` from the CIIM genetics module, which query the unified Platform API (v4) directly with typed queries.
 
 **Required:** `prompt` (str)
 **Optional:** `query=None` (str), `variables=None` (dict), `verbose=False` (bool)
