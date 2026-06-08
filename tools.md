@@ -6,9 +6,9 @@
 ### `database_biomni`
 *Biomedical DB APIs*
 
-Queries 30+ biomedical REST APIs using natural language or direct endpoints. → [database_biomni.md](tools/biomni/database_biomni.md)
+Direct REST API calls (no LLM). 35 LLM-dependent query_* functions removed — they fail without an API key. → [database_biomni.md](tools/biomni/database_biomni.md)
 
-`query_uniprot` · `query_alphafold` · `query_interpro` · `query_pdb` · `query_pdb_identifiers` · `query_kegg` · `query_stringdb` · `query_iucn` · `query_paleobiology` · `query_jaspar` · `query_worms` · `query_cbioportal` · `query_clinvar` · `query_geo` · `query_dbsnp` · `query_ucsc` · `query_ensembl` · `query_opentarget` · `query_monarch` · `query_openfda` · `query_gwas_catalog` · `query_gnomad` · `blast_sequence` · `query_reactome` · `query_regulomedb` · `query_pride` · `query_gtopdb` · `query_remap` · `query_mpd` · `query_emdb` · `query_synapse` · `query_pubchem` · `query_chembl` · `query_unichem` · `query_clinicaltrials` · `query_dailymed` · `query_quickgo` · `query_encode` · `region_to_ccre_screen` · `get_genes_near_ccre`
+`blast_sequence` · `query_alphafold` · `query_pdb_identifiers` · `region_to_ccre_screen` · `get_genes_near_ccre`
 
 ---
 
@@ -26,7 +26,7 @@ Liftover, fine-mapping, CRISPR analysis, TF binding site identification, phyloge
 
 scRNA-seq cell type annotation, batch integration, gene set enrichment, ChIP-seq, embeddings. → [genomics_biomni.md](tools/biomni/genomics_biomni.md)
 
-`annotate_celltype_scRNA` · `annotate_celltype_with_panhumanpy` · `create_scvi_embeddings_scRNA` · `create_harmony_embeddings_scRNA` · `get_uce_embeddings_scRNA` · `map_to_ima_interpret_scRNA` · `get_rna_seq_archs4` · `get_gene_set_enrichment_analysis_supported_database_list` · `gene_set_enrichment_analysis` · `analyze_chromatin_interactions` · `analyze_comparative_genomics_and_haplotypes` · `perform_chipseq_peak_calling_with_macs2` · `find_enriched_motifs_with_homer` · `analyze_genomic_region_overlap` · `unsupervised_celltype_transfer_between_scRNA_datasets` · `generate_embeddings_with_state` · `interspecies_gene_conversion` · `generate_gene_embeddings_with_ESM_models` · `generate_transcriptformer_embeddings` · `infer_grn_spearman` · `qc_sc_transcriptomics`
+`annotate_celltype_with_panhumanpy` · `create_scvi_embeddings_scRNA` · `create_harmony_embeddings_scRNA` · `get_uce_embeddings_scRNA` · `map_to_ima_interpret_scRNA` · `get_rna_seq_archs4` · `get_gene_set_enrichment_analysis_supported_database_list` · `gene_set_enrichment_analysis` · `analyze_chromatin_interactions` · `analyze_comparative_genomics_and_haplotypes` · `perform_chipseq_peak_calling_with_macs2` · `find_enriched_motifs_with_homer` · `analyze_genomic_region_overlap` · `unsupervised_celltype_transfer_between_scRNA_datasets` · `generate_embeddings_with_state` · `interspecies_gene_conversion` · `generate_gene_embeddings_with_ESM_models` · `generate_transcriptformer_embeddings` · `infer_grn_spearman` · `qc_sc_transcriptomics`
 
 ---
 

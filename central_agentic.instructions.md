@@ -44,6 +44,6 @@ CRITICAL: in your analysis, ground yourself in the available data other than usi
 
 CRITICAL: write all output files to `temp/{descriptive name of the task}` inside the main dir. create a `LOG.md` file and `script.py` in `temp/{descriptive name of the task}/`, where add every step of your reasoning and tool usage, and the code, respectively. DONT wait until end, you should do this in every step you take in parellel. If you tried something and it didnt work, then go back and revise it. If i run `code.py`, it should be able to run from start to finish without any errors, and produce the final outputs you reported in the last step. Also, write the asked question (main prompt) on top of the LOG.md file. 
 
-
+CRITICAL: write images into `images` folder inside the temp working folder.
 
 ---

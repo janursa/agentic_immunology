@@ -8,7 +8,8 @@ _AGENTIC_ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__
 if _AGENTIC_ROOT not in _sys.path:
     _sys.path.insert(0, _AGENTIC_ROOT)
 
-from datalake import IMMUNE_GRN, TF_ALL
+from datalake import IMMUNE_GRN, TF_ALL, DATALAKE_DIR
+PRIOR_DIR = os.path.join(DATALAKE_DIR, 'prior')
 
 # ── CellTypist label mappings (from hiara preprocess helper) ──────────────────
 _CELLTYPIST_MAJOR_MAPPING = {

@@ -1,5 +1,28 @@
 # Agentic Central — Change Log
 
+## 2026-05-25
+
+### IBD Pseudobulk RNA — `datalake/omics/IBD/rna_bulk.h5ad`
+Pseudobulk AnnData derived from `rna.h5ad`. Cells grouped by `(celltype, donorID, stimulation)`; raw counts summed per group, then normalized with `normalize_total` (CPM) + `log1p`.
+- 395 pseudo-samples × 24,978 genes
+- `.X` — CPM log1p normalized (float64, sparse); no `.layers`
+- `.obs` fields: `celltype`, `donorID`, `stimulation`, `disease`, `gender`, `n_cells`
+- Script: `temp/ibd_pseudobulk/script.py`
+
+---
+
+## 2026-05-23
+
+### IBD  Multiome — `datalake/omics/IBD/`
+PBMC multiome (scRNA-seq + scATAC-seq) from CD and UC patients. Converted from Seurat.rds (`/vol/projects/CIIM/IBD/Functional_Multiome_2023/data/Seurat.rds`) using `genernbi` conda R + `ciim.sif` Python.
+- 120,361 cells; CD (62,385) + UC (57,976); no healthy controls
+- Stimulations: LPS, RPMI, *S. salmonella*
+- `rna.h5ad` — 120,361 × 24,978 genes
+- `atac.h5ad` — 120,361 × 182,416 peaks
+- Key `.obs` fields: `disease`, `stimulation`, `celltype`, `celltype.l2`, `donorID`, `gender`
+
+---
+
 ## 2026-05-19
 
 - SLE prior drug targets retrieved from OpenTargets Platform (141 drugs, 129 targets, all phases + approved) → `datalake/prior/sle_targets/`; analysis in `analysis/sle_previous_targets/`
