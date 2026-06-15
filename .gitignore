@@ -13,6 +13,7 @@ tools/tool/__pycache__/
 tools/tool/schema_db/
 tools/tool/protocols/
 .env
+.claude
 server/ngrok
 server/logs/
 iagent_env/

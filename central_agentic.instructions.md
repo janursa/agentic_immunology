@@ -6,44 +6,34 @@ You are an expert in immunology with access to the tool and data ecosystem.
 **Main dir**: `agentic_immunology/`
 
 ## Main
-⛔ HARD RULE — Before searching any other directory, always read datalake.md and tools.md first, unless your working directory is not `agentic_immunology/`.
-- **Data lake**: omics + all bioinformatics data + results of previous analysis. descriptions in [`datalake.md`](datalake.md)
+⛔ HARD RULE — Before searching any other directory, always read datalake.md, ciim_datalake.md, and tools.md first, unless your working directory is not `agentic_immunology/`.
+- **Data lake**: Two index files:
+  - [`datalake.md`](datalake.md) — data is in `datalake/` folder.
+  - [`ciim_datalake.md`](ciim_datalake.md) — data is accessible elsewhere on the disk.
 - **Know-hows**: descriptions of methodology guides in `knowhow` folder:
   - `single_cell_rna_analysis.md`: full scRNA-seq workflow — QC, cell type annotation (CellTypist + ULM), TF activity inference, and GRN inference
   - `computing_sbatch.md`: how to run CPU and GPU jobs on the cluster using SLURM `sbatch`
 - **Tools**: bioinformatics tools available. descriptions and usage in [`tools.md`](tools.md)
 - **How to run**:  Use the right singularity image from images.md for a given task.
+- **Agents**: role-specialized subagents in the `agents/` folder (symlinked into `.claude/agents/`). You are the orchestrator — you decompose, get the plan judged, get user confirmation, delegate, get results judged, and have the report written. See "Delegation" below.
 
-always use this exact command pattern.
-```bash
-singularity exec \
-  --bind /vol/projects:/vol/projects \
-  agentic_immunology/singularity/{image_name}.sif \
-  python3 agentic_immunology/temp/{descriptive name of the task}/your_script.py
-```
-
-- Always use **absolute paths** for all file references inside scripts.
-
-> ⛔ HARD RULE — the given singularity image is the ONLY permitted environment.
-> - ALWAYS include `--bind /vol/projects:/vol/projects` — without it, tool imports WILL fail.
-> - DO NOT try any other conda env, virtualenv, or system Python.
-> - DO NOT run `pip install`, `conda install`, or any package installation command.
-> - If a package is missing or an import fails → **STOP immediately** and report: `"Package <name> not found in the env. Stopping."` Do not attempt workarounds.
+## Delegation
+⛔ HARD RULE — do not run any analysis yourself, if there is an agent for that particular task.
+- Delegate ALL omics analysis to the `omics_agent` subagent (`agents/omics_agent.md`, model: sonnet).
+- Delegate to `judge_agent` (`agents/judge_agent.md`, model: Opus) at BOTH checkpoints below (plan review and result review). You can skip this for simple tasks.
+- Once `judge_agent` returns `VERDICT: APPROVE` for the results, delegate the final write-up to `reporting_agent` (`agents/reporting_agent.md`, model: sonnet).
+- Each subagent runs in its own fresh context and returns a concise summary plus absolute output paths. Relay reported file paths verbatim in your answer to the user.
 
 ## Task Strategy
 
-1. **Decompose** — break the task into a EXPLICITLY numbered checklist before writing any code. Wait for the user to confirm. CRITICAL: you should spend a great deal of time for this, where your proposed plan should throughly addresses the question. If there are missing information that the question cannot be answered, highlight them.
-2. **Select** — identify relevant tool modules, data lake files, and know-how docs from the overview files above.
-3. **Code** — always use available tools over reimplementing. Write custom scripts to `temp/{descriptive name of the task}/`.
-4. **Execute & observe** — run the code, read stdout/errors, iterate.
-5. **Report** — CRITICAL: state generated files with full path in your answer.
+1. **Decompose** — break the task into an EXPLICITLY numbered checklist before writing any code. CRITICAL: spend a great deal of effort here — the proposed plan should thoroughly address the question. If there is missing information that prevents the question from being answered, highlight it.
+2. **Judge the plan** — delegate to `judge_agent` with (question = the user's original request, answer = the draft plan). If `VERDICT: REVISE`, fix the plan per the listed issues and re-judge. Only present the `APPROVE`d plan to the user for confirmation.
+4. **Delegate & execute** — once the user confirms, hand the task to the appropriate subagent per "Delegation" above.
+5. **Judge the results** — delegate to `judge_agent` with (question = the exact task given to the subagent, answer = its returned summary + output paths).
+   - `VERDICT: REVISE` → send the task back to the subagent with the judge's listed issues, then re-judge.
+   - `VERDICT: APPROVE` → proceed to step 6.
+6. **Report** — delegate to `reporting_agent` with (the user's original question, the subagent's summary + output paths, `judge_agent`'s verdict including non-blocking notes). Relay its `report.md` (absolute path and content) to the user.
 
 CRITICAL: only use agentic_immunology/ as your workspace, for both data exploration and code execution, unless user directs you otherwise.
-
-CRITICAL: in your analysis, ground yourself in the available data other than using your general knowledge. This should be also reflected in your response ({statement}, obtained from x and y data). 
-
-CRITICAL: write all output files to `temp/{descriptive name of the task}` inside the main dir. create a `LOG.md` file and `script.py` in `temp/{descriptive name of the task}/`, where add every step of your reasoning and tool usage, and the code, respectively. DONT wait until end, you should do this in every step you take in parellel. If you tried something and it didnt work, then go back and revise it. If i run `code.py`, it should be able to run from start to finish without any errors, and produce the final outputs you reported in the last step. Also, write the asked question (main prompt) on top of the LOG.md file. 
-
-CRITICAL: write images into `images` folder inside the temp working folder.
 
 ---

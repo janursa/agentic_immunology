@@ -25,30 +25,6 @@ PBMC multiome data (scRNA-seq + scATAC-seq, paired) from an elderly influenza va
 
 ### multiomics
 
-#### SI — Senior Individuals
-*SI*
-279 donors with full phenotype data (651 sample entries across visits); N=531 used in QTL mapping (genotype + cytokine overlap).
-- **Age:** 22–85 y (mean 63.8 y)
-- **Sex:** 187 Male / 92 Female
-- **Ethnicity:** predominantly Caucasian (273/279; ~98%)
-
-Base path: `/vol/projects/CIIM/cohorts/SI/`
-
-
-| Modality | Status | Notes |
-|---|---|---|
-| **ATACseq** | raw | — |
-| **RNAseq** | raw + processed | 205 donors; baseline (99 samples) + 21 stimulation conditions at 24h (LPS n=271, NS n=202, Pam3Cys n=182, CpG n=154, polyIC n=154; plus smaller sets: influenza/varilrix/shingrix/ns-antigen n=10 each) and 7d (NS n=138, VZV-oka n=141, CMV/HSV/HSV-peptide/influenza/VZV/VZV-peptide/CoV-N/CoV-C/CoV-ctrl n=35–39); ~13,107 genes after filtering; CPM-normalized per stimulation at `RNAseq_processed/counts/2-norm/filter/{stim}_cpm.tsv`; raw tximport RDS at `RNAseq_processed/counts/` (baseline/24h/7d) -> do not use the batch corrected one. |
-| **Cytokines** | raw + processed | ~47 cytokines × 15 stimulations (LPS, polyIC, pam3cys, CPG, RPMI, varilrix, flu, HSV, VZV, CMV, CoV-N/C/ctrl) at 24h and 7d → ~500+ phenotypes; log2 + z-score at `cytokines_processed/` |
-| **Flow cytometry** | raw | — |
-| **Genotype** | raw + imputed | imputed VCFs at `genotype_processed/imputed_vcf/` |
-| **Metabolomics** | raw | — |
-| **Methylation** | raw + processed | — |
-| **Microbiome** | raw | — |
-| **Phenotype** | processed | comorbidity data, review paper |
-
-QTL results (5 layers: cQTL, eQTL, eQTL-24h, meQTL, metabQTL) at `/vol/projects/CIIM/meta_cQTL/out/SI-senior/`; each layer has per-chr full stats, genome-wide, study-wide, and nominal outputs.
-
 ### IBD 
 *IBD*
 PBMC multiome data (scRNA-seq + scATAC-seq, paired) from IBD patients (Crohn's disease and ulcerative colitis). 120,361 cells; no healthy controls. 3 stimulation conditions: LPS, RPMI (control), *S. salmonella*. 5 major cell types (CD4 T, Monocytes, B, CD8 T, NK) and 10 subtypes (Naïve CD4 T, Memory CD4 T, Macrophages, Tregs, MAIT, Plasmablasts, etc.).

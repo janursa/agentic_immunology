@@ -3,36 +3,6 @@
 All data lives under `/vol/projects/CIIM/`.
 
 
-## 🆕 On Disk — Not Yet in Datalake
-
-### scRNA-seq — Healthy
-
-| Dataset | Location | Donors | Cells | Notes |
-|---|---|---|---|---|
-| **Healthy mega-atlas (4M)** | `Healthy_Single_Cell_Data/output/processed_data/processed_data_4Mcells.h5ad` | ~1,500+ | ~4,000,000 | Merged from 12 cohorts (OneK1K, COVID-19-UK, IAV, BCG, Pbmc_ageing, MS-Zhang, HCA1M, 1M-scBloodNL, etc.); 273 GB |
-| Per-cell-type atlases | `Healthy_Single_Cell_Data/output/processed_data/processed_data_per_celltype/` | — | — | Individual h5ad per major and minor cell type |
-| TrajDynamics data | `Healthy_Single_Cell_Data/output/TrajDynamics_data/` | — | — | Processed per cohort for trajectory analysis |
-
-### scRNA-seq — Disease (processed, ready to use)
-
-| Dataset | File | Disease | Source |
-|---|---|---|---|
-| MS | `Diseased_Single_Cell_Data/processed_data/ms_processed2.h5ad` | Multiple Sclerosis | GSE144744 |
-| T1D | `Diseased_Single_Cell_Data/processed_data/t1d_processed2.h5ad` | Type 1 Diabetes | Synapse:syn53641849 |
-| IBD | `Diseased_Single_Cell_Data/processed_data/ibd_processed2.h5ad` | Inflammatory Bowel Disease | — |
-| PSA | `Diseased_Single_Cell_Data/processed_data/psa_processed2.h5ad` | Psoriatic Arthritis | GSE194315 |
-| ME-CFS | `Diseased_Single_Cell_Data/processed_data/mecfs_processed2.h5ad` | ME/Chronic Fatigue Syndrome | GSE214284 |
-| HCV | `Diseased_Single_Cell_Data/processed_data/hcv_processed2.h5ad` | Hepatitis C | — |
-| HDV/HBV | `Diseased_Single_Cell_Data/processed_data/hdv_hbv_processed2.h5ad` | Hepatitis D/B | — |
-| Long COVID | `Diseased_Single_Cell_Data/processed_data/lc_processed2.h5ad` | Long COVID | — |
-| Gout | `Diseased_Single_Cell_Data/processed_data/gout_processed2.h5ad` | Gout | GSE217561 |
-| Acute Gout | `Diseased_Single_Cell_Data/processed_data/ag_processed2.h5ad` | Acute Gout | — |
-| SLE (2nd cohort) | `Diseased_Single_Cell_Data/processed_data/sle_processed2.h5ad` | SLE | GSE135779 |
-| RA | `Diseased_Single_Cell_Data/initial_data_downloaded/RA/ac9c13da-7134-4d09-8086-d0933cbdba41.h5ad` | Rheumatoid Arthritis | CellxGene |
-| JDM | `Diseased_Single_Cell_Data/initial_data_downloaded/JDM/` | Juvenile Dermatomyositis | CellxGene |
-| Large-scale COVID | `Diseased_Single_Cell_Data/initial_data_downloaded/LargeScaleCovid/` | COVID-19 | GSE158055 |
-
-### Multiome (scRNA-seq + scATAC-seq)
 
 | Cohort | Location | Disease | Donors | Cells | Age | Sex | Paired RNA+ATAC | Stimulation | Modalities | Status |
 |---|---|---|---|---|---|---|---|---|---|---|
