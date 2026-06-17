@@ -33,7 +33,7 @@ Use this exact command pattern:
 singularity exec \
   --bind /vol/projects:/vol/projects \
   agentic_immunology/singularity/{image_name}.sif \
-  python3 agentic_immunology/temp/{descriptive name of the task}/your_script.py
+  python3 agentic_immunology/temp/{descriptive name of the task}/code/script.py
 ```
 
 > ⛔ HARD RULE — the given singularity image is the ONLY permitted environment.
@@ -41,24 +41,15 @@ singularity exec \
 > - DO NOT use any other conda env, virtualenv, or system Python.
 > - DO NOT run `pip install`, `conda install`, or any package-installation command.
 > - If a package is missing or an import fails → **STOP immediately** and report: `"Package <name> not found in the env. Stopping."` Do not attempt workarounds.
-> - Singularity runs may use `/tmp/` for scratch; all persistent outputs go to `temp/{task}/` (see below).
+> - Singularity runs may use `/tmp/` for scratch only; all persistent outputs go to the task folder (see output conventions).
 
 - Always use **absolute paths** for all file references inside scripts.
 
 ## Workflow
 1. **Select** — identify the relevant tool modules, data-lake entries, and know-how docs for the task.
-2. **Code** — write a self-contained `script.py` to `temp/{descriptive name of the task}/`. It must run start-to-finish inside the singularity image with no manual steps.
+2. **Code** — write a self-contained `code/script.py` to `temp/{descriptive name of the task}/code/`. It must run start-to-finish inside the singularity image with no manual steps.
 3. **Execute & observe** — run it, read stdout/errors, iterate. If something fails, revise and rerun.
 4. **Report** — return to the orchestrator: the key findings (grounded), and the **absolute paths** of every output file.
-
-## Workspace rules (mandatory)
-- Use `agentic_immunology/` as your only workspace, for both data exploration and code execution, unless told otherwise.
-- Write ALL outputs to `temp/{descriptive name of the task}/`. If the orchestrator gives you a trajectory/subfolder (e.g. `temp/{task}/traj_2/`), write there instead so parallel runs don't collide.
-- In that folder maintain, updated **as you go** (not at the end):
-  - `LOG.md` — the task prompt at the top, then every reasoning step and tool call.
-  - `script.py` — the code; running it from scratch must reproduce your reported outputs.
-- Write images into an `images/` folder inside the task folder.
-- ⛔ HARD RULE — produce a graph of the steps taken, results generated, and their connections.
 
 ## Grounding
 CRITICAL: ground every claim in the available data, not general knowledge. Reflect this in your report — e.g. "{statement}, obtained from {x} and {y} data." Report failures and skipped steps faithfully.
