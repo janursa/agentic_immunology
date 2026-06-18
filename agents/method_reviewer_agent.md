@@ -1,5 +1,5 @@
 ---
-name: method_reviewer
+name: method_reviewer_agent
 description: Use after a specialist subagent finishes an analysis step, to review the CODE and methods it produced — not just inputs and outputs. Reads the actual script(s) and LOG, checks for correctness, data leakage, batch/confounder handling, multiple-testing correction, sane parameters, and reproducibility. Does not interact with the user; returns a verdict (PASS / REVISE) with specific, actionable, file/line-referenced issues.
 tools: Read, Grep, Glob
 model: opus
