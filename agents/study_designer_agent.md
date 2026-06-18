@@ -31,7 +31,7 @@ Ground every step in what data and tools actually exist.
 A design with three parts:
 
 ### 1. Plan (numbered steps)
-- Break the request into an EXPLICITLY numbered checklist. For each step state which specialist subagent it goes to (`omics_agent`, `genetics_agent`, `literature_agent`, `drug_repurposing_agent`, `aging_clock_agent`, `data_download_agent`) and what data/tools/identifiers it needs.
+- Break the request into an EXPLICITLY numbered checklist. For each step state which specialist subagent it goes to (`data_analyst_agent` for all omics / genetics / disease-aging implication / drug repurposing / aging clock / literature grounding work; `data_download_agent` for public-data fetching) and what data/tools/identifiers it needs.
 - Mark independent steps as parallelizable so the orchestrator can dispatch them as concurrent `Agent` calls, each with its own `temp/{task}/{sub}/` workspace.
 - If information that prevents the question from being answered is missing, state exactly what is missing — this is your output instead of a plan.
 
