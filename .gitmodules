@@ -1,0 +1,3 @@
+[submodule "scAnnotAgent"]
+	path = scAnnotAgent
+	url = /vol/projects/CIIM/agentic_immunology/scAnnotAgent
