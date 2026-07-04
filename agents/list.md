@@ -11,3 +11,5 @@ Delegate to an agent by its `name` (the `subagent_type`). Each runs in its own f
 | `data_download_agent` | sonnet | Read, Write, Edit, Bash, Grep, Glob | Downloads public datasets (URL/accession/DOI/paper) to datalake or temp, uses SLURM for large files, optionally registers in `datalake.md`/`list.md`. |
 
 `output_conventions.md` (in this folder) is **not an agent** — it is the shared output-convention text appended verbatim to every analysis subagent's task prompt.
+
+`scAnnotAgent` (submodule at repo root) is **not a subagent** — it is a Python package for scRNA-seq immune cell-type annotation and annotation-QC (QC filtering, CellTypist, decoupler ULM, scVI/scANVI label transfer, cluster-level annotation quality). `data_analyst_agent` imports and calls it directly rather than delegating via the Agent tool. See [`scAnnotAgent/SKILL.md`](../scAnnotAgent/SKILL.md) for capabilities and workflow, and [`knowhow/single_cell_rna_analysis.md`](../knowhow/single_cell_rna_analysis.md) for how it's used in this pipeline.

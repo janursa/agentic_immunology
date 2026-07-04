@@ -18,6 +18,8 @@ Apply QC **before** normalization, on raw counts using `qc_sc_transcriptomics`.
 
 ## 2. Cell Type Annotation
 
+Functions in this section are provided by the `scAnnotAgent` submodule (repo root) — see [`scAnnotAgent/SKILL.md`](../scAnnotAgent/SKILL.md) for full capabilities, including `recommend_annotation_method` (CellTypist vs. scVI/scANVI label transfer) and the label-transfer pipeline for large cohorts / low cells-per-donor datasets not covered below.
+
 1. Run QC (Section 1) first.
 
 2. **Identify raw counts** using `identify_counts_layer(adata)` — checks `layers['counts']`, `layers['count']`, then `adata.X` for integer values.
