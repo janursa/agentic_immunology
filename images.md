@@ -21,3 +21,22 @@
 **`aging_clocks_R.sif` key packages:** everything in `ciim_R_base.sif` + `glmnet`, `ggpubr`, `infotheo`, `ggridges`, `biomaRt` + `scImmuAging` (CiiM-Bioinformatics-group). Run with `Rscript`.
 
 ---
+
+## How to run
+
+```bash
+singularity exec \
+  --bind /vol/projects:/vol/projects \
+  agentic_immunology/singularity/{image_name}.sif \
+  python3 agentic_immunology/temp/{task}/code/script.py
+```
+(Swap `python3 ... script.py` for `Rscript ... script.R` for R images.)
+
+> ⛔ HARD RULES:
+> - These images are the ONLY permitted environments. ALWAYS include `--bind /vol/projects:/vol/projects`.
+> - DO NOT use any other env, conda, or virtualenv.
+> - DO NOT `pip install` or `conda install`. If a package is missing → STOP: `"Package <name> not found in the env. Stopping."`
+> - Singularity scratch: `/tmp/` only; all persistent outputs go to the task folder.
+> - Always use **absolute paths** inside scripts.
+
+---

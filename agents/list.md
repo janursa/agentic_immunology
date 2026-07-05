@@ -10,4 +10,4 @@ Delegate to an agent by its `name` (the `subagent_type`). Each runs in its own f
 | `data_analyst_agent` | sonnet | Read, Write, Edit, Bash, Grep, Glob, WebSearch, WebFetch | All omics (scRNA-seq, ATAC-seq, multi-omics, TF activity, GRN), genetics (eQTL, GWAS, colocalization, MR, CRISPR), disease/aging implication (8-pillar evidence synthesis), drug repurposing (signature reversal, TxGNN, safety → ranked evidence table), and literature grounding. Reads relevant knowhow files before coding. |
 | `data_download_agent` | sonnet | Read, Write, Edit, Bash, Grep, Glob | Downloads public datasets (URL/accession/DOI/paper) to datalake or temp, uses SLURM for large files, optionally registers in `datalake.md`/`list.md`. |
 
-`output_conventions.md` (in this folder) is **not an agent** — it is the shared output-convention text appended verbatim to every analysis subagent's task prompt.
+[`knowhow/output_conventions.md`](../knowhow/output_conventions.md) is the shared output-convention text appended verbatim to every analysis subagent's task prompt.

@@ -1,6 +1,6 @@
 # Disease & Aging Implication — Reference
 
-Framework and methodology for assessing whether a gene/feature is causally implicated in a disease or aging phenotype, and evaluating its safety/tractability. Used by the `data_analyst_agent` when running disease implication tasks.
+Framework and methodology for assessing whether a gene/feature is implicated in a disease or aging phenotype, and evaluating its safety/tractability. 
 
 ---
 
@@ -19,47 +19,27 @@ Most omics pipelines (including this platform's) only satisfy leg 1. **Always st
 
 ---
 
-## The 8 Evidence Pillars
+## The Evidence Pillars
 
-Work through the pillars relevant to the task. Not every pillar applies to every task — state which ones you used and why, and **explicitly name pillars you skipped or that have no supporting tool**, rather than implying coverage you don't have.
+Work through the pillars relevant to the task. 
 
-1. **Genetic causal evidence**
-   - Primarily use Open Targets for all steps.
-   - Tools: `phewas_opengwas`, `query_gwas_catalog`, `query_opentarget_platform`, `get_disease_credible_sets`, `run_coloc`, `run_mr` (see `knowhow/genetics.md` for image selection and usage).
-
-2. **Expression / multi-omics evidence**
-   - Differential expression, cell-type-resolved association (see `knowhow/omics.md`).
-   - Pathway/network context: `get_immune_grn`, `infer_grn_spearman`, `infer_tf_activity` (`tools/ciim/genomics.md`).
-
+1. **Genetic evidence** 
+2. **Omics evidence**
+**CRITICAL**: your analysis should not be just DE gene expression. Use these:
+    - Cell type composition analysis -> often a disease causes a shift in cell type composition. Identifying it and finding genes/markers responsible for that could land you in causal factors.
+    - CCC -> often disease impairs CCC. Identifying these and evaluating them as targets could give a better insight than downstream DE gene expression
 3. **Functional / perturbation evidence**
-   - CRISPR-based: `analyze_crispr_genome_editing`, `analyze_cas9_mutation_outcomes` (`tools/biomni/genetics_biomni.md`).
-   - Check available perturbation data in the datalake; apply omics knowhow for perturbation expression analysis.
-
 4. **Literature / prior-evidence pillar**
-   - Novelty and concordance check against published evidence: use `WebSearch`/`WebFetch` directly (PubMed, arXiv, Scholar). This is a targeted grounding check — a handful of queries to confirm concordance or flag contradiction, not a systematic review.
-
-5. **Aging-specific causal bar**
-   - Apply the López-Otín 3-part test explicitly. Leg 1 (progressive change) can be supported by `predict_immune_age_grn_clock` / `retrieve_summary_stats` (`tools/ciim/hiara.md`).
-   - *Gap*: legs 2 and 3 (experimental aggravation/suppression) have no supporting tool on this platform. State plainly that aging-associated ≠ aging-causal when only leg 1 is covered.
-
-6. **Statistical rigor / pitfalls**
-   - MR: horizontal pleiotropy (MR-Egger intercept), weak instruments, winner's curse.
-   - Multi-omics: multiple-testing correction across layers, population stratification, reverse causation.
-
-7. **Safety & tractability**
-   - Tissue specificity, druggability/tractability, target-family membership.
-   - Essentiality, paralog redundancy.
-
-8. **Evidence integration**
-   - Combine all pillars into a single graded confidence statement per claim (Open Targets-style: agreement across independent pillars raises confidence; a single pillar alone does not).
-   - The detailed report must include results from all layers assessed.
-
----
+5. **Safety & tractability**
 
 ## Workflow
 
-1. **Select** — identify which of the 8 pillars apply, the relevant tools, data-lake entries, and identifiers (gene symbols, rsIDs, EFO IDs).
-2. **Code / run** — run genetics and omics pillars directly (using `knowhow/genetics.md` and `knowhow/omics.md`); for literature synthesis (pillar 4), use `WebSearch`/`WebFetch` directly (PubMed, arXiv, Scholar) as a targeted grounding check.
+1. **Select** — identify which of the pillars apply. Use data available both local and accessibile online.
+2. **Code / run** — run genetics and omics pillars directly (using `knowhow/genetics.md` and `knowhow/omics.md`); for literature synthesis, use `WebSearch`/`WebFetch` directly (PubMed, arXiv, Scholar) as a targeted grounding check. Use `safity_druggibility` knowhow. 
 3. **Execute & observe** — run scripts, read stdout/errors, iterate.
-4. **Integrate** — bring per-pillar results together (pillar 8): state which pillars agree, which are silent, and which are gaps. No single pillar result stands as the overall verdict.
-5. **Report** — return key findings per pillar, the integrated confidence call, explicitly named gaps, and **absolute paths** of every output file.
+4. **Integrate** — bring per-pillar results together
+5. **Prioritization** - all candidates that have evidence in genetic or omics layer as well as do not pose critical safity/tractibility issues should be retained. From there, rank them based on line of evidence, strength of implications, druggibility, etc. At this point, for complex problems, before subsetting to a smaller set, consult the user. 
+
+
+## Tips
+- Have a multiomics analysis approach. Do not limit yourself to only RNA. If you dont have local data, look for online resources.

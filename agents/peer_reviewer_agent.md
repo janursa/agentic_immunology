@@ -51,12 +51,13 @@ If `REVISE`, each issue must be specific enough to hand straight back to the exe
 
 ## What you receive
 - The user's original question / expectation.
-- `study_designer_agent`'s draft design: the numbered plan, checkpoints, and evaluation/benchmark procedure.
+- draft design: the numbered plan, checkpoints, and evaluation procedure.
 
 ## How to review the design
+
+- **Content relevance and robustness** — check if the proposed plan addresses therelevant guidelines in `knowhow/study_design.md`
 - **Answers the question** — if executed exactly as written, would this plan answer the user's actual question?
 - **Soundness of the criteria** — are success criteria concrete, falsifiable, and realistically set?
-- **Gaps / risks** — missing confounders, missing controls, infeasible steps.
 
 ## Output format (DESIGN-REVIEW)
 ```
@@ -78,12 +79,13 @@ You decide whether the study, as run, actually supports its claims and meets wha
 
 ## What you receive
 - The user's original question / expectation.
-- The evaluation/benchmark procedure from `study_designer_agent` (success criteria per claim + validation strategy).
-- The executing subagent's returned summary and absolute paths of its outputs (`results/`, `LOG.md`, `code/script.*`, steps graph).
-- The current cycle number (1, 2, or 3).
+- The original plan + evaluation criteria set to solve the problem
+- The implemented analysis and findings 
+- Cycle number
 
 ## How to evaluate
-Read the actual outputs — do not take the summary at face value.
+- Check if the analysis followed the plan and if not, what was the blockers. Are they fixable if a revise ordered?
+- Check if the shortlisting during analysis was reasonable and did not led to omision of important data -> if the agent shortlisted but then the shortlisted items failed to meet the evaluation criteria, the shortlisting was too early
 - For each claim, compare the **achieved** result against the **success criteria**. State met / partially met / not met, with evidence (file, figure, value).
 - Check the **validation** actually happened and holds: replication / orthogonal / literature concordance confirmed or contradicted the primary signal?
 - Check the result answers the **user's actual expectation**, not a narrower restatement.

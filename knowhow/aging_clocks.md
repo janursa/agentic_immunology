@@ -42,23 +42,7 @@ If pseudobulked scATAC-seq is provided, add a mandatory note: `"OcampoATAC clock
 
 ## How to Run
 
-**Python clocks (GRNimmuneClock, OcampoATAC):**
-```bash
-singularity exec \
-  --bind /vol/projects:/vol/projects \
-  /vol/projects/BIIM/agentic_immunology/singularity/{ciim|aging_clocks_py}.sif \
-  python3 /vol/projects/BIIM/agentic_immunology/temp/{task}/code/script.py
-```
-
-**R clocks (scImmuAging):**
-```bash
-singularity exec \
-  --bind /vol/projects:/vol/projects \
-  /vol/projects/BIIM/agentic_immunology/singularity/aging_clocks_R.sif \
-  Rscript /vol/projects/BIIM/agentic_immunology/temp/{task}/code/script.R
-```
-
-> ⛔ These images are the ONLY permitted environments. Always include `--bind /vol/projects:/vol/projects`. DO NOT `pip install`, `conda install`, or install anything. If a package is missing → STOP: `"Package <name> not found in image. Stopping."` Use absolute paths for all file references. Singularity scratch: `/tmp/` only; all persistent outputs go to the task folder.
+Use `{ciim|aging_clocks_py}.sif` (Python clocks: GRNimmuneClock, OcampoATAC) or `aging_clocks_R.sif` (R clocks: scImmuAging) with `python3`/`Rscript` respectively. See [`../images.md`](../images.md) for the exec command and hard rules.
 
 ---
 

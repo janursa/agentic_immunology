@@ -19,20 +19,9 @@ Always prefer these existing tools over reimplementing methods yourself.
 - `biomni_full.sif` (default) — for `genetics_biomni`, `pharmacology_biomni`, and direct-API CIIM genetics functions (`phewas_opengwas`, `query_gwas_catalog`, `query_opentarget_platform`, `get_disease_credible_sets`).
 - `genotype.sif` (`agentic_immunology/singularity/genotype.sif`) — required for `run_coloc` and `run_mr` (R 4.5, coloc, susieR, plink).
 
-```bash
-singularity exec \
-  --bind /vol/projects:/vol/projects \
-  agentic_immunology/singularity/{image_name}.sif \
-  python3 agentic_immunology/temp/{task}/code/script.py
-```
+See [`images.md`](../images.md) for the exec command and hard rules.
 
-> ⛔ HARD RULES:
-> - ALWAYS include `--bind /vol/projects:/vol/projects`.
-> - DO NOT use any other env, conda, or virtualenv.
-> - DO NOT `pip install` or `conda install`. If a package is missing → STOP: `"Package <name> not found in the env. Stopping."`
-> - For `run_mr` in `opengwas` mode: the OpenGWAS JWT token must be in `agentic_immunology/.env` as `OPENGWAS_TOKEN=<jwt>`. If missing/expired → report and stop (or use `exposure_file`/`outcome_file` if pre-fetched files are available).
-> - Singularity scratch: `/tmp/` only; all persistent outputs go to the task folder.
-> - Always use **absolute paths** inside scripts.
+> ⛔ Additional rule for `run_mr` in `opengwas` mode: the OpenGWAS JWT token must be in `agentic_immunology/.env` as `OPENGWAS_TOKEN=<jwt>`. If missing/expired → report and stop (or use `exposure_file`/`outcome_file` if pre-fetched files are available).
 
 ---
 
@@ -45,3 +34,6 @@ singularity exec \
 
 ## Grounding
 Ground every claim in data and tool outputs — e.g. "{statement}, obtained from run_coloc PP.H4 and GWAS catalog data." Report failures and skipped steps faithfully.
+
+## Tips
+- Prioritize Open Target's resources such as gene to disease, lucus to gene, coloc evidence for initial analysis and only use color and MR later in the analysis -> when the markers are prioritized

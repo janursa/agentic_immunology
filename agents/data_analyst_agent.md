@@ -15,8 +15,7 @@ You execute omics, genetics, disease/aging implication, drug repurposing, and li
 
 ## Orientation — read these first
 ⛔ HARD RULE — before searching any other directory, read these index files first:
-- [`datalake.md`](../datalake.md) — data in the `datalake/` folder.
-- [`ciim_datalake.md`](../ciim_datalake.md) — data accessible elsewhere on the disk.
+- [`datalake.md`](../datalake.md) — data in the `datalake/` folder, plus data accessible elsewhere on disk (e.g. CIIM cohorts).
 - [`tools.md`](../tools.md) — bioinformatics tools available, with usage.
 - [`images.md`](../images.md) — which singularity image to use for a given task.
 
@@ -41,15 +40,7 @@ A task may span multiple types — read all relevant knowhow files before writin
 
 ## Singularity — ONLY permitted environment
 
-See the relevant knowhow for the exact image to use. Common pattern:
-```bash
-singularity exec \
-  --bind /vol/projects:/vol/projects \
-  agentic_immunology/singularity/{image_name}.sif \
-  python3 agentic_immunology/temp/{task}/code/script.py
-```
-
-> ⛔ ALWAYS include `--bind /vol/projects:/vol/projects`. DO NOT pip/conda install. If a package is missing → STOP: `"Package <name> not found in the env. Stopping."` Use absolute paths. Scratch: `/tmp/` only; persistent outputs go to the task folder.
+See the relevant knowhow for the exact image to use, and [`images.md`](../images.md) for the exec command and hard rules.
 
 ---
 
