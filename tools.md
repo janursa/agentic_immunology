@@ -70,9 +70,9 @@ tools/ciim/genetics.md
 ### `genomics`
 *Genomics*
 
-Raw counts detection, CellTypist annotation, ULM annotation, GRN loader & inference, scRNA QC, annotation quality, TF activity inference, CellxGene Census access. → [genomics.md](tools/ciim/genomics.md)
+GRN loader & inference, TF activity inference, cell-cell communication, CellxGene Census access. → [genomics.md](tools/ciim/genomics.md). scRNA QC, CellTypist annotation, ULM annotation, and annotation quality now live in the `scAnnotAgent` submodule (see [`scAnnotAgent/SKILL.md`](scAnnotAgent/SKILL.md)).
 
-`identify_counts_layer` · `annotate_celltype_celltypist` · `annotate_celltype_ulm` · `get_immune_grn` · `infer_grn_spearman` · `qc_sc_transcriptomics` · `analyze_cluster_celltype_annotation_quality` · `infer_tf_activity` · `infer_ccc` · `cellxgene_query_obs` · `cellxgene_get_anndata` · `cellxgene_list_datasets` · `cellxgene_get_schema`
+`get_immune_grn` · `infer_grn_spearman` · `infer_tf_activity` · `infer_ccc` · `cellxgene_query_obs` · `cellxgene_get_anndata` · `cellxgene_list_datasets` · `cellxgene_get_schema`
 
 ---
 

@@ -1,43 +1,8 @@
 # Genomics — Custom Extensions
 
-**6 functions** — counts detection, CellTypist annotation, consensus GRN loader, GRN inference, single-cell QC, annotation quality assessment
+**7 functions** — consensus GRN loader, GRN inference, TF activity inference, cell-cell communication, CellxGene Census access
 
-
-### `identify_counts_layer`
-*Raw Counts Detection*
-Identify which slot in an AnnData object holds raw integer counts. Checks `adata.layers['counts']`, then `adata.layers['count']`, then tests `adata.X` for non-negative integer values. Raises `ValueError` if none found.
-
-**Required:** `adata` (AnnData)
-
-**Returns:** `str` — `'counts'`, `'count'`, or `'X'`
-
----
-
-### `annotate_celltype_celltypist`
-*CellTypist Annotation*
-Annotate immune cell types using CellTypist with Leiden-based majority voting. Receives the AnnData directly (no file loading).
-
-**Pipeline:**
-1. Auto-detects raw counts via `identify_counts_layer`
-2. Normalizes to 10k CPM + log1p; stores in `adata.layers['scaledlognom']`
-3. Pre-clusters at **two** Leiden resolutions (HVG → scale → PCA → kNN → Leiden):
-   - GPU (`rapids_singlecell`) if `adata.n_obs >= gpu_cell_threshold` and importable; otherwise CPU (scanpy)
-   - Stores `adata.obs['leiden_major']` and `adata.obs['leiden_minor']`
-   - `leiden_res_minor=None` auto-selects resolution following CellTypist's over-clustering scale: 5 / 10 / 15 / 20 / 25 / 30 for <5k / <20k / <40k / <100k / <200k / ≥200k cells
-   - Copies `X_pca`, `connectivities`, `distances`, `neighbors` to `adata`
-4. Runs CellTypist **twice** (`majority_voting=False`):
-   - `model_major` (`Immune_All_Low.pkl`) → coarse per-cell predictions
-   - `model_minor` (`Immune_All_High.pkl`) → fine per-cell predictions
-5. Majority voting per Leiden cluster:
-   - `adata.obs['CT_Major']` — vote on `leiden_major` with low-res predictions, collapsed via broad cell type mapping
-   - `adata.obs['CT_Minor']` — vote on `leiden_minor` with high-res predictions, raw CellTypist labels preserved
-
-**Required:** `adata` (AnnData — raw counts auto-detected)
-**Optional:** `model_major='Immune_All_Low.pkl'` (str), `model_minor='Immune_All_High.pkl'` (str), `leiden_res_major=0.3` (float), `leiden_res_minor=None` (float or None — auto from cell count), `n_neighbors=10` (int), `n_pcs=50` (int), `gpu_cell_threshold=200_000` (int)
-
-**Returns:** AnnData (modified in-place) with `leiden_major`, `leiden_minor`, `CT_Major`, `CT_Minor` added to `.obs`
-
----
+scRNA-seq QC, CellTypist annotation, ULM annotation, and annotation-quality assessment now live in the `scAnnotAgent` submodule — see [`scAnnotAgent/SKILL.md`](../../scAnnotAgent/SKILL.md) and [`knowhow/single_cell_rna_analysis.md`](../../knowhow/single_cell_rna_analysis.md).
 
 ### `get_immune_grn`
 *Immune GRN Loader*
@@ -65,53 +30,6 @@ Infer a gene regulatory network (GRN) from expression data (single-cell or bulk)
 
 ---
 
-### `qc_sc_transcriptomics`
-*scRNA QC Filter*
-Apply the standard single-cell RNA-seq QC protocol to a raw-count AnnData object. Flags mitochondrial genes, filters low-quality / dying cells, removes lowly expressed genes, sanity-checks that `adata.X` contains raw integer counts, and writes the filtered AnnData to disk.
-
-**Required:** `adata_path` (str), `output_path` (str)
-**Optional:** `group_col=None` (str — `obs` column for donor×condition groups, used to set the per-gene min-cells threshold: `max(n_groups × 10, 10)`), `min_genes=100` (int), `max_genes=5000` (int), `max_pct_mt=20.0` (float)
-
----
-
-### `analyze_cluster_celltype_annotation_quality`
-*Annotation Quality*
-Assess the quality of cell type annotations at the cluster level. For each cluster (e.g. Leiden), computes dominant label, consistency score (fraction of cells carrying the dominant label), Shannon entropy of the label distribution, and cell count across one or more annotation columns. Flags clusters with consistency below threshold as ambiguous or heterogeneous. Saves a full stats CSV, a flagged-clusters CSV, a consistency heatmap, and a per-annotation entropy bar plot.
-
-**Required:** `adata_or_path` (AnnData or str — pass a loaded AnnData object or a path to an `.h5ad` file), `output_dir` (str)
-**Optional:** `cluster_key='leiden'` (str — `obs` column with cluster assignments), `annotation_keys=None` (list of str — defaults to `['Major_CT', 'Sub_CT', 'celltypist_label']` if present), `consistency_threshold=0.8` (float — clusters below this are flagged)
-
-**Outputs:**
-- `cluster_annotation_stats.csv` — per-cluster × per-annotation stats table
-- `flagged_clusters.csv` — flagged cluster rows with dominant label, consistency, entropy, and 2nd-most-common label
-- `consistency_heatmap.png` — RdYlGn heatmap of consistency scores (clusters × annotation keys)
-- `entropy_barplot_<annotation>.png` — Shannon entropy bar chart per annotation key (red = flagged)
-
----
-
-### `annotate_celltype_ulm`
-*ULM Pseudobulk Annotation*
-Annotate cell types using decoupler ULM on **pseudobulk profiles per cluster**. Receives the AnnData directly (no file loading). Uses Leiden cluster columns already computed by `annotate_celltype_celltypist` — does **not** re-cluster.
-
-**Pipeline:**
-1. Auto-detects raw counts via `identify_counts_layer`
-2. Builds pseudobulk per cluster: sums raw counts per Leiden cluster, normalizes to CPM + log1p
-3. Builds decoupler network from `marker_dict` (cell_type → marker genes)
-4. Runs `dc.mt.ulm()` on the pseudobulk matrix (clusters × genes) — not per cell
-5. Assigns each cluster the cell type with the highest ULM score
-6. Propagates cluster labels back to all cells in `adata.obs`
-
-**Required:** `adata` (AnnData), `output_dir` (str), `marker_dict` (dict — nested: `{'Major': {'CD8T': ['CD8A', ...], ...}, 'Minor': {...}}`)
-**Optional:** `leiden_key_major='leiden_major'` (str), `leiden_key_minor='leiden_minor'` (str), `major_key='Major'` (str), `minor_key='Minor'` (str), `min_cells_per_cluster=10` (int)
-
-**Returns:** str (log). Adds `adata.obs['ulm_Major_ct']` and `adata.obs['ulm_Minor_ct']`.
-
-**Outputs (in `output_dir`):**
-- `ulm_cluster_summary_<level>.csv` — per-cluster ULM scores + assigned label + cell count
-- `ulm_activity_heatmap_<level>.png` — heatmap of ULM scores (clusters × cell types)
-
----
-
 ### `cellxgene_query_obs`
 *CellxGene Census — Cell Metadata Query*
 Query cell-level metadata from the CellxGene Census (~70M cells, ~900 datasets) without downloading any expression data. Returns a DataFrame of obs rows matching the given filters. Fast — streams only metadata columns.
@@ -135,7 +53,7 @@ obs = cellxgene_query_obs(
 
 ### `cellxgene_get_anndata`
 *CellxGene Census — AnnData Retrieval*
-Fetch a subsampled AnnData slice (raw counts) from the CellxGene Census. Efficiently caps cell count by sampling `soma_joinid`s **before** downloading the expression matrix — avoids streaming the full matching set. Compatible with the existing `qc_sc_transcriptomics` → `annotate_celltype_celltypist` pipeline.
+Fetch a subsampled AnnData slice (raw counts) from the CellxGene Census. Efficiently caps cell count by sampling `soma_joinid`s **before** downloading the expression matrix — avoids streaming the full matching set. Compatible with the `scAnnotAgent` QC and annotation pipeline (see [`scAnnotAgent/SKILL.md`](../../scAnnotAgent/SKILL.md)).
 
 **Optional:** `cell_type` (str or list), `tissue` (str or list), `disease` (str or list), `sex` (str), `genes` (list[str] — HGNC symbols; None = all genes, very large), `organism='homo_sapiens'` (str), `extra_filter` (str), `census_version='stable'` (str), `max_cells=10_000` (int — subsample cap), `seed=42` (int)
 
@@ -150,7 +68,7 @@ adata = cellxgene_get_anndata(
     genes=["CD4", "FOXP3", "IL2RA", "GZMB", "IFNG"],
     max_cells=5000,
 )
-# (5000, 5) — pass directly to qc_sc_transcriptomics or annotate_celltype_celltypist
+# (5000, 5) — pass directly into the scAnnotAgent QC/annotation pipeline
 ```
 
 ---
