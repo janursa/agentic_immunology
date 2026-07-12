@@ -1,6 +1,6 @@
 # Target Safety & Druggability — Reference
 
-Methodology for pillar 5 ("Safety & tractability") of `knowhow/disease_implication.md`. Assesses whether a target is **drug-modulatable** (tractability) and whether modulating it is **likely to be safe** (mechanism-based / on-target toxicity risk) — independent of whether it's disease-causal.
+Methodology for the "Safety & tractability" pillar of disease-implication assessment. Assesses whether a target is **drug-modulatable** (tractability) and whether modulating it is **likely to be safe** (mechanism-based / on-target toxicity risk) — independent of whether it's disease-causal.
 
 ---
 
@@ -81,7 +81,7 @@ q = '''query Safety($ensemblId: String!) {
 Report any curated liability verbatim with its source. Flag broad high-essential-organ expression (heart, liver, CNS) as elevated on-target toxicity concern.
 
 ### 5. Clinical safety (only if a specific drug/modality is already in hand, e.g. drug repurposing context)
-`query_fda_adverse_events`, `check_fda_drug_recalls`, `analyze_fda_safety_signals`, `query_drug_interactions` — these assess a *compound's* safety record, not the target's. Use when this knowhow is invoked from `knowhow/drug_repurposing.md` step 5; skip for target-level-only assessments.
+`query_fda_adverse_events`, `check_fda_drug_recalls`, `analyze_fda_safety_signals`, `query_drug_interactions` — these assess a *compound's* safety record, not the target's. Use when this knowhow is invoked as part of a drug repurposing assessment; skip for target-level-only assessments.
 
 ### 6. Integrate
 Report tractability and safety as two separate statements, not a merged score:

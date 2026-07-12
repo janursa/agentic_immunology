@@ -7,7 +7,7 @@
 > from biomni.tool.literature import <function_name>
 > ```
 
-**8 functions** — PubMed/Semantic Scholar search, paper retrieval, citation analysis
+**7 functions** — PubMed/Semantic Scholar search, paper retrieval, citation analysis
 
 ```python
 from tool.literature import <function_name>
@@ -63,10 +63,3 @@ Extract text content from a PDF file.
 
 **Required:** `url` (str)
 **Optional:** —
-
-### `advanced_web_search_claude`
-*Advanced Web Search*
-Initiate an advanced web search by launching a specialized agent to collect relevant information and citations through multiple rounds of web searches for a given query.
-
-**Required:** `query` (str)
-**Optional:** `max_searches=1` (int), `max_retries=3` (int)

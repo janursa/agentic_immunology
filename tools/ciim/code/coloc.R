@@ -28,8 +28,11 @@
 ##   --eqtl_sdy    NUM  SD of expression (1 = normalised / inverse-normal).
 ##                      Used as coloc sdY for the eQTL dataset.   [default: 1]
 ##   --eqtl_format STR  File format for the eQTL directory:
-##                        "dice_vcf"    — DICE-style VCF.gz with INFO tags
-##                                        (Gene=;GeneSymbol=;Beta=;Statistic=;Pvalue=)
+##                        "dice_vcf"    — DICE-style VCF, bgzip-compressed +
+##                                        tabix-indexed (see analysis/dice_reindex/),
+##                                        INFO tags (Gene=;GeneSymbol=;Beta=;
+##                                        Statistic=;Pvalue=). Looks for
+##                                        {cell_type}.vcf.bgz + .tbi in --eqtl_dir.
 ##                        "generic_tsv" — tab-separated file per cell type;
 ##                                        use --col_* to map column names
 ##                      [default: dice_vcf]
@@ -147,14 +150,17 @@ parse_args <- function() {
 
 ## ── eQTL loaders ──────────────────────────────────────────────────────────────
 
-## DICE VCF loader
+## DICE VCF loader — bgzip + tabix-indexed (see analysis/dice_reindex/)
 ## INFO field format: Gene=..;GeneSymbol=..;Pvalue=..;Beta=..;Statistic=..;FDR=..
 ## se = |Beta / Statistic|  (Statistic is a t-statistic)
-load_eqtl_dice_vcf <- function(gene_symbol, cell_type, eqtl_dir) {
-  vcf_path <- file.path(eqtl_dir, paste0(cell_type, ".vcf.gz"))
+## Region-filters via tabix on the cis-window run_coloc already computes,
+## instead of scanning the whole ~3GB file per gene.
+load_eqtl_dice_vcf <- function(gene_symbol, cell_type, eqtl_dir, chr, win_start, win_end) {
+  vcf_path <- file.path(eqtl_dir, paste0(cell_type, ".vcf.bgz"))
+  region <- sprintf("chr%d:%d-%d", chr, win_start, win_end)
   cmd <- sprintf(
-    "zcat %s | grep -v '^##' | awk 'NR==1 || /GeneSymbol=%s;/'",
-    vcf_path, gene_symbol
+    "tabix -h %s %s | grep -v '^##' | awk 'NR==1 || /GeneSymbol=%s;/'",
+    vcf_path, region, gene_symbol
   )
   dt <- fread(cmd = cmd, header = TRUE)
   if (nrow(dt) == 0) return(NULL)
@@ -207,9 +213,9 @@ load_eqtl_generic_tsv <- function(gene_symbol, cell_type, eqtl_dir,
 }
 
 ## Dispatcher — picks the right loader based on p$eqtl_format
-load_eqtl <- function(gene_symbol, cell_type, p) {
+load_eqtl <- function(gene_symbol, cell_type, p, win_start, win_end) {
   if (p$eqtl_format == "dice_vcf") {
-    load_eqtl_dice_vcf(gene_symbol, cell_type, p$eqtl_dir)
+    load_eqtl_dice_vcf(gene_symbol, cell_type, p$eqtl_dir, p$chr, win_start, win_end)
   } else {
     load_eqtl_generic_tsv(gene_symbol, cell_type, p$eqtl_dir,
                            p$col_gene, p$col_rsid, p$col_beta, p$col_se, p$col_pval)
@@ -219,7 +225,7 @@ load_eqtl <- function(gene_symbol, cell_type, p) {
 ## Enumerate cell types from the eQTL directory
 list_cell_types <- function(eqtl_dir, eqtl_format) {
   if (eqtl_format == "dice_vcf") {
-    gsub("\\.vcf\\.gz$", "", list.files(eqtl_dir, pattern = "\\.vcf\\.gz$"))
+    gsub("\\.vcf\\.bgz$", "", list.files(eqtl_dir, pattern = "\\.vcf\\.bgz$"))
   } else {
     files <- list.files(eqtl_dir, pattern = "\\.(tsv|txt)(\\.gz)?$")
     gsub("\\.(tsv|txt)(\\.gz)?$", "", files)
@@ -441,7 +447,7 @@ main <- function() {
   cell_types <- list_cell_types(p$eqtl_dir, p$eqtl_format)
   eqtl_all <- lapply(cell_types, function(ct) {
     cat(sprintf("  %-30s", ct))
-    d <- tryCatch(load_eqtl(p$gene, ct, p), error=function(e) NULL)
+    d <- tryCatch(load_eqtl(p$gene, ct, p, win_start, win_end), error=function(e) NULL)
     if (is.null(d)) { cat(" FAILED\n"); return(NULL) }
     cat(sprintf(" %d variants\n", nrow(d)))
     d

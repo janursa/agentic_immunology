@@ -20,7 +20,8 @@ from typing import Optional
 sys.path.insert(0, os.path.dirname(__file__))
 from config import (
     MAIN_DIR, MODEL_NAME, MAX_TOKENS, TEMPERATURE,
-    MAX_TOOL_ROUNDS, SERVER_PORT, GEMMA_URL, GEMMA_API_KEY,
+    MAX_TOOL_ROUNDS, SERVER_PORT, GEMMA_URL,
+    LLM_PROVIDER, BASE_URL, API_KEY,
 )
 import tools as tool_module
 from memory import Memory
@@ -69,8 +70,9 @@ def discover_server() -> Optional[str]:
 # ─── Core agent ───────────────────────────────────────────────────────────────
 
 class GemmaAgent:
-    def __init__(self, base_url: str, memory: Memory, api_key: str = "none"):
+    def __init__(self, base_url: str, memory: Memory, api_key: str = "none", model: str = MODEL_NAME):
         self.client   = OpenAI(base_url=base_url, api_key=api_key)
+        self.model    = model
         self.memory   = memory
         self.messages: list[dict] = []
 
@@ -93,7 +95,7 @@ class GemmaAgent:
 
         for _ in range(MAX_TOOL_ROUNDS):
             response = self.client.chat.completions.create(
-                model       = MODEL_NAME,
+                model       = self.model,
                 messages    = self.messages,
                 tools       = tool_module.DEFINITIONS,
                 tool_choice = "auto",
@@ -152,20 +154,36 @@ class GemmaAgent:
 # ─── CLI ──────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description="Gemma immunology agent")
-    parser.add_argument("--server", help="Server, e.g. bioinf025:8080")
+    parser = argparse.ArgumentParser(description="LLM-backed immunology agent")
+    parser.add_argument("--server", help="Server, e.g. bioinf025:8080 (gemma-style shorthand)")
+    parser.add_argument("--base-url", help="Full API base URL for any OpenAI-compatible endpoint, "
+                                            "e.g. https://api.openai.com/v1 or http://localhost:11434/v1")
+    parser.add_argument("--api-key", help="API key/token for the endpoint")
+    parser.add_argument("--model", help="Model name to request from the endpoint")
     args = parser.parse_args()
 
-    # Resolve server URL
-    if args.server:
+    model   = args.model or MODEL_NAME
+    api_key = args.api_key or API_KEY
+
+    # Resolve server URL. Only the gemma-discovery path (no explicit --base-url,
+    # no --provider openai) has a /health route to probe.
+    probe_health = False
+    if args.base_url:
+        url = args.base_url
+    elif LLM_PROVIDER == "openai":
+        # BASE_URL empty -> let the OpenAI SDK use its official default endpoint.
+        url = args.server or BASE_URL or None
+    elif args.server:
         url = args.server
         if not url.startswith("http"):
             url = f"http://{url}/v1"
         if not url.endswith("/v1"):
             url = url.rstrip("/") + "/v1"
+        probe_health = True
     else:
         print("Discovering Gemma server…", end=" ", flush=True)
         url = discover_server()
+        probe_health = True
         if url:
             print(f"found: {url}")
         else:
@@ -176,20 +194,20 @@ def main():
             print("(get these from the server admin, or see .env.example)\n")
             sys.exit(1)
 
-    # Check connectivity
-    try:
-        urllib.request.urlopen(url.replace("/v1", "/health"), timeout=5)
-    except Exception as e:
-        print(f"[warn] Health check failed ({e}). Proceeding anyway…")
+    if probe_health and url:
+        try:
+            urllib.request.urlopen(url.replace("/v1", "/health"), timeout=5)
+        except Exception as e:
+            print(f"[warn] Health check failed ({e}). Proceeding anyway…")
 
     # Start agent
     memory = Memory()
-    agent  = GemmaAgent(base_url=url, memory=memory, api_key=GEMMA_API_KEY)
+    agent  = GemmaAgent(base_url=url, memory=memory, api_key=api_key, model=model)
     agent.start()
 
     print(f"\n{'═'*62}")
-    print("  Gemma Agent — Immunology Research Assistant")
-    print(f"  Server  : {url}")
+    print(f"  Agent — Immunology Research Assistant (model={model})")
+    print(f"  Server  : {url or 'api.openai.com (default)'}")
     print(f"  Session : {memory.session_dir}")
     print("  Commands: 'reset' | 'exit'")
     print(f"{'═'*62}\n")

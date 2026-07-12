@@ -1,0 +1,9 @@
+[Sat Jul 11 05:22:36 CEST 2026] CD8_NAIVE: extracting header
+[Sat Jul 11 05:22:36 CEST 2026] CD8_NAIVE: sort + bgzip (threads=6)
+[Sat Jul 11 05:34:14 CEST 2026] CD8_NAIVE: tabix index
+[Sat Jul 11 05:35:07 CEST 2026] CD8_NAIVE: moving into place
+[Sat Jul 11 05:35:07 CEST 2026] CD8_NAIVE: DONE
+########################################
+#            Job Accounting            #
+########################################
+To obtain job accounting information, run: /usr/local/bin/jobinfo 11439379

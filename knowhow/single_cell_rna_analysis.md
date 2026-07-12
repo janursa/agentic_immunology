@@ -10,15 +10,10 @@ USE `backed_r=True` for any exploratory analysis.
 
 Apply QC **before** normalization, on raw counts using `qc_sc_transcriptomics`.
 
-### Notes
-- `group_col` should point to a donor × condition column; controls the per-gene min-cells threshold (`n_groups × 10`). If omitted, threshold is fixed at 10.
-- Always run on raw counts — do **not** normalize before calling this tool.
-
----
 
 ## 2. Cell Type Annotation
 
-Functions in this section are provided by the `scAnnotAgent` submodule (repo root) — see [`scAnnotAgent/SKILL.md`](../scAnnotAgent/SKILL.md) for full capabilities, including `recommend_annotation_method` (CellTypist vs. scVI/scANVI label transfer) and the label-transfer pipeline for large cohorts / low cells-per-donor datasets not covered below.
+Functions in this section are provided by the `scAnnotAgent` submodule (repo root) — see [`SKILL.md`](../scAnnotAgent/SKILL.md) for full capabilities, including `recommend_annotation_method` (CellTypist vs. scVI/scANVI label transfer) and the label-transfer pipeline for large cohorts / low cells-per-donor datasets not covered below.
 
 1. Run QC (Section 1) first.
 
@@ -33,7 +28,7 @@ Functions in this section are provided by the `scAnnotAgent` submodule (repo roo
    - Runs `Immune_All_High.pkl` (32 coarse types) → `CT_Major`, `Immune_All_Low.pkl` (98 fine subtypes) → `CT_Minor`
 
 4. **Marker-based annotation** via `annotate_celltype_ulm(adata, output_dir, marker_dict)`:
-   - Load marker genes from `data_lake/ciim/marker_genes.json` (10 major lineages, 15 minor subtypes)
+   - Load marker genes from `datalake/prior/marker_genes.json` (10 major lineages, 15 minor subtypes)
    - Uses existing `leiden` clusters — does **not** re-cluster
    - Pseudobulks raw counts per cluster, normalizes, runs decoupler ULM
    - Assigns top ULM-scored cell type to `adata.obs['ulm_Major_ct']` and `adata.obs['ulm_Minor_ct']`
@@ -101,6 +96,7 @@ log = infer_grn_spearman(
 
 Result CSV columns: `source` (TF), `target` (gene), `weight` (Spearman ρ), `promotor_based` (bool).
 
+
 ### Pipeline Steps
 
 1. **Load & subset** — optionally subset to a single cell type; run GRN inference per cell type separately
@@ -109,9 +105,8 @@ Result CSV columns: `source` (TF), `target` (gene), `weight` (Spearman ρ), `pro
 4. **Zero-variance removal** — exclude genes with zero std across samples
 5. **Spearman correlation** — all pairwise ρ and p-values via `scipy.stats.spearmanr`
 6. **FDR correction** — Benjamini-Hochberg; keep edges with adj. p-value < 0.05
-7. **TF filter** — restrict `source` to 1,638 human TFs in `data_lake/ciim/tf_all.csv`
-8. **Promoter annotation** — flag edges supported by `data_lake/ciim/skeleton_promotor.csv`
-9. **Top-N selection** — keep top 100,000 edges by |ρ| (configurable)
+7. **TF filter** — restrict `source` to 1,638 human TFs in `datalake/prior/tf_all.csv`
+8. **Top-N selection** — keep top 100,000 edges by |ρ| (configurable)
 
 ### Running Per Cell Type
 
@@ -130,9 +125,8 @@ for ct in adata.obs['Major_CT'].unique():
 - Positive ρ → co-activation; negative ρ → repression
 - Transcriptomics only 
 
-### Prior Files (`data_lake/ciim/`)
+### Prior Files (`datalake/prior/`)
 
 | File | Description |
 |------|-------------|
 | `tf_all.csv` | 1,638 human TFs — restricts GRN source nodes |
-| `skeleton_promotor.csv` | TF–gene pairs with promoter-region evidence |

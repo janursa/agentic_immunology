@@ -1,0 +1,5 @@
+[Sat Jul 11 05:22:37 CEST 2026] TREG_NAIVE: extracting header
+[Sat Jul 11 05:22:37 CEST 2026] TREG_NAIVE: sort + bgzip (threads=6)
+[Sat Jul 11 05:36:41 CEST 2026] TREG_NAIVE: tabix index
+[Sat Jul 11 05:37:35 CEST 2026] TREG_NAIVE: moving into place
+[Sat Jul 11 05:37:35 CEST 2026] TREG_NAIVE: DONE

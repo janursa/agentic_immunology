@@ -1,4 +1,4 @@
-# Gemma Agent
+# Agent
 
 
 ## Quick Start
@@ -15,6 +15,29 @@ python agent.py
 # Or specify the server explicitly
 python agent.py --server bioinf025:8080
 ```
+
+### Using OpenAI (or any OpenAI-compatible API) instead of Gemma
+
+```bash
+cd agentic_immunology/agent
+python agent.py --base-url "https://api.openai.com/v1" --api-key "$OPENAI_API_KEY" --model gpt-4o-mini
+```
+
+`--base-url` also works for any local OpenAI-compatible server (vLLM, Ollama's `/v1`
+compat mode, llama.cpp server, OpenRouter, Together, Groq, …) — just point it at
+that server's URL and give the model name it serves.
+
+Instead of CLI flags, you can set defaults once in the repo-root `.env` file:
+
+```
+LLM_PROVIDER=openai        # or "gemma" (default)
+LLM_MODEL=gpt-4o-mini      # optional, this is the default for openai
+OPENAI_API_KEY=sk-...      # or already exported in your shell
+```
+
+CLI flags always override `.env`/env-var config. The only hard requirement is that
+the endpoint speaks the OpenAI chat-completions format (including `tools`/`tool_calls`
+for function calling) — Anthropic's native API or other formats won't work here.
 
 ## How It Works
 
@@ -78,7 +101,7 @@ agent/
 ## System Prompt Design
 
 The system prompt contains only:
-- `central_agentic.instructions.md` — full environment description (already references tools.md, datalake.md, etc.)
+- `ciim_agentic.md` — full environment description (already references tools.md, datalake.md, etc.)
 - Session workspace path
 - Past session history (last 6 sessions)
 - Behavioural guidelines (think first, plan big tasks, be concise)

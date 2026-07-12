@@ -15,7 +15,8 @@ tools/tool/__pycache__/
 tools/tool/schema_db/
 tools/tool/protocols/
 .env
-.claude
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
 server/ngrok
 server/logs/
 iagent_env/

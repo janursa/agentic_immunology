@@ -118,3 +118,23 @@ For **coloc** (`generic_tsv` format): `col_gene=gene_id`, `col_rsid=rsid`, `col_
 | `OneK1K_cDC2_allpairs.tsv.gz` | cDC2 | 932 MB |
 | `OneK1K_dnT_allpairs.tsv.gz` | DN T cells | 301 MB |
 | `OneK1K_gdT_allpairs.tsv.gz` | γδ T cells | 1.1 GB |
+
+---
+
+## tenk10k/
+*TenK10K Phase 1 — Cuomo, A.S.E. et al. 2025. medRxiv 2025.03.20.25324352 (preprint); data: Zenodo doi:10.5281/zenodo.17474113*
+
+Single-cell cis-eQTL summary statistics, 1,925 donors, 5.4M cells, 28 immune cell types, GRCh38. Companion resource to the `caQTL` TenK10K multiome release — same program, gene-expression side.
+
+⚠️ **No significant/gene-level/fine-mapped subset exists.** The Zenodo record's `common_variant_gene_level_results_with_annotated_fails.zip`, `rare_variant_gene_level_results*.zip`, `susie_summary.zip`, and `results_iscovariateoffset_true.zip` are empty placeholders (verified: unzip to a single empty directory entry, 0 bytes of content) despite being described in the record text. Only full nominal-pairs files were actually deposited.
+
+**Physically stored at** `/vol/projects/CIIM/resources/TenK10K_eQTL/` (170 GB — not mirrored into `datalake/eQTL/`).
+
+| File | Content | Size |
+|------|---------|------|
+| `common_all_cis_pvalues_100kb.zip` | common-variant (MAF≥1%) full nominal cis pairs, ±100kb, per cell type | 16.6 GB |
+| `part1-7_common_all_cis_pvalues_1Mb.zip` (×7) | common-variant full nominal cis pairs, ±1Mb, per cell type (7-way split for size) | 129.7 GB |
+| `rare_all_cis_pvalues_100kb_single_variant_test.zip` | rare-variant (MAF<1%) single-variant test, ±100kb, per cell type | 23.5 GB |
+| `coloc_100kb.zip` | coloc colocalization based on 100kb common-variant results; organized by trait/cell type/chromosome | 0.63 GB |
+
+Column schemas to be confirmed against actual unzipped content once download completes (not yet inspected).

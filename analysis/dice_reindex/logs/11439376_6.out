@@ -1,0 +1,9 @@
+[Sat Jul 11 05:22:36 CEST 2026] NK: extracting header
+[Sat Jul 11 05:22:36 CEST 2026] NK: sort + bgzip (threads=6)
+[Sat Jul 11 05:38:46 CEST 2026] NK: tabix index
+[Sat Jul 11 05:40:28 CEST 2026] NK: moving into place
+[Sat Jul 11 05:40:28 CEST 2026] NK: DONE
+########################################
+#            Job Accounting            #
+########################################
+To obtain job accounting information, run: /usr/local/bin/jobinfo 11439383

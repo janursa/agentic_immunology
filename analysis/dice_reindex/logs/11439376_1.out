@@ -1,0 +1,9 @@
+[Sat Jul 11 05:22:36 CEST 2026] CD4_STIM: extracting header
+[Sat Jul 11 05:22:36 CEST 2026] CD4_STIM: sort + bgzip (threads=6)
+[Sat Jul 11 05:33:55 CEST 2026] CD4_STIM: tabix index
+[Sat Jul 11 05:34:49 CEST 2026] CD4_STIM: moving into place
+[Sat Jul 11 05:34:49 CEST 2026] CD4_STIM: DONE
+########################################
+#            Job Accounting            #
+########################################
+To obtain job accounting information, run: /usr/local/bin/jobinfo 11439378

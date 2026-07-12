@@ -9,9 +9,10 @@ How to write the final user-facing report after analysis is complete (and peer-r
 Write `report.md` in the same `temp/{task}/` folder used by the analysis:
 
 1. **Restate the original question.**
-2. **Answer it directly**, grounded in the data — phrase every claim as "{statement}, obtained from {x} and {y} data," citing the specific output files/figures that support it.
-3. **List all generated files** with absolute paths: scripts, data outputs, images, `LOG.md`, steps graph.
-4. **Evaluation against success criteria** — state how each main claim was evaluated (from `peer_review.md` if review was run), and include any caveats/limitations.
+2. **Literature-derived design inputs (complex tasks only)** — carry over `design.md`'s "Literature-derived design inputs" section (mechanistic leads with citations, positive controls, working hypothesis) as-is, and state whether each positive control was recovered (from `peer_review.md`'s `POSITIVE CONTROLS` line if review was run).
+3. **Answer it directly**, grounded in the data — phrase every claim as "{statement}, obtained from {x} and {y} data," citing the specific output files/figures that support it.
+4. **List all generated files** with absolute paths: scripts, data outputs, images, `LOG.md`, steps graph.
+5. **Evaluation against success criteria** — state how each main claim was evaluated (from `peer_review.md` if review was run), and include any caveats/limitations.
 
 ## Rules
 

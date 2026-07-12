@@ -87,9 +87,11 @@ VCF INFO fields: `Gene` (Ensembl ID), `GeneSymbol`, `Pvalue`, `Beta`, `ANOVA`, `
 ~347K SNP-gene pairs per cell type (example: CD4_NAIVE).
 
 ### eqtls/full_summary_stats/ (unfiltered, all tested pairs)
-Full cis-eQTL summary statistics with no p-value or TPM filter. Compressed VCF (.vcf.gz). Use for colocalization (coloc/SuSiE) or fine-mapping.  
+Full cis-eQTL summary statistics with no p-value or TPM filter. Use for colocalization (coloc/SuSiE) or fine-mapping.  
 VCF INFO fields: `Gene` (Ensembl ID), `GeneSymbol`, `Pvalue`, `Beta`, `Statistic` (t-statistic), `FDR`.  
-~220M SNP-gene pairs per cell type (example: CD4_NAIVE). ~3.1–3.2 GB per file, 47 GB total.
+~220M SNP-gene pairs per cell type (example: CD4_NAIVE).
+
+Position-sorted, bgzip-compressed, tabix-indexed (`.vcf.bgz` + `.vcf.bgz.tbi`) — drop-in compatible with `run_coloc`'s `dice_vcf` format, which does a regional `tabix` lookup on the cis-window instead of scanning the file. As distributed by DICE, these files shipped gzip-compressed and sorted by ascending p-value (not position), so they weren't tabix-indexable; re-sorted and reindexed via `analysis/dice_reindex/reindex_dice.sh` (~2.1 GB per file, 31 GB total). The original `.vcf.gz` files were deleted after validating line counts matched exactly.
 
 One file per cell type (same naming, `.vcf` for filtered, `.vcf.gz` for full):
 

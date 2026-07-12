@@ -44,7 +44,7 @@ ATAC-seq, immune cell phenotyping, cytokine assays, flow cytometry, histology. �
 
 PubMed/arXiv/Scholar search, paper/supplementary retrieval, web search, PDF extraction. → [literature_biomni.md](tools/biomni/literature_biomni.md)
 
-`fetch_supplementary_info_from_doi` · `query_arxiv` · `query_scholar` · `query_pubmed` · `search_google` · `extract_url_content` · `extract_pdf_content` · `advanced_web_search_claude`
+`fetch_supplementary_info_from_doi` · `query_arxiv` · `query_scholar` · `query_pubmed` · `search_google` · `extract_url_content` · `extract_pdf_content`
 
 ---
 
@@ -70,16 +70,16 @@ tools/ciim/genetics.md
 ### `genomics`
 *Genomics*
 
-GRN loader & inference, TF activity inference, cell-cell communication, CellxGene Census access. → [genomics.md](tools/ciim/genomics.md). scRNA QC, CellTypist annotation, ULM annotation, and annotation quality now live in the `scAnnotAgent` submodule (see [`scAnnotAgent/SKILL.md`](scAnnotAgent/SKILL.md)).
+GRN inference, TF activity inference, cell-cell communication, CellxGene Census access. → [genomics.md](tools/ciim/genomics.md). scRNA QC, CellTypist annotation, ULM annotation, and annotation quality now live in the `scAnnotAgent` submodule (see [`scAnnotAgent/SKILL.md`](scAnnotAgent/SKILL.md)).
 
-`get_immune_grn` · `infer_grn_spearman` · `infer_tf_activity` · `infer_ccc` · `cellxgene_query_obs` · `cellxgene_get_anndata` · `cellxgene_list_datasets` · `cellxgene_get_schema`
+`infer_grn_spearman` · `infer_tf_activity` · `infer_ccc` · `cellxgene_query_obs` · `cellxgene_get_anndata` · `cellxgene_list_datasets` · `cellxgene_get_schema`
 
 ---
 
 ### `hiara`
 *HIaRA*
 
-GRN-based immune age prediction (CD4T/CD8T) and unified loader for all immune signatures (aging, SLE, drug, cytokine). → [hiara.md](tools/ciim/hiara.md)
+GRN-based immune age prediction (CD4T/CD8T). → [hiara.md](tools/ciim/hiara.md)
 
-`predict_immune_age_grn_clock` · `retrieve_summary_stats`
+`predict_immune_age_grn_clock`
 

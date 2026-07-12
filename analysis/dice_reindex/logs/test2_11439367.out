@@ -1,0 +1,9 @@
+[Sat Jul 11 05:09:25 CEST 2026] B_CELL_NAIVE: extracting header
+[Sat Jul 11 05:09:26 CEST 2026] B_CELL_NAIVE: sort + bgzip (threads=6)
+[Sat Jul 11 05:18:52 CEST 2026] B_CELL_NAIVE: tabix index
+[Sat Jul 11 05:19:43 CEST 2026] B_CELL_NAIVE: moving into place
+[Sat Jul 11 05:19:43 CEST 2026] B_CELL_NAIVE: DONE
+########################################
+#            Job Accounting            #
+########################################
+To obtain job accounting information, run: /usr/local/bin/jobinfo 11439367

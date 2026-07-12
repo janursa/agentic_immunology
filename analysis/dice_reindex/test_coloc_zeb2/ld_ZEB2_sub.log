@@ -1,0 +1,35 @@
+PLINK v1.90b7.2 64-bit (11 Dec 2023)
+Options in effect:
+  --bfile /vol/projects/BIIM/agentic_immunology/datalake/gwas/1kg/EUR
+  --extract /vol/projects/CIIM/agentic_immunology/temp/dice_reindex/test_coloc_zeb2/ld_ZEB2_snplist.txt
+  --make-bed
+  --out /vol/projects/CIIM/agentic_immunology/temp/dice_reindex/test_coloc_zeb2/ld_ZEB2_sub
+  --silent
+
+Hostname: bioinf016
+Working directory: /vol/projects/BIIM/agentic_immunology/temp/dice_reindex
+Start time: Sat Jul 11 05:41:35 2026
+
+Random number seed: 1783741295
+515151 MB RAM detected; reserving 257575 MB for main workspace.
+8550156 variants loaded from .bim file.
+503 people (0 males, 0 females, 503 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to
+/vol/projects/CIIM/agentic_immunology/temp/dice_reindex/test_coloc_zeb2/ld_ZEB2_sub.nosex
+.
+--extract: 816 variants remaining.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 503 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is in [0.9999995, 1).
+816 variants and 503 people pass filters and QC.
+Note: No phenotypes present.
+--make-bed to
+/vol/projects/CIIM/agentic_immunology/temp/dice_reindex/test_coloc_zeb2/ld_ZEB2_sub.bed
++
+/vol/projects/CIIM/agentic_immunology/temp/dice_reindex/test_coloc_zeb2/ld_ZEB2_sub.bim
++
+/vol/projects/CIIM/agentic_immunology/temp/dice_reindex/test_coloc_zeb2/ld_ZEB2_sub.fam
+... done.
+
+End time: Sat Jul 11 05:41:39 2026

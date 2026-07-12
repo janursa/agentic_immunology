@@ -1,0 +1,9 @@
+[Sat Jul 11 05:22:37 CEST 2026] TREG_MEM: extracting header
+[Sat Jul 11 05:22:37 CEST 2026] TREG_MEM: sort + bgzip (threads=6)
+[Sat Jul 11 05:36:36 CEST 2026] TREG_MEM: tabix index
+[Sat Jul 11 05:37:30 CEST 2026] TREG_MEM: moving into place
+[Sat Jul 11 05:37:30 CEST 2026] TREG_MEM: DONE
+########################################
+#            Job Accounting            #
+########################################
+To obtain job accounting information, run: /usr/local/bin/jobinfo 11439389

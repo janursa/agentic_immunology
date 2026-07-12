@@ -1,25 +1,8 @@
 # Genomics — Custom Extensions
 
-**7 functions** — consensus GRN loader, GRN inference, TF activity inference, cell-cell communication, CellxGene Census access
+**6 functions** — GRN inference, TF activity inference, cell-cell communication, CellxGene Census access
 
-scRNA-seq QC, CellTypist annotation, ULM annotation, and annotation-quality assessment now live in the `scAnnotAgent` submodule — see [`scAnnotAgent/SKILL.md`](../../scAnnotAgent/SKILL.md) and [`knowhow/single_cell_rna_analysis.md`](../../knowhow/single_cell_rna_analysis.md).
-
-### `get_immune_grn`
-*Immune GRN Loader*
-Load pre-computed consensus immune GRN(s) for one or more major immune cell types (CD4T, CD8T, NK, B, MONO). Returns edges from the HIARA multi-cohort consensus networks (minDegree2 filtered). Optionally restrict to promoter-supported edges, filter by edge weight, or look up a specific TF source or target gene.
-
-**Required:** *(none — all parameters optional)*
-
-**Optional:**
-- `cell_type=None` (str or list) — filter by cell type: `'CD4T'`, `'CD8T'`, `'NK'`, `'B'`, `'MONO'`
-- `promotor_based_only=False` (bool) — if True, return only promoter-supported edges
-- `min_weight=None` (float) — keep edges where `|weight| >= min_weight`
-- `source=None` (str or list) — filter by TF source gene(s)
-- `target=None` (str or list) — filter by target gene(s)
-
-**Returns:** `pd.DataFrame` with columns `source`, `target`, `weight`, `cell_type`, `promotor_based`
-
----
+scRNA-seq QC, CellTypist annotation, ULM annotation, and annotation-quality assessment now live in the `scAnnotAgent` submodule — see [`SKILL.md`](../../scAnnotAgent/SKILL.md) and [`single_cell_rna_analysis.md`](../../knowhow/single_cell_rna_analysis.md).
 
 ### `infer_grn_spearman`
 *Spearman GRN Inference*
@@ -53,7 +36,7 @@ obs = cellxgene_query_obs(
 
 ### `cellxgene_get_anndata`
 *CellxGene Census — AnnData Retrieval*
-Fetch a subsampled AnnData slice (raw counts) from the CellxGene Census. Efficiently caps cell count by sampling `soma_joinid`s **before** downloading the expression matrix — avoids streaming the full matching set. Compatible with the `scAnnotAgent` QC and annotation pipeline (see [`scAnnotAgent/SKILL.md`](../../scAnnotAgent/SKILL.md)).
+Fetch a subsampled AnnData slice (raw counts) from the CellxGene Census. Efficiently caps cell count by sampling `soma_joinid`s **before** downloading the expression matrix — avoids streaming the full matching set. Compatible with the `scAnnotAgent` QC and annotation pipeline (see [`SKILL.md`](../../scAnnotAgent/SKILL.md)).
 
 **Optional:** `cell_type` (str or list), `tissue` (str or list), `disease` (str or list), `sex` (str), `genes` (list[str] — HGNC symbols; None = all genes, very large), `organism='homo_sapiens'` (str), `extra_filter` (str), `census_version='stable'` (str), `max_cells=10_000` (int — subsample cap), `seed=42` (int)
 
@@ -99,7 +82,7 @@ Infer TF activity from expression data using decoupler. Works with any AnnData (
 
 **Required:**
 - `adata` (AnnData) — obs × genes, `adata.X` should be log-normalised
-- `net` (pd.DataFrame) — network with columns `source` (TF), `target` (gene), optionally `weight` (defaults to 1.0). Typically from `get_immune_grn()`
+- `net` (pd.DataFrame) — network with columns `source` (TF), `target` (gene), optionally `weight` (defaults to 1.0), e.g. built with `infer_grn_spearman`
 
 **Optional:**
 - `method='ulm'` (str) — enrichment method: `'ulm'`, `'waggr'`, or `'mlm'`
@@ -111,7 +94,7 @@ Infer TF activity from expression data using decoupler. Works with any AnnData (
 
 **Example:**
 ```python
-from genomics import get_immune_grn, infer_tf_activity
-net = get_immune_grn(cell_type='CD8T')
+from genomics import infer_grn_spearman, infer_tf_activity
+net = infer_grn_spearman(adata_path='pseudobulk.h5ad', output_file='grn.csv', data_type='bulk')
 tf_scores = infer_tf_activity(adata, net=net)           
 ```

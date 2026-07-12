@@ -144,5 +144,5 @@ Write to `benchmark/results/` (create folder if it does not exist).
 - Read files in `agentic_immunology/`, `temp/<slug>/`, and `benchmark/`.
 - Use `WebSearch` only for the Category D literature plausibility check.
 - Write only to `benchmark/results/<slug>_run_<YYYY-MM-DD>.md`.
-- Do not modify benchmark case files, analysis outputs, or `report.md`.
+- Do not modify benchmark case files, analysis outputs, `report.md`, or `knowhow/guardrail.md`.
 - Do not re-run any analysis or suggest framework changes — that is the orchestrator's job.

@@ -1,0 +1,9 @@
+[Sat Jul 11 05:22:37 CEST 2026] THSTAR: extracting header
+[Sat Jul 11 05:22:37 CEST 2026] THSTAR: sort + bgzip (threads=6)
+[Sat Jul 11 05:36:50 CEST 2026] THSTAR: tabix index
+[Sat Jul 11 05:37:44 CEST 2026] THSTAR: moving into place
+[Sat Jul 11 05:37:44 CEST 2026] THSTAR: DONE
+########################################
+#            Job Accounting            #
+########################################
+To obtain job accounting information, run: /usr/local/bin/jobinfo 11439388

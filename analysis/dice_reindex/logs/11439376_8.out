@@ -1,0 +1,9 @@
+[Sat Jul 11 05:22:36 CEST 2026] TH1: extracting header
+[Sat Jul 11 05:22:36 CEST 2026] TH1: sort + bgzip (threads=6)
+[Sat Jul 11 05:38:47 CEST 2026] TH1: tabix index
+[Sat Jul 11 05:40:28 CEST 2026] TH1: moving into place
+[Sat Jul 11 05:40:28 CEST 2026] TH1: DONE
+########################################
+#            Job Accounting            #
+########################################
+To obtain job accounting information, run: /usr/local/bin/jobinfo 11439385

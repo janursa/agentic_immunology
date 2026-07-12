@@ -1,0 +1,9 @@
+[Sat Jul 11 05:22:37 CEST 2026] MONOCYTES: extracting header
+[Sat Jul 11 05:22:37 CEST 2026] MONOCYTES: sort + bgzip (threads=6)
+[Sat Jul 11 05:35:01 CEST 2026] MONOCYTES: tabix index
+[Sat Jul 11 05:36:25 CEST 2026] MONOCYTES: moving into place
+[Sat Jul 11 05:36:25 CEST 2026] MONOCYTES: DONE
+########################################
+#            Job Accounting            #
+########################################
+To obtain job accounting information, run: /usr/local/bin/jobinfo 11439382

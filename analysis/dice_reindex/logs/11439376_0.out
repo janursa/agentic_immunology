@@ -1,0 +1,9 @@
+[Sat Jul 11 05:22:36 CEST 2026] CD4_NAIVE: extracting header
+[Sat Jul 11 05:22:36 CEST 2026] CD4_NAIVE: sort + bgzip (threads=6)
+[Sat Jul 11 05:33:55 CEST 2026] CD4_NAIVE: tabix index
+[Sat Jul 11 05:34:49 CEST 2026] CD4_NAIVE: moving into place
+[Sat Jul 11 05:34:49 CEST 2026] CD4_NAIVE: DONE
+########################################
+#            Job Accounting            #
+########################################
+To obtain job accounting information, run: /usr/local/bin/jobinfo 11439377

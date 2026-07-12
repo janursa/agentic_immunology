@@ -2,7 +2,7 @@
 
 Full genome-wide summary statistics and LD reference panel for Mendelian Randomization, colocalization, and fine-mapping analyses.
 
-Two items: `GCST003156_SLE_Bentham2015.h.tsv.gz` (SLE GWAS full summary stats) and `1kg/` (1000 Genomes Phase 3 LD reference panel, all 5 superpopulations).
+Three items: `GCST003156_SLE_Bentham2015.h.tsv.gz` (SLE GWAS full summary stats), `1kg/` (1000 Genomes Phase 3 LD reference panel, all 5 superpopulations), and `ldsc_grch38/` (LDSC baseline LD score files, GRCh37 + GRCh38, for partitioned heritability / stratified LDSC).
 
 ---
 
