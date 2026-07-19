@@ -71,6 +71,11 @@ suppressPackageStartupMessages({
 
 ## ── Argument parsing ──────────────────────────────────────────────────────────
 
+## Repo root, derived from this script's own path (base R, no packages) —
+## tools/ciim/code/coloc.R is 3 levels below the repo root.
+.script_path <- sub("^--file=", "", grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])
+.REPO_ROOT <- dirname(dirname(dirname(dirname(normalizePath(.script_path)))))
+
 parse_args <- function() {
   args <- commandArgs(trailingOnly = TRUE)
   p <- list(
@@ -83,12 +88,12 @@ parse_args <- function() {
     susie_n     = 5L,
     outdir      = NULL,
     ## GWAS
-    gwas_file   = "/vol/projects/BIIM/agentic_immunology/datalake/gwas/GCST003156_SLE_Bentham2015.h.tsv.gz",
+    gwas_file   = file.path(.REPO_ROOT, "datalake/gwas/GCST003156_SLE_Bentham2015.h.tsv.gz"),
     gwas_n      = 14267L,
     gwas_s      = 5201 / 14267,   # proportion cases (Bentham 2015)
     gwas_type   = "cc",
     ## eQTL
-    eqtl_dir    = "/vol/projects/BIIM/agentic_immunology/datalake/dice/eqtls/full_summary_stats",
+    eqtl_dir    = file.path(.REPO_ROOT, "datalake/dice/eqtls/full_summary_stats"),
     eqtl_n      = 91L,
     eqtl_sdy    = 1,
     eqtl_format = "dice_vcf",
@@ -99,7 +104,7 @@ parse_args <- function() {
     col_se      = "se",
     col_pval    = "pval",
     ## LD reference
-    kg_bfile    = "/vol/projects/BIIM/agentic_immunology/datalake/gwas/1kg/EUR",
+    kg_bfile    = file.path(.REPO_ROOT, "datalake/gwas/1kg/EUR"),
     plink       = "plink"
   )
 

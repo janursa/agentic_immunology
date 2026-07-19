@@ -29,11 +29,7 @@
 
 - **Prefer simpler models over complex statitical models.** Reach for complex models only when the simpler approach (e.g. per-cohort analysis, plain linear/logistic regression) demonstrably fails to address the structure in the data. Keep the number of covariates low — fewer covariates keeps the biological signal interpretable.
 
-- **Prefer simple statistical approaches over advanced ML models.** Default to standard statistical tests/regression; escalate to ML only when the simpler approach is shown to be insufficient for the question.
-
 - **Prefer data-driven approaches over ML predictions.** When a direct measurement or association from the data is available, prefer it over a model-predicted/imputed value.
-
-- **Aging clocks** - do not use transcriptomics aging clocks for marker discovery. Only for perturbation screening.
 
 - **Method choice** - do not limit yourself to basic approaches such as DE analysis. When applicable use more advanced approaches such as CCC, GRN, cell type compositional analysis.
 
@@ -60,4 +56,5 @@
   reason over the collected evidence and either prioritize a candidate with a stated, checkable
   justification (e.g. "supported by 2 of 3 independent pillars") or state explicitly how to
   expand the analysis if the evidence doesn't support prioritization. 
+  
 - **Mechanistic leads** does the design references mechanistic leads from the literature and whether it's incorporated in the study design.

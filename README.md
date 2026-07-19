@@ -24,6 +24,12 @@ Wire up the Claude Code subagents (symlinks `ciim_agentic.md` and `agents/*.md` 
 bash claude_setup.sh
 ```
 
+### Checkout layout
+
+The only checkout lives at `/home/jnourisa/projs/ongoing/agentic_immunology`
+(private). There is no copy or symlink under `/vol/projects` — it was
+deliberately removed.
+
 ### Optional: run the same agents via `pi` instead of Claude Code
 
 [`pi`](https://github.com/earendil-works/pi) is an alternative CLI agent runtime that can use OpenAI, the

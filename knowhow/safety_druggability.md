@@ -22,7 +22,7 @@ These are independent axes — score each, don't average them into one number. A
 
 ## Tools
 
-- [`tools/ciim/genetics.md`](../tools/ciim/genetics.md) — `query_opentarget_platform(query, variables)`: raw GraphQL against Platform API v4. Use for `tractability`, `safetyLiabilities`, `knownDrugs`, and baseline `expressions` fields on the `target` type.
+- [`tools/ciim/genetics.md`](../tools/ciim/genetics.md) — `query_opentarget_platform(query, variables)`: raw GraphQL against Platform API v4. Use for `tractability`, `safetyLiabilities`, `drugAndClinicalCandidates`, and baseline `expressions` fields on the `target` type.
 - [`tools/biomni/database_biomni.md`](../tools/biomni/database_biomni.md) — `query_gnomad` (constraint/LoF intolerance), `query_chembl` (precedented ligands/clinical-phase chemistry), `query_gtopdb` (pharmacology family, known ligands), `query_clinicaltrials` (clinical precedent for the target/mechanism), `query_pdb` / `query_alphafold` (structure for pocket assessment).
 - [`tools/biomni/pharmacology_biomni.md`](../tools/biomni/pharmacology_biomni.md) — `predict_admet_properties`, `calculate_physicochemical_properties`, `predict_binding_affinity_protein_1d_sequence` (once a candidate chemical series exists — usually not needed for target-level scoring), `query_fda_adverse_events`, `check_fda_drug_recalls`, `analyze_fda_safety_signals`, `query_drug_interactions` (clinical safety of an *existing* drug against the target, not the target itself).
 - DepMap essentiality has no local query tool — use `WebSearch`/`WebFetch` against the DepMap portal as a targeted grounding check, and state it's a literature lookup, not a local query.
@@ -51,14 +51,14 @@ q = '''query Tractability($ensemblId: String!) {
   target(ensemblId: $ensemblId) {
     approvedSymbol
     tractability { label modality value }
-    knownDrugs(size: 10) { rows { drug { name } phase mechanismOfAction } }
+    drugAndClinicalCandidates { count rows { maxClinicalStage drug { name mechanismsOfAction } } }
   }
 }'''
 result = query_opentarget_platform(q, variables={"ensemblId": "ENSG00000XXXXXX"})
 ```
-Report the bucket per modality (small molecule / antibody / PROTAC / other) and list any drug already in clinical use against the target (`knownDrugs`) — existing clinical precedent is the strongest tractability signal.
+Report the bucket per modality (small molecule / antibody / PROTAC / other) and list any drug already in clinical use against the target (`drugAndClinicalCandidates` — the field was renamed from `knownDrugs` in the Platform API v4 schema; no `size` argument, results aren't paginated) — existing clinical precedent is the strongest tractability signal.
 
-Cross-check precedented chemistry with `query_chembl(molecule_name=..., chembl_id=...)` or `query_gtopdb` for known ligands/pharmacology family if Open Targets shows no known drugs but the target is a classic druggable family member (GPCR, kinase, ion channel, nuclear receptor).
+Cross-check precedented chemistry with `query_chembl(molecule_name=..., chembl_id=...)` or `query_gtopdb` for known ligands/pharmacology family if Open Targets shows no known drugs (`drugAndClinicalCandidates.count == 0`) but the target is a classic druggable family member (GPCR, kinase, ion channel, nuclear receptor).
 
 If no PDB/AlphaFold structure or known ligand exists, state tractability as **low-confidence / structure-based prediction only** — don't imply a drug program is feasible without precedent.
 

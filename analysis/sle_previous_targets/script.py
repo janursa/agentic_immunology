@@ -13,7 +13,8 @@ import json
 import requests
 import pandas as pd
 
-OUTDIR = '/vol/projects/CIIM/agentic_immunology/temp/sle_drug_targets'
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+OUTDIR = os.path.join(REPO_ROOT, 'temp', 'sle_drug_targets')
 OT_URL = 'https://api.platform.opentargets.org/api/v4/graphql'
 SLE_ID = 'MONDO_0007915'
 

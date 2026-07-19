@@ -10,7 +10,7 @@ a normal API.
 
 | File | Purpose |
 |---|---|
-| `server.sh` | SLURM job script — launches the llama-server on a GPU node |
+| `../server_gemma4.sh` | SLURM job script — launches the llama-server on a GPU node |
 | `wait_and_test.py` | Monitors the job, waits for the server to come online, runs a scripted or interactive test |
 | `test_client.py` | Standalone client for manual testing (requires host/port) |
 | `logs/` | SLURM output logs (`server_<jobid>.log`) — contains the node hostname |
@@ -21,13 +21,13 @@ a normal API.
 
 ### 1. Submit the server job
 ```bash
-sbatch /vol/projects/CIIM/agentic_immunology/server/gemma4/server.sh
+sbatch server/server_gemma4.sh   # from the repo root
 # → note the job ID printed, e.g. "Submitted batch job 10219185"
 ```
 
 ### 2. Wait for it to start and run the test
 ```bash
-cd /vol/projects/CIIM/agentic_immunology/server/gemma4
+cd server/gemma4   # from the repo root
 python3 wait_and_test.py --job <JOB_ID>
 ```
 This polls SLURM until the job is RUNNING, reads the node from the log, waits for the HTTP
@@ -98,7 +98,7 @@ interactive mode or clear the list in code to start a fresh topic.
 ### Job time limit
 Each job runs for **24 hours** then expires. After expiry, just resubmit:
 ```bash
-sbatch agentic_immunology/server/gemma4/server.sh
+sbatch agentic_immunology/server/server_gemma4.sh
 ```
 The model is cached locally so restart takes ~1 minute (no download).
 

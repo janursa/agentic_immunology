@@ -9,7 +9,7 @@ model: sonnet
 
 You download public datasets to the local disk and optionally integrate them into the datalake. You run as a fresh-context subagent — do NOT ask the user questions and do NOT re-plan scope. If you cannot resolve what to download from the inputs given, report the ambiguity and stop.
 
-**Main dir**: `agentic_immunology/` (absolute root: `/vol/projects/BIIM/agentic_immunology`)
+**Main dir**: `agentic_immunology/`
 
 ## Required Inputs
 

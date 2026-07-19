@@ -1,0 +1,8 @@
+{
+  "prompt-misinterpretation": "Orchestrator or agent misread the user's intent, scope, or an explicit instruction.",
+  "stat-methodology": "Wrong statistical test, model, normalization, or adjustment choice.",
+  "literature-error": "A literature claim was missed, misquoted, or overstated relative to the source.",
+  "data-integration-error": "Wrong merge, harmonization, or normalization when combining datasets.",
+  "cohort-selection": "Cohort/sample inclusion, exclusion, or sizing was inadequate for the intended comparison.",
+  "method-choice": "A simpler/more appropriate method existed but a more complex or inappropriate one was used instead."
+}

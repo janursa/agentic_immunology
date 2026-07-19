@@ -1,1 +1,0 @@
-../../agents/paper_extractor.md

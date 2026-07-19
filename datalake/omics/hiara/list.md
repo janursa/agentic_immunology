@@ -21,6 +21,7 @@ Pseudobulked from aida_sc by donor_id x Major_CT.
 Samples: 3,963 | Genes: 13,772
 obs columns: donor_id, age, sex, race, batch_info, dataset, donor_age, bulk_group, Major_CT, cell_count, sum_by, orig.ident
 Major_CT: B, CD4T, CD8T, DC, MONO, Megakaryocyte, NK, Others
+Normalization: log-normalized (lognorm).
 
 ---
 
@@ -38,6 +39,11 @@ Pseudobulked from abf300_sc by donor_id x Major_CT.
 Samples: 1,915 | Genes: 15,437
 obs columns: donor_id, age, sex, dataset, bulk_group, Major_CT, donor_age, cell_count, sum_by, orig.ident
 Major_CT: B, CD4T, CD8T, DC, HSC, MONO, NK
+Normalization: log-normalized (lognorm).
+**Note:** abf300 has repeated-measures donors — the same `donor_id` recurs across multiple visits/ages
+(distinct `bulk_group`, e.g. `A01_30` and `A01_31` for the same donor at ages 30 and 31), giving ~1.9
+rows per donor per Major_CT (1,915 rows / 166 unique donors), not 1 row/donor. Collapse to one row per
+donor (per Major_CT) before treating rows as independent samples in any regression/statistical model.
 
 ---
 
@@ -55,6 +61,7 @@ Pseudobulked from onek1k_sc by donor_id x Major_CT.
 Samples: 4,961 | Genes: 9,894
 obs columns: donor_id, age, sex, batch_info, dataset, bulk_group, Major_CT, donor_age, total_counts_mt, pct_counts_mt, cell_count, sum_by, orig.ident
 Major_CT: B, CD4T, CD8T, DC, MONO, Megakaryocyte, NK
+Normalization: log-normalized (lognorm).
 
 ---
 
@@ -72,6 +79,7 @@ Pseudobulked from perez_sle_sc by donor_id x Major_CT x condition.
 Samples: 1,708 | Genes: 11,918
 obs columns: donor_id, age, sex, race, condition, dataset, bulk_group, Major_CT, donor_age, cell_count, sum_by, orig.ident
 Major_CT: B, CD4T, CD8T, DC, HSC, MONO, NK, Others
+Normalization: log-normalized (lognorm).
 
 ---
 
@@ -89,6 +97,7 @@ Pseudobulked from zhang_sc by donor_id x Major_CT.
 Samples: 404 | Genes: 14,468
 obs columns: donor_id, age, sex, batch_info, dataset, bulk_group, Major_CT, donor_age, cell_count, sum_by, orig.ident
 Major_CT: B, CD4T, CD8T, DC, MONO, Megakaryocyte, NK, Others
+Normalization: log-normalized (lognorm).
 
 ---
 
@@ -138,6 +147,7 @@ Pseudobulk RNA-seq from a Parse Biosciences ex-vivo cytokine stimulation experim
 Samples: 5,760 | Genes: 20,968
 obs columns: sum_by, Major_CT_original, Major_CT, well, donor_id, dataset, perturbation_type, condition, cell_type, is_control, age, donor_age, bulk_group, cell_count
 Cell types: B, CD4T, CD8T, MONO, NK
+Normalization: log-normalized (lognorm).
 Conditions (90 cytokines + PBS control): IFN-alpha1/beta/gamma/epsilon/omega/lambda1-3, IL-1α/β through IL-36/IL-36Ra, TNF-alpha, TGF-beta1, GM-CSF, M-CSF, G-CSF, and many more. Control: PBS (is_control = True).
 
 ---
@@ -159,3 +169,4 @@ Pseudobulked from soundlife_sc by donor_id x Major_CT x visitName — NOT one-ro
 with multiple flu-year/visit timepoints has multiple rows here. Collapse to a single row per donor
 (e.g. filter to one visitName such as baseline/Day 0) yourself if that's what the analysis needs.
 Major_CT: B, CD4T, CD8T, MONO, NK
+Normalization: log-normalized (lognorm).

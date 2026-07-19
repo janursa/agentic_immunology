@@ -5,8 +5,9 @@
 set -euo pipefail
 
 CELL="$1"
-EQTL_DIR="/vol/projects/CIIM/agentic_immunology/datalake/dice/eqtls/full_summary_stats"
-SCRATCH="/vol/projects/CIIM/agentic_immunology/temp/dice_reindex/scratch/${CELL}"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+EQTL_DIR="$REPO_ROOT/datalake/dice/eqtls/full_summary_stats"
+SCRATCH="$REPO_ROOT/temp/dice_reindex/scratch/${CELL}"
 IN="${EQTL_DIR}/${CELL}.vcf.gz"
 OUT_TMP="${SCRATCH}/${CELL}.vcf.bgz"
 OUT_FINAL="${EQTL_DIR}/${CELL}.vcf.bgz"

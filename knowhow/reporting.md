@@ -1,21 +1,14 @@
 # Reporting — Reference
 
-How to write the final user-facing report after analysis is complete (and peer-reviewed, if review was run). The orchestrator writes this report directly — no subagent delegation needed.
-
+How to write the final user-facing report after analysis is complete.
 ---
 
 ## What to produce
 
 Write `report.md` in the same `temp/{task}/` folder used by the analysis:
 
-1. **Restate the original question.**
-2. **Literature-derived design inputs (complex tasks only)** — carry over `design.md`'s "Literature-derived design inputs" section (mechanistic leads with citations, positive controls, working hypothesis) as-is, and state whether each positive control was recovered (from `peer_review.md`'s `POSITIVE CONTROLS` line if review was run).
-3. **Answer it directly**, grounded in the data — phrase every claim as "{statement}, obtained from {x} and {y} data," citing the specific output files/figures that support it.
-4. **List all generated files** with absolute paths: scripts, data outputs, images, `LOG.md`, steps graph.
-5. **Evaluation against success criteria** — state how each main claim was evaluated (from `peer_review.md` if review was run), and include any caveats/limitations.
+1. **Restate the given prompt.**
+2. **List all generated files** the abs path of all generated files (planning, code, literature search, etc.)
 
 ## Rules
-
-- Do not re-run or modify any analysis script — only read existing outputs.
-- Every claim must cite a specific output file or tool result, not general knowledge.
 - Relay the absolute path of `report.md` to the user.
