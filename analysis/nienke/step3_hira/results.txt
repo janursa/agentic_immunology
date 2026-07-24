@@ -1,0 +1,321 @@
+STEP 3 — Aging context from HiRA
+Step 1 TF candidates: CEBPA, CEBPB, RELA, FOS, FOSL2, SPIC, GABPA, NR3C1, ISL1, MYC, MAX, EP300
+======================================================================
+
+======================================================================
+3a. CCL2/CCL7/CCL8 aging gene expression — major cell types (all cohorts)
+======================================================================
+
+  Full aging gene expression dataset: 94205 rows, cell types: ['B', 'CD4T', 'CD8T', 'MONO', 'NK']
+  Columns: ['gene', 'p_value', 'slope', 'n_samples', 'p_value_adj', 'condition', 'comparison', 'dataset', 'cell_type', 'meta_p', 'meta_p_adj', 'neg_log10_adj_pval', 'trend']
+
+  CCL2/CCL7/CCL8 not found in aging gene expression data.
+
+
+  CCL2 in MONO — all cohorts, rank within monocyte aging DEGs:
+  CCL2 not found in MONO aging signatures.
+  CCL2 not rankable (not found or all NA).
+
+======================================================================
+3b. Aging TF activity — MONO (major cell types, FDR<0.05)
+======================================================================
+
+  Significant TFs in MONO aging (FDR<0.05): 296 unique TFs, 1184 rows
+  Columns: ['gene', 'p_value', 'slope', 'p_value_adj', 'condition', 'comparison', 'dataset', 'cell_type', 'meta_p', 'meta_p_adj', 'neg_log10_adj_pval', 'trend']
+
+  Increasing with age in MONO: 132 unique TFs
+  Decreasing with age in MONO: 7 unique TFs
+
+  Top increasing TFs (first 40 rows):
+   gene      p_value    slope  p_value_adj condition comparison dataset cell_type       meta_p   meta_p_adj  neg_log10_adj_pval             trend
+ ARID3A 2.948851e-08 0.198146 1.361102e-07   healthy      aging  onek1k      MONO 1.945906e-20 5.189084e-20           19.284909 Increase in aging
+ ARID5B 8.716323e-08 0.191385 2.898912e-07   healthy      aging  onek1k      MONO 1.199266e-21 3.697737e-21           20.432064 Increase in aging
+  ASCL2 3.465308e-12 0.247228 2.564328e-10   healthy      aging  onek1k      MONO 1.613044e-25 1.989421e-24           23.701273 Increase in aging
+   ATF1 5.218675e-07 0.179658 1.287273e-06   healthy      aging  onek1k      MONO 2.504095e-23 1.106287e-22           21.956132 Increase in aging
+  ATF6B 4.590072e-07 0.180525 1.153459e-06   healthy      aging  onek1k      MONO 3.343378e-24 2.058498e-23           22.686450 Increase in aging
+   ATF7 2.571954e-07 0.184384 6.858544e-07   healthy      aging  onek1k      MONO 1.178656e-21 3.672443e-21           20.435045 Increase in aging
+  BATF3 7.234701e-09 0.206574 4.756924e-08   healthy      aging  onek1k      MONO 1.061737e-27 4.489631e-26           25.347789 Increase in aging
+    BBX 1.034301e-07 0.190295 3.256947e-07   healthy      aging  onek1k      MONO 4.720396e-22 1.552486e-21           20.808972 Increase in aging
+ BCL11A 5.665909e-05 0.144570 9.214885e-05   healthy      aging  onek1k      MONO 1.881700e-08 2.784916e-08            7.555188 Increase in aging
+  CDC5L 2.117500e-07 0.185662 5.913018e-07   healthy      aging  onek1k      MONO 3.818188e-24 2.216046e-23           22.654421 Increase in aging
+  CEBPA 4.961922e-08 0.194929 1.835911e-07   healthy      aging  onek1k      MONO 5.510236e-24 3.077415e-23           22.511814 Increase in aging
+  CEBPB 2.051528e-10 0.226490 4.048348e-09   healthy      aging  onek1k      MONO 8.952670e-24 4.568949e-23           22.340184 Increase in aging
+  CENPX 7.835745e-12 0.243234 3.313401e-10   healthy      aging  onek1k      MONO 6.200082e-28 3.670449e-26           25.435281 Increase in aging
+ CHCHD3 2.988907e-08 0.198063 1.361102e-07   healthy      aging  onek1k      MONO 3.023690e-23 1.297119e-22           21.887020 Increase in aging
+  CREB3 1.287027e-09 0.216465 1.587333e-08   healthy      aging  onek1k      MONO 3.819851e-25 3.768920e-24           23.423783 Increase in aging
+    ...          ...      ...          ...       ...        ...     ...       ...          ...          ...                 ...               ...
+   ELK1 2.241080e-14 0.270476 6.633598e-12   healthy      aging  onek1k      MONO 5.029747e-31 1.488805e-28           27.827162 Increase in aging
+  ESRRA 4.633078e-08 0.195356 1.804462e-07   healthy      aging  onek1k      MONO 3.407649e-24 2.058498e-23           22.686450 Increase in aging
+   ETV7 3.188998e-05 0.149301 5.363316e-05   healthy      aging  onek1k      MONO 1.439493e-04 1.538682e-04            3.812851 Increase in aging
+   FLI1 7.120395e-06 0.161015 1.377540e-05   healthy      aging  onek1k      MONO 1.433823e-18 3.215239e-18           17.492787 Increase in aging
+  GFI1B 1.682072e-05 0.154403 2.935839e-05   healthy      aging  onek1k      MONO 3.841178e-22 1.292032e-21           20.888727 Increase in aging
+  GMEB1 2.659868e-06 0.168278 5.664179e-06   healthy      aging  onek1k      MONO 1.371015e-21 4.183716e-21           20.378438 Increase in aging
+GPBP1L1 1.153120e-06 0.174210 2.605524e-06   healthy      aging  onek1k      MONO 4.506823e-20 1.130525e-19           18.946720 Increase in aging
+  GTF2B 4.474006e-09 0.209376 3.485016e-08   healthy      aging  onek1k      MONO 1.782792e-18 3.938108e-18           17.404712 Increase in aging
+  GTF3A 1.789818e-11 0.239118 6.622327e-10   healthy      aging  onek1k      MONO 5.619759e-19 1.309802e-18           17.882794 Increase in aging
+   HES4 6.441309e-09 0.207254 4.434017e-08   healthy      aging  onek1k      MONO 1.924825e-27 5.762827e-26           25.239364 Increase in aging
+   HHEX 2.406999e-07 0.184821 6.510728e-07   healthy      aging  onek1k      MONO 3.384232e-24 2.058498e-23           22.686450 Increase in aging
+   HIC1 1.564973e-07 0.187631 4.454153e-07   healthy      aging  onek1k      MONO 8.329926e-22 2.651245e-21           20.576550 Increase in aging
+ HMG20B 2.419527e-07 0.184787 6.510728e-07   healthy      aging  onek1k      MONO 9.919078e-23 3.863220e-22           21.413051 Increase in aging
+   HSF1 3.403033e-09 0.210954 3.059830e-08   healthy      aging  onek1k      MONO 3.819509e-23 1.570243e-22           21.804033 Increase in aging
+  IKZF1 6.643423e-07 0.178017 1.598742e-06   healthy      aging  onek1k      MONO 9.180408e-23 3.623201e-22           21.440908 Increase in aging
+
+  Top decreasing TFs (first 40 rows):
+ gene  p_value     slope  p_value_adj condition comparison dataset cell_type       meta_p   meta_p_adj  neg_log10_adj_pval             trend
+ AKNA 0.786368 -0.009783     0.799879   healthy      aging  onek1k      MONO 1.322300e-04 1.433703e-04            3.843541 Decrease in aging
+BAZ2B 0.596307 -0.019119     0.623699   healthy      aging  onek1k      MONO 2.159946e-08 3.149478e-08            7.501761 Decrease in aging
+CREB5 0.923900 -0.003448     0.933360   healthy      aging  onek1k      MONO 9.772877e-05 1.067443e-04            3.971655 Decrease in aging
+GATA3 0.939019 -0.002761     0.945407   healthy      aging  onek1k      MONO 1.523614e-03 1.560518e-03            2.806731 Decrease in aging
+ TET3 0.836050 -0.007470     0.847503   healthy      aging  onek1k      MONO 4.608510e-12 8.267388e-12           11.082632 Decrease in aging
+TRPS1 0.115781 -0.056724     0.131812   healthy      aging  onek1k      MONO 1.114111e-11 1.951342e-11           10.709667 Decrease in aging
+TSHZ2 0.755156 -0.011256     0.770780   healthy      aging  onek1k      MONO 9.999880e-05 1.088222e-04            3.963282 Decrease in aging
+
+
+------------------------------------------------------------
+3b-minor. Aging TF activity — Classic_MONO + NonClassic_MONO (minor, FDR<0.05)
+------------------------------------------------------------
+
+  Minor MONO significant TFs: 355 unique TFs, 2460 rows
+
+  [Classic_MONO] Increasing: 26 TFs | Decreasing: 23 TFs
+  [Classic_MONO] Increasing TFs:
+  gene      p_value    slope  n_samples  p_value_adj condition comparison dataset    cell_type       meta_p  meta_p_adj  neg_log10_adj_pval             trend
+ ASCL2 2.014940e-06 0.184153        657     0.000068   healthy      aging  onek1k Classic_MONO 6.654227e-07    0.000005            5.329469 Increase in aging
+BCL11A 1.713398e-01 0.053431        657     0.246756   healthy      aging  onek1k Classic_MONO 1.303029e-06    0.000007            5.152186 Increase in aging
+ CEBPB 2.575344e-07 0.199362        657     0.000021   healthy      aging  onek1k Classic_MONO 7.613945e-07    0.000005            5.302556 Increase in aging
+ CENPX 1.830107e-04 0.145465        657     0.001374   healthy      aging  onek1k Classic_MONO 6.987355e-04    0.001515            2.819507 Increase in aging
+ ESRRA 4.565516e-04 0.136365        657     0.002661   healthy      aging  onek1k Classic_MONO 5.420861e-03    0.008830            2.054058 Increase in aging
+  HES4 3.391769e-04 0.139383        657     0.002074   healthy      aging  onek1k Classic_MONO 6.752351e-05    0.000203            3.692258 Increase in aging
+  HSF1 2.184590e-05 0.164799        657     0.000417   healthy      aging  onek1k Classic_MONO 8.896906e-04    0.001875            2.727025 Increase in aging
+  IRF2 7.601607e-04 0.131038        657     0.003884   healthy      aging  onek1k Classic_MONO 1.218473e-04    0.000342            3.466327 Increase in aging
+  IRF5 2.548492e-03 0.117540        657     0.010446   healthy      aging  onek1k Classic_MONO 1.387161e-02    0.019824            1.702805 Increase in aging
+  IRF7 1.013530e-07 0.205883        657     0.000019   healthy      aging  onek1k Classic_MONO 1.034206e-06    0.000006            5.236157 Increase in aging
+  IRF9 6.230788e-05 0.155551        657     0.000750   healthy      aging  onek1k Classic_MONO 3.571539e-04    0.000865            3.062957 Increase in aging
+  KLF3 8.939592e-05 0.152242        657     0.000961   healthy      aging  onek1k Classic_MONO 6.149449e-04    0.001365            2.864764 Increase in aging
+NFATC1 1.805227e-04 0.145597        657     0.001374   healthy      aging  onek1k Classic_MONO 1.128952e-03    0.002301            2.638067 Increase in aging
+NFE2L3 2.676952e-02 0.086413        657     0.053112   healthy      aging  onek1k Classic_MONO 4.048545e-06    0.000018            4.750411 Increase in aging
+  NFYB 5.250992e-01 0.024837        657     0.612069   healthy      aging  onek1k Classic_MONO 1.040921e-02    0.015248            1.816784 Increase in aging
+POU2F2 5.914926e-03 0.107278        657     0.017937   healthy      aging  onek1k Classic_MONO 6.823636e-03    0.010831            1.965343 Increase in aging
+  RELA 3.527211e-02 0.082150        657     0.065131   healthy      aging  onek1k Classic_MONO 3.422879e-04    0.000836            3.077976 Increase in aging
+ SP110 8.080348e-05 0.153175        657     0.000942   healthy      aging  onek1k Classic_MONO 7.899639e-05    0.000230            3.637894 Increase in aging
+TCF7L2 1.488270e-02 0.094973        657     0.034243   healthy      aging  onek1k Classic_MONO 1.508320e-03    0.002931            2.532994 Increase in aging
+ THAP1 1.417481e-01 0.057385        657     0.213194   healthy      aging  onek1k Classic_MONO 7.366651e-03    0.011401            1.943038 Increase in aging
+TRAFD1 5.122424e-02 0.076096        657     0.088457   healthy      aging  onek1k Classic_MONO 3.543358e-03    0.006119            2.213330 Increase in aging
+   XPA 3.560026e-04 0.138896        657     0.002142   healthy      aging  onek1k Classic_MONO 7.267188e-03    0.011294            1.947136 Increase in aging
+ZBTB7B 3.550419e-02 0.082047        657     0.065237   healthy      aging  onek1k Classic_MONO 2.322739e-03    0.004165            2.380354 Increase in aging
+ ZNF25 8.592316e-02 0.067051        657     0.137551   healthy      aging  onek1k Classic_MONO 1.230334e-02    0.017787            1.749888 Increase in aging
+ZNF410 4.087944e-03 0.111881        657     0.013862   healthy      aging  onek1k Classic_MONO 8.154532e-03    0.012466            1.904282 Increase in aging
+ZNF703 5.838236e-05 0.156141        657     0.000750   healthy      aging  onek1k Classic_MONO 1.752400e-05    0.000061            4.214042 Increase in aging
+
+
+  [NonClassic_MONO] Increasing: 108 TFs | Decreasing: 30 TFs
+  [NonClassic_MONO] Increasing TFs:
+   gene      p_value    slope  n_samples  p_value_adj condition comparison dataset       cell_type       meta_p   meta_p_adj  neg_log10_adj_pval             trend
+ ARID3A 1.664835e-05 0.190132        506     0.000077   healthy      aging  onek1k NonClassic_MONO 8.542884e-08 2.978033e-07            6.526070 Increase in aging
+ ARID5B 3.964686e-06 0.203438        506     0.000028   healthy      aging  onek1k NonClassic_MONO 1.819209e-08 7.710966e-08            7.112891 Increase in aging
+  ASCL2 2.134206e-06 0.208918        506     0.000019   healthy      aging  onek1k NonClassic_MONO 7.724305e-10 4.175603e-09            8.379281 Increase in aging
+   ATF1 1.115553e-03 0.144505        506     0.002910   healthy      aging  onek1k NonClassic_MONO 1.972838e-07 6.236173e-07            6.205082 Increase in aging
+  ATF6B 6.433972e-07 0.219133        506     0.000010   healthy      aging  onek1k NonClassic_MONO 2.286745e-14 2.843186e-12           11.546195 Increase in aging
+   ATF7 1.710868e-01 0.060941        506     0.244503   healthy      aging  onek1k NonClassic_MONO 3.671022e-03 4.943289e-03            2.305984 Increase in aging
+  BATF3 5.634110e-06 0.200261        506     0.000034   healthy      aging  onek1k NonClassic_MONO 1.110233e-12 2.179563e-11           10.661630 Increase in aging
+  CEBPA 7.379355e-06 0.197786        506     0.000041   healthy      aging  onek1k NonClassic_MONO 2.221844e-10 1.479907e-09            8.829766 Increase in aging
+  CEBPB 1.419996e-07 0.231344        506     0.000005   healthy      aging  onek1k NonClassic_MONO 4.434272e-13 1.188959e-11           10.924833 Increase in aging
+  CENPX 1.133329e-06 0.214372        506     0.000012   healthy      aging  onek1k NonClassic_MONO 8.120851e-10 4.326873e-09            8.363826 Increase in aging
+ CHCHD3 1.027106e-06 0.215208        506     0.000012   healthy      aging  onek1k NonClassic_MONO 2.758315e-12 4.473267e-11           10.349375 Increase in aging
+  CREB3 1.758508e-03 0.138738        506     0.004402   healthy      aging  onek1k NonClassic_MONO 3.283982e-03 4.470530e-03            2.349641 Increase in aging
+   CTCF 1.434343e-03 0.141346        506     0.003664   healthy      aging  onek1k NonClassic_MONO 2.611143e-07 8.113179e-07            6.090809 Increase in aging
+   CUX1 2.323901e-05 0.186904        506     0.000100   healthy      aging  onek1k NonClassic_MONO 2.016359e-09 1.002803e-08            7.998784 Increase in aging
+    DBP 4.997135e-04 0.154200        506     0.001412   healthy      aging  onek1k NonClassic_MONO 3.466670e-04 5.573568e-04            3.253867 Increase in aging
+DNTTIP1 3.445900e-08 0.242204        506     0.000002   healthy      aging  onek1k NonClassic_MONO 8.029560e-12 1.000922e-10            9.999600 Increase in aging
+    DR1 6.453149e-05 0.176664        506     0.000241   healthy      aging  onek1k NonClassic_MONO 3.619107e-10 2.288012e-09            8.640542 Increase in aging
+  DRAP1 2.116465e-06 0.208991        506     0.000019   healthy      aging  onek1k NonClassic_MONO 8.052772e-13 1.668713e-11           10.777618 Increase in aging
+   E2F1 6.395957e-03 0.121072        506     0.014372   healthy      aging  onek1k NonClassic_MONO 6.569434e-05 1.178076e-04            3.928827 Increase in aging
+   E2F4 4.256364e-05 0.180905        506     0.000173   healthy      aging  onek1k NonClassic_MONO 8.236139e-10 4.326873e-09            8.363826 Increase in aging
+   EEA1 6.992107e-04 0.150215        506     0.001904   healthy      aging  onek1k NonClassic_MONO 1.523369e-05 2.913932e-05            4.535521 Increase in aging
+   ELF4 6.916982e-03 0.119929        506     0.015266   healthy      aging  onek1k NonClassic_MONO 1.661488e-05 3.145863e-05            4.502260 Increase in aging
+  ESRRA 1.266709e-05 0.192737        506     0.000064   healthy      aging  onek1k NonClassic_MONO 4.549017e-10 2.698139e-09            8.568936 Increase in aging
+  GFI1B 4.375802e-02 0.089681        506     0.076628   healthy      aging  onek1k NonClassic_MONO 2.372732e-06 5.086374e-06            5.293592 Increase in aging
+  GMEB1 2.964659e-03 0.131843        506     0.007134   healthy      aging  onek1k NonClassic_MONO 1.003071e-05 1.958877e-05            4.707993 Increase in aging
+GPBP1L1 6.003999e-05 0.177406        506     0.000226   healthy      aging  onek1k NonClassic_MONO 3.867441e-08 1.518479e-07            6.818591 Increase in aging
+  GTF2B 5.334795e-06 0.200757        506     0.000033   healthy      aging  onek1k NonClassic_MONO 6.930837e-07 1.817537e-06            5.740517 Increase in aging
+  GTF3A 1.051955e-07 0.233689        506     0.000004   healthy      aging  onek1k NonClassic_MONO 7.305649e-12 9.732168e-11           10.011790 Increase in aging
+   HES4 3.118890e-06 0.205578        506     0.000025   healthy      aging  onek1k NonClassic_MONO 6.776647e-12 9.721882e-11           10.012250 Increase in aging
+   HHEX 3.621688e-04 0.157932        506     0.001047   healthy      aging  onek1k NonClassic_MONO 1.565011e-09 7.996564e-09            8.097097 Increase in aging
+
+
+======================================================================
+3c. Cross-reference Step 1 TF candidates with aging TF signatures (all cell types, FDR<0.05)
+    TFs to check: CEBPA, CEBPB, RELA, FOS, FOSL2, SPIC, GABPA, NR3C1, ISL1, MYC, MAX, EP300
+======================================================================
+
+  All aging TF significant rows: 5752
+  Step 1 TFs found in aging signatures (FDR<0.05): 8 / 12
+  TFs found: ['CEBPA', 'CEBPB', 'FOS', 'FOSL2', 'MAX', 'MYC', 'NR3C1', 'RELA']
+
+  Full table (gene, cell_type, trend, meta_p_adj / effect):
+ gene      p_value     slope  p_value_adj condition comparison   dataset cell_type       meta_p   meta_p_adj  neg_log10_adj_pval             trend
+CEBPB 6.609854e-13  0.227332 2.601100e-12   healthy      aging    onek1k      CD4T 1.946971e-21 5.151614e-21           20.288057 Increase in aging
+  FOS 1.065279e-07  0.169126 1.662988e-07   healthy      aging    onek1k      CD4T 1.028609e-07 1.210462e-07            6.917049      Inconsistent
+FOSL2 3.830438e-11  0.209513 9.464746e-11   healthy      aging    onek1k      CD4T 3.463781e-13 5.485392e-13           12.260792      Inconsistent
+  MAX 1.067424e-07  0.169114 1.662988e-07   healthy      aging    onek1k      CD4T 1.036452e-21 2.848570e-21           20.545373      Inconsistent
+  MYC 1.299375e-10 -0.203829 2.937418e-10   healthy      aging    onek1k      CD4T 2.092210e-11 3.000947e-11           10.522742 Decrease in aging
+NR3C1 3.300043e-14  0.239583 1.975378e-13   healthy      aging    onek1k      CD4T 9.287757e-19 2.018666e-18           17.694936 Increase in aging
+ RELA 3.891899e-13  0.229548 1.590439e-12   healthy      aging    onek1k      CD4T 6.300080e-32 4.399728e-31           30.356574 Increase in aging
+CEBPB 9.892599e-02  0.093438 1.505088e-01   healthy      aging    abf300      CD4T 1.946971e-21 5.151614e-21           20.288057 Increase in aging
+  FOS 7.679807e-02 -0.100171 1.198387e-01   healthy      aging    abf300      CD4T 1.028609e-07 1.210462e-07            6.917049      Inconsistent
+FOSL2 2.160416e-01 -0.070121 3.003997e-01   healthy      aging    abf300      CD4T 3.463781e-13 5.485392e-13           12.260792      Inconsistent
+  MAX 4.931465e-04  0.195826 1.296793e-03   healthy      aging    abf300      CD4T 1.036452e-21 2.848570e-21           20.545373      Inconsistent
+  MYC 8.252632e-01 -0.012529 8.533061e-01   healthy      aging    abf300      CD4T 2.092210e-11 3.000947e-11           10.522742 Decrease in aging
+NR3C1 1.235704e-02  0.141264 2.448417e-02   healthy      aging    abf300      CD4T 9.287757e-19 2.018666e-18           17.694936 Increase in aging
+ RELA 1.097174e-03  0.183674 2.749390e-03   healthy      aging    abf300      CD4T 6.300080e-32 4.399728e-31           30.356574 Increase in aging
+CEBPB 4.090815e-07  0.201396 8.936858e-07   healthy      aging      aida      CD4T 1.946971e-21 5.151614e-21           20.288057 Increase in aging
+  ...          ...       ...          ...       ...        ...       ...       ...          ...          ...                 ...               ...
+ RELA 1.350071e-03  0.180397 4.425220e-03   healthy      aging    abf300      MONO 4.932572e-30 7.300206e-28           27.136665 Increase in aging
+CEBPA 4.921739e-17  0.327679 1.968696e-16   healthy      aging      aida      MONO 5.510236e-24 3.077415e-23           22.511814 Increase in aging
+CEBPB 1.341415e-14  0.302175 3.176471e-14   healthy      aging      aida      MONO 8.952670e-24 4.568949e-23           22.340184 Increase in aging
+  FOS 1.451046e-02  0.097972 2.126286e-02   healthy      aging      aida      MONO 2.670461e-07 3.239575e-07            6.489512      Inconsistent
+FOSL2 9.263354e-01 -0.003715 9.326370e-01   healthy      aging      aida      MONO 2.648552e-07 3.226220e-07            6.491306      Inconsistent
+  MAX 8.002978e-11 -0.256782 1.622521e-10   healthy      aging      aida      MONO 2.433912e-11 4.188592e-11           10.377932      Inconsistent
+NR3C1 4.747170e-16  0.317665 1.351118e-15   healthy      aging      aida      MONO 6.474417e-19 1.485603e-18           17.828097      Inconsistent
+ RELA 2.300620e-19  0.350013 4.612845e-18   healthy      aging      aida      MONO 4.932572e-30 7.300206e-28           27.136665 Increase in aging
+CEBPA 3.643413e-02  0.210570 7.002924e-02   healthy      aging perez_sle      MONO 5.510236e-24 3.077415e-23           22.511814 Increase in aging
+CEBPB 1.769938e-02  0.237967 3.880752e-02   healthy      aging perez_sle      MONO 8.952670e-24 4.568949e-23           22.340184 Increase in aging
+  FOS 1.150430e-03 -0.322066 4.204040e-03   healthy      aging perez_sle      MONO 2.670461e-07 3.239575e-07            6.489512      Inconsistent
+FOSL2 4.616801e-04 -0.345456 2.277622e-03   healthy      aging perez_sle      MONO 2.648552e-07 3.226220e-07            6.491306      Inconsistent
+  MAX 5.080016e-04  0.343090 2.425298e-03   healthy      aging perez_sle      MONO 2.433912e-11 4.188592e-11           10.377932      Inconsistent
+NR3C1 4.077154e-01 -0.084130 4.744769e-01   healthy      aging perez_sle      MONO 6.474417e-19 1.485603e-18           17.828097      Inconsistent
+ RELA 9.226430e-02  0.170130 1.386306e-01   healthy      aging perez_sle      MONO 4.932572e-30 7.300206e-28           27.136665 Increase in aging
+
+
+======================================================================
+3d. SLE gene expression for CCL2/CCL8 in MONO (Perez cohort)
+======================================================================
+
+  SLE gene expression MONO rows: 14745
+  Columns: ['gene', 'p_value', 'slope', 'ctrl', 'condition', 'p_value_adj', 'age_group', 'dataset', 'comparison', 'cell_type']
+  CCL2/CCL7/CCL8 not significant in SLE MONO.
+
+  CCL2/CCL7/CCL8 not tested or not present in SLE MONO dataset.
+  CCL2 not found in SLE MONO gene expression.
+
+======================================================================
+3e. SLE TF activity in MONO — cross-reference with Step 1 TF candidates
+======================================================================
+
+  All SLE TF MONO rows: 1119
+  Columns: ['gene', 'p_value', 'slope', 'p_value_adj', 'neg_log10_adj_pval', 'ctrl', 'condition', 'comparison', 'age_group', 'dataset', 'cell_type', 'direction']
+
+  Step 1 TFs in SLE MONO signatures (all p-values): 7 / 12
+  TFs found: ['CEBPA', 'CEBPB', 'FOS', 'FOSL2', 'MAX', 'NR3C1', 'RELA']
+
+ gene      p_value     slope  p_value_adj  neg_log10_adj_pval    ctrl condition comparison       age_group   dataset cell_type       direction
+CEBPA 6.680316e-02  0.551582 1.440323e-01            0.841540 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+CEBPB 7.863248e-03  0.595660 2.575864e-02            1.589077 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+  FOS 4.531303e-03 -0.701812 1.673442e-02            1.776389 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+FOSL2 3.792997e-02 -0.508795 9.307815e-02            1.031152 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+  MAX 1.169187e-17  0.373379 3.354668e-16           15.474350 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+NR3C1 7.309639e-01 -0.030109 8.090491e-01            0.092025 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+ RELA 4.390772e-03  0.201914 1.637758e-02            1.785750 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+CEBPA 6.155369e-02  0.571052 1.072875e-01            0.969451 healthy       SLE        SLE Younger than 50 perez_sle      MONO Increase in SLE
+CEBPB 2.407872e-03  0.792110 7.301922e-03            2.136563 healthy       SLE        SLE Younger than 50 perez_sle      MONO Increase in SLE
+  FOS 6.844614e-04 -1.483421 2.342239e-03            2.630369 healthy       SLE        SLE Younger than 50 perez_sle      MONO Decrease in SLE
+FOSL2 3.040929e-03 -1.158804 8.792763e-03            2.055875 healthy       SLE        SLE Younger than 50 perez_sle      MONO Decrease in SLE
+  MAX 1.970205e-13  0.369324 4.082703e-12           11.389052 healthy       SLE        SLE Younger than 50 perez_sle      MONO Increase in SLE
+NR3C1 2.992693e-01 -0.211839 3.916752e-01            0.407074 healthy       SLE        SLE Younger than 50 perez_sle      MONO Decrease in SLE
+ RELA 1.199590e-02  0.201394 2.745074e-02            1.561446 healthy       SLE        SLE Younger than 50 perez_sle      MONO Increase in SLE
+CEBPA 7.190122e-01 -0.703102 8.999717e-01            0.045771 healthy       SLE        SLE   Older than 50 perez_sle      MONO Decrease in SLE
+CEBPB 4.681720e-01 -1.077650 7.662590e-01            0.115624 healthy       SLE        SLE   Older than 50 perez_sle      MONO Decrease in SLE
+  FOS 4.467499e-01  1.255378 7.574441e-01            0.120649 healthy       SLE        SLE   Older than 50 perez_sle      MONO Increase in SLE
+FOSL2 3.483548e-01  0.584154 7.042384e-01            0.152280 healthy       SLE        SLE   Older than 50 perez_sle      MONO Increase in SLE
+  MAX 2.383469e-04  0.400236 4.856120e-03            2.313711 healthy       SLE        SLE   Older than 50 perez_sle      MONO Increase in SLE
+NR3C1 4.725824e-03  0.556400 4.036039e-02            1.394045 healthy       SLE        SLE   Older than 50 perez_sle      MONO Increase in SLE
+ RELA 7.014445e-01  0.027281 8.929651e-01            0.049165 healthy       SLE        SLE   Older than 50 perez_sle      MONO Increase in SLE
+
+
+  Significant SLE MONO TFs (FDR<0.05): 200 unique
+  Top significant SLE MONO TFs:
+  gene      p_value     slope  p_value_adj  neg_log10_adj_pval    ctrl condition comparison       age_group   dataset cell_type       direction
+ AKAP8 9.386393e-03 -0.073961 2.992414e-02            1.523978 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+  AKNA 1.439266e-05 -0.475280 9.099090e-05            4.041002 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+ ASCL2 3.032524e-10  0.978680 3.326857e-09            8.477966 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+  ATF4 1.152915e-05 -0.536401 7.679237e-05            4.114682 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+  ATF5 4.206683e-18  1.053020 1.569093e-16           15.804351 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+ BACH2 5.928264e-16 -0.529124 1.105621e-14           13.956394 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+ BATF3 9.483540e-04  0.941450 4.211144e-03            2.375600 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+BCL11B 2.401471e-18 -1.552092 9.952763e-17           16.002056 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+ CEBPB 7.863248e-03  0.595660 2.575864e-02            1.589077 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+ CEBPG 3.971428e-03 -0.108882 1.511574e-02            1.820571 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+ CENPX 5.930753e-03  0.341080 2.086954e-02            1.680487 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+ CREB1 2.194878e-05  0.159610 1.364483e-04            3.865032 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+CREBL2 7.946488e-06  0.427827 5.488963e-05            4.260510 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+ CXXC5 5.248993e-04 -0.474118 2.510095e-03            2.600310 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+ DMTF1 1.139739e-03  0.192078 4.943285e-03            2.305984 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+   ...          ...       ...          ...                 ...     ...       ...        ...             ...       ...       ...             ...
+  ETV7 6.846857e-25  2.545769 1.276939e-22           21.893830 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+   FOS 4.531303e-03 -0.701812 1.673442e-02            1.776389 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+  FOSB 2.192754e-03 -1.128435 8.940019e-03            2.048662 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+ FOXK1 2.987502e-14 -0.249180 5.065174e-13           12.295406 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+ FOXN2 5.026791e-06  0.292651 3.537723e-05            4.451276 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+ GATA3 3.579253e-14 -0.545407 5.562755e-13           12.254710 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+ GTF2B 1.201650e-03  0.411073 5.151902e-03            2.288032 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+ GTF3A 1.176853e-02  0.742534 3.456427e-02            1.461373 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+  HES4 6.466444e-03  1.028200 2.233318e-02            1.651049 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+  HHEX 4.871561e-05  0.863329 2.753170e-04            3.560167 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+ HMGA1 4.560545e-10 -0.941319 4.860238e-09            8.313342 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+ IKZF1 1.171272e-02  0.721557 3.456427e-02            1.461373 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+ IKZF3 1.678836e-16 -1.318415 3.683564e-15           14.433732 healthy       SLE        SLE Both age groups perez_sle      MONO Decrease in SLE
+  IRF1 1.052417e-06  1.364331 8.178154e-06            5.087345 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+  IRF2 9.014755e-09  1.432939 8.005961e-08            7.096587 healthy       SLE        SLE Both age groups perez_sle      MONO Increase in SLE
+
+
+======================================================================
+3f. LPS-relevant cytokine TF signatures in MONO (ParseBio, FDR<0.05)
+    Focus: TNF-alpha, IL-1-beta, IL-6, IL-8, M-CSF (LPS-induced milieu)
+======================================================================
+
+  All significant cytokine TF rows in MONO: 15412
+  Columns: ['gene', 'p_value', 'slope', 'ctrl', 'condition', 'p_value_adj', 'age_group', 'dataset', 'comparison', 'cell_type']
+
+  [TNF-alpha] 181 significant TFs; Step 1 overlap: 3 TFs
+  Step 1 TFs: ['CEBPA', 'CEBPB', 'RELA']
+ gene  p_value     slope ctrl condition  p_value_adj      age_group         dataset       comparison cell_type
+CEBPA 0.005152 -0.432775  PBS TNF-alpha     0.015374 All age groups parsebioscience TNF-alpha vs PBS      MONO
+CEBPB 0.000106 -0.605556  PBS TNF-alpha     0.001203 All age groups parsebioscience TNF-alpha vs PBS      MONO
+ RELA 0.000072 -0.199856  PBS TNF-alpha     0.000954 All age groups parsebioscience TNF-alpha vs PBS      MONO
+
+
+  [IL-1-beta] 301 significant TFs; Step 1 overlap: 6 TFs
+  Step 1 TFs: ['CEBPA', 'CEBPB', 'FOSL2', 'MAX', 'NR3C1', 'RELA']
+ gene      p_value    slope ctrl condition  p_value_adj      age_group         dataset       comparison cell_type
+CEBPA 1.121028e-17 1.478623  PBS IL-1-beta 4.919335e-17 All age groups parsebioscience IL-1-beta vs PBS      MONO
+CEBPB 4.101669e-28 1.882258  PBS IL-1-beta 1.092802e-26 All age groups parsebioscience IL-1-beta vs PBS      MONO
+FOSL2 3.029651e-09 0.751577  PBS IL-1-beta 5.512487e-09 All age groups parsebioscience IL-1-beta vs PBS      MONO
+  MAX 1.029849e-07 0.233302  PBS IL-1-beta 1.770202e-07 All age groups parsebioscience IL-1-beta vs PBS      MONO
+NR3C1 1.572887e-17 0.731181  PBS IL-1-beta 6.743528e-17 All age groups parsebioscience IL-1-beta vs PBS      MONO
+ RELA 3.184032e-09 0.307092  PBS IL-1-beta 5.737410e-09 All age groups parsebioscience IL-1-beta vs PBS      MONO
+
+
+  [IL-6] 204 significant TFs; Step 1 overlap: 3 TFs
+  Step 1 TFs: ['FOS', 'FOSL2', 'RELA']
+ gene      p_value     slope ctrl condition  p_value_adj      age_group         dataset  comparison cell_type
+  FOS 5.290885e-10  1.230323  PBS      IL-6 8.018022e-09 All age groups parsebioscience IL-6 vs PBS      MONO
+FOSL2 2.867411e-10  0.676228  PBS      IL-6 5.941913e-09 All age groups parsebioscience IL-6 vs PBS      MONO
+ RELA 1.058687e-02 -0.126143  PBS      IL-6 2.243695e-02 All age groups parsebioscience IL-6 vs PBS      MONO
+
+
+  [M-CSF] 313 significant TFs; Step 1 overlap: 5 TFs
+  Step 1 TFs: ['CEBPA', 'CEBPB', 'FOS', 'NR3C1', 'RELA']
+ gene      p_value     slope ctrl condition  p_value_adj      age_group         dataset   comparison cell_type
+CEBPA 3.404083e-07  1.036458  PBS     M-CSF 8.941710e-07 All age groups parsebioscience M-CSF vs PBS      MONO
+CEBPB 3.416416e-06  0.847596  PBS     M-CSF 7.366031e-06 All age groups parsebioscience M-CSF vs PBS      MONO
+  FOS 8.659573e-04 -0.844118  PBS     M-CSF 1.251946e-03 All age groups parsebioscience M-CSF vs PBS      MONO
+NR3C1 8.905725e-03  0.280964  PBS     M-CSF 1.161481e-02 All age groups parsebioscience M-CSF vs PBS      MONO
+ RELA 9.491028e-06  0.230185  PBS     M-CSF 1.834276e-05 All age groups parsebioscience M-CSF vs PBS      MONO
+
+
+  [IL-8] No significant TF hits in MONO.
+
+======================================================================
+STEP 3 COMPLETE
+Output: /vol/projects/BIIM/agentic_immunology/temp/nienke/step3_hira/results.txt
+======================================================================

@@ -21,8 +21,5 @@ temp/{task}/
 ### Steps graph
 ⛔ HARD RULE — produce a graph of steps taken, results generated, and their connections. Save it to `results/`.
 
-### Guardrail evidence
-For any `knowhow/guardrail.md` item your analysis addresses, print the concrete diagnostic into `LOG.md` (e.g. N per stratum, correction method used, I²/Q, discovery-vs-replication labeling) — not just a prose claim of compliance. This is what lets a reviewer verify the item against evidence instead of trusting a summary.
-
 ### Report back
 Return to the orchestrator: key findings (grounded in data/tool outputs) + **absolute paths** of every output file.

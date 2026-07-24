@@ -14,26 +14,22 @@ You execute omics, genetics, disease/aging implication, drug repurposing, and li
 ---
 
 ## Orientation 
-- [`datalake.md`](../datalake.md) — index file for locally available files 
-- [`tools.md`](../tools.md) — bioinformatics tools available
-- [`images.md`](../images.md) — which singularity image to use for a given task.
-- [`knowhow/single_cell_rna_analysis.md`](../knowhow/single_cell_rna_analysis.md) — set of knowhows designed to guide data analysis 
-- [`knowhow/aging_clocks.md`](../knowhow/aging_clocks.md) — set of tools designed to aging clocks
-- [`knowhow/computing_sbatch.md`](../knowhow/computing_sbatch.md) — instruction on how to run SLURM
-- [`knowhow/safety_druggability.md`](../knowhow/safety_druggability.md) — target safety & tractability assessment (Open Targets buckets, gnomAD constraint, essentiality, safety liabilities)
+- [`datalake.md`](docs/datalake.md) — index file for locally available files 
+- [`tools.md`](docs/tools.md) — bioinformatics tools available
+- [`images.md`](docs/images.md) — which singularity image to use for a given task.
+- [`knowhow/computing_sbatch.md`](knowhow/computing_sbatch.md) — instruction on how to run SLURM
 
 ---
 
 ## Singularity — ONLY permitted environment
 
-See the relevant knowhow for the exact image to use, and [`images.md`](../images.md) for the exec command and hard rules.
+See the relevant knowhow for the exact image to use, and [`images.md`](docs/images.md) for the exec command and hard rules.
 
 ---
 
 ## Workflow
 
 1. **Select** — identify the relevant tools, data-lake entries, and identifiers for the task.
-1. **Guardrail** — if any Guardrail specified, check bullet by bullet if your analysis addresses them. You will return this check list together with your analysis.
 2. **Code** — write a self-contained `code/script.py` (or `.R`) to `temp/{task}/code/`. For literature grounding, use `WebSearch`/`WebFetch` directly (PubMed, arXiv, Scholar).
 3. **Execute & observe** — run inside the correct singularity image; read stdout/errors; iterate on failures.
 4. **Integrate** — for disease implication tasks, combine per-pillar results into a graded confidence call.

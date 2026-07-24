@@ -113,7 +113,7 @@ IRIS was a manually curated database of signaling pathways in primary immune cel
 ### NicheNet — General Purpose, Not Immune-Specific
 
 **Reference**: Browaeys et al. 2020, *Nature Methods* (doi:10.1038/s41592-019-0667-5)  
-**Location**: `datalake/nichenet/` — **in datalake** | See `datalake/nichenet/list.md` for full file listing
+**Location**: `datalake/nichenet/` — **in datalake** | See `datalake_docs/nichenet/list.md` for full file listing
 
 **NicheNet is a general-purpose cell-cell communication tool** — it was developed for any tissue, tumor, or organ context, not specifically for immunity. It has been heavily applied to immune datasets because CCC is biologically important in immune tissues, but its prior network has no immune-specific knowledge. The cell-type context comes entirely from the user's own scRNA-seq data.
 
@@ -135,7 +135,7 @@ IRIS was a manually curated database of signaling pathways in primary immune cel
 ### DICE Database — In Datalake
 
 **Reference**: Schmiedel et al. 2018, *Cell* (doi:10.1016/j.cell.2018.10.022)  
-**Location**: `datalake/dice/` | See `datalake/dice/list.md` for full file listing
+**Location**: `datalake/dice/` | See `datalake_docs/dice/list.md` for full file listing
 
 DICE profiled gene expression and eQTLs across **15 primary human immune cell subtypes** from 91 healthy donors.
 
@@ -200,7 +200,7 @@ The perturbations covered include:
 **Reference**: Chandak et al. 2023, *Scientific Data* (doi:10.1038/s41597-023-01960-3)  
 **Location**: `datalake/kg/kg.csv` | **License**: MIT | **Size**: 8.1M rows, 937MB
 
-PrimeKG was already present in our datalake. See `datalake/kg/list.md` for full schema and edge type breakdown.
+PrimeKG was already present in our datalake. See `datalake_docs/kg/list.md` for full schema and edge type breakdown.
 
 **What PrimeKG adds beyond OmniPath**:
 

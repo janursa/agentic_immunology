@@ -1,0 +1,19 @@
+======================================================================
+PheWAS — rs11867200 (CCL2 locus, chr17:34,248,950 GRCh38)
+======================================================================
+
+
+--- Section 1: GWAS Catalog (local, p < 5e-8) ---
+No hits in GWAS Catalog for rs11867200.
+
+
+--- Section 2: OpenGWAS PheWAS — p < 5e-8 ---
+No hits at p < 5e-8 in OpenGWAS.
+
+
+--- Section 3: OpenGWAS PheWAS — p < 1e-5 (suggestive) ---
+No hits at p < 1e-5 in OpenGWAS.
+
+
+--- Section 4: Summary and plot ---
+No hits found at any threshold — no plot generated.

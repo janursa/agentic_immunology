@@ -1,0 +1,246 @@
+<mxfile host="Electron" agent="Mozilla/5.0" version="24.7.8">
+  <diagram name="Evaluation" id="eval1">
+    <mxGraphModel dx="1080" dy="782" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="900" pageHeight="820" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ROW 0: corpus curation -->
+        <mxCell id="r0lbl" value="CURATE SCENARIOS FROM LITERATURE  ·  once per paper, growing corpus (N ≥ 10)" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#334155;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="100" y="15" width="490" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="r0e1" value="📚" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="159" y="39" width="32" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="r0e2" value="🤝" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="329" y="39" width="32" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="r0e3" value="📋" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="499" y="39" width="32" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="r0c1" value="&lt;b&gt;Paper Corpus&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;N≥10 papers · extensible&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EEF2FF;strokeColor=#000000;strokeWidth=2;align=left;verticalAlign=middle;spacingLeft=10;fontSize=13;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="100" y="77" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r0c2" value="&lt;b&gt;Extract Scenario&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;LLM + human experts, together&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#000000;strokeWidth=2;align=left;verticalAlign=middle;spacingLeft=10;fontSize=13;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="270" y="77" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r0c3" value="&lt;b&gt;Scenario Card&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;question · findings · methodology&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#334155;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#1E293B;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="440" y="77" width="150" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ROW 1: planning checkpoint -->
+        <mxCell id="r1lbl" value="① PLANNING CHECKPOINT" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#334155;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="100" y="207" width="490" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="r1e1" value="🤖" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="159" y="231" width="32" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="r1e2" value="🔍" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="329" y="231" width="32" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="r1e3" value="🧑" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="499" y="231" width="32" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="r1c1" value="&lt;b&gt;Prompt Agentic&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;runs scenario question → plan&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#000000;strokeWidth=2;align=left;verticalAlign=middle;spacingLeft=10;fontSize=13;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="100" y="269" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r1c2" value="&lt;b&gt;LLM Eval · Plan&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;knowhows+guardrails + paper methodology&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#000000;strokeWidth=2;align=left;verticalAlign=middle;spacingLeft=10;fontSize=13;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="270" y="269" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r1c3" value="&lt;b&gt;Human Eval · Plan&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;reviews LLM's review + the plan&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EEF2FF;strokeColor=#000000;strokeWidth=2;align=left;verticalAlign=middle;spacingLeft=10;fontSize=13;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="440" y="269" width="150" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Memory (between checkpoints) -->
+        <mxCell id="mem" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;🗄️ Memory&lt;br&gt;&lt;font style=&quot;font-size:9px&quot; color=&quot;#475569&quot;&gt;&lt;i&gt;curated knowhows &amp; guardrails&lt;/i&gt;&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#334155;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#1E293B;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="270" y="365" width="150" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="revlbl" value="REVISE PLAN" style="text;html=1;align=center;verticalAlign=middle;fontSize=9;fontStyle=3;fontColor=#D97706;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="100" y="342" width="150" height="14" as="geometry" />
+        </mxCell>
+
+        <!-- ROW 2: results checkpoint -->
+        <mxCell id="r2lbl" value="② RESULTS CHECKPOINT" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#334155;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="100" y="440" width="490" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e1" value="🤖" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="159" y="464" width="32" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e2" value="🔍" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="329" y="464" width="32" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e3" value="🧑" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="499" y="464" width="32" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="r2c1" value="&lt;b&gt;Execute&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;produce results&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#000000;strokeWidth=2;align=left;verticalAlign=middle;spacingLeft=10;fontSize=13;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="100" y="502" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r2c2" value="&lt;b&gt;LLM Eval · Results&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;knowhows+guardrails + paper analysis&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#000000;strokeWidth=2;align=left;verticalAlign=middle;spacingLeft=10;fontSize=13;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="270" y="502" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r2c3" value="&lt;b&gt;Human Eval · Results&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;reviews LLM's review + the results&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#EEF2FF;strokeColor=#000000;strokeWidth=2;align=left;verticalAlign=middle;spacingLeft=10;fontSize=13;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="440" y="502" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rexlbl" value="RE-EXECUTE" style="text;html=1;align=center;verticalAlign=middle;fontSize=9;fontStyle=3;fontColor=#D97706;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="100" y="576" width="150" height="14" as="geometry" />
+        </mxCell>
+
+        <!-- ROW 3: document & curate -->
+        <mxCell id="r3lbl" value="③ DOCUMENT &amp; CURATE  ·  per scenario" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#334155;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="100" y="610" width="490" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="r3cr" value="&lt;b&gt;🗂️ Case Record&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;code + plan + full review process + feedback&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#000000;strokeWidth=2;align=left;verticalAlign=middle;spacingLeft=10;fontSize=13;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="100" y="634" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r3cf" value="&lt;b&gt;Curate Feedback&lt;/b&gt;&lt;br&gt;&lt;font color=&#39;#475569&#39; style=&#39;font-size:10px&#39;&gt;framework distills reusable lessons&lt;/font&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#000000;strokeWidth=2;align=left;verticalAlign=middle;spacingLeft=10;fontSize=13;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="440" y="634" width="150" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- intra-row solid arrows -->
+        <mxCell id="a1" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="250" y="112" as="sourcePoint" /><mxPoint x="270" y="112" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a2" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="112" as="sourcePoint" /><mxPoint x="440" y="112" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a3" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="250" y="304" as="sourcePoint" /><mxPoint x="270" y="304" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a4" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="304" as="sourcePoint" /><mxPoint x="440" y="304" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a5" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="250" y="537" as="sourcePoint" /><mxPoint x="270" y="537" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a6" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="537" as="sourcePoint" /><mxPoint x="440" y="537" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a7" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=2;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="669" as="sourcePoint" /><mxPoint x="440" y="669" as="targetPoint" /></mxGeometry>
+        </mxCell>
+
+        <!-- Scenario Card -> Prompt Agentic (elbow) -->
+        <mxCell id="b1" style="endArrow=none;html=1;strokeColor=#94A3B8;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="147" as="sourcePoint" /><mxPoint x="515" y="163" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="b2" style="endArrow=none;html=1;strokeColor=#94A3B8;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="163" as="sourcePoint" /><mxPoint x="175" y="163" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="b3" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="175" y="163" as="sourcePoint" /><mxPoint x="175" y="269" as="targetPoint" /></mxGeometry>
+        </mxCell>
+
+        <!-- REVISE PLAN loop: Human Eval Plan -> Prompt Agentic -->
+        <mxCell id="c1e" style="endArrow=none;html=1;strokeColor=#D97706;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="339" as="sourcePoint" /><mxPoint x="515" y="352" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="c2e" style="endArrow=none;html=1;strokeColor=#D97706;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="352" as="sourcePoint" /><mxPoint x="175" y="352" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="c3e" style="endArrow=block;html=1;strokeColor=#D97706;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="175" y="352" as="sourcePoint" /><mxPoint x="175" y="339" as="targetPoint" /></mxGeometry>
+        </mxCell>
+
+        <!-- RE-EXECUTE loop: Human Eval Results -> Execute -->
+        <mxCell id="d1e" style="endArrow=none;html=1;strokeColor=#D97706;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="572" as="sourcePoint" /><mxPoint x="515" y="586" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="d2e" style="endArrow=none;html=1;strokeColor=#D97706;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="586" as="sourcePoint" /><mxPoint x="175" y="586" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="d3e" style="endArrow=block;html=1;strokeColor=#D97706;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="175" y="586" as="sourcePoint" /><mxPoint x="175" y="572" as="targetPoint" /></mxGeometry>
+        </mxCell>
+
+        <!-- Memory retrieve arrows -->
+        <mxCell id="e1" style="endArrow=block;html=1;strokeColor=#7C3AED;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="345" y="365" as="sourcePoint" /><mxPoint x="345" y="339" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e2" style="endArrow=block;html=1;strokeColor=#7C3AED;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="345" y="429" as="sourcePoint" /><mxPoint x="345" y="502" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e3lbl" value="retrieve" style="text;html=1;align=center;verticalAlign=middle;fontSize=8;fontStyle=3;fontColor=#7C3AED;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="365" y="392" width="50" height="12" as="geometry" />
+        </mxCell>
+
+        <!-- Human Eval Plan / Results -> Case Record (right spine) -->
+        <mxCell id="f1" style="endArrow=none;html=1;strokeColor=#94A3B8;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="590" y="304" as="sourcePoint" /><mxPoint x="610" y="304" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="f2" style="endArrow=none;html=1;strokeColor=#94A3B8;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="610" y="304" as="sourcePoint" /><mxPoint x="610" y="620" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="f3" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="610" y="620" as="sourcePoint" /><mxPoint x="380" y="634" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="g1" style="endArrow=none;html=1;strokeColor=#94A3B8;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="590" y="537" as="sourcePoint" /><mxPoint x="610" y="537" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="g2" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="610" y="537" as="sourcePoint" /><mxPoint x="350" y="634" as="targetPoint" /></mxGeometry>
+        </mxCell>
+
+        <!-- Curate Feedback -> Memory (store) -->
+        <mxCell id="h1" style="endArrow=none;html=1;strokeColor=#7C3AED;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="590" y="669" as="sourcePoint" /><mxPoint x="650" y="669" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="h2" style="endArrow=none;html=1;strokeColor=#7C3AED;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="650" y="669" as="sourcePoint" /><mxPoint x="650" y="397" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="h3" style="endArrow=block;html=1;strokeColor=#7C3AED;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="650" y="397" as="sourcePoint" /><mxPoint x="420" y="397" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="h4lbl" value="store curated lessons" style="text;html=1;align=left;verticalAlign=middle;fontSize=8;fontStyle=3;fontColor=#7C3AED;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="655" y="530" width="90" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- Case Record -> next paper (left spine, repeat) -->
+        <mxCell id="i1" style="endArrow=none;html=1;strokeColor=#94A3B8;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="100" y="669" as="sourcePoint" /><mxPoint x="40" y="669" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="i2" style="endArrow=none;html=1;strokeColor=#94A3B8;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="40" y="669" as="sourcePoint" /><mxPoint x="40" y="112" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="i3" style="endArrow=block;html=1;strokeColor=#94A3B8;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="40" y="112" as="sourcePoint" /><mxPoint x="100" y="112" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="i4lbl" value="repeat: next paper" style="text;html=1;align=center;verticalAlign=middle;fontSize=8;fontStyle=3;fontColor=#64748B;fontFamily=Segoe UI;horizontal=0;" parent="1" vertex="1">
+          <mxGeometry x="10" y="360" width="90" height="14" as="geometry" />
+        </mxCell>
+
+        <!-- legend -->
+        <mxCell id="l1d" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4F46E5;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="100" y="742" width="15.4" height="15.4" as="geometry" />
+        </mxCell>
+        <mxCell id="l1t" value="Human review" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="120" y="736" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l2d" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#059669;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="250" y="742" width="15.4" height="15.4" as="geometry" />
+        </mxCell>
+        <mxCell id="l2t" value="Agent (produces)" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="270" y="736" width="130" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l3d" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#D97706;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="410" y="742" width="15.4" height="15.4" as="geometry" />
+        </mxCell>
+        <mxCell id="l3t" value="LLM eval / revise" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="430" y="736" width="130" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l4d" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#7C3AED;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="570" y="742" width="15.4" height="15.4" as="geometry" />
+        </mxCell>
+        <mxCell id="l4t" value="Memory store/retrieve" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="590" y="736" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="l5d" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#64748B;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="750" y="742" width="15.4" height="15.4" as="geometry" />
+        </mxCell>
+        <mxCell id="l5t" value="Repeat / iterate" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#475569;fontFamily=Segoe UI;" parent="1" vertex="1">
+          <mxGeometry x="770" y="736" width="120" height="28" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

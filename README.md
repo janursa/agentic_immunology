@@ -16,24 +16,35 @@ conda create -n iagent_env python=3.11 -y && conda activate iagent_env
 
 Then install the package. From the main repo, call:
 ```bash
-bash install.sh
+bash setup/install.sh
 ```
 
-Wire up the Claude Code subagents (symlinks `ciim_agentic.md` and `agents/*.md` into `.claude/agents/`):
+Link the shared datalake/singularity images and wire up the Claude Code subagents (symlinks
+`datalake/*`, `singularity/`, `ciim_agentic.md`, and `agents/*.md` into `.claude/agents/`):
 ```bash
-bash claude_setup.sh
+bash setup/link_shared_dirs.sh
 ```
+
+`datalake/`, `singularity/`, and `.claude/agents/` are git-tracked symlinks into `/vol/projects/CIIM`
+and this repo's own `agents/` folder — a normal `git clone` gives you working symlinks as long as
+you have CIIM access. If a symlink ever goes stale (e.g. renamed CIIM folder, new agent added),
+rerun the command above.
+
+Set up API tokens:
+```bash
+cp .env.example .env
+```
+Then fill in `.env` — see [Environment / API tokens](#environment--api-tokens-env) below.
 
 ### Checkout layout
 
-The only checkout lives at `/home/jnourisa/projs/ongoing/agentic_immunology`
-(private). There is no copy or symlink under `/vol/projects` — it was
-deliberately removed.
+Anyone with CIIM access can clone their own checkout anywhere — the repo has no dependency on a
+specific checkout location.
 
 ### Optional: run the same agents via `pi` instead of Claude Code
 
 [`pi`](https://github.com/earendil-works/pi) is an alternative CLI agent runtime that can use OpenAI, the
-GWDG academic-cloud endpoint, or any OpenAI-compatible endpoint instead of Claude models. `setup_pie.sh`:
+GWDG academic-cloud endpoint, or any OpenAI-compatible endpoint instead of Claude models. `setup/setup_pi.sh`:
 - installs `pi` (`npm install -g @earendil-works/pi-coding-agent`) if missing
 - installs the subagent delegation extension into `~/.pi/agent/extensions/subagent`
 - if `GWDG_API_KEY` is set (put it in `.env`, gitignored), registers the `gwdg` provider and its
@@ -48,7 +59,7 @@ Nothing under `agents/`, `agents/models.yaml`, or `ciim_agentic.md` is written b
 only pi's own config under `~/.pi/agent/` and the generated `.pi/` folder are.
 
 ```bash
-bash setup_pie.sh
+bash setup/setup_pi.sh
 ```
 
 Launch it (uses `.pi/SYSTEM.md` as the project system prompt automatically):
@@ -66,19 +77,22 @@ dropped from the generated `.pi/agents/*.md` for agents that use them (`data_ana
 `paper_extractor`, `peer_reviewer_agent`, `benchmark_judge`) — they run tool-degraded under pi
 until a web-search extension is added.
 
-Re-run `setup_pie.sh` any time `agents/*.md`, `ciim_agentic.md`, or `agents/models.yaml` change.
+Re-run `setup/setup_pi.sh` any time `agents/*.md`, `ciim_agentic.md`, or `agents/models.yaml` change.
 
 ## Environment / API tokens (`.env`)
 
-`agentic_immunology/.env` (gitignored) holds tokens read directly by tool code:
+`agentic_immunology/.env` (gitignored, copy from `.env.example`) holds tokens read directly by
+tool code:
 
+- `GEMMA_URL` / `GEMMA_API_KEY` — internal Gemma 4 server (see `server/gemma4/`).
 - `OPENGWAS_TOKEN` — JWT for `phewas_opengwas`/`run_mr(mode='opengwas')` (see `tools/ciim/genetics.md`).
   Expires ~2 weeks after issue. **To renew:** log in at https://api.opengwas.io/profile/ (free
   account), copy the JWT shown there, and replace the `OPENGWAS_TOKEN=` line in `.env`.
+- `NGROK_AUTHTOKEN` — used by `server/` to expose local servers publicly.
 - `GWDG_API_KEY` — only needed for the optional `pi` runtime (see below).
 
-## 2. Run the integrated agent:
 
+## Deprecated: Run the integrated agent:
 activate the env where you installed the repo (e.g. iagent_env)
 ```bash
 python agent/agent.py

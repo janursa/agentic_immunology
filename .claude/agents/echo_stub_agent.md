@@ -1,1 +1,0 @@
-../../agents/_test_stubs/echo_stub_agent.md

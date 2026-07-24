@@ -7,7 +7,7 @@ and test multi-turn conversation via OpenAI-compatible API.
 ## Files
 | File | Purpose |
 |------|---------|
-| `singularity/gemma4.def` | Singularity definition (llama.cpp CUDA Docker base) |
+| `singularity_docs/gemma4.def` | Singularity definition (llama.cpp CUDA Docker base) |
 | `singularity/gemma4.sif` | Built image (built via sbatch) |
 | `temp/gemma4_server/server.sh` | SLURM sbatch job to start server on bioinf040 |
 | `temp/gemma4_server/test_client.py` | Python test client (scripted + interactive) |

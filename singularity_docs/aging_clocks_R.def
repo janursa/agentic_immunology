@@ -1,0 +1,69 @@
+Bootstrap: localimage
+From: /vol/projects/BIIM/agentic_immunology/singularity/ciim_R_base.sif
+
+%labels
+    Author jalil.nourisa@gmail.com
+    Description Aging clocks (R) — ciim_R_base + scImmuAging (single-cell immune aging, PBMC)
+
+%post
+    set -e
+
+    # ── Extra CRAN deps not in ciim_R_base ───────────────────────────────────
+    Rscript -e '
+        pkgs <- c("glmnet", "ggpubr", "infotheo", "ggridges", "Matrix")
+        install.packages(pkgs, repos="https://cloud.r-project.org")
+        miss <- pkgs[!pkgs %in% rownames(installed.packages())]
+        if (length(miss)) { cat("FAILED CRAN:", paste(miss, collapse=", "), "\n"); quit(status=1) }
+        cat("CRAN extras OK\n")
+    '
+
+    # ── scImmuAging from GitHub ───────────────────────────────────────────────
+    Rscript -e '
+        remotes::install_github("CiiM-Bioinformatics-group/scImmuAging",
+                                upgrade="never", dependencies=FALSE)
+        if (!"scImmuAging" %in% rownames(installed.packages())) {
+            cat("FAILED: scImmuAging not installed\n"); quit(status=1)
+        }
+        cat("scImmuAging OK\n")
+    '
+
+    # ── Sanity check ─────────────────────────────────────────────────────────
+    Rscript -e '
+        suppressMessages(library(scImmuAging))
+        cat("scImmuAging loads OK\n")
+    '
+
+%environment
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%runscript
+    exec Rscript "$@"
+
+%help
+    Aging clocks — R image.
+
+    Inherits from ciim_R_base.sif:
+        R 4.4.1, Seurat v5, Signac, tidyverse, ggplot2, ComplexHeatmap,
+        limma, edgeR, GenomicRanges, SingleCellExperiment, ...
+
+    Adds:
+        glmnet, ggpubr, infotheo, ggridges — scImmuAging dependencies
+        biomaRt                             — gene annotation
+        scImmuAging (CiiM-Bioinformatics-group/scImmuAging)
+            — cell-type-specific PBMC immune aging clocks (scRNA-seq)
+            — cell types: CD4T, CD8T, NK, B, Monocyte
+            — input: Seurat object with metadata columns donor_id + age
+
+    COMPAT NOTES (Seurat v5 + glmnet 5.0 — patch required at runtime):
+    1. options(Seurat.object.assay.version="v3") before CreateSeuratObject()
+    2. Patch scImmuAging::pre_fun via assignInNamespace() to call
+       glmnet:::predict.glmnet() directly (glmnet 5.0 S3 dispatch broken)
+    3. Pass rownames(model$glmnet.fit$beta) as marker_gene (not all_features)
+    See aging_clock_agent.md for the complete boilerplate.
+
+    Usage:
+        singularity exec \
+            --bind /vol/projects:/vol/projects \
+            agentic_immunology/singularity/aging_clocks_R.sif \
+            Rscript agentic_immunology/temp/{task}/script.R

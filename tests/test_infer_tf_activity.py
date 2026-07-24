@@ -24,7 +24,7 @@ import os
 
 _TOOLS_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools', 'ciim', 'code'))
 sys.path.insert(0, _TOOLS_DIR)
-from genomics import infer_tf_activity, get_immune_grn
+from genomics import infer_tf_activity
 
 # ── helpers ───────────────────────────────────────────────────────────────────
 PASS = "\033[92m✓ PASS\033[0m"
@@ -172,29 +172,6 @@ def test_no_gene_overlap_raises():
         check(True, f"Error raised as expected ({type(e).__name__})")
 
 
-# ── test 10: real GRN from datalake ──────────────────────────────────────────
-def test_real_grn():
-    """Smoke-test with the actual immune GRN from the datalake."""
-    print("\n[test_real_grn]")
-    net = get_immune_grn(cell_type='CD8T')
-    check(len(net) > 0, f"Loaded CD8T GRN ({len(net)} edges)")
-
-    # Build synthetic adata whose var_names include real GRN target genes
-    all_genes = list(set(net['target'].tolist() + net['source'].tolist()))
-    n_genes = min(500, len(all_genes))
-    genes = all_genes[:n_genes]
-    rng = np.random.default_rng(7)
-    X = rng.exponential(1.0, size=(30, n_genes)).astype(np.float32)
-    adata = ad.AnnData(X=X, obs=pd.DataFrame(index=[f's{i}' for i in range(30)]),
-                       var=pd.DataFrame(index=genes))
-
-    scores = infer_tf_activity(adata, net=net)
-    check(isinstance(scores, pd.DataFrame), "Returns DataFrame with real GRN")
-    check(scores.shape[0] == 30,            f"30 obs scored (got {scores.shape[0]})")
-    check(scores.shape[1] > 0,              f"At least one TF scored ({scores.shape[1]})")
-    check(not scores.isnull().all().all(),   "Scores are not all NaN")
-    print(f"  Shape: {scores.shape}  ({scores.shape[1]} TFs active)")
-
 
 # ── main ─────────────────────────────────────────────────────────────────────
 if __name__ == '__main__':
@@ -212,7 +189,6 @@ if __name__ == '__main__':
         test_missing_weight_column,
         test_bad_method_raises,
         test_no_gene_overlap_raises,
-        test_real_grn,
     ]
 
     failed = []

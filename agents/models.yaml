@@ -15,3 +15,5 @@ data_analyst_agent:  { claude: sonnet, pi: gwdg/qwen3-coder-next }
 data_download_agent: { claude: sonnet, pi: gwdg/qwen3-coder-next }
 peer_reviewer_agent: { claude: opus,   pi: gwdg/qwen3-coder-next }
 feedback_analyser:   { claude: sonnet, pi: gwdg/qwen3-coder-next }
+curate_paper:        { claude: sonnet, pi: gwdg/qwen3-coder-next }
+evaluate_helper:     { claude: opus,   pi: gwdg/qwen3-coder-next }

@@ -46,14 +46,14 @@ If the source provides a checksum file, download and verify: `md5sum -c checksum
 
 ## Step 4 — Datalake Integration (`datalake` mode only)
 
-**`datalake/{name}/list.md`** — create this file (see existing e.g. `datalake/dice/list.md` for format). One `## filename` block per downloaded file; derive the description from source docs, readme, or a quick `head`/`zcat | head`.
+**`datalake_docs/{name}/list.md`** — create this file (see existing e.g. `datalake_docs/dice/list.md` for format). One `## filename` block per downloaded file; derive the description from source docs, readme, or a quick `head`/`zcat | head`.
 
 **`datalake.md`** — read first, then insert a new `## {dataset_name}` section in alphabetical order:
 ```
 ## {dataset_name}
 *{pretty_name}*
 {dataset_description}
-Files are listed in `datalake/{dataset_name}/list.md`
+Files are listed in `datalake_docs/{dataset_name}/list.md`
 ```
 If a section already exists, update in place.
 

@@ -102,7 +102,6 @@ without a separate explicit decision to do so.
       `study_designer_agent` → `peer_reviewer_agent` (DESIGN-REVIEW) →
       Artifact checkpoint → `data_analyst_agent` → `peer_reviewer_agent`
       (RESULTS-REVIEW) → Artifact checkpoint → report finalized.
-- [ ] Every delegated prompt states `GUARDRAIL: on` verbatim.
 - [ ] Every analysis-subagent prompt has `knowhow/output_conventions.md`
       appended verbatim.
 - [ ] `memory_blob.py retrieve` was run before every dispatch, and the

@@ -8,4 +8,4 @@ Results of our own analysis.
 
 - Virtual Biotech target-level SC expression features and clinical trial outcome rates.
 
-Files are listed in `datalake/summary_stats/list.md`
+Files are listed in `datalake_docs/summary_stats/list.md`

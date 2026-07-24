@@ -1,0 +1,67 @@
+# CCL2 / MCP-1 — SI cohort (young vs old; baseline vs perturbation)
+# Age groups: young ≤40 (n=101), middle 41-59 (n=0), old ≥60 (n=558)
+
+## RNA: CCL2 expression — young vs old per condition
+Condition                 n_young  median_young  n_old  median_old   delta        MWU_p   spearman_r   spearman_p
+baseline                        2        -0.323     97       0.459  +0.783          nan       -0.090    3.764e-01
+24h_LPS                        10         8.224    261       8.271  +0.047    7.314e-01        0.064    2.953e-01
+24h_polyIC                      9         9.126    145      10.225  +1.100    1.507e-03        0.205    1.091e-02
+24h_pam3cys                     9         9.687    173      10.241  +0.554    2.991e-01        0.222    2.613e-03
+24h_CPG                         9         9.793    145      10.042  +0.249    5.915e-02        0.120    1.379e-01
+24h_influenza                   0           nan     10       6.674    +nan          nan        0.032    9.291e-01
+7d_influenza                    0           nan     39       5.652    +nan          nan       -0.226    1.673e-01
+
+## RNA: CCL2 — baseline vs stimulation per age group
+Stim                      group     n_base  med_base  n_stim  med_stim   delta        MWU_p
+24h_LPS                   young          2    -0.323      10     8.224  +8.547          nan
+24h_LPS                   old           97     0.459     261     8.271  +7.812    6.318e-48
+24h_polyIC                young          2    -0.323       9     9.126  +9.449          nan
+24h_polyIC                old           97     0.459     145    10.225  +9.766    1.200e-39
+24h_pam3cys               young          2    -0.323       9     9.687 +10.010          nan
+24h_pam3cys               old           97     0.459     173    10.241  +9.782    2.698e-42
+24h_CPG                   young          2    -0.323       9     9.793 +10.117          nan
+24h_CPG                   old           97     0.459     145    10.042  +9.583    1.200e-39
+24h_influenza             young          2    -0.323       0       nan    +nan          nan
+24h_influenza             old           97     0.459      10     6.674  +6.214    2.155e-07
+7d_influenza              young          2    -0.323       0       nan    +nan          nan
+7d_influenza              old           97     0.459      39     5.652  +5.193    6.251e-19
+
+## Protein (MCP-1): young vs old per stimulation
+Stimulation                         n_young  med_young  n_old   med_old   delta        MWU_p   spearman_r   spearman_p
+pbmc_24h_mcp1_cpg                         9     10.798    130    10.869  +0.071    9.966e-01        0.072    3.997e-01
+pbmc_24h_mcp1_polyic                      9     10.132    136    10.073  -0.060    6.493e-01       -0.149    7.276e-02
+pbmc_24h_mcp1_rpmi                       91      6.732    507     7.055  +0.323    7.490e-01        0.081    4.906e-02
+pbmc_7d_mcp1_rpmi                         2     10.804    147     9.994  -0.810          nan       -0.090    2.758e-01
+pbmc_7d_mcp1_varilrix                    11      9.288    207     9.753  +0.465    3.488e-01        0.077    2.599e-01
+pbmc_24h_mcp1_lps                        98     13.003    544    12.600  -0.403    1.040e-01        0.046    2.489e-01
+pbmc_24h_mcp1_pam3cys                    95     13.234    426    12.969  -0.265    4.843e-03       -0.035    4.299e-01
+pbmc_7d_mcp1_cov-N                       65      9.027    335     9.023  -0.004    7.006e-01       -0.004    9.339e-01
+pbmc_7d_mcp1_cov-ctrl                    62     10.216    332    10.170  -0.047    4.906e-02       -0.148    3.187e-03
+pbmc_7d_mcp1_vzv                          0        nan     50     9.716    +nan          nan       -0.395    4.578e-03
+pbmc_7d_mcp1_cmv                          0        nan     50    10.665    +nan          nan       -0.015    9.176e-01
+pbmc_7d_mcp1_hsv                          0        nan     50    10.166    +nan          nan       -0.181    2.073e-01
+pbmc_7d_mcp1_flu                          0        nan     49    10.004    +nan          nan       -0.019    8.954e-01
+pbmc_7d_mcp1_vzv-pool                     0        nan     50    10.004    +nan          nan       -0.199    1.650e-01
+pbmc_7d_mcp1_hsv-pool                     0        nan     50     9.596    +nan          nan       -0.397    4.294e-03
+pbmc_7d_mcp1_cov-C                        0        nan     50     8.968    +nan          nan       -0.160    2.657e-01
+
+## Protein (MCP-1): RPMI vs stimulation per age group (paired Wilcoxon)
+Stimulation                         group        n  med_base  med_stim   delta   Wilcoxon_p
+pbmc_24h_mcp1_cpg                   young        8     4.997    10.769  +5.581    7.812e-03
+pbmc_24h_mcp1_cpg                   old        119     5.166    10.875  +5.637    2.881e-21
+pbmc_24h_mcp1_polyic                young        8     4.997    10.169  +5.075    7.812e-03
+pbmc_24h_mcp1_polyic                old        125     5.166    10.083  +4.994    2.930e-21
+pbmc_7d_mcp1_varilrix               old        147     9.994     9.782  -0.077    3.228e-03
+pbmc_24h_mcp1_lps                   young       91     6.732    13.027  +5.739    2.909e-16
+pbmc_24h_mcp1_lps                   old        507     7.055    12.670  +5.273    3.763e-84
+pbmc_24h_mcp1_pam3cys               young       88     6.565    13.263  +6.347    3.846e-15
+pbmc_24h_mcp1_pam3cys               old        390     6.915    13.027  +5.811    2.111e-65
+pbmc_7d_mcp1_cov-N                  old         50     9.988     7.591  -2.019    7.799e-08
+pbmc_7d_mcp1_cov-ctrl               old         50     9.988     9.886  -0.369    2.695e-01
+pbmc_7d_mcp1_vzv                    old         50     9.988     9.716  +0.040    6.806e-01
+pbmc_7d_mcp1_cmv                    old         50     9.988    10.665  +0.294    2.980e-04
+pbmc_7d_mcp1_hsv                    old         50     9.988    10.166  +0.366    3.286e-02
+pbmc_7d_mcp1_flu                    old         49     9.983    10.004  +0.096    8.437e-01
+pbmc_7d_mcp1_vzv-pool               old         50     9.988    10.004  -0.002    4.964e-01
+pbmc_7d_mcp1_hsv-pool               old         50     9.988     9.596  -0.294    2.550e-02
+pbmc_7d_mcp1_cov-C                  old         50     9.988     8.968  -0.864    2.515e-04

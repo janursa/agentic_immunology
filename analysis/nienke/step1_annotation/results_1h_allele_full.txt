@@ -1,0 +1,348 @@
+STEP 1h-allele FULL — rs11867200 allele-specific motif scan (all JASPAR human TFs)
+Generated: 2026-05-23
+======================================================================
+
+Locus: chr17:34,248,950 (GRCh38) | rs11867200
+Sequence (50 bp, RegulomeDB):
+  TGGCATGCAACATTTTGCAACCAAGCGGAAGAAACATCATCCGCAAAGAA
+                           ^ SNP (index 25): REF=C | ALT-T | ALT-G
+
+Significance criteria:
+  GAIN: ALT score >= 80% of PWM max score  AND  delta >= +2.0 log2 bits
+  LOSS: REF score >= 80% of PWM max score  AND  delta <= -2.0 log2 bits
+
+Total JASPAR human matrices scored: 5935
+Significant results: 17 | Failed to retrieve: 0
+
+━━━ GAIN: C→T creates new TF binding site ━━━  (n=4)
+  TF             matrix        motif_len  score_REF  score_ALT   delta  %max_REF  %max_ALT
+  -------------------------------------------------------------------------------------
+  Nkx3-2         MA0122.1              9     -4.629      9.922  14.551     -38.3      82.1
+  LEC1-A         UN0423.1             10      5.739     11.851   6.112      42.0      86.8
+  LEC1-A         UN0423.2              6      5.615     11.727   6.112      47.9     100.0
+  AZF2           MA2373.1              4      2.380      6.036   3.656      39.4     100.0
+
+━━━ GAIN: C→G creates new TF binding site ━━━  (n=5)
+  TF             matrix        motif_len  score_REF  score_ALT   delta  %max_REF  %max_ALT
+  -------------------------------------------------------------------------------------
+  MSN2           MA0341.1              5     -7.332      9.277  16.610     -79.0     100.0
+  RGM1           MA0366.1              5     -6.987      9.623  16.610     -72.6     100.0
+  MSN4           MA0342.1              5     -6.864      9.731  16.595     -70.5     100.0
+  Macho-1        MA0118.2              5     -8.450      6.908  15.358    -102.3      83.6
+  MZF1           MA0056.1              6     -5.326      8.810  14.136     -52.1      86.2
+
+━━━ LOSS: C→T disrupts existing binding ━━━  (n=8)
+  TF             matrix        motif_len  score_REF  score_ALT   delta  %max_REF  %max_ALT
+  -------------------------------------------------------------------------------------
+  RDR1           MA0360.2              7     11.768     -4.842 -16.610      91.4     -37.6
+  HAL9           MA0311.1              5      9.325     -7.271 -16.595     100.0     -78.0
+  ANIA_10541     UN0298.1              8     10.842      3.208  -7.633      90.4      26.8
+  ANIA_10541     UN0298.2              6     11.184      3.550  -7.633     100.0      31.7
+  clr-2          UN0085.2              5      8.105      1.331  -6.774      92.2      15.2
+  aop            MA2296.1              7     10.323      5.341  -4.982      81.8      42.3
+  SPIB           MA0081.1              7     10.757      7.758  -2.999      94.8      68.4
+  SPI1           MA0080.1              6      9.382      6.575  -2.807     100.0      70.1
+
+━━━ LOSS: C→G disrupts existing binding ━━━  (n=6)
+  TF             matrix        motif_len  score_REF  score_ALT   delta  %max_REF  %max_ALT
+  -------------------------------------------------------------------------------------
+  ANIA_10541     UN0298.1              8     10.842     -9.080 -19.921      90.4     -75.7
+  ANIA_10541     UN0298.2              6     11.184     -8.738 -19.921     100.0     -78.1
+  RDR1           MA0360.2              7     11.768     -4.842 -16.610      91.4     -37.6
+  HAL9           MA0311.1              5      9.325     -7.271 -16.595     100.0     -78.0
+  clr-2          UN0085.2              5      8.105     -3.082 -11.187      92.2     -35.1
+  aop            MA2296.1              7     10.323      5.640  -4.683      81.8      44.7
+
+
+━━━ ALL SIGNIFICANT RESULTS (JSON) ━━━
+[
+  {
+    "tf": "ANIA_10541",
+    "matrix_id": "UN0298.1",
+    "motif_len": 8,
+    "max_score": 11.987,
+    "threshold_80": 9.59,
+    "score_REF_C": 10.842,
+    "score_ALT_T": 3.208,
+    "score_ALT_G": -9.08,
+    "delta_T": -7.633,
+    "delta_G": -19.921,
+    "pct_max_REF": 90.4,
+    "pct_max_T": 26.8,
+    "pct_max_G": -75.7,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS"
+  },
+  {
+    "tf": "ANIA_10541",
+    "matrix_id": "UN0298.2",
+    "motif_len": 6,
+    "max_score": 11.184,
+    "threshold_80": 8.947,
+    "score_REF_C": 11.184,
+    "score_ALT_T": 3.55,
+    "score_ALT_G": -8.738,
+    "delta_T": -7.633,
+    "delta_G": -19.921,
+    "pct_max_REF": 100.0,
+    "pct_max_T": 31.7,
+    "pct_max_G": -78.1,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS"
+  },
+  {
+    "tf": "AZF2",
+    "matrix_id": "MA2373.1",
+    "motif_len": 4,
+    "max_score": 6.036,
+    "threshold_80": 4.829,
+    "score_REF_C": 2.38,
+    "score_ALT_T": 6.036,
+    "score_ALT_G": -13.673,
+    "delta_T": 3.656,
+    "delta_G": -16.053,
+    "pct_max_REF": 39.4,
+    "pct_max_T": 100.0,
+    "pct_max_G": -226.5,
+    "effect_T": "GAIN",
+    "effect_G": "neutral"
+  },
+  {
+    "tf": "HAL9",
+    "matrix_id": "MA0311.1",
+    "motif_len": 5,
+    "max_score": 9.325,
+    "threshold_80": 7.46,
+    "score_REF_C": 9.325,
+    "score_ALT_T": -7.271,
+    "score_ALT_G": -7.271,
+    "delta_T": -16.595,
+    "delta_G": -16.595,
+    "pct_max_REF": 100.0,
+    "pct_max_T": -78.0,
+    "pct_max_G": -78.0,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS"
+  },
+  {
+    "tf": "LEC1-A",
+    "matrix_id": "UN0423.1",
+    "motif_len": 10,
+    "max_score": 13.657,
+    "threshold_80": 10.925,
+    "score_REF_C": 5.739,
+    "score_ALT_T": 11.851,
+    "score_ALT_G": -10.982,
+    "delta_T": 6.112,
+    "delta_G": -16.721,
+    "pct_max_REF": 42.0,
+    "pct_max_T": 86.8,
+    "pct_max_G": -80.4,
+    "effect_T": "GAIN",
+    "effect_G": "neutral"
+  },
+  {
+    "tf": "LEC1-A",
+    "matrix_id": "UN0423.2",
+    "motif_len": 6,
+    "max_score": 11.727,
+    "threshold_80": 9.382,
+    "score_REF_C": 5.615,
+    "score_ALT_T": 11.727,
+    "score_ALT_G": -11.105,
+    "delta_T": 6.112,
+    "delta_G": -16.721,
+    "pct_max_REF": 47.9,
+    "pct_max_T": 100.0,
+    "pct_max_G": -94.7,
+    "effect_T": "GAIN",
+    "effect_G": "neutral"
+  },
+  {
+    "tf": "MSN2",
+    "matrix_id": "MA0341.1",
+    "motif_len": 5,
+    "max_score": 9.277,
+    "threshold_80": 7.422,
+    "score_REF_C": -7.332,
+    "score_ALT_T": -7.332,
+    "score_ALT_G": 9.277,
+    "delta_T": 0.0,
+    "delta_G": 16.61,
+    "pct_max_REF": -79.0,
+    "pct_max_T": -79.0,
+    "pct_max_G": 100.0,
+    "effect_T": "neutral",
+    "effect_G": "GAIN"
+  },
+  {
+    "tf": "MSN4",
+    "matrix_id": "MA0342.1",
+    "motif_len": 5,
+    "max_score": 9.731,
+    "threshold_80": 7.785,
+    "score_REF_C": -6.864,
+    "score_ALT_T": -6.864,
+    "score_ALT_G": 9.731,
+    "delta_T": 0.0,
+    "delta_G": 16.595,
+    "pct_max_REF": -70.5,
+    "pct_max_T": -70.5,
+    "pct_max_G": 100.0,
+    "effect_T": "neutral",
+    "effect_G": "GAIN"
+  },
+  {
+    "tf": "MZF1",
+    "matrix_id": "MA0056.1",
+    "motif_len": 6,
+    "max_score": 10.225,
+    "threshold_80": 8.18,
+    "score_REF_C": -5.326,
+    "score_ALT_T": -5.326,
+    "score_ALT_G": 8.81,
+    "delta_T": 0.0,
+    "delta_G": 14.136,
+    "pct_max_REF": -52.1,
+    "pct_max_T": -52.1,
+    "pct_max_G": 86.2,
+    "effect_T": "neutral",
+    "effect_G": "GAIN"
+  },
+  {
+    "tf": "Macho-1",
+    "matrix_id": "MA0118.2",
+    "motif_len": 5,
+    "max_score": 8.262,
+    "threshold_80": 6.61,
+    "score_REF_C": -8.45,
+    "score_ALT_T": -8.45,
+    "score_ALT_G": 6.908,
+    "delta_T": 0.0,
+    "delta_G": 15.358,
+    "pct_max_REF": -102.3,
+    "pct_max_T": -102.3,
+    "pct_max_G": 83.6,
+    "effect_T": "neutral",
+    "effect_G": "GAIN"
+  },
+  {
+    "tf": "Nkx3-2",
+    "matrix_id": "MA0122.1",
+    "motif_len": 9,
+    "max_score": 12.092,
+    "threshold_80": 9.673,
+    "score_REF_C": -4.629,
+    "score_ALT_T": 9.922,
+    "score_ALT_G": -4.629,
+    "delta_T": 14.551,
+    "delta_G": 0.0,
+    "pct_max_REF": -38.3,
+    "pct_max_T": 82.1,
+    "pct_max_G": -38.3,
+    "effect_T": "GAIN",
+    "effect_G": "neutral"
+  },
+  {
+    "tf": "RDR1",
+    "matrix_id": "MA0360.2",
+    "motif_len": 7,
+    "max_score": 12.879,
+    "threshold_80": 10.303,
+    "score_REF_C": 11.768,
+    "score_ALT_T": -4.842,
+    "score_ALT_G": -4.842,
+    "delta_T": -16.61,
+    "delta_G": -16.61,
+    "pct_max_REF": 91.4,
+    "pct_max_T": -37.6,
+    "pct_max_G": -37.6,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS"
+  },
+  {
+    "tf": "RGM1",
+    "matrix_id": "MA0366.1",
+    "motif_len": 5,
+    "max_score": 9.623,
+    "threshold_80": 7.698,
+    "score_REF_C": -6.987,
+    "score_ALT_T": -6.987,
+    "score_ALT_G": 9.623,
+    "delta_T": 0.0,
+    "delta_G": 16.61,
+    "pct_max_REF": -72.6,
+    "pct_max_T": -72.6,
+    "pct_max_G": 100.0,
+    "effect_T": "neutral",
+    "effect_G": "GAIN"
+  },
+  {
+    "tf": "SPI1",
+    "matrix_id": "MA0080.1",
+    "motif_len": 6,
+    "max_score": 9.382,
+    "threshold_80": 7.506,
+    "score_REF_C": 9.382,
+    "score_ALT_T": 6.575,
+    "score_ALT_G": 9.238,
+    "delta_T": -2.807,
+    "delta_G": -0.144,
+    "pct_max_REF": 100.0,
+    "pct_max_T": 70.1,
+    "pct_max_G": 98.5,
+    "effect_T": "LOSS",
+    "effect_G": "neutral"
+  },
+  {
+    "tf": "SPIB",
+    "matrix_id": "MA0081.1",
+    "motif_len": 7,
+    "max_score": 11.342,
+    "threshold_80": 9.074,
+    "score_REF_C": 10.757,
+    "score_ALT_T": 7.758,
+    "score_ALT_G": 9.565,
+    "delta_T": -2.999,
+    "delta_G": -1.193,
+    "pct_max_REF": 94.8,
+    "pct_max_T": 68.4,
+    "pct_max_G": 84.3,
+    "effect_T": "LOSS",
+    "effect_G": "neutral"
+  },
+  {
+    "tf": "aop",
+    "matrix_id": "MA2296.1",
+    "motif_len": 7,
+    "max_score": 12.626,
+    "threshold_80": 10.101,
+    "score_REF_C": 10.323,
+    "score_ALT_T": 5.341,
+    "score_ALT_G": 5.64,
+    "delta_T": -4.982,
+    "delta_G": -4.683,
+    "pct_max_REF": 81.8,
+    "pct_max_T": 42.3,
+    "pct_max_G": 44.7,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS"
+  },
+  {
+    "tf": "clr-2",
+    "matrix_id": "UN0085.2",
+    "motif_len": 5,
+    "max_score": 8.787,
+    "threshold_80": 7.029,
+    "score_REF_C": 8.105,
+    "score_ALT_T": 1.331,
+    "score_ALT_G": -3.082,
+    "delta_T": -6.774,
+    "delta_G": -11.187,
+    "pct_max_REF": 92.2,
+    "pct_max_T": 15.2,
+    "pct_max_G": -35.1,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS"
+  }
+]

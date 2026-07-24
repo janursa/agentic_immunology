@@ -18,7 +18,7 @@ import anndata as ad
 
 _TOOLS_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools', 'ciim', 'code'))
 sys.path.insert(0, _TOOLS_DIR)
-from aging import predict_immune_age_grn_clock
+from hira import predict_immune_age_grn_clock
 
 # ── helpers ───────────────────────────────────────────────────────────────────
 PASS = "\033[92m✓ PASS\033[0m"

@@ -1,0 +1,35 @@
+Bootstrap: docker
+From: python:3.11-slim
+
+%labels
+    Author jalil.nourisa@gmail.com
+    Description LDSC image — minimal Python + LD Score Regression (ldsc, Python 3 port)
+
+%post
+    set -e
+    apt-get update -qq && \
+    apt-get install -y -qq --no-install-recommends build-essential git zlib1g-dev bedtools && \
+    rm -rf /var/lib/apt/lists/*
+    pip install --no-cache-dir numpy pandas scipy bitarray ldsc
+
+%environment
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%runscript
+    exec python "$@"
+
+%help
+    LDSC image — minimal ldsc environment (no scanpy/torch).
+
+    Use ciim.sif for scRNA-seq steps (SEG computation).
+    Use ldsc.sif for LD score computation + S-LDSC regression.
+
+    Packages: numpy, pandas, scipy, bitarray, ldsc
+    Provides: ldsc.py, munge_sumstats.py, make_annot.py (via ldsc entry-points)
+
+    Usage:
+        singularity exec \
+            --bind /vol/projects:/vol/projects \
+            /vol/projects/BIIM/agentic_immunology/singularity/ldsc.sif \
+            python3 /your_script.py

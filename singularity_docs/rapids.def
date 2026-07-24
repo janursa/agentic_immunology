@@ -1,0 +1,80 @@
+Bootstrap: docker
+From: rapidsai/base:25.02-cuda12.8-py3.11
+
+%labels
+    Author jalil.nourisa@gmail.com
+    Description RAPIDS + CellTypist image for GPU-accelerated cell type annotation.
+    RAPIDS 25.02 | CUDA 12.8 | Python 3.11
+
+%post
+    set -e
+
+    # ─── System dependencies ──────────────────────────────────────────────────
+    apt-get update -qq && apt-get install -y --no-install-recommends \
+        gcc \
+        g++ \
+        build-essential \
+        libgomp1 \
+        libgl1 \
+        && rm -rf /var/lib/apt/lists/*
+
+    # ─── rapids-singlecell (GPU-accelerated scanpy operations) ───────────────
+    pip install --no-cache-dir rapids-singlecell
+
+    # ─── Single-cell core stack ───────────────────────────────────────────────
+    pip install --no-cache-dir \
+        scanpy \
+        anndata \
+        leidenalg \
+        igraph \
+        umap-learn \
+        harmonypy \
+        scvi-tools \
+        scrublet \
+        pynndescent
+
+    # ─── CellTypist ───────────────────────────────────────────────────────────
+    pip install --no-cache-dir celltypist
+
+    # ─── General utilities ────────────────────────────────────────────────────
+    pip install --no-cache-dir \
+        numpy \
+        pandas \
+        scipy \
+        scikit-learn \
+        matplotlib \
+        seaborn \
+        tqdm \
+        h5py \
+        loompy
+
+%environment
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%runscript
+    exec python "$@"
+
+%help
+    RAPIDS + CellTypist image for GPU-accelerated cell type annotation.
+
+    Key packages:
+      - RAPIDS 25.02: cuDF, cuML, cuGraph (GPU dataframes & ML)
+      - rapids-singlecell: GPU-accelerated scanpy (PCA, UMAP, neighbors, clustering)
+      - CellTypist: automated cell type annotation
+      - scanpy, anndata, scVI-tools, harmonypy, scrublet
+
+    Quick start:
+        singularity exec --nv \
+            --bind /your/data:/data \
+            rapids_celltypist.sif python /your_script.py
+
+    NOTE: --nv flag is required to pass through GPU to the container.
+
+    Typical workflow:
+        import rapids_singlecell as rsc
+        import celltypist
+        rsc.pp.neighbors(adata, use_rep='X_pca')   # GPU neighbors
+        rsc.tl.leiden(adata)                        # GPU clustering
+        model = celltypist.models.Model.load(model='Immune_All_Low.pkl')
+        predictions = celltypist.annotate(adata, model=model)

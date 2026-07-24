@@ -1,0 +1,7 @@
+metric,value
+n_edges_REF,100000.0
+n_edges_Carrier,100000.0
+n_shared,71914.0
+n_REF_only,28086.0
+n_Carrier_only,28086.0
+jaccard,0.561450900176444

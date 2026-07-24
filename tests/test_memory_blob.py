@@ -1,5 +1,5 @@
 """
-Tier 0 unit tests for knowhow/memory_blob.py — the feedback-capture store
+Tier 0 unit tests for memory/memory_blob.py — the feedback-capture store
 every subagent's "Past lessons for you:" injection is built from.
 
 Run with:
@@ -11,8 +11,8 @@ import json
 import tempfile
 import pathlib
 
-_KNOWHOW_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'knowhow'))
-sys.path.insert(0, _KNOWHOW_DIR)
+_MEMORY_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'memory'))
+sys.path.insert(0, _MEMORY_DIR)
 import memory_blob as mb  # noqa: E402
 
 PASS = "\033[92m✓ PASS\033[0m"
@@ -28,7 +28,7 @@ def check(condition, msg):
 
 def _fixture(tmpdir):
     """Point memory_blob's module-level file paths at an isolated fixture so
-    tests never touch the real knowhow/memory_blob.jsonl."""
+    tests never touch the real memory/memory_blob.jsonl."""
     tmp = pathlib.Path(tmpdir)
     tags = tmp / "issue_tags.json"
     blob = tmp / "memory_blob.jsonl"

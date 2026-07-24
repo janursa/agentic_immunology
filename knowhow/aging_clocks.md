@@ -42,7 +42,7 @@ If pseudobulked scATAC-seq is provided, add a mandatory note: `"OcampoATAC clock
 
 ## How to Run
 
-Use `{ciim|aging_clocks_py}.sif` (Python clocks: GRNimmuneClock, OcampoATAC) or `aging_clocks_R.sif` (R clocks: scImmuAging) with `python3`/`Rscript` respectively. See [`../images.md`](../images.md) for the exec command and hard rules.
+Use `{ciim|aging_clocks_py}.sif` (Python clocks: GRNimmuneClock, OcampoATAC) or `aging_clocks_R.sif` (R clocks: scImmuAging) with `python3`/`Rscript` respectively. See [`../docs/images.md`](../docs/images.md) for the exec command and hard rules.
 
 ---
 
@@ -52,7 +52,7 @@ Use `{ciim|aging_clocks_py}.sif` (Python clocks: GRNimmuneClock, OcampoATAC) or 
 ```python
 import sys
 sys.path.insert(0, '/vol/projects/BIIM/agentic_central/agentic/tools/ciim/code')
-from hiara import predict_immune_age_grn_clock
+from hira import predict_immune_age_grn_clock
 # adata: pseudobulk AnnData (samples × genes), log-normalised CPM+log1p
 # adata.obs must contain 'age' (chronological)
 log = predict_immune_age_grn_clock(adata, cell_type='CD4T', output_dir='/output/')

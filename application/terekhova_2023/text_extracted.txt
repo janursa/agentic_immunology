@@ -1,0 +1,2060 @@
+--- PAGE 1 ---
+Resource
+Single-cell atlas of healthy human blood unveils age-
+related loss of NKG2C+GZMB–CD8+ memory T cells
+and accumulation of type 2 memory T cells
+Graphical abstract
+Highlights
+d Clinical and scRNA-seq data of 2 million PBMCs from 166
+people aged 25–85 years old
+d Type 2 memory CD4 + and CD8+ T cells increase with age and
+can produce more IL-4
+d NKG2C+GZMB–XCL1+ deﬁnes a unique memory CD8 + T cell
+subset that decreases with age
+d HLA-DR+ CD4+ memory T cells and GZMK + CD8+ T cells
+accumulate with age
+Authors
+Marina Terekhova, Amanda Swain,
+Pavla Bohacova, ...,
+Roman Chernyatchik,
+Kamila Husarcikova,
+Maxim N. Artyomov
+Correspondence
+martyomov@wustl.edu
+In brief
+Terekhova et al. perform single-cell RNA
+sequencing on >300 samples between 25
+and 85 years to comprehensively proﬁle
+immune changes throughout aging. This
+resource revealed 12 subpopulations that
+change with age, including increased
+type 2 memory CD4
++ and CD8+ T cells and
+decreased NKG2C +GZMB/C0CD8+
+memory population.
+Terekhova et al., 2023, Immunity 56, 2836–2854
+December 12, 2023 ª 2023 The Author(s). Published by Elsevier Inc.
+https://doi.org/10.1016/j.immuni.2023.10.013 ll
+
+--- PAGE 2 ---
+Resource
+Single-cell atlas of healthy human blood unveils
+age-related loss of NKG2C+GZMB–CD8+ memory
+T cells and accumulation of type 2 memory T cells
+Marina Terekhova,1,6 Amanda Swain,1,6 Pavla Bohacova,1,6 Ekaterina Aladyeva,1 Laura Arthur,1 Anwesha Laha,1
+Denis A. Mogilenko,1,2 Samantha Burdess,1 Vladimir Sukhov,1,3 Denis Kleverov,1,3 Barbora Echalar,1 Petr Tsurinov,1,4
+Roman Chernyatchik,1,5 Kamila Husarcikova,1 and Maxim N. Artyomov1,7,*
+1Department of Pathology and Immunology, Washington University School of Medicine, Saint Louis, MO 63110, USA
+2Department of Medicine, Department of Pathology, Microbiology, and Immunology, Vanderbilt Center for Immunobiology, Vanderbilt
+University Medical Center, Nashville, TN 37232, USA
+3Computer Technologies Laboratory, ITMO University, Saint Petersburg 197101, Russia
+4JetBrains Research, 8021 Paphos, Cyprus
+5JetBrains Research, 80639 Munich, Germany
+6These authors contributed equally
+7Lead contact
+*Correspondence: martyomov@wustl.edu
+https://doi.org/10.1016/j.immuni.2023.10.013
+SUMMARY
+Extensive, large-scale single-cell proﬁling of healthy human blood at different ages is one of the critical
+pending tasks required to establish a framework for the systematic understanding of human aging. Here, us-
+ing single-cell RNA/T cell receptor (TCR)/BCR-seq with protein feature barcoding, we proﬁled 317 samples
+from 166 healthy individuals aged 25–85 years old. From this, we generated a dataset from/C242 million cells
+that described 55 subpopulations of blood immune cells. Twelve subpopulations changed with age,
+including the accumulation ofGZMK
++CD8+ T cells andHLA-DR+CD4+ T cells. In contrast to other T cell mem-
+ory subsets, transcriptionally distinctNKG2C+GZMB/C0CD8+ T cells counterintuitively decreased with age.
+Furthermore, we found a concerted age-associated increase in type 2/interleukin (IL)4-expressing memory
+subpopulations across CD4
++ and CD8+ T cell compartments (CCR4+CD8+ Tcm and Th2 CD4+ Tmem), sug-
+gesting a systematic functional shift in immune homeostasis with age. Our work provides novel insights
+into healthy human aging and a comprehensive annotated resource.
+INTRODUCTION
+The human immune system changes substantially during aging,
+even in the absence of disease. Understanding age-associated
+changes in human PBMCs has served as the frontier of human
+aging research. Various aspects of human blood undergo age-
+associated changes, typically seen via cytometry-based ap-
+proaches.
+1–3 Several studies reporting small-scale dissection
+of human aging using single-cell RNA sequencing (scRNA-seq)
+typically focus on speciﬁc compartments such as natural killer
+(NK) cells or CD8 + T cells. 1,4–10 These scRNA-seq studies pro-
+vide comparisons of young vs. older cohorts encompassing
+8–10 individuals, yielding data for /C24100,000 cells. Given that
+age-associated changes are often gradual in nature, scRNA-
+seq proﬁling of larger cohorts sampled across the whole range
+of ages is required to dissect the complexity of immune aging
+and achieve substantial statistical power. Furthermore, a robust
+deﬁnition of rare immune cell subpopulations and identiﬁcation
+of how they are altered by aging also require large-scale data
+generation. Finally, transcriptional data require cytometry-based
+validation as the gold-standard technique to verify the observed
+subpopulations and their (age-related) proportional changes,
+which has been largely missing, to date, in published studies.
+Altogether, the ﬁeld of human immune aging would beneﬁt
+from a large-scale scRNA-seq reference dataset that provides
+a comprehensive description and validation of the key age-asso-
+ciated changes in healthy human blood. Here, we performed an
+extensive proﬁling on 317 PBMC samples from 166 healthy indi-
+viduals (men and women) aged between 25 and 85 years old. All
+samples were analyzed using scRNA-seq and feature barcoding
+(FB), single-cell T cell receptor (TCR), and BCR sequencing,
+which resulted in a dataset, encompassing approximately
+2 million cells with 55 biologically signiﬁcant subpopulations. A
+large scale of the data allowed us to ﬁnd 12 subpopulations
+that change with age, including a relatively low-abundant
+NKG2C
++GZMB/C0CD8+ memory T cell subset. We observe age-
+related accumulation of T helper (Th)2-like CD4 + memory cells
+and CCR4+ CD8+ central memory T cells, the latter of which
+are enriched in type 2 immune signature. This indicates func-
+tional bias in age-associated remodeling of immune cells in
+2836 Immunity 56, 2836–2854, December 12, 2023 ª 2023 The Author(s). Published by Elsevier Inc.
+This is an open access article under the CC BY-NC license ( http://creativecommons.org/licenses/by-nc/4.0/).
+ll
+OPEN ACCESS
+--- PAGE 3 ---
+A
+B
+C
+DE
+Figure 1. Clinical characterization of cohorts and age-related changes in PBMC subpopulations
+(A) Study outline.
+(B) Boxplots showing the results of clinical blood panels across age groups A–E.
+(C) Uniform manifold and approximation projection (UMAP) plot of all PBMCs, colored by the cluster.
+(legend continued on next page)
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854, December 12, 2023 2837
+--- PAGE 4 ---
+circulation. Additionally, we validate key ﬁndings using 30-plex
+spectral cytometry. Although broad repertoire changes in bulk
+T and B cell populations have been studied previously, 11–13 our
+work reveals non-trivial patterns of age-associated clonality
+changes in the speciﬁc memory subpopulations and how they
+are interrelated with each other. Our data are made public both
+in raw and processed browsable formats and provide a unique
+resource for human aging studies.
+RESULTS
+Overall study design and immune cell analysis
+We focused on understanding the changes in PBMC composi-
+tion during healthy aging ( Figure 1 A). Accordingly, all donors
+with inﬂammatory conditions or cancer were excluded from the
+study. We also excluded donors based on lifestyle variables,
+such as obesity or smoking, known to affect the immune system.
+Blood was always collected in the morning, and participants
+were required to fast prior to collection. In parallel with PBMC
+collections, we performed extensive clinical blood panel tests
+to evaluate the health status of individuals. These showed no
+acute inﬂammation (hs-CRP), tissue infarction (LDH), myocardial
+injury (creatine kinase), or lipid imbalance (cholesterol and tri-
+glycerides) together with no changes in the adrenal system
+(cortisol) in our cohort. The donors were metabolically healthy
+as insulin and glucose levels were all within the healthy range.
+Liver and kidney functions were also normal based on ALT,
+AST, total bilirubin, total protein, albumin, creatinine, and BUN
+(Figures 1 B, S1A, and S1B). Among these, albumin decreased
+and BUN increased with age (within the healthy range) demon-
+strating age-associated effects on renal systems consistent
+with previous reports.
+14,15 Well-described age-associated
+changes were seen in red blood cell count and hemoglobin, 16
+which all decrease with age. Similarly, classical hormonal signa-
+tures of aging were observed—a decline in DHEA-S 17 and an in-
+crease in TSH. 18 Taken together, our exclusion criteria and clin-
+ical panel tests conﬁrm that our donors were of generally good
+health and demonstrated typical biochemical features of aging.
+317 samples were collected over the course of 3 years and
+then proﬁled using scTCR/scBCR/scRNA-seq with 20 antibody
+features ( Figures 1 A and S1C; Tables S1 and S2). The libraries
+were constructed in 14 batches, and count data were harmo-
+nized
+19 across individual batches ( Figures S1 D and S1E;
+Table S3)( STAR Methods). To deﬁne individual immune cell sub-
+populations, we utilized a hierarchical approach: the ﬁrst major
+immune subsets were deﬁned (e.g., CD4 + and CD8 + T, NK, B,
+and myeloid cells); then, these major subsets were further sub-
+clustered. Subclustering resolution of major immune subtypes
+was chosen such that it generally matched transcriptional signa-
+tures of biologically well-deﬁned subpopulations (e.g., CD4
++
+Th2, Th1/Th17, and Th17 cell signatures from Monaco et al. 20
+or central and effector memory subtypes of CD8 + T cells from
+Azimuth human PBMC reference 21)( STAR Methods ), resulting
+in a total of 55 distinct immune PBMC subpopulations.
+To assess the signiﬁcance of age-associated changes, we uti-
+lized two approaches. First, samples coming from the ﬁrst visits
+were split into 5 age groups with 10-year-long intervals (25–34,
+35–44, 45–54, 55–64, and 65+ years old), resulting in 22–47 sam-
+ples per age group, and then statistical comparison of subpop-
+ulation frequencies between the groups was carried out using
+Kruskal-Wallis test. Second, linear regression analysis against
+the donor’s ages was performed as a conﬁrmatory evaluation.
+Age- and sex-speciﬁc abundance of clusters and differential
+expression within the clusters were then evaluated to validate
+our ﬁndings using multidimensional cytometry with a custom-
+designed panel of 30 markers ( Table S4 ).
+After quality control ﬁltering ( STAR Methods ), our dataset
+comprised /C242 million cells ( Figure 1 C). On average, we proﬁled
+6,000 cells per sample, detecting 1,300 genes per cell
+(Figures S1F and S1G). scRNA-seq data readily identiﬁed major
+PBMC subpopulations: CD4
++, conventional CD8 +, MAIT CD8 +,
+DN and gd T cells, B cells, myeloid cells, NK cells, and progenitor
+subpopulations (Figures 1C and S1H; Table S5). Consistent with
+previous reports, overall CD4 + T cell proportions did not change
+with age, and conventional (non-MAIT) CD8 + T cells decreased
+with age, 7,22,23 resulting in the well-recognized effect of an
+age-associated increase in the CD4 +/CD8+ T cell ratio 24–26
+(Figures 1 D, 1E, S1I–S1K, and S2A–S2C; Table S6 ). MAIT cells
+declined after /C2455 years of age ( Figures 1 D and S1I–S1K;
+Table S6). We next zoomed in on each of these subsets to inter-
+rogate the ﬁne structure of the cell subpopulations and probe
+their age-dependent remodeling.
+Myeloid cells remain relatively static throughout aging
+We identiﬁed 4 major myeloid subpopulations in our dataset—
+classical (CD14 +CD16/C0) and non-classical (CD16 +) monocytes,
+pDCs, and CD1C-expressing cDCs ( Figures S2 D and S2E;
+Table S5 ). No age-associated proportional or transcriptional
+remodeling was observed in myeloid subpopulations
+(Figures S2 F–S2I; Tables S6 and S7), which is consistent with
+previous work on healthy aging in monocytes.
+27 We next per-
+formed cell-cell communication analysis, where age-related dif-
+ferences were observed in SEMA4D signaling within myeloid and
+T cells and FLT3 signaling within progenitor and T cells ( Fig-
+ure S2 J). Sema4D on T cells was shown to promote the activa-
+tion and maturation of DCs,
+28 whereas Flt3 ligand was involved
+in the development of hematopoietic precursors 29; however,
+the speciﬁc roles of these pathways are still being investigated.
+(D) Boxplots showing the percentage of cells of each PBMC cluster across age groups A–E.
+(E) Ratio of CD4 + by CD8+ T cells across age groups A–E. Comparison is shown for groups A vs. E (exact p.adj = 7e /C009), two-sided pairwise Wilcoxon rank-sum
+test with Bonferroni adjustment.
+Following cohorts are shown in (B): A, n = 47; B, n = 30; C, n = 22; D, n = 30; E, n = 37. Following cohorts are shown in (D) and (E): A, n = 96; B, n = 53; C, n = 41; D,
+n = 54; E, n = 73.
+In (B), (D), and (E), hinges mark the 25th and 75th percentiles, and whiskers cover values within 1.5 times the IQR from the hinges. Horizontal bars show ing the
+median value. Signiﬁcance is shown in (B), (D) for comparison of A vs. E groups by post hoc Dunn’s test after one-way Kruskal-Wallis test with Bonferron i
+adjustment.
+*p.adj < 0.05, **p.adj < 0.01, ***p.adj < 0.001, ns, not signiﬁcant.
+See also Figure S1 .
+ll
+OPEN ACCESS Resource
+2838 Immunity 56, 2836–2854, December 12, 2023
+--- PAGE 5 ---
+A
+C
+D
+EF
+B
+Figure 2. Changes in composition of CD4+ T cells during healthy aging
+(A) UMAP plot of CD4 + T cells, colored by the cluster.
+(B) Heatmap of averaged normalized gene expression in each CD4 + T cell cluster.
+(C) UMAP density plots characterizing the distribution of CD4 + T cells across age groups A–E.
+(legend continued on next page)
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854, December 12, 2023 2839
+--- PAGE 6 ---
+CD4+ cells: Subpopulation structure and age-associated
+changes
+CD4+ T cells comprised 901,152 cells, which allowed us to
+deeply interrogate subpopulation structures and age-dependent
+changes within the subpopulations ( Figures 2 A–2D and S2K–
+S2N). Broadly, the CD4
++ T cell subpopulations formed four major
+groups: naive cells (CD45RA +CCR7+) (clusters 0–1), helper
+memory cells (CD45RO +) (clusters 2–9), cytotoxic CD4 + T cells
+(PRF1+GNLY+) (clusters 10–12), and regulatory cells ( FOXP3+)
+(clusters 13–15).
+In accord with the previous studies, naive CD4 + T cells (cluster
+0) only slightly decreased with age without reaching statistical
+signiﬁcance30–33 (Figures 2D, S2M, and S2N; Table S6), attribut-
+able to the ability of naive CD4 + T cells to maintain their numbers
+efﬁciently through homeostatic proliferation. 34 Memory helper
+CD4+ T cells separated into 8 clusters ( Figures 2 B and S3A;
+Table S5 ). Most of these clusters could be deﬁned by a distinct
+pattern of chemokine receptor expression ( CCR4, CCR6,
+CXCR5, and CXCR3 genes, Figure S3 B) and were validated
+against the previously published proﬁles of the sorted memory
+subpopulations described in Monaco et al. 20 and Ho¨ llbacher
+et al. 35 (Figure S3 C). Follicular memory Tfh cells (cluster 2)
+were identiﬁed based on the strong expression of CXCR526
+(Figures 2 B, S3B, and S3D). Th1 memory cells (cluster 3) were
+characterized by the presence of CXCR3 expression while lack-
+ing the expressions of CCR6 and KLRB1 (Figures 2 B, S3B, and
+S3D). The CCR6+CXCR3+ subpopulation was deﬁned as
+Th1/Th17 memory cells 20 (cluster 4): this population selectively
+expressed KLRB1 (Figures 2 B, S3B, and S3D). GZMK was
+expressed in not only, to a greater extent, Th1 cells but also
+Th1/Th17 cells ( Figures 2 B and S3D). The subpopulation of
+CCR6
++CXCR3/C0 was identiﬁed as Th17 memory cells 20 (cluster
+5) and expressed the lineage-speciﬁc transcriptional factor
+RORC along with AHR (Figures 2 B, S3B, and S3D). In addition,
+clustering deﬁned a distinct subpopulation that co-expressed
+CCR4, CCR6, and CCR10 (Figures 2 B and S3B) and, therefore,
+was deﬁned as the Th22 memory population (cluster 6) based on
+Trifari et al.
+36 This population showed enrichment of Th22 signa-
+tures deﬁned by Ho ¨ llbacher et al. 35 (Figure S3 C). Th2 memory
+cells (cluster 7) were deﬁned as the CCR4+CCR6/C0 population
+and expressed transcription factor GATA320 (Figures 2 B and
+S3B). We also identiﬁed another memory cluster that was
+marked with elevated transcriptional levels of HLA-DR, therefore
+referred to as HLA-DR+ CD4+ Tmem cells (cluster 8) ( Figures 2B
+and S3D). Finally, we identiﬁed a cluster of CD4 + memory T cells
+that was enriched with CTLA-4, PDCD1, LAG3, and HAVCR2
+(TIM-3) (Figures 2B, S3B, and S3D), which we tentatively termed
+exhausted-like CD4 + T cells (cluster 9). This cluster also ex-
+pressed GZMK at higher levels ( Figures 2 B and S3D). Among
+helper memory subpopulations, only Th2 and HLA-DR+ Tmem
+cells substantially accumulated with age ( Figures 2 D and S2L–
+S2N; Table S6 ).
+Three cytotoxic CD4 + T cell subpopulations were very
+distinct from the other cells and expressed classical cytotox-
+icity markers granulysin ( GNLY) and perforin ( PRF1), and tran-
+scription factors EOMES and TBX21 (encoding T-BET). The
+observed populations exhibited distinct patterns of GZMK
+and GZMB expressions ( Figures 2 Ba n d S3D). GZMK and
+GZMB coexpressing cytotoxic CD4 + T cells were referred to
+as terminal effector CD4 + TTE (cluster 10) based on the absence
+of expressions of both CCR7 and CD45RA 37 (Figures 2 Ba n d
+S3D). The GZMB-expressing cytotoxic CD4+ T cells, which
+exhibited elevated CD45RA surface protein signal (based on
+single-cell Feature Barcode data) ( Figures 2 Ba n d S3D)
+were tentatively referred to as CD4
++ terminally differentiated
+CD45RA+ memory (Temra) cells 37 (cluster 11). The third cyto-
+toxic cluster is comprised of GZMB-expressing cytotoxic
+regulatory T cells (Tregs) ( FOXP3+CD25+IL7Rlow) (cluster 12)
+(Figures 2 B, S3D, and S3E). None of the cytotoxic CD4 + Tc e l l
+subpopulations changed appreciably with age ( Figures 2 D,
+S2M, and S2N; Table S6 ).
+Apart from cytotoxic GZMB+PRF1+GNLY+ Tregs, we de-
+tected 3 other distinct CD4 + Treg subsets in PBMCs. All
+Treg clusters exhibited co-expression of FOXP3 and high
+levels of CD25 antibody, whereas they demonstrated low
+expression of IL7R (CD127) ( Figures 2 B, S3D, and S3E). These
+clusters were also enriched in the Monaco et al. 20 Treg bulk
+signature ( Figure S3 C). Those included naive Treg cells
+(CD45RA+CCR7+SELL+LEF1+TCF7+)( c l u s t e r1 3 ) ,m e m o r y
+Treg cells ( IL2RA+CCR4+CTLA-4+ and HLA-DR+)38 (cluster
+14), and a distinct subset of memory KLRB1+RORC+ Treg
+cells (cluster 15), which also expressed CCR4 and CTLA-4
+but were lacking HLA-DR and IKZF2 expressions
+(Figures 2 Ba n d S3D). With age, proportions of naive Treg
+cells decreased, and memory Treg subpopulation increased,
+whereas KLRB1+RORC+ Treg and cytotoxic Treg cells did
+not change appreciably ( Figures 2 Da n d S2L–S2N; Table S6 ).
+With respect to TCR repertoire, cytotoxic CD4 + Temra and
+CD4+ TTE cell populations demonstrated the highest clonality
+among all CD4 + subsets ( Figure 2 E). These populations also
+showed a tendency for clonality to increase with age, although
+this did not reach signiﬁcance in CD4 + TTE cells ( Figures 2 F
+and S3F). Among CD4 + T cells Th1/Th17 subset had the most
+signiﬁcant clonal changes with age, despite the lower absolute
+magnitude of the Gini coefﬁcient compared with cytotoxic sub-
+sets. These three CD4 + subsets (TTE, Temra, and Th1/Th17 cells)
+shared clones among each other ( Figure S3G), suggesting a po-
+tential developmental relation.
+(D) Boxplots showing the percentage of cells of each CD4 + T cell cluster across age groups A–E. Signiﬁcance in the titles is shown for comparison A vs. E groups
+by post hoc Dunn’s test after one-way Kruskal-Wallis test with Bonferroni adjustment.
+(E) TCR repertoire diversity of CD4
++ T cell clusters.
+(F) TCR repertoire diversity of CD4 + T cell clusters across age groups A–E. Comparison is shown for groups A vs. E (exact p.adj = 0.02, 0.06, 0.0007, respectively),
+two-sided pairwise Wilcoxon rank-sum test with Bonferroni adjustment.
+Following cohorts are shown in (D)–(F): A, n = 96; B, n = 53; C, n = 41; D, n = 54; E, n = 73.
+In (D)–(F), hinges mark the 25th and 75th percentiles, and whiskers cover values within 1.5 times the IQR from the hinges. Horizontal bars showing the
+median value.
+*p.adj < 0.05, **p.adj < 0.01, ***p.adj < 0.001, ns, not signiﬁcant.
+See also Figures S2 and S3.
+ll
+OPEN ACCESS Resource
+2840 Immunity 56, 2836–2854, December 12, 2023
+--- PAGE 7 ---
+AB C
+DE F
+G
+H
+IJ
+K
+LM N O
+Figure 3. Spectral cytometry validation for CD4+ T cell subpopulations
+(A) Validation design schema.
+(B) Naive CD4 + T cell gating strategy for spectral cytometry.
+(C) Proportions of naive CD4 + T cells from total peripheral CD4 + T cells in young and old age groups.
+(legend continued on next page)
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854, December 12, 2023 2841
+--- PAGE 8 ---
+CD4+ T cells: Th2 andHLA-DR+ Tmem accumulation and
+naive cells remodeling
+To validate our ﬁndings, we devised a 30-color ﬂow cytometry
+panel ( Table S4 ) guided by the results from scRNA-seq. We
+analyzed PBMCs from 26 individuals (13 young vs. 13 old, see
+Figure 3 A; Table S8 ) focusing on subpopulations emerging
+from our scRNA-seq analysis. Consistent with scRNA-seq
+data, we indeed observed that naive CD4
++ T cells did not change
+with age ( Figures 3B and 3C). Differential gene expression anal-
+ysis of CD4 + T cells between young vs. old subgroups demon-
+strated strong evidence of age-associated transcriptional re-
+modeling in naive cells ( Figure 3 D; Table S7 ). Enrichment in
+Hallmark gene set collection
+39 highlighted two major changes
+in naive cells with age: metabolic modiﬁcations and active cyto-
+kine signaling ( Figures 3E–3G). Interleukin (IL)2-STAT5 signaling
+was one of the strongest elevated pathways, including its key
+members IL2RA and IL2RB (Figures 3 G–3I). Accordingly, naive
+CD4
++ T cells from old individuals increased surface expression
+of CD25 to a greater extent than naive cells from young donors
+(Figure 3J).40 The increase in IL2-STAT5 signaling axis is consis-
+tent with enhanced homeostatic proliferation of naive CD4 +
+T cells in aged humans, which would rely on minute quantities
+of circulating IL2. 30,41,42 To rule out potential association be-
+tween age-related increase in CD25 surface expression and acti-
+vation of naive cells, we evaluated enrichment of classical T cell
+activation signatures in the aged naive CD4
++ T cells ( Figure S3H)
+and found no positive enrichment. Proportions of naive Treg cells
+decreased with age, whereas the overall total fraction of Treg
+cells did not change ( Figures S3 I–S3K) due to compensation
+by a corresponding increase in memory Treg cell proportions
+(Figure S3 L). This suggests that regulatory naive T cells might
+be less prone to homeostatic proliferation compared with con-
+ventional CD4
++ naive cells, which do not change with age
+despite decreased thymic output. 41
+Considering age-associated changes in helper memory sub-
+populations, we devised a gating strategy to obtain HLA-DR+
+memory CD4 + Th cells and memory Th2 CD4 + T cells
+(Figures 3 K, 3L, and 3N). In both cases, we directly validated
+scRNA-seq ﬁndings using cytometry data ( Figures 3 M and
+3O). In terms of magnitude, CD4 + Th2 memory cells demon-
+strated the biggest increase with age, suggesting that the func-
+tionality of the memory helper compartment might be undergo-
+ing a corresponding immunological bias toward type 2
+immunity.
+40 Both HLA-DR+ memory and Th2 cells not only
+increased in proportion but also showed an increase in clonality
+with age, further pointing toward their potential functional signif-
+icance ( Figure S3 F).
+Th2 and HLA-DR+ memory cells together with Tfh, Th1/Th17,
+and naive Treg cells were enriched in various pathways related to
+tricarboxylic acid cycle (TCA) in elderly individuals ( Figure S3 M)
+and Rho GTPase cycle in young. 43 These ﬁndings suggest a
+mitochondrial dysfunction in T cells, resulting in the generation
+of abundant reactive oxygen species and contributing to inﬂam-
+maging.44 Taken together, our results highlight the accumulation
+of Th2 and HLA-DR+ CD4 T cells and naive cells remodeling as
+key hallmarks of healthy aging in circulating CD4 T cells.
+Conventional CD8+ T cells: Subpopulation structure and
+age dependence
+Based on CD8 + antibody labeling and TRAV1-2 gene expres-
+sion, we subsetted 313,343 TRAV1-2-negative (non-MAIT)
+CD8+ Tc e l l sf r o ma l lC D 3+ T cells. Naive and memory subpop-
+ulations were separated, and t hen, memory cells were further
+subclustered. The clustering resolution was chosen to gener-
+ally match the annotation of CD8
++ T cells from the Azimuth
+human PBMC dataset. 21 The high degree of concordance
+between the two datasets can be seen from transcriptional
+enrichment to subsequent clusters ( Figure S4 A). Overall, we
+revealed 12 biologically distinct subpopulations/clusters
+that were remodeled during aging ( Figures 4 A–4C and S4B;
+Table S5 ). These subpopulations could be broadly divided
+into naive (CD45RA
++CD45RO/C0CD62L+CCR7+), central mem-
+ory (identiﬁed by surface expression of CD45RO protein and
+high levels of TCF7 and LEF1 transcripts), and effector memory
+T( T e m )C D 8
++ subpopulations that expressed either granzyme
+Ko rg r a n z y m eB( Figures 4 B and 4D). As expected, 10,31,41 the
+naive CD8 + subpopulation decreased with age, although a
+very small cluster of naive CD8 + T cells enriched in interferon-
+responsive genes did not change ( Figures 4 Ea n d S4C–S4E;
+Table S6 ). Similar to CD4 + T cells, differential expression anal-
+ysis between age groups for CD8 + T cell subpopulations
+showed that naive T cells changed the most with age ( Fig-
+ure S4F). This was accompanied by an enrichment in TCA cycle
+pathways in the older group ( Figure S4 G).
+Effector memory subpopulations (i.e., TCF7/LEF1-negative
+clusters) were composed of GZMK-expressing effector memory
+(D) Dot plot showing the results of differential expression analysis between age groups E vs. A in CD4 + T cell clusters.
+(E) Signiﬁcantly (p.adj < 0.05) enriched pathways for comparison E vs. A groups in CD4 + naive T cell cluster.
+(F) Gene set enrichment analysis (GSEA) plots for two most positively and negatively enriched pathways in E group in CD4 + naive T cell cluster.
+(G) GSEA plot for selected pathway positively enriched for E group in CD4 + naive T cell cluster.
+(H) Volcano plot for comparison of E vs. A groups in CD4 + naive T cell cluster.
+(I) Scatterplot showing IL2RA normalized expression against age. Red line represents the best-ﬁtted linear regression, with the shading showing th e 95%
+conﬁdence intervals. R represents Pearson correlation coefﬁcient.
+(J) Median ﬂuorescence intensity (MFI) of CD25 of naive peripheral CD4
++ T cells of young and old age groups.
+(K) Representative cytometric gating strategy for identiﬁcation of CD4 + memory T cells.
+(L) Representative dot plots of peripheral HLA-DR+ memory CD4 + T cells, one young and one old patient.
+(M) Proportion of peripheral HLA-DR+ memory CD4 + T cells in young and old groups.
+(N) Representative dot plots of peripheral CD4 + Th2 cells, one young and one old patient.
+(O) Percentage of CD4 + Th2 cells from total peripheral CD4 + T cells for young and old age groups.
+In (B) and (K), arrows visualize the relationships across the individual plots. In (C), (J), (M), and (O), horizontal bars showing the median value. Co mparison is shown
+for young and old groups, two-sided Wilcoxon rank-sum test.
+See also Figure S3 .
+ll
+OPEN ACCESS Resource
+2842 Immunity 56, 2836–2854, December 12, 2023
+--- PAGE 9 ---
+A
+C
+D
+E
+FG H
+B
+Figure 4. Changes in composition of CD8+ T cells during healthy aging
+(A) UMAP plot of CD8 + T cells, colored by the cluster.
+(B) Heatmap of averaged normalized gene expression in each CD8 + T cell cluster.
+(C) UMAP density plots characterizing the distribution of CD8 + T cells across age groups A–E.
+(legend continued on next page)
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854, December 12, 2023 2843
+--- PAGE 10 ---
+cells Tem-GZMK and 3 clusters of GZMB-expressing memory
+cells. One of the GZMB expressing clusters showed high surface
+expressions of both CD8 and CD56, as well as high transcrip-
+tional levels of TYROBP gene (encoding for DAP12), and there-
+fore was identiﬁed as NKT-like cells ( Figure 4 B). As expected,
+the cluster of NKT-like cells also expressed transcripts for two
+key transcription factors— ZNF683 (HOBIT) and IKZF2
+(HELIOS) ( Figures 4 B and S4H). The remaining two GZMB-
+expressing effector memory CD8 + T cell clusters were distin-
+guished by singular expression of either ZNF683 or IKZF2.
+IKZF2 (HELIOS)-expressing cells had a higher average surface
+expression of CD45RA protein. Therefore, we tentatively referred
+to this cluster as CD8 + Temra cells, with the caveat that high sur-
+face CD45RA was also detected on cells from other memory
+CD8
++ clusters (Figure 4B). Given the generally lower protein level
+of CD45RA in the ZNF683-expressing cluster, we referred to it as
+GZMB-expressing Tem-GZMB cells. A pseudotime trajectory
+analysis suggested that these two subpopulations of GZMB+
+memory CD8 + T cells represent parallel branches of memory
+cell maturation ( Figure S4I). Neither Tem-GZMB nor Temra sub-
+populations reached nominal statistical signiﬁcance when
+compared between the youngest and oldest subgroups
+(Figures 4E, S4D, and S4E; Table S6). Among the effector mem-
+ory subpopulations, only GZMK
++ Tem cells strongly and gradu-
+ally changed with age (p.adj < 0.001), accumulating from /C249% in
+youngest group toward /C2420% of all CD8 + cells in the oldest
+group ( Figures 4 E and S4C–S4E; Table S6 ). This accumulation
+was also accompanied by an increase in the TCR clonality of
+the Tem-GZMK population ( Figures 4 F and S4J). This was in
+contrast with the GZMB-expressing subpopulations (Temra
+and Tem-GZMB) whose clonality was not dependent on the
+age of the donor, although these clusters were the most clonal
+among all CD8
++ T cell subpopulations ( Figures 4 F and S4J).
+Overall, there were no public TCRs detected with age.
+We also identiﬁed a small cluster marked by high protein ex-
+pressions of CD38 and HLA-DR, which mark pro-inﬂammatory
+CD8+ T cells described by several groups. 45–47 This subpopula-
+tion is known to expand during active inﬂammatory process but
+is very small at steady state ( /C241% of non-MAIT CD8 + cells,
+Figures 4 E, S4D, and S4E; Table S6 ).22 Furthermore,
+CD38+HLA-DR+ cells made up a substantial portion of prolifer-
+ating CD8 + T cells (identiﬁed as MKI67-positive cluster).
+In the context of central memory CD8 + T cells, unbiased clus-
+tering identiﬁed two distinct subpopulations: two large clusters
+(each about 10% of all CD8
++ T cells). These clusters could be
+distinguished by the surface expression of CD194 (CCR4) and
+CD25 ( Figures 4 B and S4H). CCR4+ Tcm cell also had high ex-
+pressions of IL4 and IL2 transcripts, indicating potentially distinct
+functionality of this subset. Both major Tcm subsets ( CCR4+ and
+CCR4/C0) accumulated with age, albeit expansion of the CCR4+
+subset was generally faster ( Figures 4 E and S4C–S4E;
+Table S6 ). The CCR4/C0 Tcm subset demonstrated increased
+TCR clonality with age, in contrast to CCR4+ Tcm ( Figure 4 G).
+TCR sharing analysis revealed that CD8 + T cells exhibited a
+high degree of identical TCR repertoires among some memory
+subpopulations. Speciﬁcally, effector memory, NKT-like, HLA-
+DR
++, and proliferative cells heavily shared TCR clonotypes with
+each other (70%–90% of shared clones). Additionally, to a lesser
+degree, these clonotypes were shared with Tcm CCR4
+/C0 cluster
+(Figure 4 H). Shared TCR clones were commonly observed for
+two or three clusters (e.g., Tem GZMB+, Tem GZMK+, and
+Temra, Figure S4 K). This pattern was consistent across all age
+groups ( Figure S4 K). However, in contrast to CCR4/C0 Tcm cells,
+the Tcm CCR4+ cells lacked clonotype sharing with other mem-
+ory populations, although the overall clonality of these cells was
+comparable with Tcm CCR4
+/C0 cells ( Figure 4 F). This distinct
+repertoire of CCR4+ Tcm cells might be indicative of their func-
+tional uniqueness. Pseudotime trajectory analysis also demon-
+strated that CCR4
++ Tcm cells belong to separate branches
+compared with other memory subpopulations ( Figure S4 I).
+We identiﬁed Trm cells, which showed high expressions ofIL7R,
+CD69,a n d ITGAE together with other genes related to tissue res-
+idency, such as CCR9 and KLRB1 (CD161), while lacking markers
+of migration to lymph nodes ( SELL/C0CCR7/C0). This population did
+not change with age ( Figures 4B, S4D, and S4E; Table S6).
+We also identiﬁed one small yet transcriptionally very distinct
+cluster (/C241% of all CD8 + T cells) of memory cells. It was deﬁned
+by the expression of the KLRC2 transcript (encoding NKG2C
+protein) (Figure 4B), which is typically expressed in NKT-like cells
+and the Temra subpopulation as deﬁned above. Although
+NKG2C is considered a marker of effector memory subpopula-
+tions that are GZMB-positive,
+48,49 to our knowledge, the exis-
+tence of an NKG2C +GZMB/C0 subpopulation has not previously
+been discussed in the literature. Additionally, a pseudotime
+trajectory analysis identiﬁed this subpopulation as a distinct
+terminal branch in the putative memory CD8
++ T cell maturation
+process separate from NKT or Temra cells ( Figure S4 I). This
+KLRC2+ T subpopulation had unexpected behavior with
+age—it progressively decreased, which is in contrast to other
+memory subsets of T cells that either accumulate or remain sta-
+ble with age. This suggested that KLRC2(NKG2C)+ Tmem subset
+is not a mere transcriptional clustering artifact and might repre-
+sent a biologically distinct subpopulation within the mem-
+ory cells.
+(D) Violin plots showing normalized expression of LEF1, GZMK, and GZMB genes per cluster.
+(E) Boxplots showing the percentage of cells of each CD8 + T cell cluster across age groups A–E. Signiﬁcance in the titles is shown for comparison A vs. E groups
+by post hoc Dunn’s test after one-way Kruskal-Wallis test with Bonferroni adjustment.
+(F) TCR repertoire diversity of CD8
++ T cell clusters.
+(G) TCR repertoire diversity of CD8 + T cell clusters across age groups A–E. Comparison is shown for groups A vs. E (exact p.adj = 3.2e /C008, 0.9, respectively), two-
+sided pairwise Wilcoxon rank-sum test with Bonferroni adjustment.
+(H) Bar plot showing the percentage of shared clonotypes between pairs of cell types for CD8
++ T cell clusters.
+Following cohorts are shown in (E)–(G): A, n = 96; B, n = 53; C, n = 41; D, n = 54; E, n = 73.
+In (E)–(G), hinges mark the 25th and 75th percentiles, and whiskers cover values within 1.5 times the IQR from the hinges. Horizontal bars showing the
+median value.
+**p.adj < 0.01, ***p.adj < 0.001, ns, not signiﬁcant.
+See also Figure S4 .
+ll
+OPEN ACCESS Resource
+2844 Immunity 56, 2836–2854, December 12, 2023
+--- PAGE 11 ---
+A
+BC D
+EF G H
+IJ K
+L
+Figure 5. Validation for CD8+ Tmem KLRC2+ and TcmCCR4+ clusters
+(A) Left: UMAP plots with averaged scaled expression of top 20 genes from cluster C10 (Galletti et al. 50) and Tmem KLRC2+ cluster (this study). Arrows indicate
+gene source dataset and dataset where genes were scaled. Right: GSEA normalized enrichment score (NES) and p.adj values for pairwise signature enric hment
+from selected datasets to corresponding clusters.
+(legend continued on next page)
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854, December 12, 2023 2845
+--- PAGE 12 ---
+Reverse age-dependence of NKG2C+ Tmem and
+accumulation of type 2-like IL4-expressingCCR4+
+Tcm cells
+Given the unique age-dependent behavior of NKG2C + CD8+
+Tmem cells, we focused on validating this subset. First, we
+compared signatures of each cluster deﬁned by Galetti
+et al., 50 which speciﬁcally proﬁled memory CD8 + T cells. We
+found that cluster 10 was strongly and speciﬁcally enriched in
+the KLRC2
++ Tmem cluster from our analysis ( Figure 5 A).
+Second, we found a similar cluster in the Azimuth human
+PBMC reference dataset 21:C D 8 + TEM_6 ( Figure 5 A). Gene
+set enrichment of the corresponding markers ( Table S5 )f o ra l l
+three datasets also demonstrated strong statistical equiva-
+lence across these clusters. Therefore, we conclude that this
+cluster is not a technical artifact. KLRC2+GZMB/C0CD8+ Tmem
+cells expressed a unique combination of transcription factors
+such as LEF1 and TCF7, transcription factors associated with
+central memory cells were coexpressed with ZNF683 (Hobit)
+and IKZF2 (Helios), and transcription factors associated with
+effector memory and NKT-like T cell populations ( Figure 5 B).
+Functionally, KLRC2+GZMB/C0 CD8+ Tmem cells were the only
+CD8+ subpopulation that expressed XCL1 (Figure 5 B), a ligand
+important for antigen cross-presentation by DCs. Overall,
+among other cells, only NK cells and some CD4 + T cell subpop-
+ulations expressed XCL1.T m e m KLRC2+ cells exhibited a
+highly diverse clonal composition ( Figure 4 F). KLRC2+ Tmem
+can be distinguished from NKT-like and Temra populations by
+the absence of GZMB and KLRF1 (NKp80) expressions ( Fig-
+ure 5 B). Therefore, for cytometry-based validation ( Figures 3 A
+and S5A), we targeted the NKG2C
++GZMB/C0NKp80/C0 subpopu-
+lation of CD8 + Tc e l l s( Figure S5 B). Indeed, there were
+NKG2C+GZMB/C0NKp80/C0 cells that formed a distinct subpopu-
+lation in our cytometry data and were different in proportion be-
+tween young (28–35 years) and o ld (68+ years) age subgroups
+(Figures 5 C and 5D).
+Finally, we considered CCR4+ Tcm cell population, which ex-
+pressed high levels of both the CCR4 transcript and CCR4
+(CD194) surface protein based on FB ( Figures 4 B, 5E, and
+S5C). Therefore, we used it as a surface marker for cytometry
+validation. Consistent with the scRNA-seq data, this CCR4+
+CD8+ Tcm population increased with age ( Figure 5 F). CCR4+
+CD8+ Tcm accumulated with age faster than CCR4/C0 CD8+
+Tcm cells, and CCR4+ to CCR4/C0 cell ratio emerged as one of
+the age determinants similar to the CD4 +-to-CD8+ ratio ( Fig-
+ure 5 G). We noted that IL4 was selectively expressed in CCR4+
+Tcm cells but not in CCR4/C0 subpopulation ( Figure 4 B). In fact,
+CCR4+ Tcm cells were enriched in IL4 and IL13 pathways ( Fig-
+ure 5 H). This suggests type 2 immunity specialization of these
+CCR4+ CD8+ Tcm cells, and therefore, we evaluated Th2 tran-
+scriptional signature in this subpopulation. It was highly enriched
+in these cells compared with all other CD8
++ T cell subpopula-
+tions, including genes such as IL4R, GATA3, CCR4, ANXA1,
+and XBP1 (Figures 5 I and S5D). Given the age-associated
+increase in Th2 memory CD4 + T cells that we observed
+(Figures 2D and S2L–S2N), this suggests a possibility of coordi-
+nated functional skewing of the memory CD4 + and central mem-
+ory CD8+ T cells with age. Therefore, we leveraged the size of our
+cohort and considered correlations between fractions of CD4 +
+and CD8 + subpopulations. Indeed, we observed that CD8 +
+Tcm CCR4+ were strongly positively correlated with the percent-
+age of Th2 cells ( Figures 5J, 5K, and S5E). This analysis revealed
+two additional major correlations: GZMK+ CD8+ Tem cells corre-
+lated strongly with Th1/Th17 subset, whereas the abundance of
+GZMB
++ CD8+ Tem cells correlated CD4 + Temra cells.
+To explore the functional consequence of the prevalence of
+type 2 memory cells in older age groups, we measured the levels
+of these cytokines in all donor plasma during the ﬁrst visit. We did
+not observe any changes in baseline IL-4, IL-5, or IL-13 levels
+among different age groups, consistent with the fact that our
+cohort was composed of generally healthy individuals ( Fig-
+ure S5 F). We also measured the plasma levels of IgE during
+the ﬁrst visit for all donors. Our analysis revealed no age differ-
+ence (Figure S5F), which is consistent with the ﬁndings of Gergen
+et al.
+51 Then, we considered if the increase in type 2 memory
+cells predisposes immune responses toward that axis. To that
+end, we sorted CD8 + T cells from young and elderly individuals
+and stimulated them with aCD3+aCD28 beads ( STAR Methods).
+In stimulation experiments, we observed an age-related increase
+in cytokine levels for CD8 + T cells, with IL-4 showing the most
+signiﬁcant changes, and IL-9, IL-5, and IL-13 changing
+mildly52,53 (Figure 5L). Intracellular expression of these cytokines
+upon stimulation further supported these observations ( Fig-
+ure S5 G). This indicates that aging is associated with a bias to-
+ward type 2 immunity in the context of immune responses but
+(B) Violin plots showing normalized expression of CD8 + Tmem KLRC2+ marker genes per cluster.
+(C) Representative dot plots of CD8 + Tmem KLRC2+ cells in the peripheral blood, one young and one old patient.
+(D) Proportion of CD8 + Tmem KLRC2+ cells from total CD8 + T cells in the blood per young and old age groups.
+(E) Violin plot showing scaled expression of CD194 antibody per cluster.
+(F) Percentage of CD8
++ Tcm CCR4+ cells from total peripheral CD8 + T cells of young and old age groups.
+(G) Ratio of Tcm CCR4+ cells by Tcm CCR4/C0 cells in conventional CD8 + T cells across age groups A–E. Comparison is shown for groups A vs. E, ***p.adj < 0.001,
+(exact p.adj = 1.9e /C009), two-sided Wilcoxon rank-sum test with Bonferroni adjustment.
+(H) GSEA plot for selected pathway positively enriched in CD8 + Tcm CCR4+ cell cluster.
+(I) Scaled normalized expression of top 100 genes from CD4 + Th2 cell signature in CD8 + T cell clusters.
+(J) Scatterplot showing percentage of CD8 + Tcm CCR4+ cells against percentage of CD4 + Th2 cells. Red line represents the best-ﬁtted linear regression, with the
+shading showing the 95% conﬁdence intervals. R represents Pearson correlation coefﬁcient.
+(K) Heatmap showing Pearson correlation between percentage of CD4
++ and CD8 + T cell clusters. Rows and columns were clustered hierarchically.
+(L) IL-4, IL-5, IL-9, and IL-13 production by bulk CD8 + T cells in unstimulated and bead-stimulated conditions for young and old age groups.
+Following cohorts are shown in (G): A, n = 96; B, n = 53; C, n = 41; D, n = 54; E, n = 73.
+In (D)–(G) and (L), horizontal bars showing the median value. In (G), hinges mark the 25th and 75th percentiles, and whiskers cover values within 1.5 ti mes the IQR
+from the hinges. In (D), (F), and (L), comparison is shown for young and old groups, two-sided Wilcoxon rank-sum test.
+See also Figure S5 .
+ll
+OPEN ACCESS Resource
+2846 Immunity 56, 2836–2854, December 12, 2023
+--- PAGE 13 ---
+A
+C
+BD
+E
+F
+H
+G
+Figure 6. Changes in composition of NK cells andgd T cells during healthy aging
+(A) UMAP plot of NK cells, colored by the cluster.
+(B) Heatmap of averaged normalized gene expression in each NK cell cluster.
+(C) Violin plots showing scaled expression of CD56 and CD57 antibody per cluster.
+(legend continued on next page)
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854, December 12, 2023 2847
+--- PAGE 14 ---
+not at a steady state. Cytokine production bias appears to
+be speciﬁc for CD8 + but not CD4 + T cells in our samples
+(Figures S5 G and S5H).
+Healthy aging within innate/innate-like lymphocytes:
+Selective impact ongd T cells but not NK cells
+Clustering of 205,469 NK cells revealed 6 major clusters
+(Figures 6A and 6B; Table S5). Besides the proliferative subpopu-
+lation, which expressed high levels of MKI67, NK cells could be
+divided into two major fractions—CD56
+bright and CD56 dim (Fig-
+ure 6 C).54 CD56bright cluster expressed TCF7 together with
+EOMES and BACH2 and expressed such speciﬁc transcriptional
+markers as CCR7,C D 6 2 L ,IL7R, KLRC1,a n d XCL1.T h i sc l u s t e r
+also expressed high levels of GZMK transcript ( Figure 6 B).
+CD56dim cells were comprised of 4 distinct transcriptional clusters
+that were characterized by progressively increasing levels of the
+surface CD57 protein ( Figure 6 C). Along with the increase in
+CD57 protein, PRF1, CXCR1,a n d CX3CR1 transcripts also
+increased, whereas KLRG1 transcript decreased. GZMB expres-
+sion was associated with transcriptional expression of TBX21
+and was observed in 3 clusters with increasing CD57 levels
+(CD56
+dimCD57low, CD56dimCD57int,a n dC D 5 6dimCD57high). Other
+transcription factors that were distinct in the CD57-expressing
+subpopulation were JUND, FOSB,a n d ZBTB38 (Figure 6 B). No
+age-associated changes were found in the NK cell compartment
+(Figures 6 D, 6E, and S6A–S6C; Table S6 ). The key tendencies
+were loss of the CD56 bright population and general accumulation
+of subsets with higher levels of CD57 expression ( Figures 6 E
+and S6B; Table S6).
+We identiﬁed and subclustered 60,325 gd T cells, resulting in 5
+distinct clusters including naive gd T cells and GZMB- and
+GZMK-expressing subsets of V d1 and V d2 T cells ( Figures 6 F
+and 6G; Table S5). Only naive and V d1 GZMB+ T cells underwent
+strong age-related populational restructuring ( Figures 6 H and
+S6D–S6F; Table S6 ) but showed no transcriptional age-depen-
+dent changes ( Figure S6 G).
+B cells display age-associated repertoire restructuring
+Among 71,614 B cells, we identiﬁed 9 transcriptional clusters
+(Figures 7 A, 7B, and S6H; Table S5 ), including the following 3
+immature subpopulations: transitional cells (CD38 hiCD27/C0IgD+
+IgM+CD24+MME+(CD10)), which are early immigrants from
+bone marrow, naive cells (CD38 +CD27/C0IgD+IgMloCD24lo), and
+a subpopulation of naive cells with overexpression of interferon
+signatures ( MX1
++ISG15+), called naive IFN. Both non-switched
+(CD38/C0CD27/C0CD24+CR2+(CD21)) and switched (CD38 loCD27+
+CD24+CR2/C0(CD21)) memory B cells showed overlap with the
+bulk subpopulation from Monaco et al. 20 (Figure S6 I). Overall,
+B cells demonstrated limited changes with age ( Figures 7 C
+and S6J–S6M; Table S6 ). Switched memory cells had the high-
+est proportional impact on IgG, IgA, and IgE isotypes percentage
+from all the B cell clusters ( Figure S6N). Naive and memory cells
+that showed activation of BCR signaling were separated into a
+distinct cluster called activated B cells ( CXCR5+)( Figure 7 B).
+JUN/FOS transcriptional factors and NR4A1 were expressed in
+this cluster, consistent with BCR stimulation experience. 55
+Plasma cells (CD38 hiCD27hiCD24/C0) were transcriptionally
+deﬁned by PRDM1 and XBP1 (Figures 7 B and S6H). The CD5 +
+B cell cluster (CD38 /C0CD27+IgDloCD5+) had a unique transcrip-
+tional proﬁle with expression of lipid-transport genes ( ABCA6,
+ABCA9, and APOD), as well as such markers as CTLA-4,
+CXCR3, and LEF1 (Figures 7 B and S6H). The cluster that highly
+expressed CD1C transcript was characterized as atypical mem-
+ory cells (CD38 /C0CD27/C0CD20hiCD21lo) based on the expression
+of lineage-speciﬁc genes FCRL5, FCRL4, IL10RB, CXCR3, and
+transcriptional factors TBX21 and ZEB256,57 (Figures 7 B, S6H,
+and S6O). Atypical memory cells were previously linked with
+chronic infection and autoimmune disease. 56–58
+In fact, age-associated changes in B cells were the most
+evident in BCR repertoire restructuring, particularly in the CD5+
+B cell subpopulation ( Figures 7 D and S6P–S6R). Clonality
+increased with age in CD5+ B cells, and distinct patient-speciﬁc
+clones became dominant in individual old donors ( Figures 7 D
+and S6Q). CD5+ subset shared clones with naive B cells, non-
+switched cells, but also activated, and plasma cells ( Figure S6S).
+These expanded BCR clones may provide insights into aging tra-
+jectories and potential dysfunctions in aged B cell compart-
+ments. Additionally, we identiﬁed two public clonotype clusters
+(Figure S6 T), one closely related to the severe acute respiratory
+syndrome coronavirus 2 (SARS-CoV-2) spike protein antibody
+(84% overlap) and the other to the dengue virus envelope glyco-
+protein antibody (89% overlap).
+59
+Aging trajectory in relation to health, longevity, and
+inﬂammatory conditions
+Finally, we considered all age-associated features together. The
+most characteristic changes were age-associated decline in
+CD8
++ naive T cells and KLRC2+GZMB/C0CD8+ memory cells
+and increase in CD4 + HLA-DR+ Tmem, GZMK+ CD8+ Tmem,
+and CCR4+ CD8+ Tcm, followed by the accumulation of
+Th2 Tmem cells, CCR4/C0 CD8+ Tcm, and CD4 +/CD8+ ratio
+(Figures 7 E and 7F). Principal-component analysis (PCA)
+demonstrated a very high concordance and potential predictive
+ability of the ﬁne PBMC subpopulation structure for age
+(Figures 7 G and 7H). We next considered whether similar age-
+related changes could be observed in public data. In healthy
+(D) UMAP density plots characterizing the distribution of NK cells across age groups A–E.
+(E) Boxplots showing the percentage of cells of each NK cell cluster across age groups A–E.
+(F) UMAP plot of gd T cells, colored by the cluster.
+(G) Heatmap of averaged normalized gene expression in each gd T cell cluster.
+(H) Boxplots showing the percentage of cells of each gd T cell cluster across age groups A–E.
+Following cohorts are shown in (E) and (H): A, n = 96; B, n = 53; C, n = 41; D, n = 54; E, n = 73.
+In (C), (E), and (H), horizontal bars showing the median value. In (E) and (H), hinges mark the 25th and 75th percentiles, and whiskers cover values with in 1.5 times
+the IQR from the hinges. Signiﬁcance in the titles is shown for comparison A vs. E groups by post hoc Dunn’s test after one-way Kruskal-Wallis test with B onferroni
+adjustment.
+**p.adj < 0.01, ***p.adj < 0.001, ns, not signiﬁcant.
+See also Figure S6 .
+ll
+OPEN ACCESS Resource
+2848 Immunity 56, 2836–2854, December 12, 2023
+--- PAGE 15 ---
+A BD
+C
+E
+F
+GH
+Figure 7. B cell composition and summary of changes during healthy aging
+(A) UMAP plot of B cells, colored by the cluster.
+(B) Heatmap of averaged normalized gene expression in each B cell cluster.
+(C) Boxplots showing the percentage of cells of each B cell cluster across age groups A–E.
+(legend continued on next page)
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854, December 12, 2023 2849
+--- PAGE 16 ---
+cohorts from a variety of public datasets, our identiﬁed popula-
+tions were consistently observed to exhibit similar trends with
+age, e.g., in a dataset containing both healthy controls and pa-
+tients with psoriasis 60 (Figures S7A–S7C). However, for patients
+with psoriasis, the ﬁrst component appeared to be less inﬂu-
+enced by age, which reﬂects a slower rate of growth for CD8 +
+Tem GZMK+ cells, CD4 + HLA-DR+, and Th2 cells. For a dataset
+comprising both elderly people and supercentenarians, PC1 also
+showed age-dependency while additionally capturing a shift to-
+ward cytotoxic subpopulations as described in Hashimoto et al.
+9
+(Figures S7 A–S7C).
+DISCUSSION
+Here, we present a comprehensive dissection of the age-associ-
+ated changes in healthy human blood. Proﬁling 317 samples al-
+lowed us to achieve a very high depth of analysis and robustly
+identify 55 distinct subpopulations, including a novel subpopula-
+tion of NKG2C
++GZMB/C0CD8+ memory T cells that exhibit unusual
+decreases with age. Similar to previous reports, we did not
+observe sex-speciﬁc differences within PBMC subpopulations
+in any age group
+4 (STAR Methods). Additionally, no BMI-speciﬁc
+difference (<25 vs. 25–30) was observed in age-related behavior
+of individual subpopulations ( STAR Methods ). We ﬁnd major
+age-associated remodeling in the memory CD4 + T cell compart-
+ment characterized by the increase of Th2 memory cells, HLA-
+DR+ memory CD4+ T cells, and memory Treg cells accompanied
+by a strong decrease in naive Treg cells. The age-associated
+behavior of HLA-DR+ CD4+ Tmem cells has not been previously
+reported in the literature, and we validated our observation using
+spectral cytometry. Dissection of the CD8
++ T cell compartment
+demonstrated an increase in CCR4+ CD8+ Tcm cells that share
+type 2 immunity signatures with Th2 CD4 + memory cells and
+are highly correlated across our cohort. These CD8 + T cells ex-
+press IL4 transcript and likely are a source population behind
+the ability of human CD8 + PBMC to produce IL-4. 52,53 This sug-
+gests the intriguing possibility that remodeling of immune ho-
+meostasis during healthy aging is associated with increased
+type 2 immunity hallmarks in both CD4
++ and CD8 + compart-
+ments. Furthermore, CCR4+ CD8+ Tcm cells accumulated at a
+higher pace than CCR4/C0 CD8+ Tcm cells, resulting in CCR4+/
+CCR4/C0 CD8+ Tcm ratio as a robust correlate of age. We also
+observed previously reported an accumulation of GZMK+
+effector memory subpopulation. 7,22
+The overall prevalence of asthma and allergic asthma does not
+change with age, 51,61 together with such conditions as eczema
+and seasonal and food allergies. 62 However, non-allergic
+asthma cases increase with age. 61 Our measurement of type 2
+cytokines revealed no age difference for baseline levels, but
+upon stimulation, we observed their increase in CD8 + T cells
+with age.52,53 This suggested a potential increase in predisposi-
+tion with age to certain conditions that may not manifest in a sta-
+ble state but can be triggered by various stimuli. An example of
+such a condition could be idiopathic pulmonary ﬁbrosis, which
+predominantly affects individuals between 50 and 70 years
+old.
+63 Patients with pulmonary ﬁbrosis display a Th1/Th2 imbal-
+ance, with a prevalence of Th2 cells in bronchoalveolar lavage
+ﬂuid, and IL-4 has been implicated in increasing the severity of
+ﬁbrosis.64
+The KLRC2+ (NKG2C+GZMB/C0) CD8 + Tmem subset was a
+relatively small but transcriptionally distinct subpopulation of
+memory cells that surprisingly decreased with age. This subset
+has never been explicitly discussed in the literature to date; how-
+ever, we were able to match this signature to the transcriptional
+cluster in the published scRNA-seq data,
+21,50 indicating that this
+population is a robust and reproducible group of cells. Accord-
+ingly, we designed a cytometry-based approach to validate
+these cells. We explicitly identiﬁed these cells as KLRC2
++
+(NKG2C+ GZMB/C0) CD8 + Tmem cells and conﬁrmed their age-
+associated decline.
+Antigen receptor sequencing allowed us to gain unique in-
+sights into age-associated changes of the individual subpopu-
+lations. We found that in CD4
++ T cells, cytotoxic T cells were
+generally more clonal than other subpopulations, with Temra
+CD4+ T cells increasing in clonality. We also observed that
+the Th1/Th17 subpopulation demonstrated an age-associated
+increase in clonality. In CD8 + Tc e l l s ,GZMK+ Tem and CCR4/C0
+Tcm cells strongly increased clonality with age, whereas
+CCR4+ Tcm cells did not change their clonality. Remarkably,
+the analysis of TCR sharing indicated that more than half of
+effector memory CD8 + T cells shared clonotypes between
+each other and other memory populations.
+Our data yielded unique biological insights into age-associ-
+ated changes and also provided a resource of exceptional depth
+in both raw data and browsable form (Synapse under accession
+code syn49637038).
+Limitations of the study
+Our study was focused on providing a comprehensive descrip-
+tion of age-related alterations in PBMCs through analysis of tran-
+scriptional subpopulations at a high resolution. It is important to
+note that many conventional gating strategies utilized previously
+might not directly correspond to the transcriptional clusters in
+scRNA-seq, and therefore, we utilized the custom design for
+each subpopulation. However, the question of surface marker
+gating vs. transcriptional identiﬁcation of subpopulations should
+(D) UMAP plots showing clone sizes for each cell across age groups A–E.
+(E) Design schema for conclusive analysis.
+(F) Volcano plot based on Pearson correlation coefﬁcients and p values from linear regression results.
+(G) Principal component analysis plot based on the top 10 age-associated features.
+(H) Scatterplot showing the ﬁrst principal component against age. Blue lines represent locally estimated scatterplot smoothing, with the shading s howing the 95%
+conﬁdence intervals.
+Following cohorts are shown in (C): A, n = 96; B, n = 53; C, n = 41; D, n = 54; E, n = 73.
+In (C), hinges mark the 25th and 75th percentiles, and whiskers cover values within 1.5 times the IQR from the hinges. Horizontal bars showing the media n value.
+Signiﬁcance in the titles is shown for comparison A vs. E groups by post hoc Dunn’s test after one-way Kruskal-Wallis test with Bonferroni adjustment.
+ns, not signiﬁcant.
+See also Figures S6 and S7.
+ll
+OPEN ACCESS Resource
+2850 Immunity 56, 2836–2854, December 12, 2023
+--- PAGE 17 ---
+be considered on a deeper and more systematic level than we
+were able to achieve here.
+STAR+METHODS
+Detailed methods are provided in the online version of this paper
+and include the following:
+d KEY RESOURCES TABLE
+d RESOURCE AVAILABILITY
+B Lead Contact
+B Materials Availability
+B Data and Code Availability
+d EXPERIMENTAL MODEL AND STUDY PARTICIPANT
+DETAILS
+B Human samples
+d METHOD DETAILS
+B Human plasma and PBMC isolation
+B Plasma cytokine proﬁling
+B Flow cytometry
+B Cell sorting and stimulation conditions
+B Single-cell RNA-seq
+B Demultiplexing of pooled single-cell RNA-seq
+B Single-cell multi-omic analysis
+B Single-cell TCR repertoire analysis
+B Single-cell BCR repertoire analysis
+B Downstream analysis for single-cell data
+d QUANTIFICATION AND STATISTICAL ANALYSIS
+SUPPLEMENTAL INFORMATION
+Supplemental information can be found online at https://doi.org/10.1016/j.
+immuni.2023.10.013.
+ACKNOWLEDGMENTS
+The work was supported by the Aging Biology Foundation grant to M.N.A. We
+would like to thank Dr. Marco Colonna, Dr. Marina Cella, and Irina Shchukina
+for their helpful comments on the manuscript. Illustrations in Figures 1 A, 1B,
+1C, 3A, 7E, S1D, and S1E and the graphical abstract were created with
+BioRender.com.
+AUTHOR CONTRIBUTIONS
+Conceptualization and methodology, M.T., A.S., P.B., and M.N.A.; writing –
+original draft and review & editing, M.T. and M.N.A.; investigation, A.S., P.B.,
+S.B., A.L., L.A., D.A.M., B.E., and K.H.; validation, P.B.; formal analysis,
+M.T., E.A., V.S., D.K., P.T., and R.C; data curation and visualization, M.T.; su-
+pervision, M.N.A.
+DECLARATION OF INTERESTS
+The authors declare no competing interests.
+Received: April 13, 2023
+Revised: August 11, 2023
+Accepted: October 19, 2023
+Published: November 13, 2023
+REFERENCES
+1. Zheng, Y., Liu, X., Le, W., Xie, L., Li, H., Wen, W., Wang, S., Ma, S., Huang,
+Z., Ye, J., et al. (2020). A human circulating immune cell landscape in aging
+and COVID-19. Protein Cell 11, 740–770. https://doi.org/10.1007/s13238-
+020-00762-2.
+2. Alpert, A., Pickman, Y., Leipold, M., Rosenberg-Hasson, Y., Ji, X.,
+Gaujoux, R., Rabani, H., Starosvetsky, E., Kveler, K., Schaffert, S., et al.
+(2019). A clinically meaningful metric of immune age derived from high-
+dimensional longitudinal monitoring. Nat. Med. 25, 487–495. https://doi.
+org/10.1038/s41591-019-0381-y.
+3. Seidler, S., Zimmermann, H.W., Bartneck, M., Trautwein, C., and Tacke, F.
+(2010). Age-dependent alterations of monocyte subsets and monocyte-
+related chemokine pathways in healthy adults. BMC Immunol. 11, 30.
+https://doi.org/10.1186/1471-2172-11-30.
+4. Huang, Z., Chen, B., Liu, X., Li, H., Xie, L., Gao, Y., Duan, R., Li, Z., Zhang,
+J., Zheng, Y., et al. (2021). Effects of sex and aging on the immune cell
+landscape as assessed by single-cell transcriptomic analysis. Proc.
+Natl. Acad. Sci. USA 118, e2023216118. https://doi.org/10.1073/pnas.
+2023216118.
+5. Guo, C., Wu, M., Huang, B., Zhao, R., Jin, L., Fu, B., Wang, P., Wang, D.,
+Zheng, M., Fang, J., et al. (2022). Single-cell transcriptomics reveal a
+unique memory-like NK cell subset that accumulates with ageing and cor-
+relates with disease severity in COVID-19. Genome Med. 14, 46. https://
+doi.org/10.1186/s13073-022-01049-3.
+6. Pereira, B.I., De Maeyer, R.P.H., Covre, L.P., Nehar-Belaid, D., Lanna, A.,
+Ward, S., Marches, R., Chambers, E.S., Gomes, D.C.O., Riddell, N.E.,
+et al. (2020). Sestrins induce natural killer function in senescent-like
+CD8+ T cells. Nat. Immunol. 21, 684–694. https://doi.org/10.1038/
+s41590-020-0643-3.
+7. Mogilenko, D.A., Shpynov, O., Andhey, P.S., Arthur, L., Swain, A.,
+Esaulova, E., Brioschi, S., Shchukina, I., Kerndl, M., Bambouskova, M.,
+et al. (2021). Comprehensive proﬁling of an aging immune system reveals
+clonal GZMK+ CD8+ T cells as conserved hallmark of inﬂammaging.
+Immunity 54, 99–115.e12. https://doi.org/10.1016/j.immuni.2020.11.005.
+8. Lu, J., Ahmad, R., Nguyen, T., Cifello, J., Hemani, H., Li, J., Chen, J., Li, S.,
+Wang, J., Achour, A., et al. (2022). Heterogeneity and transcriptome
+changes of human CD8+ T cells across nine decades of life. Nat.
+Commun. 13, 5128. https://doi.org/10.1038/s41467-022-32869-x.
+9. Hashimoto, K., Kouno, T., Ikawa, T., Hayatsu, N., Miyajima, Y., Yabukami,
+H., Terooatea, T., Sasaki, T., Suzuki, T., Valentine, M., et al. (2019). Single-
+cell transcriptomics reveals expansion of cytotoxic CD4 T cells in super-
+centenarians. Proc. Natl. Acad. Sci. USA 116, 24242–24251. https://doi.
+org/10.1073/pnas.1907883116.
+10. Mogilenko, D.A., Shchukina, I., and Artyomov, M.N. (2022). Immune
+ageing at single-cell resolution. Nat. Rev. Immunol. 22, 484–498. https://
+doi.org/10.1038/s41577-021-00646-4.
+11. Britanova, O.V., Putintseva, E.V., Shugay, M., Merzlyak, E.M.,
+Turchaninova, M.A., Staroverov, D.B., Bolotin, D.A., Lukyanov, S.,
+Bogdanova, E.A., Mamedov, I.Z., et al. (2014). Age-related decrease in
+TCR repertoire diversity measured with deep and normalized sequence
+proﬁling. J. Immunol.
+192, 2689–2698. https://doi.org/10.4049/jimmunol.
+1302064.
+12. Sun, X., Nguyen, T., Achour, A., Ko, A., Cifello, J., Ling, C., Sharma, J.,
+Hiroi, T., Zhang, Y., Chia, C.W., et al. (2022). Longitudinal analysis reveals
+age-related changes in the T cell receptor repertoire of human T cell sub-
+sets. J. Clin. Invest. 132, e158122. https://doi.org/10.1172/JCI158122.
+13. Muggen, A.F., de Jong, M., Wolvers-Tettero, I.L.M., Kallemeijn, M.J.,
+Teodo´ sio, C., Darzentas, N., Stadhouders, R., IJspeert, H., van der
+Burg, M., van IJcken, W.F., et al. (2019). The presence of CLL-associated
+stereotypic B cell receptors in the normal BCR repertoire from healthy in-
+dividuals increases with age. Immun. Ageing 16, 22. https://doi.org/10.
+1186/s12979-019-0163-x.
+14. Weaving, G., Batstone, G.F., and Jones, R.G. (2016). Age and sex variation
+in serum albumin concentration: an observational study. Ann. Clin.
+Biochem. 53, 106–111. https://doi.org/10.1177/0004563215593561.
+15. Aono, T., Matsubayashi, K., Kawamoto, A., Kimura, S., Doi, Y., and
+Ozawa, T. (1994). Normal ranges of blood urea nitrogen and serum creat-
+inine levels in the community-dwelling elderly subjects aged 70 years or
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854, December 12, 2023 2851
+--- PAGE 18 ---
+over–correlation between age and renal function. Nihon Ronen Igakkai
+Zasshi 31, 232–236. https://doi.org/10.3143/geriatrics.31.232.
+16. Kubota, K., Shirakura, T., Orui, T., Muratani, M., Maki, T., Tamura, J., and
+Morita, T. (1991). Changes in the blood cell counts with aging. Nihon
+Ronen Igakkai Zasshi 28, 509–514. https://doi.org/10.3143/geriatrics.
+28.509.
+17. Young, D.G., Skibinski, G., Mason, J.I., and James, K. (1999). The inﬂu-
+ence of age and gender on serum dehydroepiandrosterone sulphate
+(DHEA-S), IL-6, IL-6 soluble receptor (IL-6 sR) and transforming growth
+factor beta 1 (TGF- b1) levels in normal healthy blood donors. Clin. Exp.
+Immunol. 117, 476–481. https://doi.org/10.1046/j.1365-2249.1999.
+01003.x.
+18. Vadiveloo, T., Donnan, P.T., Murphy, M.J., and Leese, G.P. (2013). Age-
+and gender-speciﬁc TSH reference intervals in people with no obvious thy-
+roid disease in Tayside, Scotland: the Thyroid Epidemiology, Audit, and
+Research Study (TEARS). J. Clin. Endocrinol. Metab. 98, 1147–1153.
+https://doi.org/10.1210/jc.2012-3191.
+19. Korsunsky, I., Millard, N., Fan, J., Slowikowski, K., Zhang, F., Wei, K.,
+Baglaenko, Y., Brenner, M., Loh, P.R., and Raychaudhuri, S. (2019).
+Fast, sensitive and accurate integration of single-cell data with
+Harmony. Nat. Methods 16, 1289–1296. https://doi.org/10.1038/s41592-
+019-0619-0.
+20. Monaco, G., Lee, B., Xu, W., Mustafah, S., Hwang, Y.Y., Carre ´ , C., Burdin,
+N., Visan, L., Ceccarelli, M., Poidinger, M., et al. (2019). RNA-seq signa-
+tures normalized by mRNA abundance allow absolute deconvolution of
+human immune cell types. Cell Rep. 26, 1627–1640.e7. https://doi.org/
+10.1016/j.celrep.2019.01.041.
+21. Hao, Y., Hao, S., Andersen-Nissen, E., Mauck, W.M., Zheng, S., Butler, A.,
+Lee, M.J., Wilk, A.J., Darby, C., Zager, M., et al. (2021). Integrated analysis
+of multimodal single-cell data. Cell 184, 3573–3587.e29. https://doi.org/
+10.1016/j.cell.2021.04.048.
+22. Arthur, L., Esaulova, E., Mogilenko, D.A., Tsurinov, P., Burdess, S., Laha,
+A., Presti, R., Goetz, B., Watson, M.A., Goss, C.W., et al. (2021). Cellular
+and plasma proteomic determinants of COVID-19 and non-COVID-19 pul-
+monary diseases relative to healthy aging. Nat. Aging 1, 535–549. https://
+doi.org/10.1038/s43587-021-00067-x.
+23. Lepone, L.M., Donahue, R.N., Grenga, I., Metenou, S., Richards, J., Heery,
+C.R., Madan, R.A., Gulley, J.L., and Schlom, J. (2016). Analyses of 123 pe-
+ripheral human immune cell subsets: deﬁning differences with age and
+between healthy donors and cancer patients not detected in analysis of
+standard immune cell types. J. Circ. Biomark. 5,5 . https://doi.org/10.
+5772/62322.
+24. Garrido-Rodrı´guez, V., Herrero-Ferna ´ ndez, I., Castro, M.J., Castillo, A.,
+Rosado-Sa´ nchez, I., Galva´ , M.I., Ramos, R., Olivas-Martı ´nez, I., Bulnes-
+Ramos, A´ ., Can˜izares, J., et al. (2021). Immunological features beyond
+CD4/CD8 ratio values in older individuals. Aging 13, 13443–13459.
+https://doi.org/10.18632/aging.203109.
+25. Ferreira, M.A.R., Mangino, M., Brumme, C.J., Zhao, Z.Z., Medland, S.E.,
+Wright, M.J., Nyholt, D.R., Gordon, S., Campbell, M., McEvoy, B.P.,
+et al. (2010). Quantitative trait loci for CD4:CD8 lymphocyte ratio are asso-
+ciated with risk of type 1 diabetes and HIV-1 immune control. Am. J. Hum.
+Genet. 86, 88–92. https://doi.org/10.1016/j.ajhg.2009.12.008.
+26. Pascual-Dapena, A., Chillaron, J.J., Llaurado ´ , G., Arnau-Barres, I., Flores,
+J., Lopez-Montesinos, I., Sorlı´, L., Luis Martı´nez-Pe´ rez, J., Go´ mez-Zorrilla,
+S., Du, J., et al. (2022). Individuals with higher CD4/CD8 ratio exhibit
+increased risk of acute respiratory distress syndrome and in-hospital mor-
+tality during acute SARS-CoV-2 infection. Front. Med. (Lausanne) 9,
+924267. https://doi.org/10.3389/fmed.2022.924267.
+27. Shchukina, I., Bagaitkar, J., Shpynov, O., Loginicheva, E., Porter, S.,
+Mogilenko, D.A., Wolin, E., Collins, P., Demidov, G., Artomov, M., et al.
+(2021). Enhanced epigenetic proﬁling of classical human monocytes re-
+veals a speciﬁc signature of healthy aging in the DNA methylome. Nat.
+Aging 1, 124–141. https://doi.org/10.1038/s43587-020-00002-6.
+28. Chapoval, S.P. (2018). Neuroimmune semaphorins as costimulatory mol-
+ecules and beyond. Mol. Med. 24, 13. https://doi.org/10.1186/s10020-
+018-0014-9.
+29. Chklovskaia, E., Nissen, C., Landmann, L., Rahner, C., Pﬁster, O., and
+Wodnar-Filipowicz, A. (2001). Cell-surface trafﬁcking and release of ﬂt3
+ligand from T lymphocytes is induced by common cytokine receptor
+gamma-chain signaling and inhibited by cyclosporin A. Blood 97, 1027–
+1034. https://doi.org/10.1182/blood.v97.4.1027.
+30. Lefebvre, J.S., and Haynes, L. (2012). Aging of the CD4 T cell
+compartment. Open Longev. Sci. 6, 83–91. https://doi.org/10.2174/
+1876326X01206010083.
+31. Goronzy, J.J., Fang, F., Cavanagh, M.M., Qi, Q., and Weyand, C.M. (2015).
+Naı¨ve T cell maintenance and function in human aging. J. Immunol. 194,
+4073–4080. https://doi.org/10.4049/jimmunol.1500046.
+32. Wertheimer, A.M., Bennett, M.S., Park, B., Uhrlaub, J.L., Martinez, C.,
+Pulko, V., Currier, N.L., Nikolich-Zugich, D., Kaye, J., and Nikolich-
+Zugich, J. (2014). Aging and cytomegalovirus (CMV) infection differentially
+and jointly affect distinct circulating T cell subsets in humans. J. Immunol.
+192, 2143–2155. https://doi.org/10.4049/jimmunol.1301721.
+33. Hu, B., Jadhav, R.R., Gustafson, C.E., Le Saux, S., Ye, Z., Li, X., Tian, L.,
+Weyand, C.M., and Goronzy, J.J. (2020). Distinct age-related epigenetic
+signatures in CD4 and CD8 T cells. Front. Immunol. 11, 585168. https://
+doi.org/10.3389/ﬁmmu.2020.585168.
+34. Kilpatrick, R.D., Rickabaugh, T., Hultin, L.E., Hultin, P., Hausner, M.A.,
+Detels, R., Phair, J., and Jamieson, B.D. (2008). Homeostasis of the naive
+CD4+ T cell compartment during aging. J. Immunol. 180, 1499–1507.
+35. Ho¨ llbacher, B., Duhen, T., Motley, S., Klicznik, M.M., Gratz, I.K., and
+Campbell, D.J. (2020). Transcriptomic proﬁling of human effector and reg-
+ulatory T cell subsets identiﬁes predictive population signatures.
+Immunohorizons 4, 585–596. https://doi.org/10.4049/immunohorizons.
+2000037.
+36. Trifari, S., Kaplan, C.D., Tran, E.H., Crellin, N.K., and Spits, H. (2009).
+Identiﬁcation of a human helper T cell population that has abundant pro-
+duction of interleukin 22 and is distinct from T(H)-17, T(H)1 and T(H)2 cells.
+Nat. Immunol. 10, 864–871. https://doi.org/10.1038/ni.1770.
+37. Tian, Y., Babor, M., Lane, J., Schulten, V., Patil, V.S., Seumois, G.,
+Rosales, S.L., Fu, Z., Picarda, G., Burel, J., et al. (2017). Unique pheno-
+types and clonal expansions of human CD4 effector memory T cells re-ex-
+pressing CD45RA. Nat. Commun. 8, 1473. https://doi.org/10.1038/
+s41467-017-01728-5.
+38. Jiang, Z., Zhu, H., Wang, P., Que, W., Zhong, L., Li, X.K., and Du, F. (2022).
+Different subpopulations of regulatory T cells in human autoimmune dis-
+ease, transplantation, and tumor immunity. MedComm (2020) 3, e137.
+https://doi.org/10.1002/mco2.137.
+39. Liberzon, A., Birger, C., Thorvaldsdo ´ ttir, H., Ghandi, M., Mesirov, J.P., and
+Tamayo, P. (2015). The Molecular Signatures Database (MSigDB) hallmark
+gene set collection. Cell Syst. 1
+, 417–425. https://doi.org/10.1016/j.cels.
+2015.12.004.
+40. Zhang, H., Jadhav, R.R., Cao, W., Goronzy, I.N., Zhao, T.V., Jin, J.,
+Ohtsuki, S., Hu, Z., Morales, J., Greenleaf, W.J., et al. (2023). Aging-asso-
+ciated HELIOS deﬁciency in naive CD4+ T cells alters chromatin remodel-
+ing and promotes effector cell responses. Nat. Immunol. 24, 96–109.
+https://doi.org/10.1038/s41590-022-01369-x.
+41. Zhang, H., Weyand, C.M., and Goronzy, J.J. (2021). Hallmarks of the aging
+T-cell system. FEBS Journal 288, 7123–7142. https://doi.org/10.1111/
+febs.15770.
+42. Pekalski, M.L., Ferreira, R.C., Coulson, R.M.R., Cutler, A.J., Guo, H.,
+Smyth, D.J., Downes, K., Dendrou, C.A., Castro Dopico, X., Esposito,
+L., et al. (2013). Postthymic expansion in human CD4 naive T cells deﬁned
+by expression of functional high-afﬁnity IL-2 receptors. J. Immunol. 190,
+2554–2566. https://doi.org/10.4049/jimmunol.1202914.
+43. Smits, K., Iannucci, V., Stove, V., Van Hauwe, P., Naessens, E.,
+Meuwissen, P.J., Ari €en, K.K., Bentahir, M., Plum, J., and Verhasselt, B.
+(2010). Rho GTPase Cdc42 is essential for human T-cell development.
+ll
+OPEN ACCESS Resource
+2852 Immunity 56, 2836–2854, December 12, 2023
+--- PAGE 19 ---
+Haematologica 95, 367–375. https://doi.org/10.3324/haematol.2009.
+006890.
+44. Yanes, R.E., Zhang, H., Shen, Y., Weyand, C.M., and Goronzy, J.J. (2019).
+Metabolic reprogramming in memory CD4 T cell responses of old adults.
+Clin. Immunol. 207, 58–67. https://doi.org/10.1016/j.clim.2019.07.003.
+45. Wang, Z., Zhu, L., Nguyen, T.H.O., Wan, Y., Sant, S., Quin ˜ones-Parra,
+S.M., Crawford, J.C., Eltahla, A.A., Rizzetto, S., Bull, R.A., et al. (2018).
+Clonally diverse CD38+HLA-DR+CD8+ T cells persist during fatal H7N9
+disease. Nat. Commun. 9, 824. https://doi.org/10.1038/s41467-018-
+03243-7.
+46. Kim, J., Chang, D.Y., Lee, H.W., Lee, H., Kim, J.H., Sung, P.S., Kim, K.H.,
+Hong, S.H., Kang, W., Lee, J., et al. (2018). Innate-like cytotoxic function of
+bystander-activated CD8+ T cells is associated with liver injury in acute
+hepatitis A. Immunity 48, 161–173.e5. https://doi.org/10.1016/j.immuni.
+2017.11.025.
+47. Du, J., Wei, L., Li, G., Hua, M., Sun, Y., Wang, D., Han, K., Yan, Y., Song,
+C., Song, R., et al. (2021). Persistent high percentage of HLA-
+DR+CD38high CD8+ T cells associated with immune disorder and disease
+severity of COVID-19. Front. Immunol. 12, 735125. https://doi.org/10.
+3389/ﬁmmu.2021.735125.
+48. Kovalenko, E.I., Zvyagin, I.V., Streltsova, M.A., Mikelov, A.I., Erokhina,
+S.A., Telford, W.G., Sapozhnikov, A.M., and Lebedev, Y.B. (2020).
+Surface NKG2C identiﬁes differentiated abT-cell clones expanded in pe-
+ripheral blood. Front. Immunol. 11, 613882. https://doi.org/10.3389/
+ﬁmmu.2020.613882.
+49. Arlettaz, L., Villard, J., de Rham, C., Degermann, S., Chapuis, B., Huard,
+B., and Roosnek, E. (2004). Activating CD94:NKG2C and inhibitory
+CD94:NKG2A receptors are expressed by distinct subsets of committed
+CD8+ TCR alphabeta lymphocytes. Eur. J. Immunol. 34, 3456–3464.
+https://doi.org/10.1002/eji.200425210.
+50. Galletti, G., De Simone, G., Mazza, E.M.C., Puccio, S., Mezzanotte, C., Bi,
+T.M., Davydov, A.N., Metsger, M., Scamardella, E., Alvisi, G., et al. (2020).
+Two subsets of stem-like CD8+ memory T cell progenitors with distinct
+fate commitments in humans. Nat. Immunol. 21, 1552–1562. https://doi.
+org/10.1038/s41590-020-0791-5.
+51. Gergen, P.J., Arbes, S.J., Calatroni, A., Mitchell, H.E., and Zeldin, D.C.
+(2009). Total IgE levels and asthma prevalence in the US population: re-
+sults from the National Health and Nutrition Examination survey 2005–
+2006. J. Allergy Clin. Immunol. 124, 447–453. https://doi.org/10.1016/j.
+jaci.2009.06.011.
+52. Schwaiger, S., Wolf, A.M., Robatscher, P., Jenewein, B., and Grubeck-
+Loebenstein, B. (2003). IL-4-producing CD8+ T cells with a
+CD62L++(bright) phenotype accumulate in a subgroup of older adults
+and are associated with the maintenance of intact humoral immunity in
+old age. J. Immunol. 170, 613–619. https://doi.org/10.4049/jimmunol.
+170.1.613.
+53. Yen, C.J., Lin, S.L., Huang, K.T., and Lin, R.H. (2000). Age-associated
+changes in interferon-gamma and interleukin-4 secretion by puriﬁed hu-
+man CD4+ and CD8+ T cells. J. Biomed. Sci. 7, 317–321. https://doi.
+org/10.1007/BF02253251.
+54. Collins, P.L., Cella, M., Porter, S.I., Li, S., Gurewitz, G.L., Hong, H.S.,
+Johnson, R.P., Oltz, E.M., and Colonna, M. (2019). Gene regulatory pro-
+grams conferring phenotypic identities to human NK cells. Cell 176,
+348–360.e12. https://doi.org/10.1016/j.cell.2018.11.045.
+55. Tan, C., Hiwa, R., Mueller, J.L., Vykunta, V., Hibiya, K., Noviski, M., Huizar,
+J., Brooks, J.F., Garcia, J., Heyn, C., et al. (2020). NR4A nuclear receptors
+restrain B cell responses to antigen when second signals are absent or
+limiting. Nat. Immunol. 21, 1267–1279. https://doi.org/10.1038/s41590-
+020-0765-7.
+56. Sutton, H.J., Aye, R., Idris, A.H., Vistein, R., Nduati, E., Kai, O., Mwacharo,
+J., Li, X., Gao, X., Andrews, T.D., et al. (2021). Atypical B cells are part of an
+alternative lineage of B cells that participates in responses to vaccination
+and infection in humans. Cell Rep. 34, 108684. https://doi.org/10.1016/j.
+celrep.2020.108684
+.
+57. Maul, R.W., Catalina, M.D., Kumar, V., Bachali, P., Grammer, A.C., Wang,
+S., Yang, W., Hasni, S., Ettinger, R., Lipsky, P.E., et al. (2021).
+Transcriptome and IgH repertoire analyses show that CD11chi B cells
+are a distinct population with similarity to B cells arising in autoimmunity
+and infection. Front. Immunol. 12, 649458. https://doi.org/10.3389/
+ﬁmmu.2021.649458.
+58. Jelicic, K., Cimbro, R., Nawaz, F., Huang, D.W., Zheng, X., Yang, J.,
+Lempicki, R.A., Pascuccio, M., Van Ryk, D., Schwing, C., et al. (2013).
+The HIV-1 envelope protein gp120 impairs B cell proliferation by inducing
+TGF-b1 production and FcRL4 expression. Nat. Immunol. 14, 1256–1265.
+https://doi.org/10.1038/ni.2746.
+59. Dunbar, J., Krawczyk, K., Leem, J., Baker, T., Fuchs, A., Georges, G., Shi,
+J., and Deane, C.M. (2014). SAbDab: the structural antibody database.
+Nucleic Acids Res. 42, D1140–D1146. https://doi.org/10.1093/nar/
+gkt1043.
+60. Liu, J., Kumar, S., Hong, J., Huang, Z.M., Paez, D., Castillo, M., Calvo, M.,
+Chang, H.W., Cummins, D.D., Chung, M., et al. (2022). Combined single
+cell transcriptome and surface epitope proﬁling identiﬁes potential bio-
+markers of psoriatic arthritis and facilitates diagnosis via machine learning.
+Front. Immunol. 13, 835760. https://doi.org/10.3389/ﬁmmu.2022.835760.
+61. Pakkasela, J., Ilmarinen, P., Honkam €aki, J., Tuomisto, L.E., Anderse´ n, H.,
+Piiril€a, P., Hisinger-Mo¨ lk€anen, H., Sovij €arvi, A., Backman, H., Lundb €ack,
+B., et al. (2020). Age-speciﬁc incidence of allergic and non-allergic
+asthma. BMC Pulm. Med. 20,9 . https://doi.org/10.1186/s12890-019-
+1040-2.
+62. Ng, A.E., and Boersma, P. (2023). Diagnosed allergic conditions in adults:
+United States, 2021. NCHS Data Brief, 1–8 .
+63. Castriotta, R.J., Eldadah, B.A., Foster, W.M., Halter, J.B., Hazzard, W.R.,
+Kiley, J.P., King, T.E., Horne, F.M., Nayﬁeld, S.G., Reynolds, H.Y., et al.
+(2010). Workshop on idiopathic pulmonary ﬁbrosis in older adults. Chest
+138, 693–703. https://doi.org/10.1378/chest.09-3006.
+64. Deng, L., Huang, T., and Zhang, L. (2023). T cells in idiopathic pulmonary
+ﬁbrosis: crucial but controversial. Cell Death Discov. 9, 62. https://doi.org/
+10.1038/s41420-023-01344-x.
+65. Wolf, F.A., Angerer, P., and Theis, F.J. (2018). SCANPY: large-scale single-
+cell gene expression data analysis. Genome Biol. 19, 15. https://doi.org/
+10.1186/s13059-017-1382-0.
+66. Li, H. (2018). Minimap2: pairwise alignment for nucleotide sequences.
+Bioinformatcis 34, 3094–3100. https://doi.org/10.1093/bioinformatics/
+bty191.
+67. Garrison, E., and Marth, G. (2012). Haplotype-based variant detection
+from short-read sequencing. Preprint at arXiv. https://doi.org/10.48550/
+arXiv.1207.3907.
+68. Heaton, H., Talman, A.M., Knights, A., Imaz, M., Gaffney, D.J., Durbin, R.,
+Hemberg, M., and Lawniczak, M.K.N. (2020). Souporcell: robust clustering
+of single-cell RNA-seq data by genotype without reference genotypes.
+Nat. Methods 17, 615–620. https://doi.org/10.1038/s41592-020-0820-1.
+69. Wolock, S.L., Lopez, R., and Klein, A.M. (2019). Scrublet: computational
+identiﬁcation of cell doublets in single-cell transcriptomic data. Cell Syst.
+8, 281–291.e9. https://doi.org/10.1016/j.cels.2018.11.005.
+70. Signorell, A., Aho, K., Alfons, A., Anderegg, N., Aragon, T., Arachchige, C.,
+Arppe, A., Baddeley, A., Barton, K., Borchers, H.W., et al. (2017).
+DescTools: tools for descriptive statistics. R package version 0.99.21.
+https://cran.r-project.org/package=DescTools.
+71. Gupta, N.T., Vander Heiden, J.A., Uduman, M., Gadala-Maria, D., Yaari,
+G., and Kleinstein, S.H. (2015). Change-O: a toolkit for analyzing large-
+scale B cell immunoglobulin repertoire sequencing data. Bioinformatics
+31, 3356–3358. https://doi.org/10.1093/bioinformatics/btv359.
+72. Trapnell, C., Cacchiarelli, D., Grimsby, J., Pokharel, P., Li, S., Morse, M.,
+Lennon, N.J., Livak, K.J., Mikkelsen, T.S., and Rinn, J.L. (2014). The dy-
+namics and regulators of cell fate decisions are revealed by pseudotem-
+poral ordering of single cells. Nat. Biotechnol. 32, 381–386. https://doi.
+org/10.1038/nbt.2859.
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854, December 12, 2023 2853
+--- PAGE 20 ---
+73. Qiu, X., Mao, Q., Tang, Y., Wang, L., Chawla, R., Pliner, H.A., and Trapnell,
+C. (2017). Reversed graph embedding resolves complex single-cell trajec-
+tories. Nat. Methods 14, 979–982. https://doi.org/10.1038/nmeth.4402.
+74. Cao, J., Spielmann, M., Qiu, X., Huang, X., Ibrahim, D.M., Hill, A.J., Zhang,
+F., Mundlos, S., Christiansen, L., Steemers, F.J., et al. (2019). The single-
+cell transcriptional landscape of mammalian organogenesis. Nature 566,
+496–502. https://doi.org/10.1038/s41586-019-0969-x.
+75. Traag, V.A., Waltman, L., and van Eck, N.J. (2019). From Louvain to
+Leiden: guaranteeing well-connected communities. Sci. Rep. 9, 5233.
+https://doi.org/10.1038/s41598-019-41695-z.
+76. Levine, J.H., Simonds, E.F., Bendall, S.C., Davis, K.L., Amir, E.D., Tadmor,
+M.D., Litvin, O., Fienberg, H.G., Jager, A., Zunder, E.R., et al. (2015). Data-
+driven phenotypic dissection of AML reveals progenitor-like cells that
+correlate with prognosis. Cell 162, 184–197. https://doi.org/10.1016/j.
+cell.2015.05.047.
+77. Korotkevich, G., Sukhov, V., Budin, N., Shpak, B., Artyomov, M.N., and
+Sergushichev, A. (2021). Fast gene set enrichment analysis. bioRxiv.
+060012. https://doi.org/10.1101/060012.
+78. Bhuva, D., Smyth, G., and Garnham, A. (2023). msigdb: an ExperimentHub
+Package for the Molecular Signatures Database (MSigDB). R package
+version 1.8.0. https://davislaboratory.github.io/msigdb.
+79. Ritchie, M.E., Phipson, B., Wu, D., Hu, Y., Law, C.W., Shi, W., and Smyth,
+G.K. (2015). limma powers differential expression analyses for RNA-
+sequencing and microarray studies. Nucleic Acids Res. 43, e47. https://
+doi.org/10.1093/nar/gkv007.
+80. de Leeuw, J., and Mair, P. (2009). Multidimensional scaling using majoriza-
+tion: SMACOF in R. J. Stat. Softw. 31, 1–30. https://doi.org/10.18637/jss.
+v031.i03.
+81. Mair, P., Groenen, P.J.F., and de Leeuw, J. (2022). More on multidimen-
+sional scaling and unfolding in R: smacof version 2. J. Stat. Softw. 102,
+1–47. https://doi.org/10.18637/jss.v102.i10.
+82. R Core Team (2021). R: A Language and Environment for Statistical
+Computing (R Foundation for Statistical Computing). https://www.R-
+project.org/.
+83. Jin, S., Guerrero-Juarez, C.F., Zhang, L., Chang, I., Ramos, R., Kuan, C.H.,
+Myung, P., Plikus, M.V., and Nie, Q. (2021). Inference and analysis of cell-
+cell communication using CellChat. Nat. Commun. 12, 1088. https://doi.
+org/10.1038/s41467-021-21246-9.
+84. Ogle, D.H., Doll, J.C., Wheeler, A.P., and Dinno, A. (2023). FSA: simple
+ﬁsheries stock assessment methods. R package. https://CRAN.R-
+project.org/package=FSA.
+85. Mangiaﬁco, S. (2023). rcompanion: functions to support extension
+education program evaluation. R Package. https://CRAN.R-project.org/
+package=rcompanion.
+86. Wickham, H. (2016). ggplot2: Elegant Graphics for Data Analysis
+(Springer-Verlag). https://ggplot2.tidyverse.org.
+87. Kleverov, M., Zenkova, D., Kamenev, V., Sablina, M., Artyomov, M.N., and
+Sergushichev, A.A. (2022). Phantasus: web-application for visual and
+interactive gene expression analysis. Preprint at bioRxiv. https://doi.org/
+10.1101/2022.12.10.519861.
+88. Van Rossum, G., and Drake, F.L. (2009). Python 3 Reference Manual
+(CreateSpace).
+89. Park, L.M., Lannigan, J., and Jaimes, M.C. (2020). OMIP-069: forty-color
+full spectrum ﬂow cytometry panel for deep immunophenotyping of major
+cell subsets in human peripheral blood. Cytometry A 97, 1044–1051.
+https://doi.org/10.1002/cyto.a.24213.
+90. Jalbert, E., Shikuma, C.M., Ndhlovu, L.C., and Barbour, J.D. (2013).
+Sequential staining improves detection of CCR2 and CX3CR1 on mono-
+cytes when simultaneously evaluating CCR5 by multicolor ﬂow cytometry.
+Cytometry A 83, 280–286. https://doi.org/10.1002/cyto.a.22257
+.
+91. Inkscape Project (2020). Inkscape. https://inkscape.org.
+ll
+OPEN ACCESS Resource
+2854 Immunity 56, 2836–2854, December 12, 2023
+--- PAGE 21 ---
+STAR+METHODS
+KEY RESOURCES TABLE
+REAGENT or RESOURCE SOURCE IDENTIFIER
+Antibodies
+TotalSeq/C212 -C0159 anti-human HLA-DR
+Antibody, clone L243
+BioLegend Cat# 307663; RRID: AB_2800795
+TotalSeq/C212 -C0420 anti-human CD158
+(KIR2DL1/S1/S3/S5) Antibody, clone HP-MA4
+BioLegend Cat# 339517; RRID: AB_2814252
+TotalSeq/C212 -C0100 anti-human CD20
+Antibody, clone 2H7
+BioLegend Cat# 302363; RRID: AB_2800743
+TotalSeq/C212 -C0136 anti-human IgM
+Antibody, clone MHM-88
+BioLegend Cat# 314547; RRID: AB_2800835
+TotalSeq/C212 -C0384 anti-human IgD
+Antibody, clone IA6-2
+BioLegend Cat# 348245; RRID: AB_2810553
+TotalSeq/C212 -C0034 anti-human CD3
+Antibody, clone UCHT1
+BioLegend Cat# 300479; RRID: AB_2800723
+TotalSeq/C212 -C0045 anti-human CD4
+Antibody, clone SK3
+BioLegend Cat# 344651; RRID: AB_2800921
+TotalSeq/C212 -C0046 anti-human CD8
+Antibody, clone SK1
+BioLegend Cat# 344753; RRID: AB_2800922
+TotalSeq/C212 -C0063 anti-human CD45RA
+Antibody, clone HI100
+BioLegend Cat# 304163; RRID: AB_2800764
+TotalSeq/C212 -C0146 anti-human CD69
+Antibody, clone FN50
+BioLegend Cat# 310951; RRID: AB_2800810
+TotalSeq/C212 -C0147 anti-human CD62L
+Antibody, clone DREG-56
+BioLegend Cat# 304851; RRID: AB_2800770
+TotalSeq/C212 -C0389 anti-human CD38
+Antibody, clone HIT2
+BioLegend Cat# 303543; RRID: AB_2800758
+TotalSeq/C212 -C0071 anti-human CD194
+(CCR4) Antibody, clone L291H4
+BioLegend Cat# 359425; RRID: AB_2800988
+TotalSeq/C212 -C0085 anti-human CD25
+Antibody, clone BC96
+BioLegend Cat# 302649; RRID: AB_2800745
+TotalSeq/C212 -C0087 anti-human CD45RO
+Antibody, clone UCHL1
+BioLegend Cat# 304259; RRID: AB_2800766
+TotalSeq/C212 -C0141 anti-human CD195
+(CCR5) Antibody, clone J418F1
+BioLegend Cat# 359137; RRID: AB_2810570
+TotalSeq/C212 -C0145 anti-human CD103
+(Integrin aE) Antibody, clone Ber-ACT8
+BioLegend Cat# 350233; RRID: AB_2800933
+TotalSeq/C212 -C0154 anti-human CD27
+Antibody, clone O323
+BioLegend Cat# 302853; RRID: AB_2800747
+TotalSeq/C212 -C0168 anti-human CD57
+Recombinant Antibody, clone QA17A04
+BioLegend Cat# 393321; RRID: AB_2801030
+TotalSeq/C212 -C0047 anti-human CD56 (NCAM)
+Antibody, clone 5.1H11
+BioLegend Cat# 362559; RRID: AB_2801002
+Brilliant Violet 510 /C212 anti-human CD3
+Antibody, clone SK7
+BioLegend Cat# 344827; RRID: AB_2563703
+Brilliant Violet 570 /C212 anti-human CD56 (NCAM)
+Antibody, clone 5.1H11
+BioLegend Cat# 362539; RRID: AB_2565917
+Brilliant Violet 605 /C212 anti-human HLA-DR
+Antibody, clone L243
+BioLegend Cat# 307639; RRID: AB_11219187
+Brilliant Violet 711 /C212 anti-human CD196 (CCR6)
+Antibody, clone G034E3
+BioLegend Cat# 353435; RRID: AB_2629607
+(Continued on next page)
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854.e1–e9, December 12, 2023 e1
+--- PAGE 22 ---
+Continued
+REAGENT or RESOURCE SOURCE IDENTIFIER
+Brilliant Violet 750 /C212 anti-human CD28
+Antibody, clone CD28.2
+BioLegend Cat# 302969; RRID: AB_2876593
+PerCP anti-human CD8 Antibody, clone SK1 BioLegend Cat# 344707; RRID: AB_1967122
+PerCP/Cyanine5.5 anti-human CD57
+Antibody, clone HNK-1
+BioLegend Cat# 359621; RRID: AB_2565929
+PE/Dazzle/C212 594 anti-human/mouse Granzyme
+B Recombinant Antibody, clone QA16A02
+BioLegend Cat# 372215; RRID: AB_2728383
+PE/Fire/C212 640 anti-human CD279 (PD-1) Antibody,
+clone EH12.2H7
+BioLegend Cat# 329967; RRID: AB_2894474
+PE/Cyanine5 anti-human CD95 (Fas)
+Antibody, clone DX2
+BioLegend Cat# 305610; RRID: AB_314548
+PE/Fire/C212 700 anti-human TCR g/d Antibody,
+clone B1
+BioLegend Cat# 331237; RRID: AB_2876638
+PE/Fire/C212 810 anti-human CD39 Antibody,
+clone A1
+BioLegend Cat# 328245; RRID: AB_2894563
+Spark NIR /C212 685 anti-human CD25
+Antibody, clone M-A251
+BioLegend Cat# 356151; RRID: AB_2888804
+APC/Fire/C212 810 anti-human CD38
+Antibody, clone HB-7
+BioLegend Cat# 356643; RRID: AB_2860936
+Brilliant Violet 421 /C212 anti-mouse/human
+IL-5 Antibody, clone TRFK5
+BioLegend Cat# 504311; RRID: AB_2563161
+Alexa Fluor /C210 488 anti-human IL-4 Antibody,
+clone MP4-25D2
+BioLegend Cat# 500817; RRID: AB_493324
+PE/Cyanine7 anti-human IL-13 Antibody,
+clone JES10-5A2
+BioLegend Cat# 501913; RRID: AB_2616745
+APC/Fire/C212 810 anti-human CD4 Antibody,
+clone SK3
+BioLegend Cat# 344661; RRID: AB_2860883
+Paciﬁc Blue /C212 anti-human CD3 Antibody,
+clone SK7
+BioLegend Cat# 344824; RRID: AB_2563422
+Brilliant Violet 510 /C212 anti-human CD8
+Antibody, clone SK1
+BioLegend Cat# 344732; RRID: AB_2564624
+PerCP/Cyanine5.5 anti-human CD4 Antibody,
+clone A161A1
+BioLegend Cat# 357414; RRID: AB_2565666
+PE anti-human CD25, clone M-A251 BioLegend Cat# 356103; RRID: AB_2561860
+PE/Cyanine7 anti-human TCR g/d Antibody,
+clone B1
+BioLegend Cat# 331221; RRID: AB_2562890
+PE/Cyanine7 anti-human TCR V a7.2 Antibody,
+clone 3C10
+BioLegend Cat# 351711; RRID: AB_2561993
+PE/Cyanine7 anti-human CD56 (NCAM)
+Antibody, clone 5.1H11
+BioLegend Cat# 362510; RRID: AB_2563927
+APC anti-human CD127 (IL-7R a) Antibody,
+clone A019D5
+BioLegend Cat# 351316; RRID: AB_10900804
+BD OptiBuild /C212 BUV395 Mouse Anti-Human
+CD45RA, clone 5H9
+BD Cat# 740315; RRID: AB_2740052
+BD OptiBuild /C212 BUV563 Mouse Anti-Human
+CD195, clone 2D7/CCR5
+BD Cat# 741401; RRID: AB_2870893
+BD OptiBuild /C212 BUV615 Mouse Anti-Human
+CD183 (CXCR3), clone 1C6/CXCR3
+BD Cat# 751126; RRID: AB_2875154
+BD OptiBuild /C212 BUV661 Mouse Anti-Human
+TCR V a7.2, clone OF-5A12
+BD Cat# 750392; RRID: AB_2874562
+BD OptiBuild /C212 BUV737 Rat Anti-Human
+CCR7 (CD197), clone 3D12
+BD Cat# 741786; RRID: AB_2871135
+BD Pharmingen /C212 Puriﬁed Mouse Anti-Human
+CD194, clone 1G1
+BD Cat# 752524; RRID: AB_2917514
+(Continued on next page)
+ll
+OPEN ACCESS Resource
+e2 Immunity 56, 2836–2854.e1–e9, December 12, 2023
+--- PAGE 23 ---
+Continued
+REAGENT or RESOURCE SOURCE IDENTIFIER
+BD Horizon /C212 BV421 Mouse Anti-Human CD4,
+clone RPA-T4
+BD Cat# 562424; RRID: AB_11154417
+BD OptiBuild /C212 BV650 Rat Anti-Human CXCR5
+(CD185), clone RF8B2
+BD Cat# 740528; RRID: AB_2740238
+BD OptiBuild /C212 BV786 Mouse Anti-Human CD159c
+(NKG2C), clone 134591
+BD Cat# 748170; RRID: AB_2872631
+BD Pharmingen /C212 APC Mouse Anti-Human
+CCR10, clone 1B5
+BD Cat# 564771; RRID: AB_2738943
+BD Horizon /C212 APC-R700 Mouse Anti-Human CD127,
+clone HIL-7R-M21
+BD Cat# 565185; RRID: AB_2739099
+BD Pharmingen /C212 APC-H7 Mouse Anti-Human CD27,
+clone M-T271
+BD Cat# 560223; RRID: AB_1645474
+KLRG1 Monoclonal Antibody (13F12F2),
+PE-Cyanine7, eBioscience /C212
+Thermo Fisher Scientiﬁc Cat# 25-9488-41; RRID: AB_2573545
+Granzyme K Monoclonal Antibody (G3H69),
+PerCP-eFluor/C212 710, eBioscience /C212 , clone G3H69
+Thermo Fisher Scientiﬁc Cat# 46-8897-42; RRID: AB_2573854
+Human NKp80/KLRF1 PE-conjugated Antibody
+Summary, clone 239127
+R&D Systems Cat# FAB1900P-025; RRID: AB_2249693
+Biological samples
+Human PBMCs, see Tables S1 and S7 This paper N/A
+Chemicals, peptides, and recombinant proteins
+Human TruStain FcX /C212 200 tests BioLegend Cat# 422302
+Brilliant Stain Buffer Plus BD Cat# 566385
+Brefeldin A Thermo Fisher Scientiﬁc Cat# 00-4506-51
+Ionomycin calcium salt from Streptomyces
+conglobatus
+Sigma Cat# I0634-1MG
+Phorbol 12-myristate 13-acetate Sigma Cat# P8139-1MG
+Dynabeads/C212 Human T-Activator CD3/CD28
+for T Cell Expansion and Activation
+Thermo Fisher Scientic Cat# 11161D
+Critical commercial assays
+LIVE/DEAD Fixable Blue viability dye Invitrogen Cat# L23105
+eBioscience/C212 Foxp3 / Transcription Factor
+Staining Buffer Set
+Thermo Fisher Scientiﬁc Cat# 00-5523-00
+Deposited data
+Raw and processed scRNA-seq of human PBMCs This paper Synapse: syn49637038
+Raw and processed scBCR-seq of human PBMCs This paper Synapse: syn49637038
+Raw and processed scTCR-seq of human PBMCs This paper Synapse: syn49637038
+Raw spectral cytometry data This paper Synapse: syn49637038
+Raw scRNA-seq of CD8 + memory T cells Galletti et al. 50 GEO: GSE147397
+Raw Azimuth human PBMC reference Hao et al. 21 GEO: GSE164378
+Processed Azimuth human PBMC reference Hao et al. 21 Zenodo: 4546839
+Processed scRNA-seq of PBMCs from healthy
+donors and with psoriasis
+Liu et al. 60 GEO: GSE194315
+Raw scRNA-seq of PBMCs from supercentenarians Hashimoto et al. 9 http://gerg.gsc.riken.jp/SC2018/
+Software and algorithms
+SpectroFlo Cytek Biosciences https://cytekbio.com/pages/spectro-ﬂo
+FlowJo v10.6 Tree Star https://www.ﬂowjo.com/solutions/
+ﬂowjo/downloads
+Prism v9 GraphPad https://www.graphpad.com/scientiﬁc-
+software/prism/
+(Continued on next page)
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854.e1–e9, December 12, 2023 e3
+--- PAGE 24 ---
+Continued
+REAGENT or RESOURCE SOURCE IDENTIFIER
+Cell Ranger Single-Cell Software Suite 10x Genomics https://support.10xgenomics.com/
+single-cell-gene-expression/software/
+overview/welcome
+Seurat v4.0.5 Hao et al. 21 https://satijalab.org/seurat/articles/
+install
+SeuratDisk v0.0.0.9019 Github https://github.com/mojaveazure/seurat-disk
+Scanpy v1.9.1 Wolf et al. 65 https://scanpy.readthedocs.io/en/stable/
+installation.html
+subset-bam v1.1.0 10x Genomics https://github.com/10XGenomics/
+subset-bam
+Minimap2 v2.17-r941 Li 66 https://github.com/lh3/minimap2
+freebayes v1.3.2 Garrison and Marth 67 https://github.com/freebayes/freebayes
+souporcell pipeline v2.5 Heaton et al. 68 https://github.com/wheaton5/souporcell
+Harmony v0.1.0 Korsunsky et al. 19 https://github.com/immunogenomics/harmony
+Scrublet v0.2.3 Wolock et al. 69 https://github.com/swolock/scrublet
+DescTools v0.99.38 Signorell et al. 70 https://cran.r-project.org/web/packages/
+DescTools/index.html
+Immcantation framework Kleinstein Lab Docker: immcantation/suite:4.3.0
+SHazaM v1.1.0 Gupta et al. 71 https://shazam.readthedocs.io/en/
+stable/install/
+Change-O v1.2.0 Gupta et al. 71 https://changeo.readthedocs.io/en/stable/
+install.html#installation
+Monocle3 v1.0.0 Trapnell Lab 72–76 https://cole-trapnell-lab.github.io/monocle3/
+docs/installation/
+fgsea v1.16.0 Korotkevich et al. 77 https://github.com/ctlab/fgsea
+msigdb R v7.2.1 Bhuva et al. 78 https://cran.r-project.org/web/packages/
+msigdbr/
+limma v3.42.2 Ritchie et al. 79 https://bioconductor.org/packages/release/
+bioc/html/limma.html
+smacof v2.1-1 de Leeuw and Mair 80 and
+Mair et al. 81
+https://cran.r-project.org/web/packages/
+smacof/index.html
+stats v4.1.1 R Core Team
+82 https://cran.r-project.org/mirrors.html
+CellChat v1.6.1 Jin et al. 83 https://github.com/sqjin/CellChat
+scToolkit v1.13.10 Github https://github.com/kevinblighe/scDataviz
+FSA v0.8.30 Ogle et al. 84 https://cran.r-project.org/web/packages/
+FSA/index.html
+rcompanion v2.3.25 Mangiaﬁco85 https://cran.r-project.org/web/packages/
+rcompanion/index.html
+ggpubr v0.4.0 CRAN https://cloud.r-project.org/package=ggpubr
+ggplot2 v3.4.1 Wickham 86 https://cloud.r-project.org/web/packages/
+rgeos/index.html
+Web-application Phantasus v1.19.3 Kleverov et al. 87 https://artyomovlab.wustl.edu/phantasus/
+R v4.1.2 R Core Team 82 https://cran.r-project.org/mirrors.html
+Python v3.7.1 Van Rossum and Drake 88 https://www.python.org/downloads/
+Code to process and visualize single-cell
+RNA-seq data
+This paper https://github.com/teresho4/scRNA-seq_
+atlas_Hs_PBMC_aging
+Other
+Links for the single-cell online browser and interactive heatmaps This paper Synapse: syn49637038
+ll
+OPEN ACCESS Resource
+e4 Immunity 56, 2836–2854.e1–e9, December 12, 2023
+--- PAGE 25 ---
+RESOURCE AVAILABILITY
+Lead Contact
+Further information and requests for resources and reagents should be addressed to the Lead Contact, Maxim N. Artyomov
+(martyomov@wustl.edu).
+Materials Availability
+This study did not generate new unique reagents. Further information and material requests should be addressed to Maxim N. Ar-
+tyomov ( martyomov@wustl.edu).
+Data and Code Availability
+d Raw and processed single-cell RNA sequencing data (GEX+FB, TCR, BCR) generated in this study and spectral cytometry data
+have been deposited at Synapse repository and are publicly available as of the date of publication. Links for the single-cell on-
+line browser and interactive heatmaps have been deposited at Synapse repository. Accession number is listed in the key re-
+sources table .
+d The pipeline with code to process and visualize single-cell RNA-seq data is available in a Github repository and is publicly avail-
+able as of the date of publication. DOI is listed in the key resources table .
+d Any additional information required to reanalyze the data reported in this paper is available from the lead contact upon request.
+EXPERIMENTAL MODEL AND STUDY PARTICIPANT DETAILS
+Human samples
+The Washington University in St. Louis School of Medicine Institutional Review Board reviewed and approved the ABF300 study for
+the collection of blood samples from healthy participants (IRB-201804084). All participants provided written informed consent.
+Caucasian, non-obese (BMI under 30) males and females were enrolled in the study. Participants were given a screening question-
+naire to establish their health status. Non-smokers without a history of cancer, chronic inﬂammatory conditions (arthritis, Crohn’s
+disease, colitis, dermatitis, ﬁbromyalgia, or lupus), or blood-borne infections (HIV, hepatitis B, and C) were included in the study. Sub-
+jects who reported cold or ﬂu symptoms in the prior month were excluded. Peripheral blood ( /C24100 ml) was collected into sodium-
+heparin BD vacutainer tubes by venous puncture in the morning (7-10 AM) after an overnight fast.
+Blood collection for this cross-sectional and short-term longitudinal study has been ongoing from 2018 to 2021. Donors were split
+into 5 groups according to their age, falling in 10-year intervals and referred to as groups A (25–34 years), B (35–44 years), C (45–54
+years), D (55–64 years) and E (65+ years). Each age group followed over the course of 3 years with annual blood collection.
+METHOD DETAILS
+Human plasma and PBMC isolation
+Plasma was isolated from the whole blood by centrifugation at 500 3 g for 30 min at room temperature. The top plasma layer was
+recovered, and aliquots were stored at –80
+/C14C. The remaining whole blood was used for PBMC isolation by density gradient centri-
+fugation using Histopaque-1077 (Sigma, 10771) according to the manufacturer’s instructions. Brieﬂy, the whole blood was diluted in
+a 1:1 ratio with DPBS (Gipco, 14190136) with 2mM EDTA (Corning, 46-034-CI). The diluted blood was overlaid on Histopaque-1077
+and centrifuged at 500 3 g for 30 min at room temperature without breaks. PBMC were isolated from diluted plasma - Histopaque
+interface and washed twice in DPBS–2mM EDTA. PBMC were cryopreserved in CryoStor CS10 freezing medium (Biolife Solutions,
+210502) and stored at –80 /C14C.
+Plasma cytokine proﬁling
+Plasma samples from the AF300 cohort were submitted to Eve Technologies for multiplex cytokine and IgE analysis using multiplex
+ﬂuorescent bead assays (HDHSTC14 and HGAM-E-15).
+Flow cytometry
+Cryopreserved PBMC were thawed and stained with Live/dead ﬁxable blue dead cell stain kit (Invitrogen, L34962), followed by hu-
+man TruStain FcX blocking solution (Biolegend, 422302). Based on the previous reports 89,90 of decreasing resolution between pos-
+itive and negative signals in multicolor panels, especially in the case of chemokine receptors and gdTCR, we used the sequential
+staining protocol to improve the resolution for these markers. The surface antibody cocktail was added directly to pre-stained cells
+and incubated for an additional 30 min at 4 /C14C. The cells were stained with anti- gdTCR and anti-CD25 for 5 min, then anti-CCR5, anti-
+CxCR3, and anti-CCR4 were added to cells for 10 min, followed by adding of anti-NKp80 and anti-KLRG1 for 5 min at 4 /C14C. The
+surface antibody cocktail was added directly and incubated for an additional 30 min at 4 /C14C. For intracellular staining, Foxp3 / Tran-
+scription Factor Staining Buffer Set (eBioscience, 00-5523-00) was used according to the manufacturer’s instruction. Before intra-
+cellular staining of cytokines, the cells were restimulated with 10 ng/ml PMA, 500 ng/ml ionomycin, and 1x Brefeldin A for 3 hours at
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854.e1–e9, December 12, 2023 e5
+--- PAGE 26 ---
+37/C14C, 5% CO 2. Flow cytometry data were acquired using Cytek Aurora cytometer (Cytek Biosciences) equipped with 5 lasers,
+followed by spectral unmixing using SpectroFlo software (Cytek Biosciences). Unmixed results were analyzed using FlowJo v10.6
+software (Tree Star).
+Cell sorting and stimulation conditions
+Lymphocytes (CD16-CD14- PBMCs enriched from PBMC by negative selection using magnetic beads; Miltenyi Biotec) were sorted
+into conventional CD8 and CD4 T cell subsets using BD FACSAriaII (BD Biosciences). The used antibodies are speciﬁed in Table S4.
+Sorted cells were cultured in RPMI 1640 medium supplemented with 10% FBS, 1% penicillin/streptomycin, and 2 mM L-glutamine in
+concentration 0.3x10
+5 cells/ml in V-shape 96-well plate. CD8 and CD4 T cells were stimulated for 24 hours with anti-CD3 and anti-
+CD28 DynaBeads (bead-to-cell ratio 1:2; Gibco, 11161D). Cell supernatants were collected and analyzed for cytokine levels by multi-
+plex ﬂuorescent bead assay (Eve Technologies).
+Single-cell RNA-seq
+Prior to scRNA-seq assays, cryopreserved PBMCs were thawed by serial dilutions with an equal volume of Wash Buffer [1% BSA in
+PBS] starting with 0.5 mL. Once the volume was equal to 12 mL, the samples were centrifuged at 400 x g for 5 min at 4 C. Cells were
+washed with an additional 1 mL Wash Buffer and pelleted at 400 x g for 5 min at 4 C.
+Cell pellets were resuspended in 50 uL Wash Buffer. 5 uL Human TruStain FcX was added and cells were incubated 10 mins at 4 C. 10
+uL of a cocktail of BioLegend TotalSeq-C antibodies, along with 0.1 ug of a TotalSeq-C Hashtag antibody. Samples were incubated at 4 C
+for 30 mins. All antibody cocktails were spun at 14,000 x g for 10 mins at 4 C prior to addition to cells to remove antibody aggregates.
+Three stringent washes were performed after antibody labeling with Wash Buffer. Cells were counted and assessed for viability.
+Cells were combined in equal pools of up to six samples per pool. Pooled cell samples were washed a ﬁnal time with 2mL 1 Wash
+Buffer, ﬁltered through a 40 micron FloMi ﬁlter, and resuspended in 200 uL Wash Buffer. Pooled cells were counted and assessed for
+viability, and the ﬁnal suspension was brought to /C243200 cells/uL.
+Pools of cells labeled with TotalSeq-C hashtag antibodies were subjected to droplet-based massively parallel single-cell RNA
+sequencing using Chromium Single Cell 5
+0v2 Reagent Kit as per manufacturer’s instructions (10x Genomics). Brieﬂy, cell suspen-
+sions were loaded at 3,200 cells/uL, adding 30.9 uL of cells plus 12.3 uL of Nuclease Free Water to the Reverse Transcription Master
+Mix. This resulted in loading a total of /C2498,880 cells per GEM well. Each pool was loaded across two GEM wells.
+The 10x Chromium Controller generated GEM droplets, where each cell was labeled with a speciﬁc barcode, and each transcript
+labeled with a unique molecular identiﬁer (UMI) during reverse transcription. The barcoded cDNA was isolated via a Dynabeads My-
+One SILANE bead cleanup mixture. The cDNA was ampliﬁed by PCR and puriﬁed via SPRI bead cleanup.
+For gene expression libraries, 50 ng of ampliﬁed cDNA was used for library preparation, consisting of fragmentation, end repair,
+A-tailing, adaptor ligation and sample index PCR as per the manufacturer’s instructions. Libraries were sequenced on a NovaSeq S4
+(300 cycles) ﬂow cell, targeting 25,000 read pairs per cell.
+For human TCR repertoire libraries, 2 uL of ampliﬁed cDNA underwent two rounds of Target Enrichment using nested primer pairs
+speciﬁc for human TCR constant regions. For BCR repertoire libraries, 5 uL of ampliﬁed cDNA was used as input to the Target Enrich-
+ment PCR reactions, due to the lower level of anticipated B cells in the PBMC samples. 50 ng of the target enrichment PCR product
+was used for library preparation, consisting of fragmentation, end repair, A-tailing, adaptor ligation and sample index PCR as per the
+manufacturer’s instructions. Feature Barcode libraries were generated from the captured oligo tags from TotalSeq-C antibodies by
+completing a sample index PCR reaction per the manufacturer’s instructions. Enriched and Feature Barcode libraries were
+sequenced on a NovaSeq S4 (300 cycles) ﬂow cell, targeting 5,000 read pairs per cell.
+Demultiplexing of pooled single-cell RNA-seq
+Samples arrangement
+Total 317 samples were splitted into 14 batches. For each batch, 4 pools of 6 samples were taken, and for each pool there were 2
+independent technical replicates, resulting in 8 sequencing outputs. One batch contained only one pool and were divided into 3 tech-
+nical replicates. Each pool contained samples coming from different individuals. In overall there were 107 sequencing outputs com-
+ing from 317 samples. Each sequencing output was then independently demultiplexed in the following way.
+Demultiplexing pipeline
+To demultiplex individual technical replicate, we used a combination of hashtag-based (barcoded antibodies) and genotype-based
+approaches. In short, output from hashtag-based demultiplexing algorithm Seurat
+21 v4.0.5 HTODemux was used to split BAM ﬁles
+for an individual sample with the subset-bam function (10x Genomics) v1.1.0. Next, within the technical replicate we applied the
+minimap266 v2.17-r941 and freebayes67 v1.3.2 tools to create VCF ﬁles enriched in individual sample variants. Next, corresponding
+VCF ﬁles were used as an input for souporcell pipeline68 v2.5 to perform genotype-based demultiplexing. Pipeline script for demul-
+tiplexing are publicly available (see data and code availability).
+This approach allowed to improve the number of demultiplexed cells compared to using only one of these demultiplexing methods.
+The quality of demultiplexing was assessed based on similarity of results between two technical replicates containing the same sam-
+ples. In the case when one of the demultiplexing approaches did not yield conclusive results, another approach was independently
+applied for demultiplexing. In overall, 2 out of 107 sequencing outputs failed in genotype-based demultiplexing and 6 out of 107
+sequencing outputs failed in HTO-based demultiplexing.
+ll
+OPEN ACCESS Resource
+e6 Immunity 56, 2836–2854.e1–e9, December 12, 2023
+--- PAGE 27 ---
+One technical replicate failed in both demultiplexing approaches and was excluded from study. One sample didn’t match patient
+annotation and was excluded from study.
+Single-cell multi-omic analysis
+Cell Ranger countpipeline v7.0.0 (available at 10x website) was applied for read alignment to reference genome GRCh38 (GENCODE
+v32/Ensembl 98), quantiﬁcation of gene expression and surface proteins in individual technical replicates. Downstream single-cell
+analysis was performed using Seurat package21 v4.0.5 within the R programming environment 82 v4.1.2.
+Batch-level analysis
+Technical replicates were merged into corresponding batches resulting in 14 datasets. Filtering thresholds were chosen based on
+binary logarithm distribution of quality metrics. Cells with less than 9 log
+2 (abs = 512) of the number of genes were ﬁltered out, as
+well as cells with more than 2.6 log 2 (abs /C246) of percentage of mitochondrial counts. Moreover, we left only cells with more than
+10 and less than 12.7 log 2 (abs = 1024 and 6654, respectively) of the number of UMIs. Cell doublets were determined using the
+Scrublet package69 v0.2.3, as well as based on a high level of expression of more than one cell population-speciﬁc markers (genes
+or proteins) and removed from individual datasets. Red blood cells and platelets were removed based on expression of speciﬁc gene
+markers. Filtered matrices were normalized using a scaling factor of 10,000 and centered. Surface protein assays were normalized
+across cells using centered log ratio transformation. Variable features were selected based on average feature expression between
+0.0125 and 3, as well as dispersion higher than 0.5. Genes encoding alpha and beta TCR chains, as well as heavy and light
+BCR chains were excluded from variable features. Two sources of unwanted variation, total number of counts and percentage of
+counts belonging to mitochondrial genes, were regressed using a linear model. Batch integration was performed during subsequent
+steps while analyzing individual populations and whole-dataset assembly. UMAP dimensional reduction and shared nearest
+neighbor graph were calculated using 40 principal components. Graph-based clustering was performed on the reduced data using
+resolution 0.2.
+PBMC population-level analysis
+Each batch dataset was split based on gene and surface protein expression into 4 subsets: T cells together with NK cells, Myeloid
+cells, B cells and progenitor cells. Next, each subset was merged with a corresponding subset coming from other batches, resulting
+in 4 separate datasets for major PBMC populations. Merging was performed with normalized matrices with subsequent scaling.
+Variable features were selected based on average expression and dispersion with cut-offs to leave /C241,500 variable features. Genes
+encoding alpha and beta TCR chains, as well as heavy and light BCR chains were excluded from variable features. Two sources of
+unwanted variation, total number of counts and percentage of counts belonging to mitochondrial genes, were regressed using a
+linear model. Within the datasets, batches were integrated using the harmony correction algorithm
+19 v0.1.0. UMAP dimensional
+reduction and shared nearest neighbor graph were calculated on harmony corrected PCA embeddings. Number of principal com-
+ponents was selected based on the elbow plot. Number of neighbors for the graph was set to 15. Resolution parameter for graph-
+based clustering was chosen for each dataset individually.
+Number of clusters were selected based on matching clusters from reference datasets. Monaco et al.
+20 bulk PBMC data were used
+for annotation CD4 + T cells, B cells and Myeloid cells. For CD8 + T cells Azimuth human PBMC reference 21 were used, as for CD8 +
+T cells it has a deeper level of clustering for memory compartment. Number of clusters for NK cells were chosen based on level of
+annotation described in Collins et al.
+54
+In order to annotate identiﬁed subpopulations top markers were compared to the reference datasets, as well as gene set enrich-
+ment were performed.
+Dataset consisted from T cells together with NK cells was additionally stepwise subsetted to left only: (1) NK cells, (2) all T cells, (3)
+CD4+ T cells, (5) conventional CD8 + T cells, (6) gd T cells, (7) CD4 + memory subset and (8) CD8 + memory subset. Each subset was re-
+processed starting from choosing variable features in the same way as it was described above.
+Differential expression analysis between clusters was performed using two-sided Wilcoxon rank-sum test with the Seurat R pack-
+age,21 p value adjustment was done using Bonferroni correction. The following parameters were used: minimal percentage of cells
+per cluster expressing the gene equals 0.1 and gene expression fold change threshold equals 0.1.
+Whole dataset assembly
+As the size of whole dataset exceeds maximum size of a dgCMatrix sparse matrix in R, which is one of Seurat limitations, for the whole
+dataset analysis Scanpy toolkit
+65 were used instead. Seurat datasets containing T cells, NK cells, Myeloid cells, B cells and progen-
+itor cells were converted into h5ad objects with SaveH5Seurat and Convert functions from the SeuratDisk package ( https://github.
+com/mojaveazure/seurat-disk/) v0.0.0.9019. Further analysis was performed using the S canpy package65 v1.9.1 in Python v3.7.1
+environment.88 Normalized matrices were concatenated. Highly variable genes were selected using default parameters within
+each batch. Sliced data was regressed out for total number of counts, percentage of counts belonging to mitochondrial genes
+and scaled. Batches were integrated using the harmonypy correction algorithm . 19 Neighborhood graph and UMAP dimensional
+reduction were calculated using 30 principal components.
+Single-cell TCR repertoire analysis
+Cell Ranger vdj pipeline v7.0.0 (available at 10x website) was applied for read alignment to the reference genome GRCh38
+(GENCODE v32/Ensembl 98) and assemble TCRs. For downstream analysis, TCRs with only one pair of productive rearrangements
+for TCRa and TCRb chains were selected. Clonotypes in each sample were deﬁned based on identical CDR3 nucleotide sequences
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854.e1–e9, December 12, 2023 e7
+--- PAGE 28 ---
+together with identical V and J genes in both TCR a and TCR b chains. Gini coefﬁcients in each sample were calculated using Gini
+function from the DescTools package70 v0.99.38. Public clonotypes were deﬁned as clonotypes coming from different donors
+and containing identical CDR3 nucleotide sequences together with identical V and J genes. Shared clonotypes were deﬁned as clo-
+notypes coming from different cell types within same donor and containing identical CDR3 nucleotide sequences together with iden-
+tical V and J genes.
+Single-cell BCR repertoire analysis
+Cell Ranger vdj pipeline v6.1.2 (available at 10x website) was applied for read alignment to the reference genome GRCh38
+(GENCODE v32/Ensembl 98) and assemble BCRs. For downstream analysis, BCRs with only one pair of productive rearrangements
+for light and heavy chains were selected. Cell Ranger data were converted into the AIRR Community standardized format using
+changeo-10x superscript from the Immcantation framework (docker immcantation/suite:4.3.0), which re-assigned V,D,J genes using
+IMGT reference database of human alleles and reconstructed heavy chain germline V and J sequences. Threshold estimation for
+clonotype grouping were performed with ﬁndThreshold function from the SHazaM package
+71 v1.1.0 by either ﬁtting a binned approx-
+imation to the ordinary kernel density ( density method) or maximum-likelihood ﬁtting of two normal distributions ( gmm method). Dis-
+tribution of sequence similarities based on their Hamming distance in each sample were visually inspected and appropriate thresh-
+olds were chosen based on results from automatic threshold estimation. Thresholds separating clonally related and unrelated
+sequences ranged from 0.1 to 0.25. Clonotypes in each sample were grouped with DeﬁneClones.py function from the Change-O
+package71 v1.2.0. Gini coefﬁcients in each sample were calculated using Gini function from the DescTools package70 v0.99.38. Pub-
+lic clonotypes were deﬁned as clonotypes coming from different donors and containing CDR3 amino acid sequences with identical
+length and 2 possible amino acid mismatches together with identical V genes. Shared clonotypes were deﬁned as clonotypes coming
+from different cell types within same donor and containing CDR3 amino acid sequences with identical length and 2 possible amino
+acid mismatches together with identical V genes.
+Downstream analysis for single-cell data
+Trajectory inference
+Single-cell trajectories and pseudotime were calculated for CD4 and CD8 T cells separately using Monocle3 tool
+72–76 v1.0.0. To in-
+crease algorithm performance CD4 T cells were subsetted randomly to leave only 300,000 cells. Seurat datasets were converted into
+CellDataSet objects to use them as an input in the Monocle3 framework. Principal graphs were built without partitions using
+SimplePPT implementation. Naı¨ve cells were set as the root of the trajectory.
+Linear regression and correlation analysis
+Scatter plots with linear regression lines were implemented with ggscatter function from the ggpubr package ( https://rpkgs.
+datanovia.com/ggpubr/) v0.4.0. Conﬁdence interval level was set to 0.95. Correlation coefﬁcient was calculated with the Pearson
+method.
+Enrichment analysis
+Enrichment analysis was performed using the fgsea package
+77 v1.16.0. Gene set collections were accessed through msigdb R pack-
+age78 v7.2.1. For scRNA-seq data genes were ranked based on average log 2 fold change values, calculated with FindMarkers func-
+tion from the Seurat package21 v4.0.5. For bulk RNA-seq data genes were ranked based on t-statistics, calculated with the limma
+package79 v3.42.2. Enrichment plots were created using plotEnrichment function.
+Multidimensional scaling
+Multidimensional scaling (MDS) was computed based on the cluster percentages in each sample using mds function from the smacof
+package80,81 v2.1-1.
+Principal component analysis
+Top ten age-associated features were chosen based on Pearson correlation coefﬁcient R and p-values, obtained while calculating
+linear regression for the ﬁrst visit samples. Percentages in each donor for selected features were used as an input for principal
+component analysis (PCA). For calculation prcomp function from R package stats
+82 v4.1.1 is used with scaling and centering input
+values. For visualization the ﬁrst two components were used. Additionally, the ﬁrst principal component were visualized against sam-
+ple age. Spline curve was constructed using geom_smooth function from R package ggplot286 v3.4.1 with locally estimated scatter
+plot smoothing (LOESS) method from R package stats v4.1.1.
+Cell-cell communication analysis
+Gene expression matrices contained cells from A and E group separately was used as an input for CellChat package 83 v1.6.1. Cell-
+cell communication analysis was computed with default parameters.
+Analysis for publicly available single-cell data
+Single-cell dataset with CD8 memory T cells coming from Galletti et al. 50 was retrieved via NCBI GEO, accession no: GSE147397.
+Single-cell matrix was ﬁltered according to thresholds described in the original study, normalized and processed with Seurat21 v4.0.5
+clustering pipeline. Resolution for clusters was chosen to exact matching clusters from the original study. Processed Azimuth human
+PBMC reference 21 dataset with cluster annotation were retrieved via Zenodo, accession no: 4546839; raw data was retrieved via
+NCBI GEO, accession no: GSE164378. CD8 T cells were separated from PBMC reference based on the original annotation and
+dimensional reduction pipeline was performed with Seurat
+21 v4.0.5 using weighted nearest neighbor graph of gene expression
+and surface protein modalities. For the gene expression modality 12 dimensions were used, for the surface protein modality 50
+ll
+OPEN ACCESS Resource
+e8 Immunity 56, 2836–2854.e1–e9, December 12, 2023
+--- PAGE 29 ---
+dimensions were used. Single-cell dataset with peripheral blood mononuclear cells coming from Liu et al. 60 was accessed via NCBI
+GEO, accession no: GSE194315. Single-cell dataset with peripheral blood mononuclear cells coming from Hashimoto et al. 9 was
+accessed via link provided in original manuscript – http://gerg.gsc.riken.jp/SC2018/. Seurat21 v4.0.5 clustering pipeline was per-
+formed for both datasets using default parameters, integration between patients was performed using harmony package19 v0.1.0.
+CD4 and CD8 T cells were subsetted from both datasets and used as query for mapping and annotating based on CD4 and CD8
+T cells from this study. Set of anchors between reference and query datasets was found using function FindTransferAnchors with
+30 principal components and no ﬁltering. Cell type annotation was transferred using function TransferData with 30 principal compo-
+nents. Percentages were calculated for 10 age-related variables: CD8 + Naı¨ve, CD8+ Tcm CCR4-, CD8 + Tcm CCR4+, CD8 + Tem
+GZMK+, CD8 + Tmem KLRC2+ — relative to overall number of conventional CD8 + T cells; MAIT cells — relative to overall number
+of PBMC cells; CD4 + HLA-DR+ memory, CD4 + Th2, CD4 + Treg naı¨ve — relative to overall number of CD4 + T cells. PCA analysis
+was performed using prcomp function from R package stats82 v4.1.1 based on percentages of selected variables. For Liu et al. 60
+dataset calculations were performed separately for healthy donors and donors with psoriasis. For visualization ﬁrst principal compo-
+nent were plotted against donor age with ggscatter function from package ggpubr (https://rpkgs.datanovia.com/ggpubr/) v0.4.0 with
+adding linear regression line.
+Visualization
+Density plots were created using contourPlot function from the scToolkit package ( https://github.com/kevinblighe/scDataviz)
+v1.13.10. For heatmap visualization, matrices with average gene expression for clusters in each dataset were uploaded into web-
+application Phantasus
+87 v1.19.3. Box and bar plots, volcano plots, pie and doughnut charts were created using the ggplot2 pack-
+age86 v3.3.2.
+Figures were adapted for publication in Inkscape software. 91
+QUANTIFICATION AND STATISTICAL ANALYSIS
+For pairwise comparisons of cell-type-speciﬁc percentages between age groups only information from the ﬁrst visit was used. Com-
+parisons were performed using post-hoc Dunn’s test ( dunnTest function from FSA package84 v0.8.30) after one-way Kruskal–Wallis
+test with Bonferroni adjustment. Obtained p adjusted values were additionally adjusted with Bonferroni method by the number of
+total subpopulations within each cell-type group.
+Two-way factorial Scheirer–Ray–Hare test ( scheirerRayHare function from rcompanion package85 v2.3.25) with Bonferroni
+adjustment was used to examine sex difference within cell-type-speciﬁc subpopulation percentages and the effect of sex on age-
+associated changes. To examine potential BMI effect, patients were grouped based on BMI: < 25 and 25-30. Two-way factorial
+Scheirer–Ray–Hare test with Bonferroni adjustment was used to examine BMI-group difference within cell-type-speciﬁc subpopu-
+lation percentages and the effect of BMI-group on age-associated changes.
+For other comparisons, the name and type of the statistical test are stated in the Figure legends.
+All applied tests are nonparametric and thus no assumption is required on the data distribution.
+ll
+OPEN ACCESSResource
+Immunity 56, 2836–2854.e1–e9, December 12, 2023 e9

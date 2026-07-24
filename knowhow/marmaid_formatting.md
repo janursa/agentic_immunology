@@ -38,7 +38,7 @@ graph TD
     S2a --> S2b
   end
   PREV2 --> Round2
-  DS2[("HIaRA")]:::dataset
+  DS2[("HiRA")]:::dataset
   M1{{"DE test, FDR plus effect size"}}:::method
   S2a -.-> DS2
   S2b -.-> M1

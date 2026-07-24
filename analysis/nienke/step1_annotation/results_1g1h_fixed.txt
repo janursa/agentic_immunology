@@ -1,0 +1,1199 @@
+STEP 1g + 1h FIXED — rs11867200 allele-specific TF binding
+Generated: 2026-05-23
+Substeps: 1g ENCODE ChIP local | 1h-local JASPAR2022 local | 1h-allele PWM scoring
+======================================================================
+
+======================================================================
+1g. ENCODE TF ChIP-seq peaks (local, ±500 bp)
+======================================================================
+Region queried: chr17:34248450-34249450 (±500 bp around 34248950)
+Peaks found: 13
+Unique TFs: 13
+
+TF list: CEBPB, FOS, FOSL2, GATA2, GATA3, JUN, JUND, MAX, MEF2A, MYC, NFIC, PBX3, TCF12
+
+Peak details (sorted by distance to SNP):
+[
+  {
+    "chrom": "chr17",
+    "start": 34248552,
+    "end": 34248952,
+    "tf": "FOS",
+    "peak_len": 400,
+    "dist_to_snp": 2
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248564,
+    "end": 34248928,
+    "tf": "FOSL2",
+    "peak_len": 364,
+    "dist_to_snp": 22
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248584,
+    "end": 34248917,
+    "tf": "CEBPB",
+    "peak_len": 333,
+    "dist_to_snp": 33
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248551,
+    "end": 34248907,
+    "tf": "NFIC",
+    "peak_len": 356,
+    "dist_to_snp": 43
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248516,
+    "end": 34248906,
+    "tf": "TCF12",
+    "peak_len": 390,
+    "dist_to_snp": 44
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248585,
+    "end": 34248905,
+    "tf": "JUND",
+    "peak_len": 320,
+    "dist_to_snp": 45
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248526,
+    "end": 34248876,
+    "tf": "MEF2A",
+    "peak_len": 350,
+    "dist_to_snp": 74
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248516,
+    "end": 34248832,
+    "tf": "PBX3",
+    "peak_len": 316,
+    "dist_to_snp": 118
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248825,
+    "end": 34249101,
+    "tf": "MAX",
+    "peak_len": 276,
+    "dist_to_snp": 125
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248815,
+    "end": 34249131,
+    "tf": "MYC",
+    "peak_len": 316,
+    "dist_to_snp": 135
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248454,
+    "end": 34249095,
+    "tf": "GATA2",
+    "peak_len": 641,
+    "dist_to_snp": 145
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248624,
+    "end": 34248794,
+    "tf": "JUN",
+    "peak_len": 170,
+    "dist_to_snp": 156
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248647,
+    "end": 34248786,
+    "tf": "GATA3",
+    "peak_len": 139,
+    "dist_to_snp": 164
+  }
+]
+
+======================================================================
+1h-local. JASPAR2022 motif hits (local, ±500 bp)
+======================================================================
+Region queried: chr17:34248450-34249450 (±500 bp)
+Total motif hits: 36
+Unique TFs: 35
+Motifs directly overlapping SNP position 34248950: 0
+
+TF list: CDX2, CTCF, ESRRA, ESRRB, ESRRG, HNF1A, HNF1B, LHX3, NFAT5, NKX3-1, OTP, PAX7, POU1F1, POU2F1, POU2F2, POU2F3, POU3F1, POU3F2, POU3F3, POU4F1, POU4F3, POU5F1, PROP1, RFX5, SNAI1, SOX10, TCF12, TCF3, TFCP2L1, THRA, ZIC2, ZKSCAN5, ZNF530, ZNF684, ZNF76
+
+Motifs overlapping SNP:
+[]
+
+All hits (sorted by distance to SNP):
+[
+  {
+    "chrom": "chr17",
+    "start": 34248900,
+    "end": 34248908,
+    "tf": "NKX3-1",
+    "motif_len": 8,
+    "dist_to_snp": 42,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249025,
+    "end": 34249042,
+    "tf": "ZNF684",
+    "motif_len": 17,
+    "dist_to_snp": 75,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249040,
+    "end": 34249074,
+    "tf": "CTCF",
+    "motif_len": 34,
+    "dist_to_snp": 90,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248839,
+    "end": 34248859,
+    "tf": "ZNF76",
+    "motif_len": 20,
+    "dist_to_snp": 91,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249064,
+    "end": 34249075,
+    "tf": "NFAT5",
+    "motif_len": 11,
+    "dist_to_snp": 114,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248762,
+    "end": 34248774,
+    "tf": "POU2F3",
+    "motif_len": 12,
+    "dist_to_snp": 176,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248763,
+    "end": 34248773,
+    "tf": "POU5F1",
+    "motif_len": 10,
+    "dist_to_snp": 177,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249158,
+    "end": 34249171,
+    "tf": "ZKSCAN5",
+    "motif_len": 13,
+    "dist_to_snp": 208,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249185,
+    "end": 34249199,
+    "tf": "HNF1A",
+    "motif_len": 14,
+    "dist_to_snp": 235,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249185,
+    "end": 34249206,
+    "tf": "OTP",
+    "motif_len": 21,
+    "dist_to_snp": 235,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249186,
+    "end": 34249198,
+    "tf": "HNF1B",
+    "motif_len": 12,
+    "dist_to_snp": 236,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249186,
+    "end": 34249199,
+    "tf": "POU4F1",
+    "motif_len": 13,
+    "dist_to_snp": 236,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249186,
+    "end": 34249201,
+    "tf": "POU4F3",
+    "motif_len": 15,
+    "dist_to_snp": 236,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249188,
+    "end": 34249200,
+    "tf": "LHX3",
+    "motif_len": 12,
+    "dist_to_snp": 238,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249188,
+    "end": 34249202,
+    "tf": "PAX7",
+    "motif_len": 14,
+    "dist_to_snp": 238,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249191,
+    "end": 34249201,
+    "tf": "PROP1",
+    "motif_len": 10,
+    "dist_to_snp": 241,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248680,
+    "end": 34248690,
+    "tf": "SOX10",
+    "motif_len": 10,
+    "dist_to_snp": 260,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248642,
+    "end": 34248653,
+    "tf": "CDX2",
+    "motif_len": 11,
+    "dist_to_snp": 297,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248621,
+    "end": 34248636,
+    "tf": "RFX5",
+    "motif_len": 15,
+    "dist_to_snp": 314,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249309,
+    "end": 34249326,
+    "tf": "ZNF530",
+    "motif_len": 17,
+    "dist_to_snp": 359,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249322,
+    "end": 34249345,
+    "tf": "THRA",
+    "motif_len": 23,
+    "dist_to_snp": 372,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248555,
+    "end": 34248568,
+    "tf": "ZIC2",
+    "motif_len": 13,
+    "dist_to_snp": 382,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248554,
+    "end": 34248564,
+    "tf": "TCF12",
+    "motif_len": 10,
+    "dist_to_snp": 386,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248554,
+    "end": 34248564,
+    "tf": "TCF3",
+    "motif_len": 10,
+    "dist_to_snp": 386,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248554,
+    "end": 34248563,
+    "tf": "SNAI1",
+    "motif_len": 9,
+    "dist_to_snp": 387,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249345,
+    "end": 34249362,
+    "tf": "ZNF530",
+    "motif_len": 17,
+    "dist_to_snp": 395,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249376,
+    "end": 34249389,
+    "tf": "TFCP2L1",
+    "motif_len": 13,
+    "dist_to_snp": 426,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248448,
+    "end": 34248463,
+    "tf": "POU1F1",
+    "motif_len": 15,
+    "dist_to_snp": 487,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248450,
+    "end": 34248463,
+    "tf": "POU2F2",
+    "motif_len": 13,
+    "dist_to_snp": 487,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248451,
+    "end": 34248463,
+    "tf": "POU3F3",
+    "motif_len": 12,
+    "dist_to_snp": 487,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248452,
+    "end": 34248463,
+    "tf": "POU2F1",
+    "motif_len": 11,
+    "dist_to_snp": 487,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249437,
+    "end": 34249449,
+    "tf": "ESRRA",
+    "motif_len": 12,
+    "dist_to_snp": 487,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249437,
+    "end": 34249447,
+    "tf": "ESRRB",
+    "motif_len": 10,
+    "dist_to_snp": 487,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248451,
+    "end": 34248462,
+    "tf": "POU3F1",
+    "motif_len": 11,
+    "dist_to_snp": 488,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34248451,
+    "end": 34248462,
+    "tf": "POU3F2",
+    "motif_len": 11,
+    "dist_to_snp": 488,
+    "overlaps_snp": false
+  },
+  {
+    "chrom": "chr17",
+    "start": 34249438,
+    "end": 34249447,
+    "tf": "ESRRG",
+    "motif_len": 9,
+    "dist_to_snp": 488,
+    "overlaps_snp": false
+  }
+]
+
+======================================================================
+1h-allele. Allele-specific PWM scoring — motif GAIN and LOSS
+======================================================================
+
+Locus sequence (50 bp from RegulomeDB):
+  TGGCATGCAACATTTTGCAACCAAGCGGAAGAAACATCATCCGCAAAGAA
+                           ^ SNP position (index 25): REF=C | ALT-T | ALT-G
+
+Candidate TFs scored: 47 / 47
+TFs with no JASPAR PWM found: []
+
+Threshold: |Δscore| > 1.0 log2 = 2-fold change in binding affinity
+
+━━━ MOTIF GAIN (ALT creates stronger binding than REF) ━━━
+  TF           matrix        score_REF  score_ALT_T  score_ALT_G      ΔT      ΔG effect_T   effect_G   in_1g  in_1h 
+  ---------------------------------------------------------------------------------------------------------
+  SNAI1        MA1558.1        -13.798        4.633       -4.261  18.432   9.538 GAIN       GAIN       N      Y     
+  ESRRA        MA0592.1        -11.894       -1.927        5.765   9.967  17.659 GAIN       GAIN       N      Y     
+  MEF2A        MA0052.1        -53.527      -40.301      -42.561  13.226  10.967 GAIN       GAIN       Y      N     
+  JUN          MA0488.1        -40.165      -59.641      -37.817 -19.476   2.349 LOSS       GAIN       Y      N     
+  RFX5         MA0510.1        -44.020      -57.127      -36.495 -13.107   7.525 LOSS       GAIN       N      Y     
+  PROP1        MA0715.1        -26.317       -7.184      -26.317  19.133   0.000 GAIN       neutral    N      Y     
+  FOSL2        MA0478.1        -43.560      -59.198      -41.648 -15.638   1.913 LOSS       GAIN       Y      N     
+  SOX10        MA0442.1        -25.440      -11.014      -23.192  14.425   2.248 GAIN       GAIN       N      Y     
+  NKX3-1       MA0124.1        -34.596      -27.613      -41.827   6.983  -7.231 GAIN       LOSS       N      Y     
+  MAX          MA0058.1        -13.460        0.594      -13.460  14.053   0.000 GAIN       neutral    Y      N     
+  HNF1A        MA0046.1        -38.446      -36.358      -28.732   2.087   9.714 GAIN       GAIN       N      Y     
+  CDX2         MA0465.1        -33.668      -27.947      -27.696   5.721   5.971 GAIN       GAIN       N      Y     
+  GATA3        MA0037.1        -10.346       -5.035       -4.394   5.311   5.953 GAIN       GAIN       Y      N     
+  CTCF         MA0139.1         -0.407        4.422        4.985   4.829   5.392 GAIN       GAIN       N      Y     
+  TCF3         MA0522.2        -23.064      -15.264      -25.385   7.800  -2.322 GAIN       LOSS       N      Y     
+  ESRRG        MA0643.1         -4.899       -5.179        4.877  -0.280   9.776 neutral    GAIN       N      Y     
+  ZNF530       MA1981.1        -14.386      -16.707       -7.477  -2.321   6.909 LOSS       GAIN       N      Y     
+  ESRRB        MA0141.3        -12.994      -13.409       -4.224  -0.415   8.769 neutral    GAIN       N      Y     
+  NFIC         MA0161.1         -3.646        2.946       -1.484   6.592   2.163 GAIN       GAIN       Y      N     
+  PAX7         MA0680.1        -27.995      -23.921      -32.607   4.074  -4.613 GAIN       LOSS       N      Y     
+  POU2F2       MA0507.1        -75.681      -68.866      -74.524   6.815   1.157 GAIN       GAIN       N      Y     
+  LHX3         MA0135.1        -47.138      -41.896      -48.723   5.242  -1.585 GAIN       LOSS       N      Y     
+  MYC          MA0147.3          0.226        5.071       -1.137   4.846  -1.363 GAIN       LOSS       Y      N     
+  POU5F1       MA1115.1         -6.270       -2.310       -7.412   3.960  -1.142 GAIN       LOSS       N      Y     
+  OTP          MA1907.1         -4.730        0.076       -4.642   4.806   0.087 GAIN       neutral    N      Y     
+  POU4F1       MA0790.1         -9.882       -5.970      -10.799   3.912  -0.917 GAIN       neutral    N      Y     
+  POU3F1       MA0786.1         -9.653       -5.510       -9.327   4.143   0.326 GAIN       neutral    N      Y     
+  POU3F3       MA0788.1        -13.390       -9.339      -13.799   4.051  -0.409 GAIN       neutral    N      Y     
+  TCF12        MA1648.1         -6.241       -2.584       -6.660   3.657  -0.419 GAIN       neutral    Y      Y     
+  POU4F3       MA0791.1        -10.007       -6.320      -10.090   3.687  -0.083 GAIN       neutral    N      Y     
+  NFAT5        MA0606.1        -56.751      -53.678      -56.145   3.073   0.605 GAIN       neutral    N      Y     
+  PBX3         MA1114.1         -4.610       -2.031       -4.444   2.579   0.166 GAIN       neutral    Y      N     
+  HNF1B        MA0153.1        -40.827      -39.021      -39.928   1.806   0.900 GAIN       neutral    N      Y     
+  ZKSCAN5      MA1652.1          0.682        1.836        2.029   1.154   1.346 GAIN       GAIN       N      Y     
+  POU2F3       MA0627.2         -9.645       -8.138       -9.316   1.508   0.329 GAIN       neutral    N      Y     
+
+━━━ MOTIF LOSS (ALT disrupts existing REF binding) ━━━
+  TF           matrix        score_REF  score_ALT_T  score_ALT_G      ΔT      ΔG effect_T   effect_G   in_1g  in_1h 
+  ---------------------------------------------------------------------------------------------------------
+  JUN          MA0488.1        -40.165      -59.641      -37.817 -19.476   2.349 LOSS       GAIN       Y      N     
+  RFX5         MA0510.1        -44.020      -57.127      -36.495 -13.107   7.525 LOSS       GAIN       N      Y     
+  FOSL2        MA0478.1        -43.560      -59.198      -41.648 -15.638   1.913 LOSS       GAIN       Y      N     
+  NKX3-1       MA0124.1        -34.596      -27.613      -41.827   6.983  -7.231 GAIN       LOSS       N      Y     
+  TCF3         MA0522.2        -23.064      -15.264      -25.385   7.800  -2.322 GAIN       LOSS       N      Y     
+  ZNF530       MA1981.1        -14.386      -16.707       -7.477  -2.321   6.909 LOSS       GAIN       N      Y     
+  PAX7         MA0680.1        -27.995      -23.921      -32.607   4.074  -4.613 GAIN       LOSS       N      Y     
+  LHX3         MA0135.1        -47.138      -41.896      -48.723   5.242  -1.585 GAIN       LOSS       N      Y     
+  MYC          MA0147.3          0.226        5.071       -1.137   4.846  -1.363 GAIN       LOSS       Y      N     
+  POU5F1       MA1115.1         -6.270       -2.310       -7.412   3.960  -1.142 GAIN       LOSS       N      Y     
+  TFCP2L1      MA0145.1         -2.244       -5.029       -4.770  -2.786  -2.526 LOSS       LOSS       N      Y     
+  POU1F1       MA0784.1        -10.786      -12.775      -13.983  -1.989  -3.197 LOSS       LOSS       N      Y     
+  ZNF76        MA1716.1        -20.699      -24.224      -21.416  -3.525  -0.718 LOSS       neutral    N      Y     
+  POU2F1       MA0785.1         -8.065       -9.310      -10.445  -1.244  -2.380 LOSS       LOSS       N      Y     
+  POU3F2       MA0787.1        -14.486      -16.282      -15.017  -1.796  -0.531 LOSS       neutral    N      Y     
+  ZIC2         MA1629.1         -2.569       -3.948       -3.211  -1.379  -0.642 LOSS       neutral    N      Y     
+  FOS          MA0476.1        -69.224      -70.471      -69.133  -1.246   0.091 LOSS       neutral    Y      N     
+
+
+━━━ ALL RESULTS ━━━
+[
+  {
+    "tf": "SNAI1",
+    "matrix_id": "MA1558.1",
+    "motif_len": 10,
+    "score_REF_C": -13.798,
+    "score_ALT_T": 4.633,
+    "score_ALT_G": -4.261,
+    "delta_T": 18.432,
+    "delta_G": 9.538,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "ESRRA",
+    "matrix_id": "MA0592.1",
+    "motif_len": 11,
+    "score_REF_C": -11.894,
+    "score_ALT_T": -1.927,
+    "score_ALT_G": 5.765,
+    "delta_T": 9.967,
+    "delta_G": 17.659,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "MEF2A",
+    "matrix_id": "MA0052.1",
+    "motif_len": 10,
+    "score_REF_C": -53.527,
+    "score_ALT_T": -40.301,
+    "score_ALT_G": -42.561,
+    "delta_T": 13.226,
+    "delta_G": 10.967,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "JUN",
+    "matrix_id": "MA0488.1",
+    "motif_len": 13,
+    "score_REF_C": -40.165,
+    "score_ALT_T": -59.641,
+    "score_ALT_G": -37.817,
+    "delta_T": -19.476,
+    "delta_G": 2.349,
+    "effect_T": "LOSS",
+    "effect_G": "GAIN",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "RFX5",
+    "matrix_id": "MA0510.1",
+    "motif_len": 15,
+    "score_REF_C": -44.02,
+    "score_ALT_T": -57.127,
+    "score_ALT_G": -36.495,
+    "delta_T": -13.107,
+    "delta_G": 7.525,
+    "effect_T": "LOSS",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "PROP1",
+    "matrix_id": "MA0715.1",
+    "motif_len": 11,
+    "score_REF_C": -26.317,
+    "score_ALT_T": -7.184,
+    "score_ALT_G": -26.317,
+    "delta_T": 19.133,
+    "delta_G": 0.0,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "FOSL2",
+    "matrix_id": "MA0478.1",
+    "motif_len": 11,
+    "score_REF_C": -43.56,
+    "score_ALT_T": -59.198,
+    "score_ALT_G": -41.648,
+    "delta_T": -15.638,
+    "delta_G": 1.913,
+    "effect_T": "LOSS",
+    "effect_G": "GAIN",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "SOX10",
+    "matrix_id": "MA0442.1",
+    "motif_len": 6,
+    "score_REF_C": -25.44,
+    "score_ALT_T": -11.014,
+    "score_ALT_G": -23.192,
+    "delta_T": 14.425,
+    "delta_G": 2.248,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "NKX3-1",
+    "matrix_id": "MA0124.1",
+    "motif_len": 7,
+    "score_REF_C": -34.596,
+    "score_ALT_T": -27.613,
+    "score_ALT_G": -41.827,
+    "delta_T": 6.983,
+    "delta_G": -7.231,
+    "effect_T": "GAIN",
+    "effect_G": "LOSS",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "MAX",
+    "matrix_id": "MA0058.1",
+    "motif_len": 10,
+    "score_REF_C": -13.46,
+    "score_ALT_T": 0.594,
+    "score_ALT_G": -13.46,
+    "delta_T": 14.053,
+    "delta_G": 0.0,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "HNF1A",
+    "matrix_id": "MA0046.1",
+    "motif_len": 14,
+    "score_REF_C": -38.446,
+    "score_ALT_T": -36.358,
+    "score_ALT_G": -28.732,
+    "delta_T": 2.087,
+    "delta_G": 9.714,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "CDX2",
+    "matrix_id": "MA0465.1",
+    "motif_len": 11,
+    "score_REF_C": -33.668,
+    "score_ALT_T": -27.947,
+    "score_ALT_G": -27.696,
+    "delta_T": 5.721,
+    "delta_G": 5.971,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "GATA3",
+    "matrix_id": "MA0037.1",
+    "motif_len": 6,
+    "score_REF_C": -10.346,
+    "score_ALT_T": -5.035,
+    "score_ALT_G": -4.394,
+    "delta_T": 5.311,
+    "delta_G": 5.953,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "CTCF",
+    "matrix_id": "MA0139.1",
+    "motif_len": 19,
+    "score_REF_C": -0.407,
+    "score_ALT_T": 4.422,
+    "score_ALT_G": 4.985,
+    "delta_T": 4.829,
+    "delta_G": 5.392,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "TCF3",
+    "matrix_id": "MA0522.2",
+    "motif_len": 10,
+    "score_REF_C": -23.064,
+    "score_ALT_T": -15.264,
+    "score_ALT_G": -25.385,
+    "delta_T": 7.8,
+    "delta_G": -2.322,
+    "effect_T": "GAIN",
+    "effect_G": "LOSS",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "ESRRG",
+    "matrix_id": "MA0643.1",
+    "motif_len": 10,
+    "score_REF_C": -4.899,
+    "score_ALT_T": -5.179,
+    "score_ALT_G": 4.877,
+    "delta_T": -0.28,
+    "delta_G": 9.776,
+    "effect_T": "neutral",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "ZNF530",
+    "matrix_id": "MA1981.1",
+    "motif_len": 18,
+    "score_REF_C": -14.386,
+    "score_ALT_T": -16.707,
+    "score_ALT_G": -7.477,
+    "delta_T": -2.321,
+    "delta_G": 6.909,
+    "effect_T": "LOSS",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "ESRRB",
+    "matrix_id": "MA0141.3",
+    "motif_len": 11,
+    "score_REF_C": -12.994,
+    "score_ALT_T": -13.409,
+    "score_ALT_G": -4.224,
+    "delta_T": -0.415,
+    "delta_G": 8.769,
+    "effect_T": "neutral",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "NFIC",
+    "matrix_id": "MA0161.1",
+    "motif_len": 6,
+    "score_REF_C": -3.646,
+    "score_ALT_T": 2.946,
+    "score_ALT_G": -1.484,
+    "delta_T": 6.592,
+    "delta_G": 2.163,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "PAX7",
+    "matrix_id": "MA0680.1",
+    "motif_len": 10,
+    "score_REF_C": -27.995,
+    "score_ALT_T": -23.921,
+    "score_ALT_G": -32.607,
+    "delta_T": 4.074,
+    "delta_G": -4.613,
+    "effect_T": "GAIN",
+    "effect_G": "LOSS",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "POU2F2",
+    "matrix_id": "MA0507.1",
+    "motif_len": 13,
+    "score_REF_C": -75.681,
+    "score_ALT_T": -68.866,
+    "score_ALT_G": -74.524,
+    "delta_T": 6.815,
+    "delta_G": 1.157,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "LHX3",
+    "matrix_id": "MA0135.1",
+    "motif_len": 13,
+    "score_REF_C": -47.138,
+    "score_ALT_T": -41.896,
+    "score_ALT_G": -48.723,
+    "delta_T": 5.242,
+    "delta_G": -1.585,
+    "effect_T": "GAIN",
+    "effect_G": "LOSS",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "MYC",
+    "matrix_id": "MA0147.3",
+    "motif_len": 12,
+    "score_REF_C": 0.226,
+    "score_ALT_T": 5.071,
+    "score_ALT_G": -1.137,
+    "delta_T": 4.846,
+    "delta_G": -1.363,
+    "effect_T": "GAIN",
+    "effect_G": "LOSS",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "POU5F1",
+    "matrix_id": "MA1115.1",
+    "motif_len": 11,
+    "score_REF_C": -6.27,
+    "score_ALT_T": -2.31,
+    "score_ALT_G": -7.412,
+    "delta_T": 3.96,
+    "delta_G": -1.142,
+    "effect_T": "GAIN",
+    "effect_G": "LOSS",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "OTP",
+    "matrix_id": "MA1907.1",
+    "motif_len": 20,
+    "score_REF_C": -4.73,
+    "score_ALT_T": 0.076,
+    "score_ALT_G": -4.642,
+    "delta_T": 4.806,
+    "delta_G": 0.087,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "POU4F1",
+    "matrix_id": "MA0790.1",
+    "motif_len": 14,
+    "score_REF_C": -9.882,
+    "score_ALT_T": -5.97,
+    "score_ALT_G": -10.799,
+    "delta_T": 3.912,
+    "delta_G": -0.917,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "POU3F1",
+    "matrix_id": "MA0786.1",
+    "motif_len": 12,
+    "score_REF_C": -9.653,
+    "score_ALT_T": -5.51,
+    "score_ALT_G": -9.327,
+    "delta_T": 4.143,
+    "delta_G": 0.326,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "POU3F3",
+    "matrix_id": "MA0788.1",
+    "motif_len": 13,
+    "score_REF_C": -13.39,
+    "score_ALT_T": -9.339,
+    "score_ALT_G": -13.799,
+    "delta_T": 4.051,
+    "delta_G": -0.409,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "TCF12",
+    "matrix_id": "MA1648.1",
+    "motif_len": 11,
+    "score_REF_C": -6.241,
+    "score_ALT_T": -2.584,
+    "score_ALT_G": -6.66,
+    "delta_T": 3.657,
+    "delta_G": -0.419,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": true,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "POU4F3",
+    "matrix_id": "MA0791.1",
+    "motif_len": 16,
+    "score_REF_C": -10.007,
+    "score_ALT_T": -6.32,
+    "score_ALT_G": -10.09,
+    "delta_T": 3.687,
+    "delta_G": -0.083,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "NFAT5",
+    "matrix_id": "MA0606.1",
+    "motif_len": 10,
+    "score_REF_C": -56.751,
+    "score_ALT_T": -53.678,
+    "score_ALT_G": -56.145,
+    "delta_T": 3.073,
+    "delta_G": 0.605,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "PBX3",
+    "matrix_id": "MA1114.1",
+    "motif_len": 17,
+    "score_REF_C": -4.61,
+    "score_ALT_T": -2.031,
+    "score_ALT_G": -4.444,
+    "delta_T": 2.579,
+    "delta_G": 0.166,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "HNF1B",
+    "matrix_id": "MA0153.1",
+    "motif_len": 12,
+    "score_REF_C": -40.827,
+    "score_ALT_T": -39.021,
+    "score_ALT_G": -39.928,
+    "delta_T": 1.806,
+    "delta_G": 0.9,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "ZKSCAN5",
+    "matrix_id": "MA1652.1",
+    "motif_len": 14,
+    "score_REF_C": 0.682,
+    "score_ALT_T": 1.836,
+    "score_ALT_G": 2.029,
+    "delta_T": 1.154,
+    "delta_G": 1.346,
+    "effect_T": "GAIN",
+    "effect_G": "GAIN",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "POU2F3",
+    "matrix_id": "MA0627.2",
+    "motif_len": 13,
+    "score_REF_C": -9.645,
+    "score_ALT_T": -8.138,
+    "score_ALT_G": -9.316,
+    "delta_T": 1.508,
+    "delta_G": 0.329,
+    "effect_T": "GAIN",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "TFCP2L1",
+    "matrix_id": "MA0145.1",
+    "motif_len": 14,
+    "score_REF_C": -2.244,
+    "score_ALT_T": -5.029,
+    "score_ALT_G": -4.77,
+    "delta_T": -2.786,
+    "delta_G": -2.526,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "POU1F1",
+    "matrix_id": "MA0784.1",
+    "motif_len": 14,
+    "score_REF_C": -10.786,
+    "score_ALT_T": -12.775,
+    "score_ALT_G": -13.983,
+    "delta_T": -1.989,
+    "delta_G": -3.197,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "ZNF76",
+    "matrix_id": "MA1716.1",
+    "motif_len": 21,
+    "score_REF_C": -20.699,
+    "score_ALT_T": -24.224,
+    "score_ALT_G": -21.416,
+    "delta_T": -3.525,
+    "delta_G": -0.718,
+    "effect_T": "LOSS",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "POU2F1",
+    "matrix_id": "MA0785.1",
+    "motif_len": 12,
+    "score_REF_C": -8.065,
+    "score_ALT_T": -9.31,
+    "score_ALT_G": -10.445,
+    "delta_T": -1.244,
+    "delta_G": -2.38,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "POU3F2",
+    "matrix_id": "MA0787.1",
+    "motif_len": 12,
+    "score_REF_C": -14.486,
+    "score_ALT_T": -16.282,
+    "score_ALT_G": -15.017,
+    "delta_T": -1.796,
+    "delta_G": -0.531,
+    "effect_T": "LOSS",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "ZIC2",
+    "matrix_id": "MA1629.1",
+    "motif_len": 14,
+    "score_REF_C": -2.569,
+    "score_ALT_T": -3.948,
+    "score_ALT_G": -3.211,
+    "delta_T": -1.379,
+    "delta_G": -0.642,
+    "effect_T": "LOSS",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "FOS",
+    "matrix_id": "MA0476.1",
+    "motif_len": 11,
+    "score_REF_C": -69.224,
+    "score_ALT_T": -70.471,
+    "score_ALT_G": -69.133,
+    "delta_T": -1.246,
+    "delta_G": 0.091,
+    "effect_T": "LOSS",
+    "effect_G": "neutral",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "THRA",
+    "matrix_id": "MA1969.1",
+    "motif_len": 24,
+    "score_REF_C": -14.853,
+    "score_ALT_T": -15.493,
+    "score_ALT_G": -15.427,
+    "delta_T": -0.64,
+    "delta_G": -0.574,
+    "effect_T": "neutral",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "ZNF684",
+    "matrix_id": "MA1600.1",
+    "motif_len": 18,
+    "score_REF_C": -18.107,
+    "score_ALT_T": -17.268,
+    "score_ALT_G": -18.467,
+    "delta_T": 0.839,
+    "delta_G": -0.36,
+    "effect_T": "neutral",
+    "effect_G": "neutral",
+    "snp_in_1g": false,
+    "snp_in_1h": true
+  },
+  {
+    "tf": "JUND",
+    "matrix_id": "MA0491.1",
+    "motif_len": 11,
+    "score_REF_C": -67.215,
+    "score_ALT_T": -68.126,
+    "score_ALT_G": -67.482,
+    "delta_T": -0.911,
+    "delta_G": -0.267,
+    "effect_T": "neutral",
+    "effect_G": "neutral",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "GATA2",
+    "matrix_id": "MA0036.1",
+    "motif_len": 5,
+    "score_REF_C": -14.675,
+    "score_ALT_T": -15.205,
+    "score_ALT_G": -14.206,
+    "delta_T": -0.53,
+    "delta_G": 0.469,
+    "effect_T": "neutral",
+    "effect_G": "neutral",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  },
+  {
+    "tf": "CEBPB",
+    "matrix_id": "MA0466.1",
+    "motif_len": 11,
+    "score_REF_C": -75.141,
+    "score_ALT_T": -74.929,
+    "score_ALT_G": -75.178,
+    "delta_T": 0.211,
+    "delta_G": -0.037,
+    "effect_T": "neutral",
+    "effect_G": "neutral",
+    "snp_in_1g": true,
+    "snp_in_1h": false
+  }
+]
+

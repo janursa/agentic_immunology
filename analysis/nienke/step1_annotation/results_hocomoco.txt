@@ -1,0 +1,290 @@
+HOCOMOCO H12INVIVO bed overlap + GIMME vertebrate v5.0 allele scoring
+Locus: chr17:34,248,950 (GRCh38) | rs11867200  REF=C | ALT-T | ALT-G
+Sequence (50 bp): TGGCATGCAACATTTTGCAACCAAGCGGAAGAAACATCATCCGCAAAGAA
+                         ^ SNP index 25
+======================================================================
+
+── STEP 1: HOCOMOCO H12INVIVO bed overlap  (n=1) ──
+  TF            HOCOMOCO ID                               pos                   strand  score  seq
+  ----------------------------------------------------------------------------------------------------
+  Z705G         Z705G.H12INVIVO.0.P.C                     34248945-            34248967  -  1072  CGGATGATGTTTCTTCCGCTTG
+
+── STEP 2: GIMME vertebrate v5.0 allele scoring  ──
+   Total motifs scored: 1796
+   Significant hits:    12
+   Criteria: GAIN: ALT ≥80% max AND Δ≥+2.0  |  LOSS: REF ≥80% max AND Δ≤-2.0
+
+  LOSS: C→T disrupts binding  (n=6)
+  MotifID                      Human TFs                     len      REF      ALT       Δ   %REF   %ALT
+  -------------------------------------------------------------------------------------------------------
+  GM.5.0.Unknown.0009          ?                               8   13.694    3.727  -9.967  100.0   27.2
+  GM.5.0.Ets.0048              ?                               6    9.765    0.978  -8.787   99.8   10.0
+  GM.5.0.Ets.0025              ERG | ETS1 | ETV2               7   10.355    3.096  -7.259   85.8   25.7
+  GM.5.0.E2F.0016              ?                               4    6.056    0.590  -5.466   87.7    8.5
+  GM.5.0.Ets.0046              ?                               4    6.929    2.013  -4.917  100.0   29.0
+  GM.5.0.Ets.0008              SPIB | MA0081 | PU              8   12.103    8.947  -3.156   93.0   68.8
+
+  GAIN: C→T creates binding   (n=1)
+  MotifID                      Human TFs                     len      REF      ALT       Δ   %REF   %ALT
+  -------------------------------------------------------------------------------------------------------
+  GM.5.0.Homeodomain.0178      NKX25 | H11MO                   5    4.239    6.867   2.628   55.1   89.3
+
+  LOSS: C→G disrupts binding  (n=5)
+  MotifID                      Human TFs                     len      REF      ALT       Δ   %REF   %ALT
+  -------------------------------------------------------------------------------------------------------
+  GM.5.0.Unknown.0009          ?                               8   13.694    3.727  -9.967  100.0   27.2
+  GM.5.0.Ets.0038              ?                              12   13.136    5.025  -8.112   80.6   30.8
+  GM.5.0.E2F.0016              ?                               4    6.056   -1.897  -7.952   87.7  -27.5
+  GM.5.0.Ets.0025              ERG | ETS1 | ETV2               7   10.355    3.857  -6.498   85.8   32.0
+  GM.5.0.Ets.0046              ?                               4    6.929    3.767  -3.163  100.0   54.4
+
+  GAIN: C→G creates binding   (n=4)
+  MotifID                      Human TFs                     len      REF      ALT       Δ   %REF   %ALT
+  -------------------------------------------------------------------------------------------------------
+  GM.5.0.Mixed.0058            MZF1 | MA0056                   5   -0.258    9.557   9.815   -2.7  100.0
+  GM.5.0.C2H2_ZF.0027          MZF1 | H11MO                    5    0.835    8.938   8.103    9.3  100.0
+  GM.5.0.C2H2_ZF.0120          MZF1                            5    3.205    9.640   6.435   33.2  100.0
+  GM.5.0.SAND.0004             ?                               4    2.433    6.977   4.543   34.9  100.0
+
+
+── ALL SIGNIFICANT RESULTS (JSON) ──
+[
+  {
+    "motif_id": "GM.5.0.Ets.0008",
+    "human_tfs": [
+      "SPIB",
+      "MA0081",
+      "PU"
+    ],
+    "description": "M1908_1.02;;MA0081.1_SPIB;;SPI1_known1 SPI1_1 PU.1_transfac_M00658;;SPIB_1 SPIB_jaspar_MA0081.1",
+    "motif_len": 8,
+    "max_score": 13.013,
+    "threshold_80": 10.41,
+    "score_REF_C": 12.103,
+    "score_ALT_T": 8.947,
+    "score_ALT_G": 11.303,
+    "delta_T": -3.156,
+    "delta_G": -0.8,
+    "pct_max_REF": 93.0,
+    "pct_max_T": 68.8,
+    "pct_max_G": 86.9,
+    "effect_T": "LOSS",
+    "effect_G": "neutral"
+  },
+  {
+    "motif_id": "GM.5.0.C2H2_ZF.0027",
+    "human_tfs": [
+      "MZF1",
+      "H11MO"
+    ],
+    "description": "M0399_1.02;;MZF1_HUMAN.H11MO.0.B",
+    "motif_len": 5,
+    "max_score": 8.938,
+    "threshold_80": 7.151,
+    "score_REF_C": 0.835,
+    "score_ALT_T": 5.207,
+    "score_ALT_G": 8.938,
+    "delta_T": 4.372,
+    "delta_G": 8.103,
+    "pct_max_REF": 9.3,
+    "pct_max_T": 58.3,
+    "pct_max_G": 100.0,
+    "effect_T": "neutral",
+    "effect_G": "GAIN"
+  },
+  {
+    "motif_id": "GM.5.0.Unknown.0009",
+    "human_tfs": [],
+    "description": "NRF1_disc2 NRF1_H1-hESC_encode-Snyder_seq_hsa_IgG-rab_r1:Trawler#1#Intergenic;;TATA_disc5 TAF1_K562_encode-Myers_seq_hsa_v041610.1_r1:Trawler#3#Intergenic;;TCF12_disc4 TCF12_GM12878_encode-Myers_seq_hsa_r1:Trawler#2#Intergenic",
+    "motif_len": 8,
+    "max_score": 13.694,
+    "threshold_80": 10.955,
+    "score_REF_C": 13.694,
+    "score_ALT_T": 3.727,
+    "score_ALT_G": 3.727,
+    "delta_T": -9.967,
+    "delta_G": -9.967,
+    "pct_max_REF": 100.0,
+    "pct_max_T": 27.2,
+    "pct_max_G": 27.2,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS"
+  },
+  {
+    "motif_id": "GM.5.0.C2H2_ZF.0120",
+    "human_tfs": [
+      "MZF1"
+    ],
+    "description": "M0409_1.02;;M0410_1.02;;M6356_1.02;;MZF1",
+    "motif_len": 5,
+    "max_score": 9.64,
+    "threshold_80": 7.712,
+    "score_REF_C": 3.205,
+    "score_ALT_T": 3.636,
+    "score_ALT_G": 9.64,
+    "delta_T": 0.431,
+    "delta_G": 6.435,
+    "pct_max_REF": 33.2,
+    "pct_max_T": 37.7,
+    "pct_max_G": 100.0,
+    "effect_T": "neutral",
+    "effect_G": "GAIN"
+  },
+  {
+    "motif_id": "GM.5.0.Ets.0025",
+    "human_tfs": [
+      "ERG",
+      "ETS1",
+      "ETV2",
+      "ETS",
+      "GSE14097",
+      "MEME"
+    ],
+    "description": "ACAGGAAGTG_ERG(ETS)/VCaP-ERG-ChIP-Seq(GSE14097)/Homer;;EGR1_disc2 EGR1_GM12878_encode-Myers_seq_hsa_PCR2x_r1:MEME#1#Intergenic;;ELF1.1_Meme_2_w11;;ELF2;;ELK4.1_Meme_2_w11;;ELK4_MOUSE.H11MO.0.B;;ERG;;ERG_HUMAN.H11MO.0.A;;ERG_MOUSE.H11MO.0.A;;ETS1_HUMAN.H11MO.0.A;;ETS1_MOUSE.H11MO.0.A;;ETV2_HUMAN.H11MO.0.B;;ETV2_MOUSE.H11MO.0.A;;FLI1_MOUSE.H11MO.0.A;;GABP.1_Meme_2_w11;;M1858_1.02;;M1922_1.02;;M2276_1.02;;M2277_1.02;;M4522_1.02;;M4539_1.02;;M6203_1.02;;UA4.1_Meme_2_w15;;UA6.2_Meme_5_w10",
+    "motif_len": 7,
+    "max_score": 12.069,
+    "threshold_80": 9.656,
+    "score_REF_C": 10.355,
+    "score_ALT_T": 3.096,
+    "score_ALT_G": 3.857,
+    "delta_T": -7.259,
+    "delta_G": -6.498,
+    "pct_max_REF": 85.8,
+    "pct_max_T": 25.7,
+    "pct_max_G": 32.0,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS"
+  },
+  {
+    "motif_id": "GM.5.0.SAND.0004",
+    "human_tfs": [],
+    "description": "M1552_1.02",
+    "motif_len": 4,
+    "max_score": 6.977,
+    "threshold_80": 5.581,
+    "score_REF_C": 2.433,
+    "score_ALT_T": -2.727,
+    "score_ALT_G": 6.977,
+    "delta_T": -5.16,
+    "delta_G": 4.543,
+    "pct_max_REF": 34.9,
+    "pct_max_T": -39.1,
+    "pct_max_G": 100.0,
+    "effect_T": "neutral",
+    "effect_G": "GAIN"
+  },
+  {
+    "motif_id": "GM.5.0.Mixed.0058",
+    "human_tfs": [
+      "MZF1",
+      "MA0056"
+    ],
+    "description": "M1887_1.02;;M3594_1.02;;MA0056.1_MZF1;;MZF1_1 MZF1_transfac_M00083;;MZF1_3 MZF1:1-4_jaspar_MA0056.1",
+    "motif_len": 5,
+    "max_score": 9.557,
+    "threshold_80": 7.646,
+    "score_REF_C": -0.258,
+    "score_ALT_T": 4.134,
+    "score_ALT_G": 9.557,
+    "delta_T": 4.392,
+    "delta_G": 9.815,
+    "pct_max_REF": -2.7,
+    "pct_max_T": 43.3,
+    "pct_max_G": 100.0,
+    "effect_T": "neutral",
+    "effect_G": "GAIN"
+  },
+  {
+    "motif_id": "GM.5.0.E2F.0016",
+    "human_tfs": [],
+    "description": "M0669_1.02;;M0670_1.02",
+    "motif_len": 4,
+    "max_score": 6.904,
+    "threshold_80": 5.523,
+    "score_REF_C": 6.056,
+    "score_ALT_T": 0.59,
+    "score_ALT_G": -1.897,
+    "delta_T": -5.466,
+    "delta_G": -7.952,
+    "pct_max_REF": 87.7,
+    "pct_max_T": 8.5,
+    "pct_max_G": -27.5,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS"
+  },
+  {
+    "motif_id": "GM.5.0.Ets.0038",
+    "human_tfs": [],
+    "description": "M6223_1.02",
+    "motif_len": 12,
+    "max_score": 16.297,
+    "threshold_80": 13.038,
+    "score_REF_C": 13.136,
+    "score_ALT_T": 11.341,
+    "score_ALT_G": 5.025,
+    "delta_T": -1.795,
+    "delta_G": -8.112,
+    "pct_max_REF": 80.6,
+    "pct_max_T": 69.6,
+    "pct_max_G": 30.8,
+    "effect_T": "neutral",
+    "effect_G": "LOSS"
+  },
+  {
+    "motif_id": "GM.5.0.Homeodomain.0178",
+    "human_tfs": [
+      "NKX25",
+      "H11MO"
+    ],
+    "description": "NKX25_HUMAN.H11MO.0.B",
+    "motif_len": 5,
+    "max_score": 7.694,
+    "threshold_80": 6.155,
+    "score_REF_C": 4.239,
+    "score_ALT_T": 6.867,
+    "score_ALT_G": 2.554,
+    "delta_T": 2.628,
+    "delta_G": -1.685,
+    "pct_max_REF": 55.1,
+    "pct_max_T": 89.3,
+    "pct_max_G": 33.2,
+    "effect_T": "GAIN",
+    "effect_G": "neutral"
+  },
+  {
+    "motif_id": "GM.5.0.Ets.0046",
+    "human_tfs": [],
+    "description": "M0701_1.02;;M0702_1.02",
+    "motif_len": 4,
+    "max_score": 6.929,
+    "threshold_80": 5.543,
+    "score_REF_C": 6.929,
+    "score_ALT_T": 2.013,
+    "score_ALT_G": 3.767,
+    "delta_T": -4.917,
+    "delta_G": -3.163,
+    "pct_max_REF": 100.0,
+    "pct_max_T": 29.0,
+    "pct_max_G": 54.4,
+    "effect_T": "LOSS",
+    "effect_G": "LOSS"
+  },
+  {
+    "motif_id": "GM.5.0.Ets.0048",
+    "human_tfs": [],
+    "description": "M6227_1.02",
+    "motif_len": 6,
+    "max_score": 9.78,
+    "threshold_80": 7.824,
+    "score_REF_C": 9.765,
+    "score_ALT_T": 0.978,
+    "score_ALT_G": 7.819,
+    "delta_T": -8.787,
+    "delta_G": -1.946,
+    "pct_max_REF": 99.8,
+    "pct_max_T": 10.0,
+    "pct_max_G": 80.0,
+    "effect_T": "LOSS",
+    "effect_G": "neutral"
+  }
+]

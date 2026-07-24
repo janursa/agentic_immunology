@@ -9,6 +9,33 @@
             "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/check_guardrail_flag.py"
           }
         ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/restrict_knowhow_access.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/restrict_knowhow_access.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/restrict_knowhow_access.py"
+          }
+        ]
       }
     ],
     "Stop": [

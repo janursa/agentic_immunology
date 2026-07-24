@@ -1,0 +1,61 @@
+STEP 2 — QTL sweep for rs11867200
+GRCh38: chr17:34248950  |  GRCh37: chr17:32575969
+======================================================================
+
+======================================================================
+2a. mQTL — BLUEPRINT monocyte / neutrophil / T cell (FDR < 0.05)
+======================================================================
+
+  [monocyte] 2 mQTL hit(s):
+    CpG=cg07431106  beta=-0.8497  p=3.725e-16  FDR=3.494e-13  variant=17:32575969_C_T
+    CpG=cg12698626  beta=0.78  p=1.611e-13  FDR=9.205e-11  variant=17:32575969_C_T
+
+  [neutrophil] 2 mQTL hit(s):
+    CpG=cg07431106  beta=-1.1  p=8.278e-30  FDR=4.356e-27  variant=17:32575969_C_T
+    CpG=cg12698626  beta=0.6663  p=6.564e-10  FDR=1.542e-07  variant=17:32575969_C_T
+
+  [T_cell] 4 mQTL hit(s):
+    CpG=cg01538960  beta=-0.5624  p=2.077e-05  FDR=9.973e-03  variant=17:32575969_C_T
+    CpG=cg10334416  beta=-0.8223  p=6.106e-11  FDR=1.728e-08  variant=17:32575969_C_T
+    CpG=cg12698626  beta=0.6897  p=7.399e-08  FDR=7.350e-05  variant=17:32575969_C_T
+    CpG=cg13284646  beta=-0.6158  p=2.254e-06  FDR=3.142e-04  variant=17:32575969_C_T
+
+======================================================================
+2b. pQTL — Sun et al. 2018, Nature (~2,994 plasma proteins, n=3,301)
+======================================================================
+  No pQTL hits for rs11867200 in ±200 kb (GRCh37 chr17:32575969)
+
+======================================================================
+2c. sQTL — leafcutter intron excision (GRCh38, ±200 kb)
+======================================================================
+
+  [BLUEPRINT_monocyte] No sQTL hits
+
+  [BLUEPRINT_neutrophil] No sQTL hits
+
+  [BLUEPRINT_CD4T] No sQTL hits
+
+  [DICE_monocyte] No sQTL hits
+
+  [DICE_CD16mono] No sQTL hits
+
+  [GTEx_whole_blood] No sQTL hits
+
+  SUMMARY: rs11867200 is not a significant sQTL in any tested cell type.
+
+======================================================================
+2d. DICE eQTL — MONOCYTES and M2 (Schmiedel et al. 2018, n=91)
+======================================================================
+
+  [Filtered significant hits — p<0.0001 & TPM>1]
+    [MONOCYTES] No significant eQTL hits for rs11867200
+    [M2] No significant eQTL hits for rs11867200
+
+  [Full summary stats — all p-values (streaming zcat)]
+    [MONOCYTES] Scanning MONOCYTES.vcf.gz ...
+    [MONOCYTES] 54 hit(s) (no p-value filter):
+      Gene=ASIC2  beta=0.40  p=0.03717  Stat=2.116
+      Gene=RP11-799D4.4  beta=0.39  p=0.03816  Stat=2.105
+      Gene=CCT6B  beta=0.36  p=0.0594  Stat=1.91
+      Gene=CCL8  beta=0.33  p=0.08801  Stat=1.725
+      Gene=RP11-215E13.1  beta=0.30  p=0.1187  Stat=1.576

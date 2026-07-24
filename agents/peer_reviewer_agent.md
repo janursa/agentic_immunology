@@ -48,21 +48,12 @@ Check, at minimum:
 - **Reproducibility** — runs from scratch? Seeds set? Absolute paths? Output files actually exist?
 - **Silent failures** — steps skipped, errored, or worked around without surfacing in `LOG.md`?
 
-## Guardrail audit 
-If Guardrail given, here you check whether the *executed* code/LOG actually did it. go through it **one bullet at a time**:
-1. Is it relevant to this analysis? (Y/N)
-2. If relevant, does the actual code/`LOG.md` show it was implemented — not just planned? (Y/N/PARTIAL)
-3. One-line evidence: `file:line` or a `LOG.md` excerpt, or the reason it's N/A.
-- Any bullet marked **relevant + N (not implemented)** is a blocking issue → forces `REVISE`.
-
 ## Output format (METHOD-REVIEW)
 ```
 MODE: METHOD-REVIEW
 VERDICT: PASS | REVISE
-GUARDRAIL AUDIT (if GUARDRAIL given — one row per bullet, checked against executed code/LOG, no grouping/summarizing):
-- {guideline}: relevant? Y/N -> implemented? Y/N/PARTIAL/N-A -> {file:line or LOG.md evidence, or reason N/A}
 ISSUES:
-- {blocking issue, with file:line reference — guardrail-sourced issues first, then the other checks}
+- {blocking issue, with file:line reference}
 NOTES (non-blocking):
 - {minor concern or suggestion}
 ```
@@ -77,14 +68,9 @@ If `REVISE`, each issue must be specific enough to hand straight back to the exe
 - draft design: the numbered plan, checkpoints, and evaluation procedure.
 
 ## How to review the design
-- **If Guardrail given** — go through it **one bullet at a time**. For every bullet:
-  1. Is it relevant to this task/design at all? (Y/N)
-  2. If relevant, does the design concretely address it — a specific round/step, not just plausible compatibility? (Y/N/PARTIAL)
-  3. One-line evidence citing the round/step, or the reason it's N/A.
-  - Any bullet marked **relevant + N (not addressed)** is automatically a blocking issue — this alone forces `REVISE-DESIGN`, regardless of how the other two dimensions score.
 - **Answers the question** — if executed exactly as written, would this plan answer the user's actual question?
 - **Soundness of the criteria** — are success criteria concrete, falsifiable, and realistically set?
-- **Literature used to build, not just to exclude** — for complex tasks, check `design.md` has a "Literature-derived design inputs" section with:
+- **Literature used to build, not just to exclude** — for complex tasks with `LITERATURE: on`, check `design.md` has a "Literature-derived design inputs" section with:
   1. a mechanistic-leads list (cited papers) that Round 1's candidates trace back to — not only an exclusion list; a design with no citation-backed rationale for what it proposes is a blocking issue.
   2. named positive controls, each tagged to a specific round/step that tests for it — positive controls mentioned only in passing, with no round/step wired to check them, is a blocking issue.
   3. a working hypothesis stated and traceable to the mechanistic leads above.
@@ -93,10 +79,8 @@ If `REVISE`, each issue must be specific enough to hand straight back to the exe
 ```
 MODE: DESIGN-REVIEW
 VERDICT: APPROVE | REVISE-DESIGN
-GUARDRAIL AUDIT (if GUARDRAIL given — one row per bullet, no grouping/summarizing):
-- {guideline}: relevant? Y/N -> addressed? Y/N/PARTIAL/N-A -> {one-line evidence or reason, citing round/step}
 ISSUES (if REVISE-DESIGN):
-- {specific, actionable design gap — guardrail-sourced issues first, then the other two dimensions}
+- {specific, actionable design gap}
 NOTES (non-blocking):
 - {caveat to carry into execution}
 ```

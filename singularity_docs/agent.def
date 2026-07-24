@@ -1,0 +1,32 @@
+Bootstrap: docker
+From: python:3.11-slim
+
+%labels
+    Author jalil.nourisa@gmail.com
+    Description Lightweight image for running agent/agent.py — Python 3.11 + openai
+
+%post
+    set -e
+    apt-get update -qq && apt-get install -y --no-install-recommends libfuse3-dev fuse3 && rm -rf /var/lib/apt/lists/*
+    pip install --no-cache-dir openai
+
+%environment
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%runscript
+    exec python3 "$@"
+
+%help
+    Lightweight agent image.
+
+    Contains:
+        python 3.11-slim (stdlib: argparse, glob, json, os, re, subprocess,
+                          sys, urllib, typing, datetime, ...)
+        openai — OpenAI-compatible client used to talk to the Gemma server
+
+    Usage:
+        singularity exec \
+            --bind /vol/projects:/vol/projects \
+            /vol/projects/BIIM/agentic_central/singularity/agent.sif \
+            python3 /vol/projects/BIIM/agentic_central/agent/agent.py

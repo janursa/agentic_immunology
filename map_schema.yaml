@@ -282,7 +282,7 @@ categories:
   - id: CAT_CIIM
     label: CIIM
     type: tool_group
-    desc: CIIM tool suite — 2 modules for immune single-cell genomics and HIaRA aging clock analysis.
+    desc: CIIM tool suite — 2 modules for immune single-cell genomics and HiRA aging clock analysis.
     children:
     - id: T_CIIM_genomics
       label: Genomics
@@ -307,16 +307,16 @@ categories:
         desc: '`analyze_cluster_celltype_annotation_quality` — function of Genomics'
       - label: TF Activity Inference
         desc: '`infer_tf_activity` — function of Genomics'
-    - id: T_CIIM_hiara
-      label: HIaRA
+    - id: T_CIIM_hira
+      label: HiRA
       type: tool_ciim
-      module: hiara
+      module: hira
       desc: GRN-based immune age prediction (CD4T/CD8T) and unified loader for all immune signatures (aging, SLE, drug, cytokine).
       children:
       - label: GRN Immune Age Clock
-        desc: '`predict_immune_age_grn_clock` — function of HIaRA'
+        desc: '`predict_immune_age_grn_clock` — function of HiRA'
       - label: Immune Summary Stats
-        desc: '`retrieve_summary_stats` — function of HIaRA'
+        desc: '`retrieve_summary_stats` — function of HiRA'
 - id: CAT_DATA
   label: 📊 Data Lake
   desc: 'Curated biomedical datasets: raw scRNA-seq cohorts, OmniPath signaling, and general reference databases.'
@@ -326,8 +326,8 @@ categories:
     type: data_cat
     desc: Raw omics data grouped by study cohort.
     children:
-    - id: DCAT_hiara
-      label: HIaRA
+    - id: DCAT_hira
+      label: HiRA
       type: data_cat
       desc: PBMC gene expression (scRNA-seq + pseudobulk) across healthy aging cohorts, disease conditions, and drug/cytokine
         perturbations.
@@ -878,10 +878,10 @@ categories:
   label: 📈 Summary Stats
   desc: 'Precomputed CIIM signature files: aging, SLE, drug, cytokine TF/GEX/CCC statistics and immune GRN models.'
   children:
-  - id: SS_hiara
-    label: HIaRA
+  - id: SS_hira
+    label: HiRA
     type: sumstat_group
-    desc: Summary stats from the hiara module (8 files).
+    desc: Summary stats from the hira module (8 files).
     children:
     - id: SS_immune_aging_tf_signatures_major_celltypes_csv
       label: Aging TF Signatures — Major

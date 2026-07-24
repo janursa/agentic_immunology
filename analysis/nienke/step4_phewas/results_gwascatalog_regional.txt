@@ -1,0 +1,181 @@
+======================================================================
+Regional GWAS Catalog analysis — rs11867200 / CCL2 locus
+Window: chr17:33,748,950–34,748,950 (±500 kb)
+======================================================================
+
+Total hits in window: 138
+
+
+--- Hits by category ---
+category
+Protein/biomarker QTL     61
+Other                     34
+IBD / Crohn's disease     14
+Blood cell traits          8
+Metabolic                  8
+Microbiome                 5
+Cardiovascular             3
+Anthropometric / ratio     2
+GxE interaction            2
+Cancer                     1
+
+
+--- Hits within 50 kb of rs11867200 (potential LD proxies) ---
+      SNPS    CHR_POS  dist_to_snp                                                                                                                                       DISEASE/TRAIT              category      MAPPED_GENE      P-VALUE  PVALUE_MLOG  FIRST AUTHOR       DATE
+ rs4795893 34247429.0        -1521                                                                                                              corneodesmosin levels (cdsn.7085.81.3) Protein/biomarker QTL LINC01989 - CCL2 9.000000e-14    13.045757        Sun BB 2018-06-06
+ rs6505402 34247226.0        -1724                                                                                                                               corneodesmosin levels Protein/biomarker QTL LINC01989 - CCL2 1.000000e-56    56.000000    Pietzner M 2021-11-12
+ rs9889296 34243528.0        -5422                                                                                                                          inflammatory bowel disease IBD / Crohn's disease LINC01989 - CCL2 1.000000e-20    20.000000        Liu JZ 2015-07-20
+ rs9889296 34243528.0        -5422 chronic inflammatory diseases (ankylosing spondylitis, crohn's disease, psoriasis, primary sclerosing cholangitis, ulcerative colitis) (pleiotropy) IBD / Crohn's disease LINC01989 - CCL2 5.000000e-21    20.301030  Ellinghaus D 2016-03-14
+ rs2857656 34254988.0         6038                                                                                       b-cell lymphoblastic leukemia or crohn's disease (pleiotropy) IBD / Crohn's disease LINC01989 - CCL2 2.000000e-09     8.698970          Yu X 2024-04-15
+ rs2530797 34259075.0        10125                                                                                                                        serum levels of protein cdsn Protein/biomarker QTL      CCL2 - CCL7 3.000000e-21    20.522879  Gudjonsson A 2022-01-25
+ rs3091315 34266646.0        17696                                                                                                                          inflammatory bowel disease IBD / Crohn's disease      CCL2 - CCL7 4.000000e-20    19.397940        Liu JZ 2015-07-20
+ rs3091315 34266646.0        17696                                                                                                                                     crohn's disease IBD / Crohn's disease      CCL2 - CCL7 2.000000e-13    12.698970      Franke A 2010-11-21
+ rs3091315 34266646.0        17696                                                                                                                   gut microbiota (functional units)            Microbiome      CCL2 - CCL7 5.000000e-07     6.301030     Bonder MJ 2016-10-03
+ rs3091315 34266646.0        17696                                                                                                                                     crohn's disease IBD / Crohn's disease      CCL2 - CCL7 8.000000e-25    24.096910        Liu JZ 2015-07-20
+ rs3091316 34266955.0        18005                                                                                                                          inflammatory bowel disease IBD / Crohn's disease      CCL2 - CCL7 1.000000e-26    26.000000     Jostins L 2012-11-01
+ rs3091316 34266955.0        18005                                                                                                                                     crohn's disease IBD / Crohn's disease      CCL2 - CCL7 2.000000e-17    16.698970   de Lange KM 2017-01-09
+ rs3091316 34266955.0        18005                                                                                                                   gut microbiota (functional units)            Microbiome      CCL2 - CCL7 6.000000e-07     6.221849     Bonder MJ 2016-10-03
+ rs3091316 34266955.0        18005                                                                                                                          inflammatory bowel disease IBD / Crohn's disease      CCL2 - CCL7 1.000000e-12    12.000000   de Lange KM 2017-01-09
+ rs3091316 34266955.0        18005                                                                                                                                     crohn's disease IBD / Crohn's disease      CCL2 - CCL7 4.000000e-08     7.397940      Kenny EE 2012-03-08
+ rs2190970 34267644.0        18694                                                                                                                        c-c motif chemokine 7 levels Protein/biomarker QTL      CCL2 - CCL7 5.000000e-13    12.301030     Thareja G 2022-09-28
+ rs1989357 34227435.0       -21515                                                                                                                        c-c motif chemokine 7 levels Protein/biomarker QTL LINC01989 - CCL2 2.000000e-14    13.698970     Thareja G 2022-09-28
+rs11655679 34221514.0       -27436                                                                                                                        c-c motif chemokine 7 levels Protein/biomarker QTL LINC01989 - CCL2 3.000000e-14    13.522879     Thareja G 2022-09-28
+ rs9906695 34219137.0       -29813                                                                                                                  monocyte percentage of white cells     Blood cell traits LINC01989 - CCL2 3.000000e-11    10.522879      Astle WJ 2016-11-17
+ rs9909465 34214325.0       -34625                                                                                                                                      monocyte count     Blood cell traits LINC01989 - CCL2 9.000000e-24    23.045757       Chen MH 2020-09-01
+ rs9909465 34214325.0       -34625                                                                                                       granulocyte percentage of myeloid white cells     Blood cell traits LINC01989 - CCL2 1.000000e-09     9.000000      Astle WJ 2016-11-17
+ rs7218453 34208441.0       -40509                                                                                                                  monocyte percentage of white cells     Blood cell traits LINC01989 - CCL2 3.000000e-25    24.522879    Vuckovic D 2020-09-01
+ rs2368473 34207196.0       -41754                                                                                                             crohn's disease x sex interaction (2df) IBD / Crohn's disease LINC01989 - CCL2 2.000000e-08     7.698970       Khrom M 2023-06-01
+ rs2368473 34207196.0       -41754                                                                                                                                     crohn's disease IBD / Crohn's disease LINC01989 - CCL2 4.000000e-08     7.397940       Khrom M 2023-06-01
+ rs2368473 34207196.0       -41754                                                                                                                                     crohn's disease IBD / Crohn's disease LINC01989 - CCL2 1.000000e-08     8.000000       Khrom M 2023-06-01
+rs12601658 34206404.0       -42546                                                                                                                        serum levels of protein ccl8 Protein/biomarker QTL LINC01989 - CCL2 2.000000e-13    12.698970  Gudjonsson A 2022-01-25
+rs12601658 34206404.0       -42546                                                                                                                        serum levels of protein ccl8 Protein/biomarker QTL LINC01989 - CCL2 6.000000e-16    15.221849  Gudjonsson A 2022-01-25
+rs12601658 34206404.0       -42546                                                                                                                        serum levels of protein ccl7 Protein/biomarker QTL LINC01989 - CCL2 4.000000e-41    40.397940  Gudjonsson A 2022-01-25
+rs12601658 34206404.0       -42546                                                                                                           monocyte chemoattractant protein-1 levels                 Other LINC01989 - CCL2 6.000000e-12    11.221849   Folkersen L 2020-10-16
+rs12601658 34206404.0       -42546                                                                                                                        c-c motif chemokine 7 levels Protein/biomarker QTL LINC01989 - CCL2 5.000000e-62    61.301030    Pietzner M 2021-11-12
+rs79722574 34292033.0        43083                                                                                                                                      eotaxin levels Protein/biomarker QTL     CCL11 - CCL8 8.000000e-15    14.096910       Zhao JH 2023-08-10
+rs79722574 34292033.0        43083                                                                                                                                      eotaxin levels Protein/biomarker QTL     CCL11 - CCL8 1.000000e-06     6.000000 Ahola-Olli AV 2016-12-13
+rs72825017 34202691.0       -46259                                                                                                                      ccl11/ccl2 protein level ratio Protein/biomarker QTL LINC01989 - CCL2 5.000000e-17    16.301030       Suhre K 2024-02-20
+ rs9891243 34202261.0       -46689                                                                                                                                      monocyte count     Blood cell traits LINC01989 - CCL2 3.000000e-14    13.522879      Sakaue S 2021-09-30
+rs72825010 34200035.0       -48915                                                                                                                        c-c motif chemokine 7 levels Protein/biomarker QTL LINC01989 - CCL2 2.000000e-24    23.698970     Thareja G 2022-09-28
+
+
+--- Top disease-relevant hits (all distances) ---
+       SNPS    CHR_POS  dist_to_snp                                                                                                                                       DISEASE/TRAIT              category        MAPPED_GENE      P-VALUE  PVALUE_MLOG                                      FIRST AUTHOR       DATE
+  rs3091316 34266955.0        18005                                                                                                                          inflammatory bowel disease IBD / Crohn's disease        CCL2 - CCL7 1.000000e-26    26.000000                                         Jostins L 2012-11-01
+  rs3091315 34266646.0        17696                                                                                                                                     crohn's disease IBD / Crohn's disease        CCL2 - CCL7 8.000000e-25    24.096910                                            Liu JZ 2015-07-20
+  rs9889296 34243528.0        -5422 chronic inflammatory diseases (ankylosing spondylitis, crohn's disease, psoriasis, primary sclerosing cholangitis, ulcerative colitis) (pleiotropy) IBD / Crohn's disease   LINC01989 - CCL2 5.000000e-21    20.301030                                      Ellinghaus D 2016-03-14
+  rs9889296 34243528.0        -5422                                                                                                                          inflammatory bowel disease IBD / Crohn's disease   LINC01989 - CCL2 1.000000e-20    20.000000                                            Liu JZ 2015-07-20
+  rs3091315 34266646.0        17696                                                                                                                          inflammatory bowel disease IBD / Crohn's disease        CCL2 - CCL7 4.000000e-20    19.397940                                            Liu JZ 2015-07-20
+  rs3091316 34266955.0        18005                                                                                                                                     crohn's disease IBD / Crohn's disease        CCL2 - CCL7 2.000000e-17    16.698970                                       de Lange KM 2017-01-09
+ rs56322375 34579354.0       330404                                                                                                                                  smoking initiation       GxE interaction        TMEM132E-DT 6.000000e-16    15.221849                                      Saunders GRB 2022-12-07
+  rs3091315 34266646.0        17696                                                                                                                                     crohn's disease IBD / Crohn's disease        CCL2 - CCL7 2.000000e-13    12.698970                                          Franke A 2010-11-21
+  rs3091316 34266955.0        18005                                                                                                                          inflammatory bowel disease IBD / Crohn's disease        CCL2 - CCL7 1.000000e-12    12.000000                                       de Lange KM 2017-01-09
+ rs56322375 34579354.0       330404                                                                                                                                  smoking initiation       GxE interaction        TMEM132E-DT 2.000000e-12    11.698970                                      Saunders GRB 2022-12-07
+  rs2857656 34254988.0         6038                                                                                       b-cell lymphoblastic leukemia or crohn's disease (pleiotropy) IBD / Crohn's disease   LINC01989 - CCL2 2.000000e-09     8.698970                                              Yu X 2024-04-15
+rs757225592 34566266.0       317316                                                                                                                          non-hdl cholesterol levels             Metabolic CCL1 - TMEM132E-DT 1.000000e-08     8.000000                                         Graham SE 2021-12-09
+  rs2368473 34207196.0       -41754                                                                                                                                     crohn's disease IBD / Crohn's disease   LINC01989 - CCL2 1.000000e-08     8.000000                                           Khrom M 2023-06-01
+  rs2368473 34207196.0       -41754                                                                                                             crohn's disease x sex interaction (2df) IBD / Crohn's disease   LINC01989 - CCL2 2.000000e-08     7.698970                                           Khrom M 2023-06-01
+rs181054738 33785645.0      -463305                                                                                                    phospholipids to total lipids ratio in small hdl             Metabolic              ASIC2 3.000000e-08     7.522879                                     Richardson TG 2022-02-25
+  rs3091316 34266955.0        18005                                                                                                                                     crohn's disease IBD / Crohn's disease        CCL2 - CCL7 4.000000e-08     7.397940                                          Kenny EE 2012-03-08
+  rs2368473 34207196.0       -41754                                                                                                                                     crohn's disease IBD / Crohn's disease   LINC01989 - CCL2 4.000000e-08     7.397940                                           Khrom M 2023-06-01
+  rs9900212 33894144.0      -354806                                                                                                                                  bmi (standard gwa)             Metabolic              ASIC2 4.000000e-08     7.397940                                        Schoeler T 2023-04-27
+rs138741144 33959545.0      -289405                                                                                                           congenital heart disease (septal defects)        Cardiovascular              ASIC2 7.000000e-08     7.154902                                            Lahm H 2020-11-17
+  rs4795963 34678675.0       429725                                                                                                                clopidogrel active metabolite levels             Metabolic   TMEM132E - CCT6B 1.000000e-07     7.000000                                        Backman JD 2017-04-01
+ rs62056376 34342002.0        93052                                                                    triglyceride change in response to fenofibrate in statin-treated type 2 diabetes             Metabolic       CCL8 - CCL13 5.000000e-07     6.301030                                        Rotroff DM 2017-07-24
+ rs11654964 34662519.0       413569                                                                                      lobular breast cancer (menopausal hormone therapy interaction)                Cancer   TMEM132E - CCT6B 3.000000e-06     5.522879                                         Rudolph A 2013-11-04
+  rs7216674 34697482.0       448532                                                                                                                                   metabolite levels             Metabolic   TMEM132E - CCT6B 4.000000e-06     5.397940                                           Rhee EP 2013-07-02
+ rs34145262 34553863.0       304913                                                                                                                creatinine levels in ischemic stroke        Cardiovascular CCL1 - TMEM132E-DT 5.000000e-06     5.301030                                       Williams SR 2015-12-30
+ rs11650066 33960430.0      -288520                                                                                                                              coronary heart disease        Cardiovascular              ASIC2 6.000000e-06     5.221849 Coronary Artery Disease (C4D) Genetics Consortium 2011-03-06
+  rs7216674 34697482.0       448532                                                                                                                                   metabolite levels             Metabolic   TMEM132E - CCT6B 6.000000e-06     5.221849                                           Rhee EP 2013-07-02
+ rs11652256 34305359.0        56409                                                                          ulcerative colitis x smoking status (never vs current smoking) interaction IBD / Crohn's disease       CCL11 - CCL8 7.000000e-06     5.154902                                           Yadav P 2017-05-12
+  rs7217062 34418144.0       169194                                                                                                                                   metabolite levels             Metabolic CCL1 - TMEM132E-DT 8.000000e-06     5.096910                                           Rhee EP 2013-07-02
+
+
+--- Protein/biomarker QTL hits (top by p-value) ---
+       SNPS    CHR_POS  dist_to_snp                                                                                     DISEASE/TRAIT        MAPPED_GENE       P-VALUE  PVALUE_MLOG  OR or BETA  FIRST AUTHOR       DATE
+  rs4795912 34347215.0        98265                                                                              blood protein levels       CCL8 - CCL13  0.000000e+00   459.698970    1.220724    Emilsson V 2018-08-02
+ rs11652256 34305359.0        56409                                                                    ccl13/ccl8 protein level ratio       CCL11 - CCL8  0.000000e+00   494.045757    0.928457       Suhre K 2024-02-20
+  rs1133763 34320812.0        71862                                                                      c-c motif chemokine 7 levels               CCL8  0.000000e+00   717.698970    0.913000    Pietzner M 2021-11-12
+  rs1133763 34320812.0        71862                                                                      c-c motif chemokine 8 levels               CCL8  0.000000e+00  1703.096910    1.239000    Pietzner M 2021-11-12
+ rs16969619 34383709.0       134759                                                                    ccl13/ccl2 protein level ratio CCL1 - TMEM132E-DT 2.000000e-277   276.698970    0.522533       Suhre K 2024-02-20
+  rs8068122 34330517.0        81567                                                                              blood protein levels       CCL8 - CCL13 2.000000e-263   262.698970    1.045583    Emilsson V 2018-08-02
+ rs34202026 34320338.0        71388                                                                      c-c motif chemokine 7 levels               CCL8 2.000000e-236   235.698970    1.491000    Pietzner M 2021-11-12
+ rs16969619 34383709.0       134759                                                                   ccl11/ccl13 protein level ratio CCL1 - TMEM132E-DT 9.000000e-236   235.045757    0.476214       Suhre K 2024-02-20
+  rs1133763 34320812.0        71862                                                                      c-c motif chemokine 7 levels               CCL8 1.000000e-177   177.000000    0.915581     Thareja G 2022-09-28
+  rs7213460 34195594.0       -53356                                                                    ccl11/ccl7 protein level ratio          LINC01989 2.000000e-133   132.698970    0.169692       Suhre K 2024-02-20
+  rs3136674 34355597.0       106647                                                                             corneodesmosin levels       CCL8 - CCL13 1.000000e-120   120.000000    0.675000    Pietzner M 2021-11-12
+ rs11342894 34321860.0        72910                                                                      c-c motif chemokine 7 levels       CCL8 - CCL13 8.000000e-118   117.096910    0.860000       Katz DH 2021-11-24
+  rs3138036 34320525.0        71575                                                                      serum levels of protein ccl8               CCL8 5.000000e-109   108.301030    0.468601  Gudjonsson A 2022-01-25
+ rs11342894 34321860.0        72910                                                                      c-c motif chemokine 8 levels       CCL8 - CCL13  3.000000e-80    79.522879    0.607760     Thareja G 2022-09-28
+ rs11342894 34321860.0        72910                                                      c-c motif chemokine 7 levels (ccl7.4886.3.1)       CCL8 - CCL13  7.000000e-72    71.154902    0.590000        Sun BB 2018-06-06
+  rs3138036 34320525.0        71575                                                                      c-c motif chemokine 7 levels               CCL8  2.000000e-69    68.698970    0.999700       Suhre K 2017-02-27
+ rs34202026 34320338.0        71388                                                                      c-c motif chemokine 8 levels               CCL8  1.000000e-67    67.000000    0.827000    Pietzner M 2021-11-12
+ rs12601658 34206404.0       -42546                                                                      c-c motif chemokine 7 levels   LINC01989 - CCL2  5.000000e-62    61.301030    0.261000    Pietzner M 2021-11-12
+  rs8066978 34330523.0        81573                                                                              blood protein levels       CCL8 - CCL13  1.000000e-58    58.000000    0.516734    Emilsson V 2018-08-02
+  rs6505402 34247226.0        -1724                                                                             corneodesmosin levels   LINC01989 - CCL2  1.000000e-56    56.000000    0.214000    Pietzner M 2021-11-12
+ rs34202026 34320338.0        71388                                                      c-c motif chemokine 7 levels (ccl7.4886.3.1)               CCL8  1.000000e-53    53.000000    1.320000        Sun BB 2018-06-06
+ rs57177033 34179555.0       -69395                                                                             corneodesmosin levels          LINC01989  2.000000e-52    51.698970    0.207000    Pietzner M 2021-11-12
+ rs11575056 34322446.0        73496                                                                      c-c motif chemokine 8 levels       CCL8 - CCL13  4.000000e-49    48.397940    0.442000    Pietzner M 2021-11-12
+  rs3138036 34320525.0        71575                                                                               ccl8 protein levels               CCL8  8.000000e-46    45.096910    1.075000 Kalnapenkis A 2024-04-02
+  rs3136676 34356270.0       107320                                                                      serum levels of protein cdsn       CCL8 - CCL13  2.000000e-41    40.698970    0.481433  Gudjonsson A 2022-01-25
+ rs12601658 34206404.0       -42546                                                                      serum levels of protein ccl7   LINC01989 - CCL2  4.000000e-41    40.397940    0.305959  Gudjonsson A 2022-01-25
+ rs72825101 34336850.0        87900 c-c motif chemokine 8 level in chronic kidney disease with hypertension and no diabetes (13748_4)       CCL8 - CCL13  7.000000e-39    38.154902    1.190000  Surapaneni A 2022-07-21
+  rs2215184 34307840.0        58890                                                                              blood protein levels       CCL11 - CCL8  2.000000e-30    29.698970    0.524200         Sun W 2016-08-17
+ rs11575056 34322446.0        73496                                                                      c-c motif chemokine 7 levels       CCL8 - CCL13  2.000000e-26    25.698970    0.318000    Pietzner M 2021-11-12
+rs182223589 34479046.0       230096                                                                      serum levels of protein ccl7 CCL1 - TMEM132E-DT  2.000000e-26    25.698970    0.827035  Gudjonsson A 2022-01-25
+
+
+--- Blood cell trait hits ---
+     SNPS    CHR_POS  dist_to_snp                                 DISEASE/TRAIT      MAPPED_GENE      P-VALUE  PVALUE_MLOG FIRST AUTHOR
+rs7218453 34208441.0       -40509            monocyte percentage of white cells LINC01989 - CCL2 3.000000e-25    24.522879   Vuckovic D
+rs9911144 34192839.0       -56111                                monocyte count        LINC01989 1.000000e-24    24.000000      Chen MH
+rs9909465 34214325.0       -34625                                monocyte count LINC01989 - CCL2 9.000000e-24    23.045757      Chen MH
+rs9911144 34192839.0       -56111                                monocyte count        LINC01989 5.000000e-19    18.301030   Vuckovic D
+rs9891243 34202261.0       -46689                                monocyte count LINC01989 - CCL2 3.000000e-14    13.522879     Sakaue S
+rs9906695 34219137.0       -29813            monocyte percentage of white cells LINC01989 - CCL2 3.000000e-11    10.522879     Astle WJ
+rs9909465 34214325.0       -34625 granulocyte percentage of myeloid white cells LINC01989 - CCL2 1.000000e-09     9.000000     Astle WJ
+rs4795936 34576519.0       327569                             hemoglobin levels      TMEM132E-DT 4.000000e-06     5.397940     Timmer T
+
+Plot 1 (regional locus): /vol/projects/BIIM/agentic_immunology/temp/nienke/step4_phewas/images/gwascatalog_regional_locus.png
+Plot 2 (disease categories): /vol/projects/BIIM/agentic_immunology/temp/nienke/step4_phewas/images/gwascatalog_disease_categories.png
+Plot 3 (distance vs significance): /vol/projects/BIIM/agentic_immunology/temp/nienke/step4_phewas/images/gwascatalog_distance_vs_significance.png
+
+Full regional table: /vol/projects/BIIM/agentic_immunology/temp/nienke/step4_phewas/gwascatalog_regional_all.csv
+
+
+======================================================================
+BIOLOGICAL INTERPRETATION
+======================================================================
+
+Key findings from regional GWAS Catalog analysis:
+
+1. CLOSEST disease-associated SNPs (< 10 kb from rs11867200):
+   - rs9889296 (5.4 kb): p=5e-21 for 'chronic inflammatory diseases'
+     (AS + Crohn's + psoriasis + PSC + UC — cross-disorder pleiotropy)
+     AND p=1e-20 for IBD (Liu JZ 2015)
+   - rs2857656 (6.0 kb): p=2e-9 for B-cell lymphoblastic leukemia / Crohn's (pleiotropy)
+   These are strong candidates for being in LD with rs11867200.
+
+2. IBD / CROHN'S DISEASE is the dominant disease signal at this locus:
+   - Multiple independent SNPs (rs9889296, rs3091315, rs3091316, rs2368473)
+   - Consistent across many large IBD GWAS (Jostins 2012, Liu 2015, de Lange 2017, Franke 2010)
+   - Strongest disease effect: rs3091315 at CCL2-CCL7 intergenic (p=2e-25 for Crohn's)
+   - This fits perfectly: CCL2 drives monocyte/macrophage recruitment to the gut.
+     The T allele → higher CCL2 in aged/inflamed monocytes → more tissue inflammation.
+
+3. PROTEIN QTLs confirm this locus regulates the CCL2/CCL7/CCL8 cluster:
+   - rs12601658: CCL2 levels (p=6e-12), CCL7 levels (p=5e-62), CCL8 levels (p=2e-13)
+   - rs6505402: corneodesmosin levels (p=1e-56) — shared LD block
+   These protein QTLs provide the molecular link: genotype → chemokine level → disease.
+
+4. BLOOD CELL TRAITS: monocyte count and monocyte percentage strongly associated
+   - rs9909465 (35 kb): monocyte count p=9e-24
+   - rs7218453 (40 kb): monocyte percentage p=3e-25
+   This extends the mechanism: the locus regulates not just CCL2 production
+   but also monocyte abundance — both relevant to the stimQTL phenotype.
+
+5. AUTOIMMUNE / INFLAMMATORY: ankylosing spondylitis and psoriasis co-associated
+   at rs9889296 (same variant as IBD hit). This is cross-disorder inflammation.
+
+6. CANCER: rs2857656 shows pleiotropy between B-cell ALL and Crohn's —
+   likely a shared immune regulatory variant rather than direct oncogenic effect.

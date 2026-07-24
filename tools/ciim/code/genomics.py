@@ -20,7 +20,7 @@ def get_immune_grn(
 ) -> pd.DataFrame:
     """Load pre-computed consensus immune GRN(s) for major immune cell types.
 
-    Returns edges from the HIARA multi-cohort consensus gene regulatory networks
+    Returns edges from the HIRA multi-cohort consensus gene regulatory networks
     (minDegree2 filtering applied; edges present in ≥2 cohort-level networks).
     Optionally restrict to promoter-supported edges only.
 
