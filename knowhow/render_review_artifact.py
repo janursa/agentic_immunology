@@ -6,6 +6,10 @@ markdown, not a paraphrase), each followed by a Comment textarea, plus one
 page-level "Overall" comment card and one page-level "Compile comments"
 button. Structure is fixed by code; content comes straight from the file.
 
+Diagrams are ```graph <id>``` placeholders (see knowhow/design_graphs.md), backed by a sibling
+<basename>.graphs.js file next to the source .md, rendered client-side with Cytoscape.js
+(draggable nodes, pan/zoom, dagre layout) instead of mermaid.
+
 Usage:
     python3 render_review_artifact.py <design.md> <output.html> [--title "..."]
 
@@ -16,11 +20,18 @@ Run `python3 render_review_artifact.py --self-test` to verify the template.
 import html
 import re
 import sys
+from pathlib import Path
 
 import markdown
 
-TEMPLATE = """<title>{title}</title>
+TEMPLATE = """<meta charset="utf-8">
+<title>{title}</title>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape@3/dist/cytoscape.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dagre@0.8.5/dist/dagre.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2/cytoscape-dagre.js"></script>
 <style>
+  .cy-graph {{ width: 100%; height: 420px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; margin: 0.6rem 0; }}
   :root {{
     --bg: #f5f7f8; --surface: #ffffff; --text: #1a232a; --text-muted: #5c6b74;
     --text-faint: #8895a0; --accent: #276866; --accent-soft: #e4eeec;
@@ -77,6 +88,9 @@ TEMPLATE = """<title>{title}</title>
   #compileBtn:hover {{ filter: brightness(1.08); }}
   #compileBtn:focus-visible {{ outline: 2px solid var(--focus); outline-offset: 2px; }}
   #compileStatus {{ font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); min-width: 11rem; }}
+  .compile-output {{ margin-top: 1.2rem; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 3px; padding: 1rem 1.1rem; font-family: var(--mono); font-size: 0.82rem;
+    white-space: pre-wrap; word-break: break-word; color: var(--text); }}
   footer.note {{ margin-top: 2.5rem; font-size: 0.82rem; color: var(--text-faint); border-top: 1px solid var(--border);
     padding-top: 1.2rem; }}
 </style>
@@ -100,22 +114,73 @@ TEMPLATE = """<title>{title}</title>
       <span id="compileStatus">only non-empty comments are copied</span>
     </div>
   </div>
+  <pre id="compileOutput" class="compile-output" style="display:none"></pre>
   <footer class="note">No comment is sent automatically. Paste the compiled text back into the conversation once you've reviewed every card.</footer>
 </div>
 <script>
+window.DESIGN_GRAPHS = window.DESIGN_GRAPHS || {{}};
+{graphs_js}
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {{
+    cytoscape.use(cytoscapeDagre);
+    document.querySelectorAll('.cy-graph').forEach(function (el) {{
+      var gid = el.getAttribute('data-graph-id');
+      var g = window.DESIGN_GRAPHS[gid];
+      if (!g) {{ el.textContent = 'graph not found: ' + gid; return; }}
+      var elements = [];
+      (g.nodes || []).forEach(function (n) {{
+        elements.push({{ data: {{ id: n.id, label: n.label, type: n.type || '', parent: n.parent }} }});
+      }});
+      (g.edges || []).forEach(function (e, i) {{
+        elements.push({{ data: {{ id: 'e' + i, source: e.from, target: e.to, kind: e.kind || 'flow', label: e.label || '' }} }});
+      }});
+      cytoscape({{
+        container: el,
+        elements: elements,
+        layout: {{ name: 'dagre', rankDir: 'TB', nodeSep: 24, rankSep: 46 }},
+        wheelSensitivity: 0.2,
+        style: [
+          {{ selector: 'node', style: {{ 'label': 'data(label)', 'text-wrap': 'wrap', 'text-max-width': '120px',
+            'font-size': '11px', 'text-valign': 'center', 'text-halign': 'center', 'padding': '8px',
+            'width': 'label', 'height': 'label', 'shape': 'round-rectangle',
+            'background-color': '#4C78A8', 'color': '#fff' }} }},
+          {{ selector: 'node[type="decision"]', style: {{ 'background-color': '#F2B701', 'color': '#000', 'shape': 'diamond' }} }},
+          {{ selector: 'node[type="dataset"]', style: {{ 'background-color': '#54A24B', 'color': '#fff', 'shape': 'round-rectangle' }} }},
+          {{ selector: 'node[type="method"]', style: {{ 'background-color': '#B07AA1', 'color': '#fff', 'shape': 'hexagon' }} }},
+          {{ selector: 'node[type="stop"]', style: {{ 'background-color': '#E45756', 'color': '#fff' }} }},
+          {{ selector: 'node:parent', style: {{ 'background-color': '#8895a0', 'background-opacity': 0.12,
+            'border-width': 1, 'border-color': '#8895a0', 'shape': 'round-rectangle', 'text-valign': 'top',
+            'font-weight': 'bold', 'padding': '18px' }} }},
+          {{ selector: 'edge', style: {{ 'width': 1.5, 'line-color': '#8895a0', 'target-arrow-color': '#8895a0',
+            'target-arrow-shape': 'triangle', 'curve-style': 'bezier', 'label': 'data(label)', 'font-size': '10px',
+            'color': 'var(--text-muted)' }} }},
+          {{ selector: 'edge[kind="data"]', style: {{ 'line-style': 'dashed' }} }},
+        ],
+      }});
+    }});
+  }});
   document.getElementById('compileBtn').addEventListener('click', function () {{
     var areas = document.querySelectorAll('textarea.comment');
     var lines = [];
     areas.forEach(function (ta) {{
       var val = ta.value.trim();
-      if (val) lines.push(ta.getAttribute('data-step') + ': ' + val);
+      if (val) lines.push('[' + ta.getAttribute('data-step') + ']\\n' + val);
     }});
     var status = document.getElementById('compileStatus');
-    if (lines.length === 0) {{ status.textContent = 'no comments to compile'; return; }}
-    navigator.clipboard.writeText(lines.join('\\n')).then(function () {{
-      status.textContent = 'copied ' + lines.length + ' comment' + (lines.length > 1 ? 's' : '') + ' to clipboard';
+    var output = document.getElementById('compileOutput');
+    if (lines.length === 0) {{
+      status.textContent = 'no comments to compile';
+      output.style.display = 'none';
+      return;
+    }}
+    var text = lines.join('\\n\\n');
+    output.textContent = text;
+    output.style.display = 'block';
+    navigator.clipboard.writeText(text).then(function () {{
+      status.textContent = 'copied ' + lines.length + ' comment' + (lines.length > 1 ? 's' : '') + ' to clipboard (also shown below)';
     }}, function () {{
-      status.textContent = 'copy failed — select and copy manually';
+      status.textContent = 'shown below — select and copy manually';
     }});
   }});
 </script>
@@ -129,6 +194,25 @@ CARD_TEMPLATE = """    <div class="card">
     </div>"""
 
 MD_EXTENSIONS = ["tables", "sane_lists", "fenced_code"]
+GRAPH_RE = re.compile(r"```graph\n(.*?)```", re.DOTALL)
+
+
+def render_body_html(body: str, counter: list) -> str:
+    """Markdown -> HTML, with ```graph <id>``` fences pulled out and replaced by a
+    placeholder <div> that Cytoscape.js hydrates client-side from window.DESIGN_GRAPHS."""
+    placeholders = []
+
+    def stash(m):
+        placeholders.append(m.group(1).strip())
+        return f"\x00GRAPH{len(placeholders) - 1}\x00"
+
+    stripped = GRAPH_RE.sub(stash, body)
+    out = markdown.markdown(html.escape(stripped, quote=False), extensions=MD_EXTENSIONS) if stripped.strip() else ""
+    for i, graph_id in enumerate(placeholders):
+        counter[0] += 1
+        div_html = f'<div class="cy-graph" id="cy-{counter[0]}" data-graph-id="{html.escape(graph_id, quote=True)}"></div>'
+        out = re.sub(rf"<p>\x00GRAPH{i}\x00</p>|\x00GRAPH{i}\x00", div_html, out)
+    return out
 
 
 def split_sections(md_text: str):
@@ -153,16 +237,17 @@ def derive_title(preamble: str, fallback: str) -> str:
     return fallback
 
 
-def render(md_text: str, source_path: str, title: str = None) -> str:
+def render(md_text: str, source_path: str, title: str = None, graphs_js: str = None) -> str:
     preamble, sections = split_sections(md_text)
     if not sections:
         raise ValueError("no '## ' sections found in the input markdown")
 
     resolved_title = title or derive_title(preamble, source_path)
 
+    counter = [0]
     cards = []
     for heading, body in sections:
-        body_html = markdown.markdown(html.escape(body, quote=False), extensions=MD_EXTENSIONS) if body else ""
+        body_html = render_body_html(body, counter) if body else ""
         cards.append(
             CARD_TEMPLATE.format(
                 heading=html.escape(heading),
@@ -177,6 +262,7 @@ def render(md_text: str, source_path: str, title: str = None) -> str:
         title_h1=html.escape(resolved_title),
         path_line_html=f'<p class="path-line">{html.escape(source_path)}</p>',
         cards_html="\n".join(cards),
+        graphs_js=graphs_js or "",
     )
 
 
@@ -190,12 +276,17 @@ def main():
         print("usage: render_review_artifact.py <design.md> <output.html> [--title=...]", file=sys.stderr)
         sys.exit(1)
     src_path, out_path = args
-    with open(src_path) as f:
+    src = Path(src_path)
+    with open(src_path, encoding="utf-8") as f:
         md_text = f.read()
-    html_out = render(md_text, src_path, title=title_arg)
-    with open(out_path, "w") as f:
+    graphs_path = src.with_name(src.stem + ".graphs.js")
+    graphs_js = graphs_path.read_text(encoding="utf-8") if graphs_path.exists() else None
+    html_out = render(md_text, src_path, title=title_arg, graphs_js=graphs_js)
+    with open(out_path, "w", encoding="utf-8") as f:
         f.write(html_out)
     print(f"wrote {out_path}")
+    if not graphs_path.exists() and GRAPH_RE.search(md_text):
+        print(f"warning: {src_path} has ```graph placeholders but {graphs_path} does not exist", file=sys.stderr)
 
 
 def _self_test():
@@ -205,13 +296,28 @@ def _self_test():
         "Some *markdown* with a <script> tag and a [link](https://example.com).\n\n"
         "## Execution plan\n"
         "| a | b |\n|---|---|\n| 1 | 2 |\n\n"
+        "```graph\nphase0\n```\n\n"
         "## Limitations\n"
         "- one\n- two\n"
+        "\n## Overview\n"
+        "```graph\noverview\n```\n"
     )
-    out = render(demo, "/tmp/design.md")
+    demo_graphs_js = (
+        "window.DESIGN_GRAPHS.overview = { nodes: [{ id: 'P0', label: 'Phase 1', type: 'step' }], edges: [] };\n"
+        "window.DESIGN_GRAPHS.phase0 = { nodes: [{ id: 'S1', label: 'Step 1', type: 'step' }], edges: [] };\n"
+    )
+    out = render(demo, "/tmp/design.md", graphs_js=demo_graphs_js)
+    assert '<meta charset="utf-8">' in out, "must declare utf-8 charset so em-dashes etc. render correctly"
+    assert 'id="compileOutput"' in out, "compiled comments must have a visible on-page output element"
+    assert 'class="cy-graph" id="cy-1" data-graph-id="phase0"' in out, "graph placeholder must survive as a cy-graph div, in document order"
+    assert 'class="cy-graph" id="cy-2" data-graph-id="overview"' in out, "second placeholder must get the next counter value"
+    assert "cytoscape-dagre" in out and "cytoscape.min.js" in out, "cytoscape + dagre layout must be loaded"
+    assert "cytoscape.use(cytoscapeDagre)" in out, "dagre layout must be registered with cytoscape"
+    assert demo_graphs_js.strip() in out, "sibling .graphs.js content must be inlined verbatim"
+    assert "mermaid" not in out.lower(), "mermaid must be fully retired from the render pipeline"
     n_cards = out.count('<div class="card">') + out.count('<div class="card overall">')
-    assert n_cards == 4, "expected one card per section plus the overall card"
-    assert out.count('<textarea class="comment"') == 4, "expected one textarea per card"
+    assert n_cards == 5, "expected one card per section plus the overall card"
+    assert out.count('<textarea class="comment"') == 5, "expected one textarea per card"
     assert out.count('id="compileBtn"') == 1, "expected exactly one compile button"
     assert "sendPrompt" not in out, "must not auto-send comments"
     assert "&lt;script&gt;" in out, "section content must be HTML-escaped, not raw HTML"
@@ -219,6 +325,11 @@ def _self_test():
     assert 'data-step="Limitations"' in out
     assert 'data-step="Overall"' in out
     assert "Study Design: Demo" in out, "title should be derived from the leading # header"
+
+    out_no_graphs = render(demo, "/tmp/design.md")
+    assert 'data-graph-id="phase0"' in out_no_graphs, "placeholder still renders even with no graphs.js supplied"
+    assert "window.DESIGN_GRAPHS = window.DESIGN_GRAPHS || {};\n\n" in out_no_graphs, "empty graphs block must not error"
+
     try:
         render("no headers here", "/tmp/x.md")
         raise AssertionError("markdown with no '## ' sections should raise")

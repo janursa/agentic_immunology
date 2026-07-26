@@ -34,7 +34,7 @@ manual" below for the mechanism.
    ```
    Agent(subagent_type: "ciim_agentic", prompt: "<PROMPT below>", run_in_background: true)
    ```
-2. `ciim_agentic` publishes an Artifact at each checkpoint and pauses. **You,
+2. `ciim_agentic` serves a dashboard page (via `scripts/serve_dashboard.sh` + `knowhow/render_review_artifact.py`) at each checkpoint and pauses. **You,
    the actual human, must answer directly** — via an `AskUserQuestion`
    prompt the subagent raises to you, or by interacting with it in a
    foreground session. Do **not** resume it by having another agent relay
@@ -66,7 +66,7 @@ answering an `AskUserQuestion` prompt the subagent raises directly, or the
 human interacting with the orchestrator in a foreground session rather than
 through a spawned background `Agent` call. As of 2026-07-17 `ciim_agentic`
 does not carry `AskUserQuestion` (removed deliberately in favor of
-Artifact-only interaction) — restoring it for just the two checkpoint
+dashboard-only interaction) — restoring it for just the two checkpoint
 moments is the open decision needed to make the background-run path usable
 again; until then, foreground execution is the only way to complete this
 probe.
@@ -100,8 +100,8 @@ without a separate explicit decision to do so.
 - [ ] First line of the orchestrator's first reply is `CANARY: ...`.
 - [ ] Agent sequence matches `ciim_agentic.md` COMPLEX-TASK steps in order:
       `study_designer_agent` → `peer_reviewer_agent` (DESIGN-REVIEW) →
-      Artifact checkpoint → `data_analyst_agent` → `peer_reviewer_agent`
-      (RESULTS-REVIEW) → Artifact checkpoint → report finalized.
+      dashboard checkpoint → `data_analyst_agent` → `peer_reviewer_agent`
+      (RESULTS-REVIEW) → dashboard checkpoint → report finalized.
 - [ ] Every analysis-subagent prompt has `knowhow/output_conventions.md`
       appended verbatim.
 - [ ] `memory_blob.py retrieve` was run before every dispatch, and the
@@ -109,14 +109,15 @@ without a separate explicit decision to do so.
       retrieved lesson conflicts with this task's reviewed design, the
       conflict is flagged to the user rather than silently applied or
       silently dropped.
-- [ ] Both Artifact checkpoints follow the fixed card format from
-      `ciim_agentic.md` ("Interact with user using Artifact"): one card per
-      step, each with Step / Goal / Comment, one page-level "Compile
+- [ ] Both dashboard checkpoints are reachable at the printed link and follow
+      the fixed card format from `render_review_artifact.py` (see
+      `ciim_agentic.md`'s "Interact with user"): one card per `##` section,
+      each with its content and a Comment textarea, one page-level "Compile
       comments" button.
 - [ ] Your injected comment (see trigger step 3) visibly changes something
       downstream — a design revision, a re-review, or an explicit answer —
       not just an acknowledgement.
-- [ ] `report.md` exists early (checked after the first Artifact
+- [ ] `report.md` exists early (checked after the first dashboard
       checkpoint, not only at the end) and gains sections as the run
       progresses, per the step-7 hard rule in `ciim_agentic.md`.
 - [ ] Final `report.md` lists the absolute path of every generated file:
