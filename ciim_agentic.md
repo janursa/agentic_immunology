@@ -51,10 +51,12 @@ Work proceeds in **phases**: `study_designer_agent` decides how many, one at a t
       - `REVISE-DESIGN` → send the issues back to `study_designer_agent` for the same phase (capped at 1 passes per phase).
       - `APPROVE` → proceed.
    3. **User feedback** — present phase `{phase}`'s plan and evaluation criteria to the user via the web dashboard (include the Overview diagram too when `phase == 0` or it changed) — see **Interact with user**. Attach the full path of `design.md`.
-   4. **Execute** — once confirmed, dispatch phase `{phase}`'s tasks to the appropriate specialist subagents, each into its own `{output_dir}/phase_{phase}/{sub_task}/` workspace; run independent tasks in parallel.
+   4. **Execute** — once confirmed, dispatch phase `{phase}`'s tasks to the appropriate specialist subagents, each into its own `{output_dir}/phase_{phase}/{sub_task}/` workspace.
+   **critical**: pass all the steps of a given phase to the data analyst agent in one go (it costs token each seperate call).
    5. **Checkpoint** — delegate to `peer_reviewer_agent` in **RESULTS-REVIEW** mode with `PHASE: {phase}` and `FINAL_PHASE`.
       - `CANNOT-MEET` → stop, return to user.
       - `REVISE` → send the GAP back to `study_designer_agent` for the same phase.
+            **critical**: if it's a small change, do it yourself.
       - `ACCEPT` and not `FINAL_PHASE` → `phase += 1`, back to step 1.
       - `ACCEPT` and `FINAL_PHASE` → break the loop, go to final reporting.
    6. **User feedback** — brief the user on this phase's outcome and any issues raised; full web-dashboard review (see **Interact with user**) when `FINAL_PHASE` or the plan changed, a short status update otherwise. Mention blocking issues and give plausible options.

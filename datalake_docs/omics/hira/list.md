@@ -15,13 +15,6 @@ Single-cell RNA-seq. Multi-ethnic Asian healthy PBMC cohort (625 donors, ages 19
 Cells: 1,265,245 | Genes: 13,772
 obs columns: donor_id, age, sex, race, batch_info, dataset, donor_age, bulk_group, Major_CT, Sub_CT, ct_major_published, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident
 
-## bulk/aida.h5ad
-**AIDA Bulk**
-Pseudobulked from aida_sc by donor_id x Major_CT.
-Samples: 3,963 | Genes: 13,772
-obs columns: donor_id, age, sex, race, batch_info, dataset, donor_age, bulk_group, Major_CT, cell_count, sum_by, orig.ident
-Major_CT: B, CD4T, CD8T, DC, MONO, Megakaryocyte, NK, Others
-Normalization: log-normalized (lognorm).
 
 ---
 
@@ -29,21 +22,9 @@ Files: `/vol/projects/jnourisa/hira/datasets/{sc,bulk}/abf300.h5ad`
 
 ## sc/abf300.h5ad
 **ABF300 Single-Cell**
-Single-cell RNA-seq. Healthy PBMC cohort (166 donors, ages 25-81, 36 F / 130 M).
+Single-cell RNA-seq. Healthy PBMC cohort (166 donors, ages 25-81, 36 F / 130 M). There are multiple measurements per donor (subsequent 2/3 years).
 Cells: 1,916,367 | Genes: 15,437
 obs columns: donor_id, age, sex, batch_info, ct_major_published, dataset, donor_age, bulk_group, Major_CT, Sub_CT, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident
-
-## bulk/abf300.h5ad
-**ABF300 Bulk**
-Pseudobulked from abf300_sc by donor_id x Major_CT.
-Samples: 1,915 | Genes: 15,437
-obs columns: donor_id, age, sex, dataset, bulk_group, Major_CT, donor_age, cell_count, sum_by, orig.ident
-Major_CT: B, CD4T, CD8T, DC, HSC, MONO, NK
-Normalization: log-normalized (lognorm).
-**Note:** abf300 has repeated-measures donors — the same `donor_id` recurs across multiple visits/ages
-(distinct `bulk_group`, e.g. `A01_30` and `A01_31` for the same donor at ages 30 and 31), giving ~1.9
-rows per donor per Major_CT (1,915 rows / 166 unique donors), not 1 row/donor. Collapse to one row per
-donor (per Major_CT) before treating rows as independent samples in any regression/statistical model.
 
 ---
 
@@ -55,14 +36,6 @@ Single-cell RNA-seq. Australian European healthy PBMC cohort (981 donors, ages 1
 Cells: 1,248,940 | Genes: 9,894
 obs columns: donor_id, age, sex, batch_info, ct_major_published, dataset, donor_age, bulk_group, Major_CT, Sub_CT, nCount_RNA, nFeature_RNA, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident
 
-## bulk/onek1k.h5ad
-**OneK1K Bulk**
-Pseudobulked from onek1k_sc by donor_id x Major_CT.
-Samples: 4,961 | Genes: 9,894
-obs columns: donor_id, age, sex, batch_info, dataset, bulk_group, Major_CT, donor_age, total_counts_mt, pct_counts_mt, cell_count, sum_by, orig.ident
-Major_CT: B, CD4T, CD8T, DC, MONO, Megakaryocyte, NK
-Normalization: log-normalized (lognorm).
-
 ---
 
 Files: `/vol/projects/jnourisa/hira/datasets/{sc,bulk}/perez_sle.h5ad`
@@ -72,14 +45,6 @@ Files: `/vol/projects/jnourisa/hira/datasets/{sc,bulk}/perez_sle.h5ad`
 Single-cell RNA-seq. SLE patients and healthy controls (261 donors, ages 20-83, 244 F / 17 M; European, Asian, African American, Hispanic). Use condition column to split cases (systemic lupus erythematosus) vs controls (normal).
 Cells: 1,263,676 | Genes: 11,918
 obs columns: donor_id, age, sex, race, condition, disease_state, batch_info, ct_major_published, dataset, donor_age, bulk_group, Major_CT, Sub_CT, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident
-
-## bulk/perez_sle.h5ad
-**Perez SLE Bulk**
-Pseudobulked from perez_sle_sc by donor_id x Major_CT x condition.
-Samples: 1,708 | Genes: 11,918
-obs columns: donor_id, age, sex, race, condition, dataset, bulk_group, Major_CT, donor_age, cell_count, sum_by, orig.ident
-Major_CT: B, CD4T, CD8T, DC, HSC, MONO, NK, Others
-Normalization: log-normalized (lognorm).
 
 ---
 
@@ -91,14 +56,6 @@ Single-cell RNA-seq. Broad age-range healthy PBMC cohort (61 donors, ages 0-90, 
 Cells: 538,266 | Genes: 14,468
 obs columns: donor_id, age, sex, batch_info, ct_major_published, dataset, donor_age, bulk_group, Major_CT, Sub_CT, nCount_RNA, nFeature_RNA, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident
 
-## bulk/zhang.h5ad
-**Zhang Bulk**
-Pseudobulked from zhang_sc by donor_id x Major_CT.
-Samples: 404 | Genes: 14,468
-obs columns: donor_id, age, sex, batch_info, dataset, bulk_group, Major_CT, donor_age, cell_count, sum_by, orig.ident
-Major_CT: B, CD4T, CD8T, DC, MONO, Megakaryocyte, NK, Others
-Normalization: log-normalized (lognorm).
-
 ---
 
 Files: `/vol/projects/jnourisa/hira/datasets/{sc,bulk}/CXCL9.h5ad`
@@ -108,13 +65,6 @@ Files: `/vol/projects/jnourisa/hira/datasets/{sc,bulk}/CXCL9.h5ad`
 Single-cell RNA-seq. Ex-vivo cytokine/drug stimulation cohort (7 donors, ages 25-31, 4 F / 3 M). Conditions: rhCXCL9, rhIFN-gamma, LPS, metformin, ruxolitinib, and combinations (24h timepoint).
 Cells: 253,390 | Genes: 17,011
 obs columns: donor_id, age, sex, condition, treatment_id, batch_info, pool_id, donor_letter, dataset, donor_age, bulk_group, Major_CT, Sub_CT, n_genes_by_counts, total_counts, total_counts_mt, pct_counts_mt, n_genes, orig.ident
-
-## bulk/CXCL9.h5ad
-**CXCL9 Bulk**
-Pseudobulked from CXCL9_sc by donor_id x Major_CT x condition.
-Samples: 597 | Genes: 17,011
-obs columns: donor_id, age, sex, condition, treatment_id, batch_info, pool_id, donor_letter, dataset, bulk_group, Major_CT, cell_count, sum_by, orig.ident
-Major_CT: B, CD4T, CD8T, DC, Erythroid, MONO, Megakaryocyte, NK, Others
 
 ---
 
@@ -162,11 +112,3 @@ obs columns: AIFI_L1, AIFI_L1_score, AIFI_L2, AIFI_L2_original, AIFI_L2_score, A
 Major_CT: B, CD4T, CD8T, MONO, NK
 Sub_CT: CD8a/a, CD16_NK, Classic_MONO, MAIT, Memory_B, Naive_B, NonClassic_MONO, Plasma_B, Tcm_Naive_CD4, Tcm_Naive_CD8, Tem_Effector_CD4, Tem_Trm_CD8, Treg
 visitName values: Flu Year 1/2/3 Day 0/7/90/Stand-Alone; Immune Variation Day 0/7/90
-
-## bulk/soundlife.h5ad
-**SoundLife Bulk**
-Pseudobulked from soundlife_sc by donor_id x Major_CT x visitName — NOT one-row-per-donor; a donor
-with multiple flu-year/visit timepoints has multiple rows here. Collapse to a single row per donor
-(e.g. filter to one visitName such as baseline/Day 0) yourself if that's what the analysis needs.
-Major_CT: B, CD4T, CD8T, MONO, NK
-Normalization: log-normalized (lognorm).
