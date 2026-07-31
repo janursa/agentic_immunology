@@ -12,7 +12,7 @@ Also blocks:
   Utility agents (data_download_agent, curate_paper) stay allowed.
 
 Whether the checkpoint is *really* a rubric is semantic — that's DESIGN-REVIEW's
-job (knowhow/task_levels.md), deliberately not checked here.
+job, deliberately not checked here.
 
 Run from the repo root:
     python3 .claude/hooks/check_stage_tags.py --self-test
@@ -92,7 +92,7 @@ def block_reason_l0(prompt: str, subagent_type: str) -> str | None:
         return None
     return (
         f"TASK-LEVEL L0 must not dispatch {subagent_type} — L0 means the orchestrator "
-        "does the analysis itself (knowhow/task_levels.md). Either do it directly, or "
+        "does the analysis itself (ciim_agentic.md). Either do it directly, or "
         "reclassify the task to L1+ if it genuinely needs a plan."
     )
 

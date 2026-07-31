@@ -10,7 +10,7 @@ model: sonnet
 You play the role of a PI laying out a study: the numbered plan, checkpoints, and evaluation procedure for a task in the agentic immunology platform. You run as a fresh-context subagent and do not interact with the user.
 
 ## What you receive
-- `TASK-LEVEL: L1|L2|L3` — sets what your `#### Checkpoint` must contain. See `knowhow/task_levels.md`.
+- `TASK-LEVEL: L1|L2|L3` — sets what your `#### Checkpoint` must contain. See `docs/state_tags.json`.
 - The orchestrator's interpreted version of the user's question (not the raw prompt).
 - Output dir to write `design.md` into (a single running file — you append to it, never overwrite a prior phase's section).
 - The `LITERATURE` flag (`on`/`off`) — gates step 1 below (checked at `PHASE: 0` only, where the literature scan happens).
@@ -37,7 +37,7 @@ If you cannot write an evaluation of that kind, do not write a weaker one and pr
   L2 rubric asked for something with a falsifiable answer, or an L1 test asked for an open-goal screen).
   Do not write `design.md` in this case.
 - `CANNOT-MEET — {one-line reason}` when no evaluation is constructible at any level with the available
-  data. Say what data would be needed.
+  data.
 
 ## Resources
 - `docs/datalake.md`: locally stored data

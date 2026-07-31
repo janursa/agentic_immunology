@@ -70,15 +70,9 @@ If `REVISE`, each issue must be specific enough to hand straight back to the exe
 - `design.md`: the Overview (if multi-phase) plus every phase's detail written so far — review phase `n`'s section; use earlier phases only as context.
 
 ## How to review the design
-- **Evaluation matches the level** — blocking. Per `knowhow/task_levels.md`, an **L1** checkpoint must be
-  a concrete pass/fail test, an **L2/L3** checkpoint must be a weighted rubric (named criteria, weights,
-  what evidence scores each). A rubric where a test belongs, or a test where a rubric belongs, is
-  `REVISE-DESIGN`. If the design's own `TASK-LEVEL` line looks wrong for the question, say so explicitly.
-- **Answers the question** — if `FINAL_PHASE`, would this phase (on top of prior phases) answer the user's actual question? If not final, would this phase produce the evidence the next phase needs?
-- **Soundness of the criteria** — is this phase's checkpoint concrete, falsifiable, and realistically set?
-- **Phase 0 only — decomposition** — if multi-phase, does each phase's promised output actually feed the next? Is splitting into phases actually earned, not done for its own sake?
-- **Phase n>0 only — revision grounded** — if the Overview changed since the last phase, is the change justified by phase `n-1`'s actual findings, not scope drift?
-- **Literature used to build, not just to exclude** (`PHASE: 0` only, `LITERATURE: on`) — check `design.md` has a "Literature-derived design inputs" section with:
+- **Evaluation matches the level and robust** — blocking. Per `docs/state_tags.json`. The checkpoints in the plan should match the required evaluation type set by what level this task set to (L0 - L3). The evaluation should also be sound and robust,
+- **Phase 0 only — decomposition** — if multi-phase, does each phase's promised output actually satisfies the next? 
+- **Literature properly addresses** (`PHASE: 0` only, `LITERATURE: on`) — check `design.md` has a "Literature-derived design inputs" section with:
   1. a mechanistic-leads list (cited papers) that phase 0's candidates trace back to — not only an exclusion list; a design with no citation-backed rationale for what it proposes is a blocking issue.
   2. named positive controls, each tagged to a specific phase/step that tests for it — positive controls mentioned only in passing, with no phase/step wired to check them, is a blocking issue.
   3. a working hypothesis stated and traceable to the mechanistic leads above.

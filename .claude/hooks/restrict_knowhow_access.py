@@ -36,8 +36,8 @@ RESTRICTED_DIRS = ("knowhow/", "memory/")
 # Paths each restricted agent still legitimately needs (operational, not methodology/evaluation content).
 CARVE_OUTS = {
     "data_analyst_agent": {"knowhow/computing_sbatch.md"},
-    "study_designer_agent": {"knowhow/design_graphs.md", "knowhow/task_levels.md"},
-    "peer_reviewer_agent": {"knowhow/design_graphs.md", "knowhow/task_levels.md"},
+    "study_designer_agent": {"knowhow/design_graphs.md"},
+    "peer_reviewer_agent": {"knowhow/design_graphs.md"},
 }
 
 # External roots datalake_docs/ actually references — everything else outside the repo is out of scope.

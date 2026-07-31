@@ -28,7 +28,7 @@ These are factual indexes — use them for planning.
 
 ## Determine task level
 Classify every task L0–L3 by what must exist before execution starts: L0 nothing, L1 a falsifiable
-checkpoint, L2 a weighted rubric, L3 a user-chosen objective (then as L2). See `knowhow/task_levels.md`.
+checkpoint, L2 a weighted rubric, L3 a user-chosen objective (then as L2). See `docs/state_tags.json`.
 
 ## L0
 Do the analysis yourself without delegation. No `study_designer_agent`, no `peer_reviewer_agent`.

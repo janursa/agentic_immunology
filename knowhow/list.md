@@ -1,4 +1,3 @@
-  - `task_levels.md`: the L0–L3 task levels — what evaluation each requires, which gates it gets
   - `computing_sbatch.md`: how to run CPU and GPU jobs on the cluster using SLURM `sbatch`
   - `aging_clocks.md`: available aging clocks, hard rules, per-clock usage patterns, and output format
   - `safety_druggability.md`: target safety & tractability assessment (Open Targets buckets, gnomAD constraint, essentiality, safety liabilities)

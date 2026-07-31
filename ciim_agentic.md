@@ -27,15 +27,14 @@ These are factual indexes — use them for planning.
 - **Images**: [`images.md`](docs/images.md) — which singularity image to use for a given task. CRITICAL: Use the right singularity image from `images.md` for a given task. Only running through the image is allowed.
 - **Agents**: `agents/list.md`
 - **State tags**: [`state_tags.json`](docs/state_tags.json) — canonical `TASK-LEVEL`/`STAGE` values required on every `Agent` call (see **Delegation**).
-- **Task levels**: [`task_levels.md`](knowhow/task_levels.md) — what each level requires and which gates it gets.
 
 ## Determine task level
-Classify every task L0–L3 per `knowhow/task_levels.md`. The level is defined by what must exist before
+The level is defined by what must exist before
 execution starts: L0 nothing, L1 a falsifiable checkpoint, L2 a weighted rubric, L3 a user-chosen
 objective (then as L2).
 
 ## L0
-Do the analysis yourself without delegation. No `study_designer_agent`, no `peer_reviewer_agent`.
+Do the analysis yourself without delegation. 
 
 ## L1 / L2 / L3
 Delegate to subagents and run the phase loop below.
@@ -43,9 +42,10 @@ Delegate to subagents and run the phase loop below.
 ⛔ HARD RULE — **L3 only**: before step 1, propose 2–3 candidate objectives and have the user pick one
 (`STAGE: INTERPRETATION`). Everything after that runs as L2 against the chosen objective.
 
-Work proceeds in **phases**: `study_designer_agent` decides how many, one at a time. A phase is a set of tasks that can run in parallel because none of them needs another phase's output. Most tasks resolve in a single phase — nothing below forces more; `study_designer_agent` declares `FINAL_PHASE: true` as soon as one phase is enough.
+Work proceeds in **phases**: `study_designer_agent` decides how many, one at a time. A phase is a set of tasks that can run in parallel because none of them needs another phase's output. Most tasks resolve in a single phase; `study_designer_agent` declares `FINAL_PHASE: true` as soon as one phase is enough.
 
-0. **Interpret the prompt** — if the prompt is not clear, interpret the user's prompt and escalate to collect feedback.
+0. **Interpret the prompt** — Interpret the prompt. Escalate to user if: 1. the prompt is not clear; 2. its L3 and you propose the objective so user can select. 
+
 - ⛔ HARD RULE : interpretation does not mean stating analytical approach. Just clarify if the promot is not clear enough but do not include any elaboration of cohort/analytical etc.
 
 1. **`phase = 0`, then loop:**
