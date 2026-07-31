@@ -1,15 +1,6 @@
 
 # Summary Stats — Overview
 
-
-All signature files are loaded via the unified `retrieve_summary_stats(context, ...)` function in `tools/ciim/code/hira.py`, except GRNs which use `get_immune_grn()` in `tools/ciim/code/genomics.py`.
-
-```python
-import sys
-sys.path.insert(0, 'agentic_immunology/tools/ciim/code')
-from hira import retrieve_summary_stats
-```
-
 ---
 
 ## virtualbiotech

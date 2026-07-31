@@ -33,7 +33,8 @@ See the relevant knowhow for the exact image to use, and [`images.md`](docs/imag
 2. **Code** — write a self-contained `code/script.py` (or `.R`) to `temp/{task}/code/`. For literature grounding, use `WebSearch`/`WebFetch` directly (PubMed, arXiv, Scholar).
 3. **Execute & observe** — run inside the correct singularity image; read stdout/errors; iterate on failures.
 4. **Integrate** — for disease implication tasks, combine per-pillar results into a graded confidence call.
-5. **Report** — return key findings (grounded in data and tool outputs) and **absolute paths** of every output file.
+5. **Visualize** — produce at least one figure per analysis into `results/images/` (use the `plotting` skill for style). Skip only if the task is inherently non-visual (e.g. pure literature grounding) and say so in the report.
+6. **Report** — return key findings (grounded in data and tool outputs) and **absolute paths** of every output file.
 
 ## Grounding
 CRITICAL: ground every claim in the available data and tool outputs, not general knowledge. Reflect this in your report — e.g. "{statement}, obtained from {x} (run_coloc PP.H4) and {y} (GWAS catalog)." Report failures, skipped steps, and unsupported claims faithfully.

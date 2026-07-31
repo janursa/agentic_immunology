@@ -1,0 +1,14 @@
+{
+  "TASK_COMPLEXITY": {
+    "SIMPLE": "Clear scope, no delegation/peer-review/user-loop needed — orchestrator analyzes directly.",
+    "COMPLEX": "Exploratory, needs delegation, planning, peer review, and user feedback loops."
+  },
+  "STAGE": {
+    "INTERPRETATION": "Clarifying an ambiguous prompt with the user before any analysis.",
+    "PLANNING": "study_designer_agent producing or revising design.md for the current phase.",
+    "PEER_REVIEW": "peer_reviewer_agent DESIGN-REVIEW or RESULTS-REVIEW for the current phase.",
+    "USER_FEEDBACK": "Presenting design.md/report.md to the user and collecting their response.",
+    "EXECUTION": "Dispatching phase tasks to specialist subagents.",
+    "REPORTING": "Compiling or presenting the final report.md after FINAL_PHASE."
+  }
+}

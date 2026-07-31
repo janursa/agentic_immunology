@@ -12,7 +12,7 @@ Delegate to an agent by its `name` (the `subagent_type`). Each runs in its own f
 | `data_download_agent` | sonnet | Read, Write, Edit, Bash, Grep, Glob | Downloads public datasets (URL/accession/DOI/paper) to datalake or temp, uses SLURM for large files, optionally registers in `docs/datalake.md`/`list.md`. |
 | `feedback_analyser` | sonnet | Read, Grep, Glob | On-demand only (user request, not part of the numbered loop). Reads `memory/memory_blob.jsonl` and surfaces recurring issues — entries describing the same underlying problem happening more than once. Never writes any file. |
 | `curate_paper` | sonnet | Read, Write, Grep, Glob | On-demand. Reads a full-text paper (tex/text) and curates open-ended questions, findings, and methodology into `{author-year}_curated.md` (given path, else `temp/`). |
-| `evaluate` | opus | Read, Write, Grep, Glob | On-demand. Evaluates a planning doc or executed analysis against knowhow docs (and an optional curated paper); writes bullet-by-bullet feedback to `evaluation.md`. |
+| `evaluate` | opus | Read, Write, Grep, Glob | On-demand, two modes. DESIGN-REVIEW: checks `design.md` against knowhow docs. REPORT-REVIEW: checks `design.md` + `report.md` against the CASE-CARD (curated source paper) on both methodology and findings. Writes `evaluation.md`. |
 | `echo_stub_agent` | haiku | Read | **TEST ONLY** — never delegate a real task to it. Tier 1 benchmarking stub (see `tests/tier1_probes.md`): echoes the exact task prompt it receives so a probe can check the orchestrator assembled it correctly. |
 
 [`knowhow/output_conventions.md`](knowhow/output_conventions.md) is **not an agent** — it is the shared output-convention text appended verbatim to every analysis subagent's task prompt.

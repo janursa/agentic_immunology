@@ -26,6 +26,7 @@ These are factual indexes — use them for planning.
 - **Tools**: [`tools.md`](docs/tools.md) — bioinformatics tools available.
 - **Images**: [`images.md`](docs/images.md) — which singularity image to use for a given task. CRITICAL: Use the right singularity image from `images.md` for a given task. Only running through the image is allowed.
 - **Agents**: `agents/list.md`
+- **State tags**: [`state_tags.json`](docs/state_tags.json) — canonical `TASK-COMPLEXITY`/`STAGE` values required on every `Agent` call (see **Delegation**).
 
 
 ## Determine task type
@@ -43,7 +44,7 @@ Here, you would need to delegate the task to subagents, go through planning, use
 Work proceeds in **phases**: `study_designer_agent` decides how many, one at a time. A phase is a set of tasks that can run in parallel because none of them needs another phase's output. Most tasks resolve in a single phase — nothing below forces more; `study_designer_agent` declares `FINAL_PHASE: true` as soon as one phase is enough.
 
 0. **Interpret the prompt** — if the prompt is not clear, interpret the user's prompt and escalate to collect feedback.
-- ⛔ HARD RULE : interpretation does not mean stating analytical approach. Just clarify if the promot is not clear enough.
+- ⛔ HARD RULE : interpretation does not mean stating analytical approach. Just clarify if the promot is not clear enough but do not include any elaboration of cohort/analytical etc.
 
 1. **`phase = 0`, then loop:**
    1. **Design** — delegate to `study_designer_agent` with `PHASE: {phase}`, your interpreted prompt, the current `LITERATURE` flag value, and — for `phase > 0` — phase `{phase-1}`'s findings (absolute output paths + the peer reviewer's RESULTS-REVIEW verdict block, verbatim). Returns `design.md` (appended, not replaced) and `FINAL_PHASE`.
@@ -62,8 +63,15 @@ Work proceeds in **phases**: `study_designer_agent` decides how many, one at a t
    6. **User feedback** — brief the user on this phase's outcome and any issues raised; full web-dashboard review (see **Interact with user**) when `FINAL_PHASE` or the plan changed, a short status update otherwise. Mention blocking issues and give plausible options.
 
 ## Document your analysis
-Write a `report.md` following `knowhow/reporting.md`. 
-- ⛔ HARD RULE — you should populate this during the analysis and not after. It should reflect your progress. At each interaction with the user, relay its absolute path and content to the user.
+Two files, both under `temp/{task}/`:
+  - Give the user its absolute path as plain text whenever relevant (e.g. alongside a status update) — it is never rendered to HTML.
+- **`report.md`** — compiled (overwritten, not appended) after each phase completes, per `knowhow/reporting.md`. Render and relay it exactly like `design.md` under **Interact with user**, at the same points in the phase loop.
+- **`log.md`** — append the action taken (not results or prose) after each step taken during analysis.
+- **`readme.md`** — once the analysis finish, document the content of the `temp/{task}` in the readme.md. It should:
+   - One line explanation of each sub folder + design and report
+   - How to run the code and regenerate the results
+   - The code to regenerate the link for report.html
+   - Link of the html link generated
 
 -----------------
 ## When to escalate to user
@@ -75,14 +83,15 @@ Write a `report.md` following `knowhow/reporting.md`.
 For simple interactions (a question, a short status update), just show the text and ask for direction — no page needed.
 
 For complex cases (design review, results review) — anything with a `design.md`/`report.md` to present:
-1. Ensure the dashboard is up: `bash scripts/serve_dashboard.sh` — idempotent (safe to call every time), prints the base URL (starts it once per session if not already running).
-2. Render: `python3 knowhow/render_review_artifact.py <design.md or report.md> <output_dir>/<name>.html` — write the `.html` next to its source `.md` (already under `temp/`, so it lands inside the served tree automatically). This also renders the file's `` ```graph `` diagram placeholders as interactive (draggable, pan/zoom) Cytoscape graphs, sourced from the sibling `<name>.graphs.js` file — see `knowhow/design_graphs.md`.
-3. Give the user the full link: `<base URL>/<path of the .html under temp/>`.
+1. Render: `python3 knowhow/render_review_artifact.py <design.md or report.md> <output_dir>/<name>.html` — write the `.html` next to its source `.md` (already under `temp/`, so it lands inside the served tree automatically). This also renders the file's `` ```graph `` diagram placeholders as interactive (draggable, pan/zoom) Cytoscape graphs, sourced from the sibling `<name>.graphs.js` file — see `knowhow/design_graphs.md`.
+2. Get the link: `bash scripts/serve_dashboard.sh <output_dir>/<name>.html` — pass the `.html` path (starts the dashboard if needed). It prints the ready-to-use full URL.
+   ⛔ HARD RULE — never hand-build the URL yourself (e.g. `<base>/<path>`); always use the script's printed output verbatim. It strips any leading `temp/` and validates the page actually serves before printing — hand-concatenation is what keeps reintroducing the broken `/temp/...` link.
+3. Give the user that link.
 
 ## How to process user feedback
 - ⛔ HARD RULE : Feedback received from the user should be documented as `temp/{task name}/feedback_log/{stage of task}/feedback.md`, where you log both the presented content to user as well as received comments. 
 
-- ⛔ HARD RULE : Memory blob capture: if user feedback, at any point in the task, including interpretion, points at a logical issue (statistical approach, cohort/data selection, method choice, confounder handling, prompt misinterpretation, literature misread, etc.) rather than a scope/preference change, capture it using this command. List the name of the agents that this feedback is relevant:
+- ⛔ HARD RULE : Memory blob capture: if user feedback, at any point in the task, raises a valid issue that could improve yours or a subagent's performance in the future, capture it using this command. List the name of the agents that this feedback is relevant:
 
 ```
 python memory/memory_blob.py add --issue-tag <tag> --agents <agent1,agent2> --task <task> --lesson "Situation: <one sentence>. Lesson: <what was learned from the user interaction>."
@@ -94,5 +103,6 @@ Pick `<tag>` from `memory/issue_tags.json`; if none fits, add one first with `py
 
 - ⛔ HARD RULE — when calling any analysis subagent, always append the full contents of `knowhow/output_conventions.md` verbatim to the task prompt.
 - ⛔ HARD RULE — before dispatching to an agent, run `python memory/memory_blob.py retrieve --agent <agent_name>` and append any output verbatim (as "Past lessons for you:") to that agent's task prompt.
+- ⛔ HARD RULE — every `Agent` call must open its prompt with `TASK-COMPLEXITY: SIMPLE|COMPLEX`, `WORK-DIR: temp/{task name}` and `STAGE: <value>` lines, values from [`docs/state_tags.json`](docs/state_tags.json).
 
 ---

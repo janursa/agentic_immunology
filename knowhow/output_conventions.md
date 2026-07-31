@@ -21,7 +21,7 @@ temp/{task}/
 - Use `agentic_immunology/` as your only workspace, for both data exploration and code execution, unless told otherwise.
 
 ### Steps graph
-⛔ HARD RULE — produce a graph of steps taken, results generated, and their connections. Save it to `results/`.
+⛔ HARD RULE — produce a graph of steps taken, results generated, and their connections, as node/edge JSON matching `knowhow/design_graphs.md`'s schema (`{nodes: [{id, label, type, parent}], edges: [{from, to, kind, label}]}`). Save it to `results/steps_graph.json`. A rendered static image alongside it is optional, not a substitute.
 
 ### Report back
 Return to the orchestrator: key findings (grounded in data/tool outputs) + **absolute paths** of every output file.

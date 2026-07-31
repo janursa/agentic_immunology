@@ -69,6 +69,7 @@ TEMPLATE = """<meta charset="utf-8">
   .section-body {{ font-size: 0.94rem; }}
   .section-body :first-child {{ margin-top: 0; }}
   .section-body :last-child {{ margin-bottom: 0; }}
+  .section-body img {{ max-width: 100%; height: auto; }}
   .section-body table {{ display: block; overflow-x: auto; border-collapse: collapse; font-size: 0.88rem; }}
   .section-body th, .section-body td {{ border: 1px solid var(--border); padding: 0.35rem 0.6rem; text-align: left; }}
   .section-body code {{ background: var(--bg); border-radius: 2px; padding: 0.05rem 0.3rem; font-family: var(--mono); font-size: 0.85em; }}
@@ -155,9 +156,15 @@ window.DESIGN_GRAPHS = window.DESIGN_GRAPHS || {{}};
           {{ selector: 'edge', style: {{ 'width': 1.5, 'line-color': '#8895a0', 'target-arrow-color': '#8895a0',
             'target-arrow-shape': 'triangle', 'curve-style': 'bezier', 'label': 'data(label)', 'font-size': '10px',
             'color': 'var(--text-muted)' }} }},
-          {{ selector: 'edge[kind="data"]', style: {{ 'line-style': 'dashed' }} }},
+          {{ selector: 'edge[kind="flow"]', style: {{ 'line-color': '#4C78A8', 'target-arrow-color': '#4C78A8' }} }},
+          {{ selector: 'edge[kind="data"]', style: {{ 'line-style': 'dashed', 'line-color': '#54A24B', 'target-arrow-color': '#54A24B' }} }},
         ],
       }});
+      var legend = document.createElement('div');
+      legend.style.cssText = 'font-size:11px;margin-top:4px;color:var(--text-muted)';
+      legend.innerHTML = '<span style="color:#4C78A8">&#8212;&#9658;</span> flow (logical order) &nbsp; '
+        + '<span style="color:#54A24B">&#8901;&#8901;&#9658;</span> data (input/output)';
+      el.insertAdjacentElement('afterend', legend);
     }});
   }});
   document.getElementById('compileBtn').addEventListener('click', function () {{
@@ -197,6 +204,21 @@ MD_EXTENSIONS = ["tables", "sane_lists", "fenced_code"]
 GRAPH_RE = re.compile(r"```graph\n(.*?)```", re.DOTALL)
 
 
+LIST_ITEM_RE = re.compile(r"^\s*(?:[-*+]|\d+\.)\s")
+
+
+def ensure_blank_before_lists(text: str) -> str:
+    """python-markdown (unlike CommonMark) won't start a list that isn't preceded
+    by a blank line -- it gets swallowed into the prior paragraph instead."""
+    lines = text.split("\n")
+    out = []
+    for line in lines:
+        if LIST_ITEM_RE.match(line) and out and out[-1].strip() and not LIST_ITEM_RE.match(out[-1]):
+            out.append("")
+        out.append(line)
+    return "\n".join(out)
+
+
 def render_body_html(body: str, counter: list) -> str:
     """Markdown -> HTML, with ```graph <id>``` fences pulled out and replaced by a
     placeholder <div> that Cytoscape.js hydrates client-side from window.DESIGN_GRAPHS."""
@@ -206,7 +228,7 @@ def render_body_html(body: str, counter: list) -> str:
         placeholders.append(m.group(1).strip())
         return f"\x00GRAPH{len(placeholders) - 1}\x00"
 
-    stripped = GRAPH_RE.sub(stash, body)
+    stripped = ensure_blank_before_lists(GRAPH_RE.sub(stash, body))
     out = markdown.markdown(html.escape(stripped, quote=False), extensions=MD_EXTENSIONS) if stripped.strip() else ""
     for i, graph_id in enumerate(placeholders):
         counter[0] += 1
@@ -298,7 +320,8 @@ def _self_test():
         "| a | b |\n|---|---|\n| 1 | 2 |\n\n"
         "```graph\nphase0\n```\n\n"
         "## Limitations\n"
-        "- one\n- two\n"
+        "- one\n- two\n\n"
+        "ISSUES:\n- no blank line before this list\n- second item\n"
         "\n## Overview\n"
         "```graph\noverview\n```\n"
     )
@@ -323,6 +346,7 @@ def _self_test():
     assert "&lt;script&gt;" in out, "section content must be HTML-escaped, not raw HTML"
     assert '<table>' in out, "markdown tables must render"
     assert 'data-step="Limitations"' in out
+    assert "<li>no blank line before this list</li>" in out, "list must render as <li> even with no blank line before it"
     assert 'data-step="Overall"' in out
     assert "Study Design: Demo" in out, "title should be derived from the leading # header"
 

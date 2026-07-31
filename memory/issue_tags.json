@@ -4,5 +4,6 @@
   "literature-error": "A literature claim was missed, misquoted, or overstated relative to the source.",
   "data-integration-error": "Wrong merge, harmonization, or normalization when combining datasets.",
   "cohort-selection": "Cohort/sample inclusion, exclusion, or sizing was inadequate for the intended comparison.",
-  "method-choice": "A simpler/more appropriate method existed but a more complex or inappropriate one was used instead."
+  "method-choice": "A simpler/more appropriate method existed but a more complex or inappropriate one was used instead.",
+  "rendering-bug": "Bugs in how markdown gets rendered to the review-artifact HTML dashboard"
 }

@@ -49,8 +49,11 @@ window.DESIGN_GRAPHS = {
 - **Node** — `id` (unique), `label` (few words — anything longer goes in prose, not the node), `type`
   (`step` | `decision` | `dataset` | `method` | `stop`; omit for a group/round box), `parent` (optional
   — id of the group node it sits inside, replaces mermaid's `subgraph`).
-- **Edge** — `from`, `to`, `kind` (`flow` = solid step-to-step / decision branch; `data` = dashed,
-  step-to-dataset-or-method usage), `label` (optional, e.g. branch condition).
+- **Edge** — `from`, `to`, `kind` (`flow` = solid blue, logical/sequential order between steps or a
+  decision branch; `data` = dashed green, step-to-dataset-or-method input/output usage), `label`
+  (optional, e.g. branch condition). Colors are fixed by `kind` (rendered by
+  `render_review_artifact.py`) so different edge purposes stay visually distinct — don't invent new
+  kinds without adding a style for them.
 - Two kinds of diagram, never combined into one graph id: **overview** (multi-phase tasks only, one
   node per phase) and **per-phase** (one node per step, dataset/method nodes as `data`-kind edges,
   checkpoint as a `decision` node at the end). Same separation as before, just as separate graph ids
