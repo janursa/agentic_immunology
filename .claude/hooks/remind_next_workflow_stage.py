@@ -2,7 +2,7 @@
 """PreToolUse hook (matcher: Agent): before each dispatch, look up the last
 recorded dispatch for this task in log.md (written by write_log.py — STAGE,
 MODE, VERDICT, FINAL_PHASE, PHASE) and remind the orchestrator what the
-COMPLEX-TASK phase loop in ciim_agentic.md says should come next. Purely
+L1+ phase loop in ciim_agentic.md says should come next. Purely
 informational (additionalContext) — never denies the call, since the
 orchestrator may have a good reason to deviate (e.g. "small change, do it
 yourself" for a minor REVISE).
@@ -71,7 +71,7 @@ def build_reminder(task: str, block: str) -> str:
                       verdict.group(1) if verdict else None,
                       final_phase.group(1) if final_phase else None)
     return (
-        f"Workflow reminder (ciim_agentic.md COMPLEX-TASK loop, temp/{task}/log.md): "
+        f"Workflow reminder (ciim_agentic.md phase loop, temp/{task}/log.md): "
         f"last recorded STAGE was {stage_v or '?'}"
         + (f" ({mode.group(1)} verdict {verdict.group(1)})" if mode and verdict else "")
         + f". Per the workflow, next up: {nxt}"
@@ -119,8 +119,8 @@ def _demo() -> None:
     assert next_stage("BOGUS", None, None, None).startswith("unrecognized")
 
     block = last_dispatch_block(
-        "### [t1] dispatch -> `study_designer_agent` (x)\n- TASK-COMPLEXITY: COMPLEX | STAGE: PLANNING\n- result: (no structured verdict found)\n\n"
-        "### [t2] dispatch -> `peer_reviewer_agent` (y)\n- TASK-COMPLEXITY: COMPLEX | STAGE: PEER_REVIEW\n- result: MODE=DESIGN-REVIEW, PHASE=0, VERDICT=APPROVE\n"
+        "### [t1] dispatch -> `study_designer_agent` (x)\n- TASK-LEVEL: L2 | STAGE: PLANNING\n- result: (no structured verdict found)\n\n"
+        "### [t2] dispatch -> `peer_reviewer_agent` (y)\n- TASK-LEVEL: L2 | STAGE: PEER_REVIEW\n- result: MODE=DESIGN-REVIEW, PHASE=0, VERDICT=APPROVE\n"
     )
     assert "STAGE: PEER_REVIEW" in block and "VERDICT=APPROVE" in block
 

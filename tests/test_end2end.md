@@ -3,7 +3,7 @@
 Companion to Tier 1 (`tier1_probes.md`, cheap structural checks) and Tier 0
 (`test_memory_blob.py`, `check_report_completeness.py`). Where Tier 1 checks
 that a delegation is *compliant* (right flags, right conventions), Tier 2
-checks that a full COMPLEX-TASK run through the real `ciim_agentic`
+checks that a full L2 run through the real `ciim_agentic`
 orchestrator is both **process-faithful** (right steps, right agents, right
 artifacts) and **scientifically correct** (recovers a known biological
 ground truth). Run periodically (e.g. monthly, or after any change to
@@ -98,7 +98,7 @@ without a separate explicit decision to do so.
 
 **Process fidelity**
 - [ ] First line of the orchestrator's first reply is `CANARY: ...`.
-- [ ] Agent sequence matches `ciim_agentic.md` COMPLEX-TASK steps in order:
+- [ ] Agent sequence matches `ciim_agentic.md` L1+ phase-loop steps in order:
       `study_designer_agent` → `peer_reviewer_agent` (DESIGN-REVIEW) →
       dashboard checkpoint → `data_analyst_agent` → `peer_reviewer_agent`
       (RESULTS-REVIEW) → dashboard checkpoint → report finalized.

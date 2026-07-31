@@ -1,10 +1,12 @@
 {
-  "TASK_COMPLEXITY": {
-    "SIMPLE": "Clear scope, no delegation/peer-review/user-loop needed — orchestrator analyzes directly.",
-    "COMPLEX": "Exploratory, needs delegation, planning, peer review, and user feedback loops."
+  "TASK_LEVEL": {
+    "L0": "Closed retrieval/computation — verifiable answer, nothing needs to exist before execution. Orchestrator executes directly.",
+    "L1": "Fixed goal, open path — a falsifiable checkpoint must exist before execution.",
+    "L2": "Open goal in a bounded frame — a weighted rubric must exist before execution.",
+    "L3": "Open frame — a user-chosen objective must exist before design, then as L2."
   },
   "STAGE": {
-    "INTERPRETATION": "Clarifying an ambiguous prompt with the user before any analysis.",
+    "INTERPRETATION": "Clarifying an ambiguous prompt with the user before any analysis; for L3, also the objective-choice gate.",
     "PLANNING": "study_designer_agent producing or revising design.md for the current phase.",
     "PEER_REVIEW": "peer_reviewer_agent DESIGN-REVIEW or RESULTS-REVIEW for the current phase.",
     "USER_FEEDBACK": "Presenting design.md/report.md to the user and collecting their response.",

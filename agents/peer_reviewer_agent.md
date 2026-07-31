@@ -66,9 +66,14 @@ If `REVISE`, each issue must be specific enough to hand straight back to the exe
 ## What you receive
 - The user's original question / expectation.
 - `PHASE: n` — the phase being reviewed.
+- `TASK-LEVEL: L1|L2|L3` — what kind of evaluation the design owes.
 - `design.md`: the Overview (if multi-phase) plus every phase's detail written so far — review phase `n`'s section; use earlier phases only as context.
 
 ## How to review the design
+- **Evaluation matches the level** — blocking. Per `knowhow/task_levels.md`, an **L1** checkpoint must be
+  a concrete pass/fail test, an **L2/L3** checkpoint must be a weighted rubric (named criteria, weights,
+  what evidence scores each). A rubric where a test belongs, or a test where a rubric belongs, is
+  `REVISE-DESIGN`. If the design's own `TASK-LEVEL` line looks wrong for the question, say so explicitly.
 - **Answers the question** — if `FINAL_PHASE`, would this phase (on top of prior phases) answer the user's actual question? If not final, would this phase produce the evidence the next phase needs?
 - **Soundness of the criteria** — is this phase's checkpoint concrete, falsifiable, and realistically set?
 - **Phase 0 only — decomposition** — if multi-phase, does each phase's promised output actually feed the next? Is splitting into phases actually earned, not done for its own sake?

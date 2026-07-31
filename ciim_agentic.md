@@ -26,20 +26,22 @@ These are factual indexes — use them for planning.
 - **Tools**: [`tools.md`](docs/tools.md) — bioinformatics tools available.
 - **Images**: [`images.md`](docs/images.md) — which singularity image to use for a given task. CRITICAL: Use the right singularity image from `images.md` for a given task. Only running through the image is allowed.
 - **Agents**: `agents/list.md`
-- **State tags**: [`state_tags.json`](docs/state_tags.json) — canonical `TASK-COMPLEXITY`/`STAGE` values required on every `Agent` call (see **Delegation**).
+- **State tags**: [`state_tags.json`](docs/state_tags.json) — canonical `TASK-LEVEL`/`STAGE` values required on every `Agent` call (see **Delegation**).
+- **Task levels**: [`task_levels.md`](knowhow/task_levels.md) — what each level requires and which gates it gets.
 
+## Determine task level
+Classify every task L0–L3 per `knowhow/task_levels.md`. The level is defined by what must exist before
+execution starts: L0 nothing, L1 a falsifiable checkpoint, L2 a weighted rubric, L3 a user-chosen
+objective (then as L2).
 
-## Determine task type
-- **SIMPLE-TASK** — A task with clear scope that does not need user interaction, peer review process, and iterative approach.
-- **COMPLEX-TASK** — Exploratory task with no fixed endpoint (screen/generate/rank hypotheses, iterate until a goal is met); requires multiple rounds before the goal is achieved.
+## L0
+Do the analysis yourself without delegation. No `study_designer_agent`, no `peer_reviewer_agent`.
 
-## SIMPLE-TASK
-Do the analysis yourself without delegation.
-
-
-## COMPLEX-TASK
-Here, you would need to delegate the task to subagents, go through planning, user feedback collection, and loops until a reasonable output is yielded. 
-⛔ HARD RULE: do not dive into data yourself if a complex task
+## L1 / L2 / L3
+Delegate to subagents and run the phase loop below.
+⛔ HARD RULE: do not dive into data yourself at L1 and above.
+⛔ HARD RULE — **L3 only**: before step 1, propose 2–3 candidate objectives and have the user pick one
+(`STAGE: INTERPRETATION`). Everything after that runs as L2 against the chosen objective.
 
 Work proceeds in **phases**: `study_designer_agent` decides how many, one at a time. A phase is a set of tasks that can run in parallel because none of them needs another phase's output. Most tasks resolve in a single phase — nothing below forces more; `study_designer_agent` declares `FINAL_PHASE: true` as soon as one phase is enough.
 
@@ -47,7 +49,9 @@ Work proceeds in **phases**: `study_designer_agent` decides how many, one at a t
 - ⛔ HARD RULE : interpretation does not mean stating analytical approach. Just clarify if the promot is not clear enough but do not include any elaboration of cohort/analytical etc.
 
 1. **`phase = 0`, then loop:**
-   1. **Design** — delegate to `study_designer_agent` with `PHASE: {phase}`, your interpreted prompt, the current `LITERATURE` flag value, and — for `phase > 0` — phase `{phase-1}`'s findings (absolute output paths + the peer reviewer's RESULTS-REVIEW verdict block, verbatim). Returns `design.md` (appended, not replaced) and `FINAL_PHASE`.
+   1. **Design** — delegate to `study_designer_agent` with `PHASE: {phase}`, your interpreted prompt, the current `LITERATURE` flag value, and — for `phase > 0` — phase `{phase-1}`'s findings (absolute output paths + the peer reviewer's RESULTS-REVIEW verdict block, verbatim). Returns `design.md` (appended, not replaced) and `FINAL_PHASE`. Two other returns are possible:
+      - `LEVEL-MISMATCH: L{n}` → the level was misclassified. Adopt the proposed level and re-run this step; if the change is material (e.g. L1 → L3), confirm with the user first.
+      - `CANNOT-MEET` → no evaluation is constructible with the available data. Stop, return to the user.
    2. **Design peer review** — delegate to `peer_reviewer_agent` in **DESIGN-REVIEW** mode with `PHASE: {phase}`.
       - `REVISE-DESIGN` → send the issues back to `study_designer_agent` for the same phase (capped at 1 passes per phase).
       - `APPROVE` → proceed.
@@ -103,6 +107,6 @@ Pick `<tag>` from `memory/issue_tags.json`; if none fits, add one first with `py
 
 - ⛔ HARD RULE — when calling any analysis subagent, always append the full contents of `knowhow/output_conventions.md` verbatim to the task prompt.
 - ⛔ HARD RULE — before dispatching to an agent, run `python memory/memory_blob.py retrieve --agent <agent_name>` and append any output verbatim (as "Past lessons for you:") to that agent's task prompt.
-- ⛔ HARD RULE — every `Agent` call must open its prompt with `TASK-COMPLEXITY: SIMPLE|COMPLEX`, `WORK-DIR: temp/{task name}` and `STAGE: <value>` lines, values from [`docs/state_tags.json`](docs/state_tags.json).
+- ⛔ HARD RULE — every `Agent` call must open its prompt with `TASK-LEVEL: L0|L1|L2|L3`, `WORK-DIR: temp/{task name}` and `STAGE: <value>` lines, values from [`docs/state_tags.json`](docs/state_tags.json).
 
 ---

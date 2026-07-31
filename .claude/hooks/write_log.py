@@ -10,7 +10,7 @@ Two hook events:
 2. PostToolUse (Agent): once a call's prompt resolves a `temp/<task>/` dir,
    any buffered prompts are flushed into that task's log.md as user-turn
    entries, followed by a structured dispatch entry for this call — subagent,
-   TASK-COMPLEXITY, STAGE, and (parsed from the subagent's actual returned
+   TASK-LEVEL, STAGE, and (parsed from the subagent's actual returned
    text, re-derived from the transcript, not self-reported) MODE/PHASE/
    VERDICT/FINAL_PHASE when present.
 
@@ -35,7 +35,7 @@ PROJECT_DIR = pathlib.Path(os.environ.get("CLAUDE_PROJECT_DIR", "."))
 HOOK_STATE_DIR = PROJECT_DIR / "temp" / ".hook_state"
 
 TASK_DIR_RE = re.compile(r"temp/([A-Za-z0-9_\-]+)/")
-TAG_RE = lambda tag: re.compile(rf"{tag}:\s*([A-Z_]+)")  # noqa: E731
+TAG_RE = lambda tag: re.compile(rf"{tag}:\s*([A-Z0-9_]+)")  # noqa: E731
 VERDICT_RE = re.compile(r"VERDICT:\s*(APPROVE|REVISE-DESIGN|ACCEPT|REVISE|CANNOT-MEET)", re.I)
 MODE_RE = re.compile(r"MODE:\s*(DESIGN-REVIEW|RESULTS-REVIEW|METHOD-REVIEW)", re.I)
 PHASE_RE = re.compile(r"PHASE:\s*(\d+)", re.I)
@@ -152,11 +152,11 @@ def build_dispatch_entry(tool_input: dict, result_text: str | None) -> str:
     subagent = tool_input.get("subagent_type", "?")
     description = tool_input.get("description", "")
     prompt = tool_input.get("prompt", "")
-    complexity = _tag_value(prompt, "TASK-COMPLEXITY")
+    level = _tag_value(prompt, "TASK-LEVEL")
     stage = _tag_value(prompt, "STAGE")
 
     lines = [f"### [{_now()}] dispatch -> `{subagent}` ({description})"]
-    lines.append(f"- TASK-COMPLEXITY: {complexity or '-'} | STAGE: {stage or '-'}")
+    lines.append(f"- TASK-LEVEL: {level or '-'} | STAGE: {stage or '-'}")
 
     if result_text is None:
         lines.append("- result: (not found in transcript)")
@@ -259,15 +259,15 @@ def _demo() -> None:
 
     entry = build_dispatch_entry(
         {"subagent_type": "peer_reviewer_agent", "description": "review phase 0",
-         "prompt": "TASK-COMPLEXITY: COMPLEX\nSTAGE: PEER_REVIEW\ntemp/x/design.md ..."},
+         "prompt": "TASK-LEVEL: L2\nSTAGE: PEER_REVIEW\ntemp/x/design.md ..."},
         "MODE: DESIGN-REVIEW\nPHASE: 0\nVERDICT: APPROVE\n",
     )
     assert "VERDICT=APPROVE" in entry and "MODE=DESIGN-REVIEW" in entry and "PHASE=0" in entry
-    assert "TASK-COMPLEXITY: COMPLEX" in entry and "STAGE: PEER_REVIEW" in entry
+    assert "TASK-LEVEL: L2" in entry and "STAGE: PEER_REVIEW" in entry
 
     entry_bg = build_dispatch_entry(
         {"subagent_type": "data_analyst_agent", "description": "x",
-         "prompt": "TASK-COMPLEXITY: COMPLEX\nSTAGE: EXECUTION"},
+         "prompt": "TASK-LEVEL: L2\nSTAGE: EXECUTION"},
         "Async agent launched successfully. agentId: abc123",
     )
     assert "background" in entry_bg
@@ -275,7 +275,7 @@ def _demo() -> None:
     entry_missing = build_dispatch_entry(
         {"subagent_type": "study_designer_agent", "description": "x", "prompt": "no tags"}, None,
     )
-    assert "TASK-COMPLEXITY: -" in entry_missing and "(not found in transcript)" in entry_missing
+    assert "TASK-LEVEL: -" in entry_missing and "(not found in transcript)" in entry_missing
 
     # transcript re-derivation: last Agent tool_use's matching tool_result
     entries = [

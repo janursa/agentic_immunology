@@ -26,16 +26,17 @@ These are factual indexes — use them for planning.
 - **Agents**: `agents/list.md`
 
 
-## Determine task type
-- **SIMPLE-TASK** — A task with clear scope that does not need user interaction, peer review process, and iterative approach.
-- **COMPLEX-TASK** — Exploratory task with no fixed endpoint (screen/generate/rank hypotheses, iterate until a goal is met); requires multiple rounds before the goal is achieved.
+## Determine task level
+Classify every task L0–L3 by what must exist before execution starts: L0 nothing, L1 a falsifiable
+checkpoint, L2 a weighted rubric, L3 a user-chosen objective (then as L2). See `knowhow/task_levels.md`.
 
-## SIMPLE-TASK
-Do the analysis yourself without delegation.
+## L0
+Do the analysis yourself without delegation. No `study_designer_agent`, no `peer_reviewer_agent`.
 
 
-## COMPLEX-TASK
-Here, you would need to delegate the task to subagents, go through planning, user feedback collection, and loops until a reasonable output is yielded. 
+## L1 / L2 / L3
+Here, you would need to delegate the task to subagents, go through planning, user feedback collection, and loops until a reasonable output is yielded.
+**L3 only**: before step 1, propose 2–3 candidate objectives and have the user pick one.
 
 1. **Design** — interpret the user's prompt (state your interpretation explicitly; escalate to the user first if ambiguous, see **When to escalate to user**), then delegate to `study_designer_agent`, passing your interpreted prompt, not the raw one.
 2. **Design peer review** 
