@@ -34,7 +34,7 @@ manual" below for the mechanism.
    ```
    Agent(subagent_type: "ciim_agentic", prompt: "<PROMPT below>", run_in_background: true)
    ```
-2. `ciim_agentic` serves a dashboard page (via `scripts/serve_dashboard.sh` + `knowhow/render_review_artifact.py`) at each checkpoint and pauses. **You,
+2. `ciim_agentic` serves a dashboard page (via `scripts/serve_dashboard.sh` + `scripts/render_review_artifact.py`) at each checkpoint and pauses. **You,
    the actual human, must answer directly** — via an `AskUserQuestion`
    prompt the subagent raises to you, or by interacting with it in a
    foreground session. Do **not** resume it by having another agent relay
@@ -102,8 +102,6 @@ without a separate explicit decision to do so.
       `study_designer_agent` → `peer_reviewer_agent` (DESIGN-REVIEW) →
       dashboard checkpoint → `data_analyst_agent` → `peer_reviewer_agent`
       (RESULTS-REVIEW) → dashboard checkpoint → report finalized.
-- [ ] Every analysis-subagent prompt has `knowhow/output_conventions.md`
-      appended verbatim.
 - [ ] `memory_blob.py retrieve` was run before every dispatch, and the
       output appended verbatim as "Past lessons for you:" — or, if a
       retrieved lesson conflicts with this task's reviewed design, the

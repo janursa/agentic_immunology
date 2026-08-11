@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
 """PreToolUse hook for study_designer_agent, peer_reviewer_agent, and
-data_analyst_agent: (1) blocks reading knowhow/ or memory/ content directly,
-(2) confines Read/Grep/Glob to the repo plus the documented data-lake roots.
+data_analyst_agent: confines Read/Grep/Glob to an explicit allowlist —
+datalake/, datalake_docs/, docs/, scAnnotAgent/, singularity/, singularity_docs/,
+temp/ (their own workspace: task.md, design.md, raw_data/, processed_data/, prior
+phase results) — plus the documented external data-lake roots. Everything else in
+the repo (knowhow/, memory/, application/, agents/, .claude/, draw/, root-level
+files, ...) is blocked by default.
 
-(1) Why: those docs (aging_clocks.md, single_cell_rna_analysis.md, drug_repurposing.md,
-safety_druggability.md, guardrail.md) are used by evaluate.md as an independent
-"answer key" to grade plans/results against. If the planner, reviewer, or executor
-can read them too, the evaluation stops being independent.
-
-(2) Why: these agents were observed wandering into unrelated sibling folders
-(other projects under ~/projs/ongoing, etc). They're confined to this repo plus
-the external roots datalake_docs/ actually references (/vol/projects/CIIM,
-/vol/projects/BIIM — symlinked per CLAUDE.md — and /vol/projects/jnourisa) and
-/tmp (singularity runs, per CLAUDE.md).
+Why an allowlist, not a blocklist: knowhow/'s methodology docs are evaluate.md's
+independent "answer key", and application/{author-year}-q*.md (curate_paper's
+output) is rubric_agent's CASE-CARD — the source paper's own findings used to
+score a run. If the planner, reviewer, or executor can read either, the
+evaluation stops being independent. (Caught in practice: study_designer_agent
+pulled application/terekhova_2023/'s curated findings into design.md as
+"positive controls" for the abf300_aging task, without disclosing they came from
+the paper being reproduced rather than being independently derived.) A blocklist
+only stops leaks you already thought of; these agents were also observed
+wandering into unrelated sibling folders (other projects under ~/projs/ongoing,
+etc), so the allowlist closes both at once.
 
 Only Read/Grep/Glob calls with an explicit path/file_path are checked. A Grep/Glob
 call with no path (repo-wide search, cwd = project root) is not caught —
@@ -31,14 +36,16 @@ import sys
 PROJECT_DIR = pathlib.Path(os.environ.get("CLAUDE_PROJECT_DIR", ".")).resolve()
 
 RESTRICTED_AGENTS = {"study_designer_agent", "peer_reviewer_agent", "data_analyst_agent"}
-RESTRICTED_DIRS = ("knowhow/", "memory/")
 
-# Paths each restricted agent still legitimately needs (operational, not methodology/evaluation content).
-CARVE_OUTS = {
-    "data_analyst_agent": {"knowhow/computing_sbatch.md"},
-    "study_designer_agent": {"knowhow/design_graphs.md"},
-    "peer_reviewer_agent": {"knowhow/design_graphs.md"},
-}
+# Called out by name because they're answer keys, not just out-of-scope folders.
+ANSWER_KEY_DIRS = ("knowhow/", "memory/", "application/")
+
+# Everything these agents may read inside the repo. temp/ is their own workspace
+# (task.md, design.md, raw_data/, processed_data/, prior-phase results/reviews).
+ALLOWED_DIRS = (
+    "datalake/", "datalake_docs/", "docs/", "scAnnotAgent/",
+    "singularity/", "singularity_docs/", "temp/",
+)
 
 # External roots datalake_docs/ actually references — everything else outside the repo is out of scope.
 ALLOWED_EXTERNAL_ROOTS = (
@@ -57,6 +64,10 @@ def _under(path: pathlib.Path, root: pathlib.Path) -> bool:
         return False
 
 
+def _in_dirs(rel: str, dirs: tuple[str, ...]) -> bool:
+    return any(rel == d.rstrip("/") or rel.startswith(d) for d in dirs)
+
+
 def block_reason(agent_type: str, tool_name: str, tool_input: dict) -> str | None:
     if agent_type not in RESTRICTED_AGENTS:
         return None
@@ -72,24 +83,28 @@ def block_reason(agent_type: str, tool_name: str, tool_input: dict) -> str | Non
     resolved = pathlib.Path(path).resolve()
 
     if _under(resolved, PROJECT_DIR):
-        rel = str(resolved.relative_to(PROJECT_DIR)).replace(os.sep, "/")
-        if rel in CARVE_OUTS.get(agent_type, set()):
-            return None
-        if rel.startswith(RESTRICTED_DIRS):
+        rel = "" if resolved == PROJECT_DIR else str(resolved.relative_to(PROJECT_DIR)).replace(os.sep, "/")
+        if _in_dirs(rel, ANSWER_KEY_DIRS):
             return (
-                f"{agent_type} may not read knowhow/ or memory/ content directly "
-                f"(blocked path: {rel}) — these are evaluate's independent grading "
-                "reference; planner/reviewer/executor access would leak the answer key."
+                f"{agent_type} may not read knowhow/, memory/, or application/ content "
+                f"directly (blocked path: {rel}) — these are evaluate's/rubric_agent's "
+                "independent grading reference; planner/reviewer/executor access would "
+                "leak the answer key."
             )
-        return None
+        if _in_dirs(rel, ALLOWED_DIRS):
+            return None
+        return (
+            f"{agent_type} may only read datalake/, datalake_docs/, docs/, scAnnotAgent/, "
+            f"singularity/, singularity_docs/, or temp/ inside the repo — blocked path: {rel or '.'}"
+        )
 
     if any(_under(resolved, root) for root in ALLOWED_EXTERNAL_ROOTS):
         return None
 
-    allowed = ", ".join(str(r) for r in (PROJECT_DIR, *ALLOWED_EXTERNAL_ROOTS))
+    allowed = ", ".join(str(r) for r in ALLOWED_EXTERNAL_ROOTS)
     return (
-        f"{agent_type} is confined to the agentic_immunology repo and the documented "
-        f"data-lake roots ({allowed}) — blocked path: {resolved}"
+        f"{agent_type} is confined to the agentic_immunology repo's allowlisted folders and "
+        f"the documented data-lake roots ({allowed}) — blocked path: {resolved}"
     )
 
 
@@ -109,14 +124,31 @@ def main() -> None:
 
 
 def _demo() -> None:
+    # answer-key dirs: blocked with the specific message
     assert block_reason("study_designer_agent", "Read", {"file_path": "knowhow/aging_clocks.md"}) is not None
     assert block_reason("peer_reviewer_agent", "Read", {"file_path": "memory/guardrail.md"}) is not None
     assert block_reason("data_analyst_agent", "Grep", {"path": "memory/guardrail.md", "pattern": "x"}) is not None
-    assert block_reason("data_analyst_agent", "Read", {"file_path": "knowhow/computing_sbatch.md"}) is None
-    assert block_reason("study_designer_agent", "Read", {"file_path": "knowhow/design_graphs.md"}) is None
-    assert block_reason("peer_reviewer_agent", "Read", {"file_path": "knowhow/design_graphs.md"}) is None
-    assert block_reason("evaluate", "Read", {"file_path": "knowhow/aging_clocks.md"}) is None
+    assert block_reason("study_designer_agent", "Read", {"file_path": "application/terekhova_2023/terekhova_2023-q1.md"}) is not None
+    # allowlisted dirs: reachable by every restricted agent
+    assert block_reason("data_analyst_agent", "Read", {"file_path": "docs/computing_sbatch.md"}) is None
+    assert block_reason("data_analyst_agent", "Read", {"file_path": "docs/plotting.md"}) is None
+    assert block_reason("study_designer_agent", "Read", {"file_path": "docs/design_graphs.md"}) is None
+    assert block_reason("peer_reviewer_agent", "Read", {"file_path": "docs/design_graphs.md"}) is None
+    assert block_reason("peer_reviewer_agent", "Read", {"file_path": "docs/reporting.md"}) is None
     assert block_reason("study_designer_agent", "Read", {"file_path": "docs/datalake.md"}) is None
+    assert block_reason("data_analyst_agent", "Read", {"file_path": "datalake/ciim/x.h5ad"}) is None
+    assert block_reason("study_designer_agent", "Read", {"file_path": "datalake_docs/omics/hira/list.md"}) is None
+    assert block_reason("data_analyst_agent", "Read", {"file_path": "scAnnotAgent/README.md"}) is None
+    assert block_reason("data_analyst_agent", "Read", {"file_path": "singularity/images.sif"}) is None
+    assert block_reason("data_analyst_agent", "Read", {"file_path": "singularity_docs/list.md"}) is None
+    assert block_reason("data_analyst_agent", "Read", {"file_path": "temp/abf300_aging/design.md"}) is None
+    assert block_reason("data_analyst_agent", "Read", {"file_path": "temp/abf300_aging/raw_data/x.h5ad"}) is None
+    # everything else in the repo: blocked, not just the previously-known offenders
+    assert block_reason("study_designer_agent", "Read", {"file_path": "agents/data_analyst_agent.md"}) is not None
+    assert block_reason("data_analyst_agent", "Read", {"file_path": ".claude/settings.json"}) is not None
+    assert block_reason("peer_reviewer_agent", "Read", {"file_path": "draw/overview.drawio"}) is not None
+    assert block_reason("study_designer_agent", "Read", {"file_path": "ciim_agentic.md"}) is not None
+    assert block_reason("evaluate", "Read", {"file_path": "knowhow/aging_clocks.md"}) is None
     assert block_reason("study_designer_agent", "Grep", {"pattern": "x"}) is None  # no path: known gap
     assert block_reason("", "Read", {"file_path": "knowhow/aging_clocks.md"}) is None  # main session, unrestricted
     # scope: repo and documented data-lake roots allowed

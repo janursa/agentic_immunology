@@ -36,8 +36,8 @@ HOOK_STATE_DIR = PROJECT_DIR / "temp" / ".hook_state"
 
 TASK_DIR_RE = re.compile(r"temp/([A-Za-z0-9_\-]+)/")
 TAG_RE = lambda tag: re.compile(rf"{tag}:\s*([A-Z0-9_]+)")  # noqa: E731
-VERDICT_RE = re.compile(r"VERDICT:\s*(APPROVE|REVISE-DESIGN|ACCEPT|REVISE|CANNOT-MEET)", re.I)
-MODE_RE = re.compile(r"MODE:\s*(DESIGN-REVIEW|RESULTS-REVIEW|METHOD-REVIEW)", re.I)
+VERDICT_RE = re.compile(r"VERDICT:\s*(APPROVE|REVISE-DESIGN|REVISE-ANALYSIS|ACCEPT)", re.I)
+MODE_RE = re.compile(r"MODE:\s*(DESIGN-REVIEW|RESULTS-REVIEW)", re.I)
 PHASE_RE = re.compile(r"PHASE:\s*(\d+)", re.I)
 FINAL_PHASE_RE = re.compile(r"FINAL_PHASE:\s*(true|false)", re.I)
 
@@ -118,9 +118,48 @@ def _entries(transcript_path: str) -> list:
     return out
 
 
+def _debug_payload(data: dict) -> None:
+    """ponytail: temporary — diagnosing why nested dispatches lose their verdict.
+    Remove once tool_response's shape for sidechain Agent calls is known."""
+    try:
+        HOOK_STATE_DIR.mkdir(parents=True, exist_ok=True)
+        r = data.get("tool_response")
+        with open(HOOK_STATE_DIR / "debug_payload.jsonl", "a") as f:
+            f.write(json.dumps({
+                "ts": _now(),
+                "tool": data.get("tool_name"),
+                "desc": data.get("tool_input", {}).get("description"),
+                "keys": sorted(data.keys()),
+                "resp_type": type(r).__name__,
+                "resp_keys": sorted(r.keys()) if isinstance(r, dict) else None,
+                "resp_head": repr(r)[:400],
+            }) + "\n")
+    except Exception:
+        pass
+
+
+def result_text(data: dict) -> str | None:
+    """What the subagent actually returned. PostToolUse hands this over directly
+    as `tool_response`, which is both cheaper and correct for *nested* dispatches
+    — the transcript scan below can only see top-level calls, so a dispatch made
+    inside a subagent's sidechain used to log the enclosing call's result instead.
+    Transcript scan kept as a fallback in case the field shape changes."""
+    _debug_payload(data)
+    r = data.get("tool_response")
+    if isinstance(r, dict):
+        # SendMessage puts its text under "message", Agent under "content"/"text"
+        r = r.get("content") or r.get("text") or r.get("message")
+    if isinstance(r, list):
+        r = " ".join(b.get("text", "") for b in r if isinstance(b, dict))
+    if isinstance(r, str) and r.strip():
+        return r
+    return last_agent_result_text(_entries(data.get("transcript_path", "")))
+
+
 def last_agent_result_text(entries: list) -> str | None:
-    """Text of the tool_result for the most recent top-level Agent tool_use —
-    i.e. the call that just completed and triggered this PostToolUse."""
+    """Text of the tool_result for the most recent top-level Agent tool_use.
+    ponytail: only a fallback for result_text() — misses sidechain calls, and
+    races the transcript write on the call that triggered this very hook."""
     last_id = None
     for entry in entries:
         if entry.get("isSidechain") or entry.get("type") != "assistant":
@@ -160,7 +199,7 @@ def build_dispatch_entry(tool_input: dict, result_text: str | None) -> str:
 
     if result_text is None:
         lines.append("- result: (not found in transcript)")
-    elif "Async agent launched" in result_text:
+    elif "Async agent launched" in result_text or "in the background" in result_text:
         lines.append("- result: dispatched in background — verdict not available at dispatch time")
     else:
         bits = []
@@ -191,17 +230,59 @@ def append_log(task: str, text: str) -> None:
         f.write(text + "\n")
 
 
+def _first_line(text: str) -> str:
+    stripped = text.strip()
+    return stripped.splitlines()[0] if stripped else ""
+
+
+def _last_logged_prompt(task: str) -> str | None:
+    try:
+        text = (PROJECT_DIR / "temp" / task / "log.md").read_text()
+    except OSError:
+        return None
+    quoted = re.findall(r"^> (.*)$", text, re.M)
+    return quoted[-1] if quoted else None
+
+
+def flush_prompts(task: str, records: list) -> None:
+    """Slash commands (/clear and friends) fire UserPromptSubmit twice for one
+    human message — once for the command echo, once for the real prompt — so
+    drop a prompt identical to the one logged just before it."""
+    prev = _last_logged_prompt(task)
+    for record in records:
+        current = _first_line(record.get("prompt", ""))
+        if current and current == prev:
+            continue
+        append_log(task, build_user_entry(record))
+        prev = current
+
+
 # --- event handlers ---
+
+SYSTEM_PROMPT_MARKERS = ("<task-notification>", "[SYSTEM NOTIFICATION - NOT USER INPUT]")
+
+
+def is_system_prompt(prompt: str) -> bool:
+    """Background-task notifications arrive through UserPromptSubmit like a human
+    message would. They are machine events — logging them as 'user turn' both
+    buries log.md under the blob and misrepresents who said what."""
+    return any(marker in prompt for marker in SYSTEM_PROMPT_MARKERS)
+
 
 def handle_user_prompt_submit(data: dict) -> None:
     session_id = data.get("session_id", "")
     prompt = data.get("prompt", "")
-    if session_id and prompt:
+    if session_id and prompt and not is_system_prompt(prompt):
         append_user_prompt(session_id, prompt)
 
 
 def handle_post_tool_use_agent(data: dict) -> None:
     tool_input = data.get("tool_input", {})
+    if data.get("tool_name") == "SendMessage":
+        # Resuming a parked agent is a dispatch too — same shape, different keys.
+        tool_input = {"subagent_type": tool_input.get("to", "?"),
+                      "description": tool_input.get("summary", "resume"),
+                      "prompt": tool_input.get("message", "")}
     prompt = tool_input.get("prompt", "")
     task = task_dir_from_prompt(prompt)
     session_id = data.get("session_id", "")
@@ -209,24 +290,24 @@ def handle_post_tool_use_agent(data: dict) -> None:
         return  # can't resolve a log.md location yet — nothing to flush to
 
     remember_task(session_id, task)
-    result_text = last_agent_result_text(_entries(data.get("transcript_path", "")))
-
-    for record in pop_buffered_prompts(session_id):
-        append_log(task, build_user_entry(record))
-
-    append_log(task, build_dispatch_entry(tool_input, result_text))
+    flush_prompts(task, pop_buffered_prompts(session_id))
+    append_log(task, build_dispatch_entry(tool_input, result_text(data)))
 
 
-def handle_post_tool_use_bash(data: dict) -> None:
-    """Bash calls (e.g. render_review_artifact.py / serve_dashboard.sh) also
-    reveal which task is active, even when no Agent call follows — this is
-    what lets Stop flush buffered turns during a user-feedback wait, when the
-    orchestrator's only actions are Bash/Read/Write, not another Agent call."""
-    command = data.get("tool_input", {}).get("command", "")
-    task = task_dir_from_prompt(command)
-    session_id = data.get("session_id", "")
-    if task and session_id:
-        remember_task(session_id, task)
+def handle_post_tool_use_path(data: dict) -> None:
+    """Bash commands (render_review_artifact.py / serve_dashboard.sh) and
+    Write/Edit file paths also reveal which task is active, even when no Agent
+    call follows — this is what lets Stop flush buffered turns when the
+    orchestrator's only actions are Bash/Write/Edit, or when its first dispatch
+    of the task is rejected and PostToolUse(Agent) never fires at all."""
+    tool_input = data.get("tool_input", {})
+    # ponytail: command + file_path only, not the whole tool_input — Write's
+    # `content` can mention some *other* task's path and steal the pointer.
+    for key in ("command", "file_path"):
+        task = task_dir_from_prompt(tool_input.get(key, ""))
+        if task and data.get("session_id"):
+            remember_task(data["session_id"], task)
+            return
 
 
 def handle_stop(data: dict) -> None:
@@ -236,8 +317,24 @@ def handle_stop(data: dict) -> None:
     task = recall_task(session_id)
     if task is None:
         return  # no task resolved yet this session — leave buffer for later
-    for record in pop_buffered_prompts(session_id):
-        append_log(task, build_user_entry(record))
+    flush_prompts(task, pop_buffered_prompts(session_id))
+    drop_stale_buffers()
+
+
+STALE_BUFFER_DAYS = 7
+
+
+def drop_stale_buffers() -> None:
+    """Sessions that end without ever resolving a task dir leave their buffer
+    behind forever. Harmless (buffers are per-session, they can't leak into
+    another task's log) but they accumulate, so age them out."""
+    cutoff = datetime.now(timezone.utc).timestamp() - STALE_BUFFER_DAYS * 86400
+    try:
+        stale = [p for p in HOOK_STATE_DIR.glob("*.jsonl") if p.stat().st_mtime < cutoff]
+    except OSError:
+        return
+    for path in stale:
+        path.unlink(missing_ok=True)
 
 
 def main() -> None:
@@ -245,10 +342,10 @@ def main() -> None:
     event = data.get("hook_event_name")
     if event == "UserPromptSubmit":
         handle_user_prompt_submit(data)
-    elif event == "PostToolUse" and data.get("tool_name") == "Agent":
+    elif event == "PostToolUse" and data.get("tool_name") in ("Agent", "SendMessage"):
         handle_post_tool_use_agent(data)
-    elif event == "PostToolUse" and data.get("tool_name") == "Bash":
-        handle_post_tool_use_bash(data)
+    elif event == "PostToolUse":
+        handle_post_tool_use_path(data)
     elif event == "Stop":
         handle_stop(data)
 
@@ -272,6 +369,13 @@ def _demo() -> None:
     )
     assert "background" in entry_bg
 
+    entry_revise = build_dispatch_entry(
+        {"subagent_type": "peer_reviewer_agent", "description": "results review",
+         "prompt": "TASK-LEVEL: L2\nSTAGE: PEER_REVIEW\ntemp/x/results_review/"},
+        "MODE: RESULTS-REVIEW\nVERDICT: REVISE-ANALYSIS\n",
+    )
+    assert "VERDICT=REVISE-ANALYSIS" in entry_revise
+
     entry_missing = build_dispatch_entry(
         {"subagent_type": "study_designer_agent", "description": "x", "prompt": "no tags"}, None,
     )
@@ -288,6 +392,27 @@ def _demo() -> None:
     assert last_agent_result_text(entries) == "VERDICT: ACCEPT"
     assert last_agent_result_text([]) is None
 
+    # background-task notifications are machine events, not user turns
+    assert is_system_prompt("<task-notification>\n<task-id>abc</task-id>")
+    assert is_system_prompt("[SYSTEM NOTIFICATION - NOT USER INPUT]\nagent finished")
+    assert not is_system_prompt("rerun this analysis again")
+
+    # tool_response is preferred over the transcript scan, in every shape
+    assert result_text({"tool_response": "VERDICT: APPROVE"}) == "VERDICT: APPROVE"
+    assert result_text({"tool_response": [{"type": "text", "text": "VERDICT: REVISE"}]}) == "VERDICT: REVISE"
+    assert result_text({"tool_response": {"content": "VERDICT: ACCEPT"}}) == "VERDICT: ACCEPT"
+    assert "in the background" in result_text(
+        {"tool_response": {"success": True, "message": "resumed from transcript in the background"}})
+    # ...and falls back to the transcript when it's absent or empty
+    assert result_text({"tool_response": "", "transcript_path": "/nonexistent"}) is None
+
+    # a SendMessage resume reads as a background dispatch, not a lost verdict
+    entry_resume = build_dispatch_entry(
+        {"subagent_type": "a123", "description": "resume", "prompt": "WORK-DIR: temp/x/"},
+        'Agent "a123" had no active task; resumed from transcript in the background',
+    )
+    assert "background" in entry_resume
+
     # Stop-hook flush: a buffered turn with no following Agent call still
     # reaches log.md, as long as a prior Agent or Bash call revealed the task.
     import tempfile
@@ -303,14 +428,40 @@ def _demo() -> None:
         buffered_still_there = json.loads(_buffer_path("sess1").read_text().splitlines()[0])
         assert buffered_still_there["prompt"] == "some question"
 
+        # a Write reveals the task too — so a task whose first dispatch is
+        # rejected still gets a log.md; `content` must not steal the pointer
+        handle_post_tool_use_path({"session_id": "sess1",
+                                    "tool_input": {"file_path": "temp/othertask/feedback_log/x/feedback.md",
+                                                   "content": "mentions temp/decoy/ in the body"}})
+        assert recall_task("sess1") == "othertask"
+
         # a Bash call revealing the task, then Stop -> flush without any Agent call
-        handle_post_tool_use_bash({"session_id": "sess1",
+        handle_post_tool_use_path({"session_id": "sess1",
                                     "tool_input": {"command": "bash scripts/serve_dashboard.sh temp/mytask/design.html"}})
         assert recall_task("sess1") == "mytask"
         handle_stop({"session_id": "sess1"})
         log_text = (PROJECT_DIR / "temp" / "mytask" / "log.md").read_text()
         assert "some question" in log_text
         assert not _buffer_path("sess1").exists()
+
+        # /clear fires UserPromptSubmit twice for one message -> logged once
+        flush_prompts("mytask", [{"prompt": "do the thing", "ts": "t1"},
+                                  {"prompt": "do the thing", "ts": "t2"}])
+        log_text = (PROJECT_DIR / "temp" / "mytask" / "log.md").read_text()
+        assert log_text.count("> do the thing") == 1
+        # a genuine repeat of an earlier prompt still logs once more
+        flush_prompts("mytask", [{"prompt": "other", "ts": "t3"},
+                                  {"prompt": "do the thing", "ts": "t4"}])
+        log_text = (PROJECT_DIR / "temp" / "mytask" / "log.md").read_text()
+        assert log_text.count("> do the thing") == 2
+
+        # stale buffers age out, fresh ones survive
+        append_user_prompt("old_sess", "ancient")
+        append_user_prompt("new_sess", "recent")
+        old = _buffer_path("old_sess")
+        os.utime(old, (0, 0))
+        drop_stale_buffers()
+        assert not old.exists() and _buffer_path("new_sess").exists()
     PROJECT_DIR, HOOK_STATE_DIR = real_project_dir, real_hook_state_dir
 
     print("ok")

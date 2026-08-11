@@ -1,6 +1,6 @@
 # Design Graphs
 
-Diagrams in `design.md`/`report.md` are no longer mermaid. A diagram is a placeholder fenced block
+Diagrams in `design.md`/`findings.md` are no longer mermaid. A diagram is a placeholder fenced block
 naming a graph id:
 
 ```graph
@@ -8,7 +8,7 @@ overview
 ```
 
 The actual graph data lives in a sibling JS file, same basename, `.graphs.js` suffix
-(`design.md` -> `design.graphs.js`, `report.md` -> `report.graphs.js`), next to the `.md` file.
+(`design.md` -> `design.graphs.js`, `findings.md` -> `findings.graphs.js`), next to the `.md` file.
 It's a plain object keyed by graph id — one entry per placeholder used in the `.md`:
 
 ```js

@@ -50,10 +50,10 @@ Infer transcription factor activity per cell (or pseudobulk/bulk donor) using `i
 **Input**: log-normalized expression in `adata.X` (log1p CPM). Raw counts also work but give noisier results.
 
 ```python
-from genomics import get_immune_grn, infer_tf_activity
+from genomics import infer_grn_spearman, infer_tf_activity
 
-# Load a cell-type-specific GRN as the regulatory network
-net = get_immune_grn(cell_type='CD8T')  # or 'CD4T', etc.
+# Regulatory network: source, target, weight
+net = pd.read_csv(grn_csv)
 
 # Infer TF activity per cell
 tf_scores = infer_tf_activity(adata, net=net)  # returns obs × TFs DataFrame
@@ -75,7 +75,7 @@ tf_scores = infer_tf_activity(adata_bulk, net=net, method='ulm')
 
 ### Notes
 - TF coverage depends on overlap between `net` targets and `adata.var_names` — check for warnings about dropped TFs
-- For immune data, pair with `get_immune_grn` to use curated immune-specific networks
+- For immune data, infer a cell-type-specific network first with `infer_grn_spearman`
 
 ---
 

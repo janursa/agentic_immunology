@@ -3,13 +3,10 @@
 Agent tool call, so a dropped requirement is a hard stop, not a hoped-for
 convention.
 
-1. output_conventions.md — every call to an analysis subagent
-   (data_analyst_agent, data_download_agent) must append
-   knowhow/output_conventions.md's full contents verbatim.
-2. Past lessons — before dispatching to any agent listed in agents/list.md,
+1. Past lessons — before dispatching to any agent listed in agents/list.md,
    if memory/memory_blob.jsonl has entries for that agent, the prompt must
    include "Past lessons for you:" plus each stored lesson verbatim.
-3. LITERATURE flag — every study_designer_agent call must pass the current
+2. LITERATURE flag — every study_designer_agent call must pass the current
    `LITERATURE: on`/`off` value from ciim_agentic.md's Flags section verbatim.
 
 Run from the repo root:
@@ -23,32 +20,9 @@ import subprocess
 import sys
 
 PROJECT_DIR = pathlib.Path(os.environ.get("CLAUDE_PROJECT_DIR", "."))
-OUTPUT_CONVENTIONS_FILE = PROJECT_DIR / "knowhow" / "output_conventions.md"
 MEMORY_BLOB_SCRIPT = PROJECT_DIR / "memory" / "memory_blob.py"
 LIST_FILE = PROJECT_DIR / "agents" / "list.md"
 ORCHESTRATOR_FILE = PROJECT_DIR / "ciim_agentic.md"
-
-ANALYSIS_AGENTS = {"data_analyst_agent", "data_download_agent"}
-
-
-def _conventions_block_reason(conventions_text: str, subagent_type: str, prompt: str) -> str | None:
-    if subagent_type not in ANALYSIS_AGENTS or not conventions_text:
-        return None
-    if conventions_text not in prompt:
-        return (
-            f"{subagent_type} call must append the full contents of "
-            "knowhow/output_conventions.md verbatim to the task prompt "
-            "(ciim_agentic.md HARD RULE)."
-        )
-    return None
-
-
-def block_reason_conventions(subagent_type: str, prompt: str) -> str | None:
-    try:
-        conventions_text = OUTPUT_CONVENTIONS_FILE.read_text().strip()
-    except OSError:
-        return None  # ponytail: fail-open if the file's missing, don't block on infra
-    return _conventions_block_reason(conventions_text, subagent_type, prompt)
 
 
 def _lessons_block_reason(entries: list, prompt: str) -> str | None:
@@ -133,8 +107,7 @@ def main() -> None:
     subagent_type = tool_input.get("subagent_type", "")
     prompt = tool_input.get("prompt", "")
     reason = (
-        block_reason_conventions(subagent_type, prompt)
-        or block_reason_lessons(subagent_type, prompt)
+        block_reason_lessons(subagent_type, prompt)
         or block_reason_literature(subagent_type, prompt)
     )
     if reason:
@@ -148,14 +121,7 @@ def main() -> None:
 
 
 def _demo() -> None:
-    # 1. output_conventions.md verbatim
-    conv = "## Output conventions\n...\n"
-    assert _conventions_block_reason(conv, "data_analyst_agent", "do it") is not None
-    assert _conventions_block_reason(conv, "data_analyst_agent", "do it\n" + conv) is None
-    assert _conventions_block_reason(conv, "study_designer_agent", "no conventions needed") is None
-    assert _conventions_block_reason("", "data_analyst_agent", "anything") is None  # fail-open, no file
-
-    # 2. past lessons verbatim
+    # 1. past lessons verbatim
     entries = [{"lesson": "Situation: x. Lesson: check the cohort age spread."}]
     assert _lessons_block_reason([], "no lessons exist, nothing required") is None
     assert _lessons_block_reason(entries, "do the analysis") is not None  # section missing entirely
@@ -164,7 +130,7 @@ def _demo() -> None:
         entries, "Past lessons for you:\n- Situation: x. Lesson: check the cohort age spread."
     ) is None
 
-    # 3. LITERATURE flag verbatim
+    # 2. LITERATURE flag verbatim
     assert _literature_flag_value("- `LITERATURE: off` — controls ...") == "off"
     assert _literature_flag_value("no flag line here") is None
     assert _literature_block_reason("off", "study_designer_agent", "design this") is not None

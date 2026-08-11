@@ -32,5 +32,14 @@ set -e
 
 ```
 
+## Large downloads (≥ 5 GB)
+
+Same CPU template (`--cpus-per-task=4 --time=24:00:00 --mem=16GB`), with the download commands as
+the body. Before submitting, list every resolved URL with its target filename and check disk
+capacity. After it finishes, verify any checksum file the source provides
+(`md5sum -c checksums.txt`) and report mismatches as warnings — do not delete files.
+
+Smaller than 5 GB: download directly, no job.
+
 ---
 

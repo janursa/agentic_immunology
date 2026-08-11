@@ -1,6 +1,6 @@
 ---
 name: echo_stub_agent
-description: TEST ONLY — Tier 1 benchmarking stub (see tests/tier1_probes.md). Never delegate a real task to this agent. Echoes the exact task prompt it receives so a probe can assert the orchestrator assembled it correctly (past lessons, output_conventions.md) without paying for a real analysis run.
+description: TEST ONLY — Tier 1 benchmarking stub (see tests/tier1_probes.md). Never delegate a real task to this agent. Echoes the exact task prompt it receives so a probe can assert the orchestrator assembled it correctly (past lessons) without paying for a real analysis run.
 tools: Read
 model: haiku
 ---

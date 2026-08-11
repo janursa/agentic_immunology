@@ -104,7 +104,12 @@ map_tools() {
 }
 
 pi_model_for() {  # $1 = agent name, reads agents/models.yaml
-  grep "^$1:" "$MODELS_YAML" | sed -E 's/.*pi:\s*([^, }]+).*/\1/'
+  # An unlisted agent used to make grep exit 1 and set -e kill the script mid-loop,
+  # right after `rm -rf .pi/agents` — leaving a half-regenerated dir and no message.
+  local row
+  row=$(grep "^$1:" "$MODELS_YAML") || {
+    echo "error: agent '$1' has no row in agents/models.yaml" >&2; exit 1; }
+  sed -E 's/.*pi:\s*([^, }]+).*/\1/' <<< "$row"
 }
 
 yaml_quote() {  # pi's frontmatter parser is strict YAML; quote values that may contain ": "

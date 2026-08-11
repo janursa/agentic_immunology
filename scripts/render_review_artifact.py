@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Deterministic renderer for the fixed-structure review Artifact required by
 ciim_agentic.md's "Interact with user using Artifact" section: one card per
-`##` section of a design.md/report.md, its content copied verbatim (rendered
+`##` section of a design.md/findings.md, its content copied verbatim (rendered
 markdown, not a paraphrase), each followed by a Comment textarea, plus one
 page-level "Overall" comment card and one page-level "Compile comments"
 button. Structure is fixed by code; content comes straight from the file.
 
-Diagrams are ```graph <id>``` placeholders (see knowhow/design_graphs.md), backed by a sibling
+Diagrams are ```graph <id>``` placeholders (see docs/design_graphs.md), backed by a sibling
 <basename>.graphs.js file next to the source .md, rendered client-side with Cytoscape.js
 (draggable nodes, pan/zoom, dagre layout) instead of mermaid.
 

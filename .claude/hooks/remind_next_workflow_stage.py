@@ -25,8 +25,13 @@ FINAL_PHASE_RE = re.compile(r"FINAL_PHASE=(true|false)")
 
 
 def last_dispatch_block(log_text: str) -> str | None:
-    blocks = log_text.split("### [")
-    return "### [" + blocks[-1] if len(blocks) > 1 else None
+    # log.md interleaves dispatch blocks (have a STAGE: line) with user-turn blocks
+    # (don't). Only dispatches carry workflow state — the last block is almost always
+    # a user turn, so take the last one that actually has a STAGE:.
+    for block in reversed(log_text.split("### [")[1:]):
+        if STAGE_RE.search(block):
+            return "### [" + block
+    return None
 
 
 def next_stage(stage: str | None, mode: str | None, verdict: str | None, final_phase: str | None) -> str:
@@ -38,7 +43,7 @@ def next_stage(stage: str | None, mode: str | None, verdict: str | None, final_p
         return "PEER_REVIEW — DESIGN-REVIEW of the same phase."
     if stage == "PEER_REVIEW" and mode == "DESIGN-REVIEW":
         if verdict == "REVISE-DESIGN":
-            return "PLANNING — send issues back to study_designer_agent, same phase (capped at 1 pass)."
+            return "PLANNING — send issues back to study_designer_agent, same phase (capped at 1 revision)."
         if verdict == "APPROVE":
             return "USER_FEEDBACK — present design.md to the user via the dashboard."
         return "awaiting a DESIGN-REVIEW verdict (APPROVE/REVISE-DESIGN) before proceeding."
@@ -47,17 +52,19 @@ def next_stage(stage: str | None, mode: str | None, verdict: str | None, final_p
     if stage == "EXECUTION":
         return "PEER_REVIEW — RESULTS-REVIEW of the same phase."
     if stage == "PEER_REVIEW" and mode == "RESULTS-REVIEW":
-        if verdict == "CANNOT-MEET":
-            return "STOP — return to the user, do not dispatch further."
-        if verdict == "REVISE":
-            return "PLANNING — send the GAP back to study_designer_agent, same phase (or fix it yourself if small)."
+        if verdict == "REVISE-ANALYSIS":
+            return "send the GAP back to the specialist agent to fix the analysis (or fix it yourself if small)."
+        if verdict == "REVISE-DESIGN":
+            return ("PLANNING — send the GAP back to study_designer_agent, same phase (or fix it yourself "
+                    "if small). Only study_designer_agent may respond CANNOT-MEET — if it does, STOP and "
+                    "return to the user.")
         if verdict == "ACCEPT" and final_phase == "false":
             return "PLANNING — phase += 1."
         if verdict == "ACCEPT" and final_phase == "true":
-            return "USER_FEEDBACK (final review) then REPORTING — compile report.md."
-        return "awaiting a RESULTS-REVIEW verdict (ACCEPT/REVISE/CANNOT-MEET) before proceeding."
+            return "USER_FEEDBACK (final review) then REPORTING — compile findings.md."
+        return "awaiting a RESULTS-REVIEW verdict (ACCEPT/REVISE-ANALYSIS/REVISE-DESIGN) before proceeding."
     if stage == "REPORTING":
-        return "done — task complete, nothing further to dispatch."
+        return "done — findings.md compiled and presented."
     return f"unrecognized STAGE '{stage}' — check ciim_agentic.md's phase loop manually."
 
 
@@ -111,8 +118,9 @@ def _demo() -> None:
     assert next_stage("PEER_REVIEW", "DESIGN-REVIEW", "REVISE-DESIGN", None).startswith("PLANNING")
     assert next_stage("USER_FEEDBACK", None, None, None).startswith("EXECUTION")
     assert next_stage("EXECUTION", None, None, None).startswith("PEER_REVIEW")
-    assert next_stage("PEER_REVIEW", "RESULTS-REVIEW", "CANNOT-MEET", None).startswith("STOP")
-    assert next_stage("PEER_REVIEW", "RESULTS-REVIEW", "REVISE", None).startswith("PLANNING")
+    assert "specialist" in next_stage("PEER_REVIEW", "RESULTS-REVIEW", "REVISE-ANALYSIS", None)
+    assert next_stage("PEER_REVIEW", "RESULTS-REVIEW", "REVISE-DESIGN", None).startswith("PLANNING")
+    assert "CANNOT-MEET" in next_stage("PEER_REVIEW", "RESULTS-REVIEW", "REVISE-DESIGN", None)
     assert next_stage("PEER_REVIEW", "RESULTS-REVIEW", "ACCEPT", "false") == "PLANNING — phase += 1."
     assert next_stage("PEER_REVIEW", "RESULTS-REVIEW", "ACCEPT", "true").startswith("USER_FEEDBACK")
     assert next_stage("REPORTING", None, None, None).startswith("done")
@@ -123,6 +131,15 @@ def _demo() -> None:
         "### [t2] dispatch -> `peer_reviewer_agent` (y)\n- TASK-LEVEL: L2 | STAGE: PEER_REVIEW\n- result: MODE=DESIGN-REVIEW, PHASE=0, VERDICT=APPROVE\n"
     )
     assert "STAGE: PEER_REVIEW" in block and "VERDICT=APPROVE" in block
+
+    # user-turn blocks have no STAGE: — they must not shadow the last real dispatch
+    block = last_dispatch_block(
+        "### [t1] dispatch -> `peer_reviewer_agent` (y)\n- TASK-LEVEL: L2 | STAGE: PEER_REVIEW\n- result: MODE=DESIGN-REVIEW, PHASE=0, VERDICT=APPROVE\n\n"
+        "### [t2] user turn\n> looks good, go ahead\n\n"
+        "### [t3] user turn\n> also add a PCA\n"
+    )
+    assert "STAGE: PEER_REVIEW" in block
+    assert "USER_FEEDBACK" in build_reminder("x", block)
 
     msg = build_reminder("x", block)
     assert "PEER_REVIEW" in msg and "USER_FEEDBACK" in msg

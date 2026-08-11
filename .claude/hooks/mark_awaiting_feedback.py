@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """PostToolUse hook (matcher: Bash): when scripts/serve_dashboard.sh is called
-with a path (i.e. a design.md/report.md review is being presented to the
+with a path (i.e. a design.md/findings.md review is being presented to the
 user, per ciim_agentic.md's "Interact with user"), record a marker so the
 next Agent dispatch can remind the orchestrator to document the feedback
 that follows (see remind_feedback_lesson.py). Non-blocking, informational
-only — see check_artifact_relayed.py for the harder-block sibling of this
+only — see check_dashboard_url_relayed.py for the harder-block sibling of this
 pattern.
 
 Run from the repo root:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PreToolUse hook (matcher: Agent): if a design.md/report.md was just
+"""PreToolUse hook (matcher: Agent): if a design.md/findings.md was just
 presented to the user via serve_dashboard.sh (marked by
 mark_awaiting_feedback.py) and the orchestrator is now dispatching again —
 meaning the user's response already happened, since the workflow always

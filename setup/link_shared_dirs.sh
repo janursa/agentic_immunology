@@ -4,7 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-CIIM_DATALAKE=/vol/projects/CIIM/datalake
+CIIM_DATALAKE=/vol/projects/CIIM/agentic/datalake
 CIIM_SINGULARITY=/vol/projects/CIIM/singularity
 
 mkdir -p datalake

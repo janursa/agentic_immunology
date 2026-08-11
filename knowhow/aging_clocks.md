@@ -159,7 +159,7 @@ pd.DataFrame(rows).to_csv("/path/to/predicted_ages.csv", index=False)
 
 ## Standardised Output
 
-Every task must produce `temp/{task}/results/predicted_ages.csv`:
+Every task must produce `{WORK-DIR}/results/predicted_ages.csv`:
 
 | Column | Description |
 |---|---|

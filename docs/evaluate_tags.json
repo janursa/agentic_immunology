@@ -1,0 +1,58 @@
+{
+  "_comment": "Canonical tag vocabulary for evaluate REPORT-REVIEW. Each discrepancy (a paper finding the run missed, or a run finding absent from the paper) gets one or more ROOT_CAUSE tags and exactly one GRADING tag from the list matching its direction.",
+  "ROOT_CAUSE": [
+    {
+      "tag": "NOT-ATTEMPTED",
+      "applies_to": ["missed"],
+      "description": "The design never planned a step that could have produced this finding."
+    },
+    {
+      "tag": "OUT-OF-SCOPE",
+      "applies_to": ["missed"],
+      "description": "The finding belongs to a different CASE-CARD question than the one this run was given — not a platform failure."
+    },
+    {
+      "tag": "DATA-UNAVAILABLE",
+      "applies_to": ["missed"],
+      "description": "The dataset the paper used is not in the datalake, so the finding was unreachable."
+    },
+    {
+      "tag": "DATA-DIFFERENT",
+      "applies_to": ["missed", "novel"],
+      "description": "Other or additional data was analysed (different cohort, subset, modality, or more samples)."
+    },
+    {
+      "tag": "DIFFERENT-ANALYTICS",
+      "applies_to": ["missed", "novel"],
+      "description": "Analytical choices diverged — method, model, statistical test, thresholds, covariates, normalisation."
+    },
+    {
+      "tag": "GRANULARITY-MISMATCH",
+      "applies_to": ["missed", "novel"],
+      "description": "Different resolution of analysis: cell type vs. cell state/subcluster; gene vs. transcript/isoform; individual gene vs. pathway or module; peak vs. region vs. gene-level (ATAC); protein vs. peptide vs. PTM site; variant vs. gene-burden (genetics); taxon rank (microbiome); cell vs. sample vs. donor as the unit of aggregation; raw timepoints vs. binned stages."
+    },
+    {
+      "tag": "DIFFERENT-SYNTHESIZE",
+      "applies_to": ["missed", "novel"],
+      "description": "The raw results are present but prioritisation, weighting of prior knowledge, or the conclusion drawn from them differs."
+    },
+    {
+      "tag": "AGENT-FAILURE",
+      "applies_to": ["missed"],
+      "description": "Attempted with the right data, resolution and method, and still did not recover it — bug, wrong test, or a silently swallowed error. The bucket with no excuse in it; a near-zero rate across cases means the evaluator is rationalising rather than grading."
+    }
+  ],
+  "GRADING": {
+    "missed": [
+      {"tag": "NOT-RECOVERED", "description": "Absent from the run's findings."},
+      {"tag": "REPORTED-WEAKER", "description": "Present but hedged, smaller in effect, or partial. Counts as recovered-with-caveat, not as a miss."},
+      {"tag": "CONTRADICTED", "description": "The run found the opposite direction."}
+    ],
+    "novel": [
+      {"tag": "EXTENSION", "description": "Goes deeper along an axis the paper already opened."},
+      {"tag": "ORTHOGONAL", "description": "A new axis the paper did not examine."},
+      {"tag": "CONTRADICTORY", "description": "Contradicts the paper outside its enumerated findings (a contradiction of an enumerated finding is CONTRADICTED on the missed side, not a novel finding)."},
+      {"tag": "ARTIFACT-SUSPECT", "description": "Likely technical rather than biological — batch effect, doublets, ambient RNA, dying/mito-high cells, DE driven by one donor. Novel only because the paper's QC removed it."}
+    ]
+  }
+}

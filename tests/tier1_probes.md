@@ -1,18 +1,18 @@
 # Tier 1 probes — cheap live checks of orchestrator delegation behavior
 
 Companion to Tier 0 (`test_memory_blob.py`, `check_report_completeness.py`)
-and the always-on hook (`.claude/hooks/check_guardrail_flag.py`, which now
-enforces output_conventions.md + past-lessons only). These are
-manual, single-turn checks — no pytest, since they exercise the real
-orchestrator's behavior, not pure code. The hook already blocks a
-non-compliant delegation automatically; these probes confirm the
-orchestrator produces a *compliant* one in the first place.
+and the always-on hook (`.claude/hooks/check_guardrail_flag.py`, which
+enforces past-lessons injection). These are manual, single-turn checks — no
+pytest, since they exercise the real orchestrator's behavior, not pure code.
+The hook already blocks a non-compliant delegation automatically; these
+probes confirm the orchestrator produces a *compliant* one in the first
+place.
 
 ## Injection probe
 
-Confirms the orchestrator retrieves memory_blob lessons and appends
-output_conventions.md before delegating — using `echo_stub_agent` as the
-subagent so the check costs one cheap turn instead of a real analysis.
+Confirms the orchestrator retrieves memory_blob lessons before delegating —
+using `echo_stub_agent` as the subagent so the check costs one cheap turn
+instead of a real analysis.
 
 1. Seed a canary lesson:
    `python memory/memory_blob.py add --issue-tag <tag> --agents echo_stub_agent --task probe --lesson "Situation: probe. Lesson: canary-lesson-xyz."`
@@ -28,7 +28,7 @@ subagent so the check costs one cheap turn instead of a real analysis.
 Confirms the reporting step covers every generated file.
 
 1. Build a fixture task dir with a few dummy files (no real analysis needed).
-2. Run just the reporting step (`knowhow/reporting.md`) against it.
+2. Run just the reporting step (`docs/reporting.md`) against it.
 3. `python tests/check_report_completeness.py <task_dir>`.
 
 ## What NOT to probe this way

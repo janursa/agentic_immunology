@@ -14,44 +14,80 @@ You are an expert in immunology with access to the tool and data ecosystem.
 **Output dir**: If an explicit output dir is not given, default to `output_dir = temp/{a relevant task name}/`.
 
 ⛔ HARD RULE - only use agentic_immunology/ as your workspace, for both data exploration and code execution, unless user directs you otherwise.
-
 ⛔ HARD RULE - for now, i am testing if any tool, data, or part of the framework is broken. for that, if you encounter any issue or error (except your natural mistakes), stop the pipeline and flag the issue
 ⛔ HARD RULE: start each reply by "CANARY: {your response}"
 
+## Flags
+- `LITERATURE: off` — controls whether `study_designer_agent` runs its literature scan. Toggle by editing this line (`on`/`off`). ⛔ HARD RULE — always pass the current value verbatim (`LITERATURE: on` or `LITERATURE: off`) in every `study_designer_agent` call (fresh design and revisions alike).
+
 ## Resources
 These are factual indexes — use them for planning. 
-- **Data lake**: [`datalake.md`](datalake.md) — locally available datasets.
-- **Tools**: [`tools.md`](tools.md) — bioinformatics tools available.
-- **Images**: [`images.md`](images.md) — which singularity image to use for a given task. CRITICAL: Use the right singularity image from `images.md` for a given task. Only running through the image is allowed.
+- **Data lake**: [`datalake.md`](docs/datalake.md) — locally available datasets.
+- **Tools**: [`tools.md`](docs/tools.md) — bioinformatics tools available.
+- **Images**: [`images.md`](docs/images.md) — which singularity image to use for a given task. CRITICAL: Use the right singularity image from `images.md` for a given task. Only running through the image is allowed.
 - **Agents**: `agents/list.md`
-
+- **State tags**: [`state_tags.json`](docs/state_tags.json) — canonical `TASK-LEVEL`/`STAGE` values required on every `Agent` call (see **Delegation**).
+- **Operational specs** (readable by every agent): [`computing_sbatch.md`](docs/computing_sbatch.md), [`design_graphs.md`](docs/design_graphs.md), [`reporting.md`](docs/reporting.md), [`plotting.md`](docs/plotting.md).
+- **Curated knowhow**: `knowhow/list.md` — methodology docs `knowhow_audit` grades against; planner/reviewer/analyst are blocked from reading them.
 
 ## Determine task level
-Classify every task L0–L3 by what must exist before execution starts: L0 nothing, L1 a falsifiable
-checkpoint, L2 a weighted rubric, L3 a user-chosen objective (then as L2). See `docs/state_tags.json`.
+The level is defined by what must exist before
+execution starts: L0 nothing, L1 a falsifiable checkpoint, L2 a weighted rubric, L3 a user-chosen
+objective.
 
 ## L0
-Do the analysis yourself without delegation. No `study_designer_agent`, no `peer_reviewer_agent`.
-
+Do the analysis yourself without delegation. 
 
 ## L1 / L2 / L3
-Here, you would need to delegate the task to subagents, go through planning, user feedback collection, and loops until a reasonable output is yielded.
-**L3 only**: before step 1, propose 2–3 candidate objectives and have the user pick one.
+Delegate to subagents and run the phase loop below.
+⛔ HARD RULE: do not dive into data yourself at L1 and above.
+⛔ HARD RULE — **L3 only**: before step 1, propose 2–3 candidate objectives and have the user pick one
+(`STAGE: INTERPRETATION`). Everything after that follows the L2 procedure against the chosen
+objective; the task stays tagged `TASK-LEVEL: L3` throughout.
 
-1. **Design** — interpret the user's prompt (state your interpretation explicitly; escalate to the user first if ambiguous, see **When to escalate to user**), then delegate to `study_designer_agent`, passing your interpreted prompt, not the raw one.
-2. **Design peer review** 
-— delegate to `peer_reviewer_agent` in **DESIGN-REVIEW** mode. 
-   - `REVISE-DESIGN` → send the issues back to `study_designer_agent` to fix.
-   - `APPROVE` → proceed. 
-3. **User feedback** : present the content *and its evaluation criteria* to the user using Artifact. Attach the full path of `design.md` so the user can see more detail. 
-4. **Execute** — once confirmed, hand each step to the appropriate specialist subagent. Dispatch each with its own `{output_dir}/{sub_task}/` workspace (see **Output dir** above); run independent steps in parallel.
-5. **Verify** - once all analysis steps complete, send the original question, plans with the implemented protocol and results to the `peer_reviewer_agent` in **RESULTS-REVIEW** mode. 
+Work proceeds in **phases**: `study_designer_agent` decides how many, one at a time. A phase is a set of tasks that can run in parallel because none of them needs another phase's output. Most tasks resolve in a single phase; `study_designer_agent` declares `FINAL_PHASE: true` as soon as one phase is enough.
 
-6. **User feedback**- Brief the user with what is done and issues raised by the peer review agent. Ask for confirmation/guideline how to proceed. Mention any blocking issues. Give plausible options.
+0. **Interpret the prompt** — Interpret the prompt. Escalate to user if: 1. the prompt is not clear; 2. its L3 and you propose the objective so user can select. 
+
+- ⛔ HARD RULE : interpretation does not mean stating analytical approach. Just clarify if the promot is not clear enough but do not include any elaboration of cohort/analytical etc.
+
+1. **`phase = 0`, then loop:**
+   1. **Design** — delegate to `study_designer_agent` with `PHASE: {phase}`, your interpreted prompt, the current `LITERATURE` flag value, and — for `phase > 0` — phase `{phase-1}`'s findings (absolute output paths + the peer reviewer's RESULTS-REVIEW verdict block, verbatim). Returns `design.md` (appended, not replaced) and `FINAL_PHASE`. Two other returns are possible:
+      - `LEVEL-MISMATCH: L{n}` → the level was misclassified. Adopt the proposed level and re-run this step; if the change is material (e.g. L1 → L3), confirm with the user first.
+      - `CANNOT-MEET` → no evaluation is constructible with the available data. Stop, return to the user.
+   2. **Design peer review** — delegate to `peer_reviewer_agent` with `MODE: DESIGN-REVIEW`, `PHASE: {phase}`.
+      - `REVISE-DESIGN` → send the issues back to `study_designer_agent` for the same phase (capped at 1 revision per phase — 2 designer calls total).
+      - `APPROVE` → proceed.
+   3. **User feedback** — present phase `{phase}`'s plan and evaluation criteria to the user via the web dashboard (include the Overview diagram too when `phase == 0` or it changed) — see **Interact with user**. Attach the full path of `design.md`.
+   4. **Execute** — once confirmed, dispatch phase `{phase}`'s tasks to the appropriate specialist subagents, each with its own `WORK-DIR` (see **Delegation**).
+   **critical**: pass all the steps of a given phase to the data analyst agent in one go (it costs token each seperate call).
+   **For `data_analyst_agent`**: first run `python3 scripts/extract_phase_task.py {design.md abs path} {phase} {WORK-DIR}/task.md` — copies phase `{phase}`'s `## Plan phase {phase}` section out of `design.md` verbatim, nothing added or paraphrased. Pass its absolute path as a `TASK-FILE: <abs path>` line in the dispatch prompt.
+   5. **Checkpoint** — delegate to `peer_reviewer_agent` with `MODE: RESULTS-REVIEW`, `PHASE: {phase}`, `FINAL_PHASE: {true|false}`, `CYCLE: {n}` (revise-attempts so far this phase), `RESULTS-DIR: <abs path>` (phase `{phase}`'s results directory), `DESIGN-FILE: <abs path>` (this task's `design.md`), and the user's original question.
+      - `REVISE` → send the GAP back to `study_designer_agent` for the same phase. Capped at 1 REVISE cycle per phase — on a second `REVISE` for the same phase, stop and return to the user with the outstanding GAP verbatim.
+            **critical**: if it's a small change, do it yourself.
+            If `study_designer_agent` responds `CANNOT-MEET` — its call, never the reviewer's — stop and return to the user.
+      - `ACCEPT` and not `FINAL_PHASE` → `phase += 1`, back to step 1.
+      - `ACCEPT` and `FINAL_PHASE` → break the loop, go to final reporting.
+   6. **Report + user feedback** — update `report.md` per [`docs/reporting.md`](docs/reporting.md): append this phase's `### Phase {phase}` block under `## Detailed findings` (never rewrite an earlier phase's unless it's a revise), and rewrite the `## Summary` subsections against the cumulative results. Summary section should provie bulletin summary of up to 10 most important findings. At `FINAL_PHASE`, additionally add the `Synthesis`, `Alternative explanations`, and `Derived hypotheses` subsections — they are absent until then.
+
+      **`FINAL_PHASE` only**, before presenting: delegate to `peer_reviewer_agent` in **FACT-CHECK** mode with the absolute paths of `report.md`, `design.md`, every phase's `peer_review.md`, and every phase's results directories.
+      - `REVISE-REPORT` → fix `report.md` yourself and re-run FACT-CHECK (capped at 1 re-run). A report defect is a writing defect — never send it to `study_designer_agent`. If a discrepancy needs new analysis, stop and raise it with the user.
+      - `PASS` → present.
+
+      Then brief the user on this phase's outcome and any issues raised; full web-dashboard review (see **Interact with user**) when `FINAL_PHASE` or the plan changed, a short status update otherwise. Mention blocking issues and give plausible options.
+
+2. **Method review (offer it, don't assume)** — after the final report is presented and the user has responded, ask whether they want a code & methods audit. Only if they say yes: delegate `peer_reviewer_agent` in **CODE-REVIEW** mode (`STAGE: PEER_REVIEW`) with the absolute paths of every `code/script.*` and of `report.md`. Relay its verdict; hand `REVISE` issues back to the subagent that produced the code.
 
 ## Document your analysis
-Write a `report.md` following `knowhow/reporting.md`. 
-- ⛔ HARD RULE — you should populate this during the analysis and not after. It should reflect your progress. At each interaction with the user, relay its absolute path and content to the user.
+Files, all under `temp/{task}/`:
+- **`design.md`** — written by `study_designer_agent` (appended per phase). Give the user its absolute path as plain text whenever relevant (e.g. alongside a status update) — it is never rendered to HTML.
+- **`report.md`** — updated at step 1.6 every phase, per `docs/reporting.md`: `## Detailed findings` is appended per phase, `## Summary` is rewritten cumulatively, and its interpretation subsections are added at `FINAL_PHASE`. Render and relay it exactly like `design.md` under **Interact with user**.
+- **`log.md`** — written automatically by `.claude/hooks/write_log.py` (every dispatch + every user turn, re-derived from the transcript). ⛔ Do not write or append to it yourself.
+- **`readme.md`** — once the analysis finish, document the content of the `temp/{task}` in the readme.md. It should:
+   - One line explanation of each sub folder + design and report
+   - How to run the code and regenerate the results
+   - The code to regenerate the link for report.html
+   - Link of the html link generated
 
 -----------------
 ## When to escalate to user
@@ -59,17 +95,19 @@ Write a `report.md` following `knowhow/reporting.md`.
 - In any step required in a complex task
 - If you see a bug in the agentic ecosystem. 
 
-## Interact with user using Artifact
-For simple interactions, just show the text and ask for direction.
-For complex cases (design review, results review), use Artifact with this fixed structure every time — same shape regardless of task, so a run can be checked for compliance mechanically:
-- One card per step. Each card has exactly three parts, in this order: **Step** (its name, e.g. "Cohort & Data", "Statistical Approach"), **Goal** (one to three sentences: what this step did or decided — detailed enough, dataset names, statistical approach and model selected, etc., for the user to give correct feedback), **Comment** (one `<textarea>`, empty by default, one per card).
-- Exactly one "Compile comments" button for the whole page (not per card), which copies `Step: comment` lines (only non-empty ones) to the clipboard.
-- No host callback (e.g. `sendPrompt`) sends comments automatically — the user must paste the compiled text back themselves before you act on it.
+## Interact with user
+For simple interactions (a question, a short status update), just show the text and ask for direction — no page needed.
+
+For complex cases (design review, results review) — anything with a `design.md`/`report.md` to present:
+1. Render: `python3 scripts/render_review_artifact.py <design.md or report.md> <output_dir>/<name>.html` — write the `.html` next to its source `.md` (already under `temp/`, so it lands inside the served tree automatically). This also renders the file's `` ```graph `` diagram placeholders as interactive (draggable, pan/zoom) Cytoscape graphs, sourced from the sibling `<name>.graphs.js` file — see `docs/design_graphs.md`.
+2. Get the link: `bash scripts/serve_dashboard.sh <output_dir>/<name>.html` — pass the `.html` path (starts the dashboard if needed). It prints the ready-to-use full URL.
+   ⛔ HARD RULE — never hand-build the URL yourself (e.g. `<base>/<path>`); always use the script's printed output verbatim. It strips any leading `temp/` and validates the page actually serves before printing — hand-concatenation is what keeps reintroducing the broken `/temp/...` link.
+3. Give the user that link.
 
 ## How to process user feedback
-- ⛔ HARD RULE : Feedback received from the user should be documented (for now, only during planning and feedback on results at any stage) as `temp/{task name}/feedback_log/{stage of task}/feedback.md`, where you log both the presented content to user as well as received comments. 
+- ⛔ HARD RULE : Feedback received from the user should be documented as `temp/{task name}/feedback_log/{stage of task}/feedback.md`, where you log both the presented content to user as well as received comments. 
 
-- ⛔ HARD RULE : Memory blob capture: if user feedback, at any point in the task, points at a logical issue (statistical approach, cohort/data selection, method choice, confounder handling, prompt misinterpretation, literature misread, etc.) rather than a scope/preference change, capture it using this command. List the name of the agents that this feedback is relevant:
+- ⛔ HARD RULE : Memory blob capture: if user feedback, at any point in the task, raises a valid issue that could improve yours or a subagent's performance in the future, capture it using this command. List the name of the agents that this feedback is relevant:
 
 ```
 python memory/memory_blob.py add --issue-tag <tag> --agents <agent1,agent2> --task <task> --lesson "Situation: <one sentence>. Lesson: <what was learned from the user interaction>."
@@ -79,6 +117,11 @@ Pick `<tag>` from `memory/issue_tags.json`; if none fits, add one first with `py
 
 ## Delegation
 
-- ⛔ HARD RULE — when calling any analysis subagent, always append the full contents of `knowhow/output_conventions.md` verbatim to the task prompt.
 - ⛔ HARD RULE — before dispatching to an agent, run `python memory/memory_blob.py retrieve --agent <agent_name>` and append any output verbatim (as "Past lessons for you:") to that agent's task prompt.
+- ⛔ HARD RULE — every `Agent` call must open its prompt with `TASK-LEVEL: L0|L1|L2|L3`, `WORK-DIR: <path>` and `STAGE: <value>` lines, values from [`docs/state_tags.json`](docs/state_tags.json). `data_analyst_agent` calls additionally require a `TASK-FILE: <abs path>` line (see step 1.4). `peer_reviewer_agent` RESULTS-REVIEW calls additionally require `CYCLE:`, `RESULTS-DIR: <abs path>` and `DESIGN-FILE: <abs path>` lines (see step 1.5).
+- ⛔ HARD RULE — `WORK-DIR` is the **exact** folder the agent writes into. Subagents never invent subfolders under it; you pick the path:
+  - `study_designer_agent` → `temp/{task}/`
+  - `peer_reviewer_agent` → `temp/{task}/phase_{phase}/design_review/` or `.../results_review/`; `temp/{task}/report_review/` for FACT-CHECK; `temp/{task}/code_review/` for CODE-REVIEW
+  - execution subagents → `temp/{task}/phase_{phase}/{sub_task}/`
+  - Re-running an agent for the same slot (revision, second cycle): suffix the folder, e.g. `results_review_2/`.
 

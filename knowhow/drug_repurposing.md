@@ -6,7 +6,6 @@ Methodology for drug repurposing in immune aging and disease contexts. Used by `
 
 ## Tools
 
-- [`tools/ciim/hira.md`](../tools/ciim/hira.md) — `retrieve_summary_stats`: unified loader for precomputed aging, disease, drug, and cytokine signatures.
 - [`tools/biomni/pharmacology_biomni.md`](../tools/biomni/pharmacology_biomni.md) — `retrieve_topk_repurposing_drugs_from_disease_txgnn`, `predict_admet_properties`, `query_fda_adverse_events`, `check_fda_drug_recalls`, `query_drug_interactions`, `analyze_fda_safety_signals`.
 
 Always prefer these existing tools over reimplementing methods yourself.
@@ -15,7 +14,6 @@ Always prefer these existing tools over reimplementing methods yourself.
 
 | Step | Image |
 |---|---|
-| Load signatures (`retrieve_summary_stats`) | `ciim.sif` |
 | TxGNN, ADMET, FDA, DDInter | `biomni_full.sif` |
 | Aging clock (if applicable) | see `knowhow/aging_clocks.md` |
 
@@ -24,11 +22,11 @@ Always prefer these existing tools over reimplementing methods yourself.
 ## Workflow
 
 ### 1. Load signatures
-Use `retrieve_summary_stats` (or load from provided file paths) to obtain:
+Load from the file paths given in the task:
 - **Disease/aging signature**: gene × signed effect size (log FC or z-score) for the condition and cell type(s).
 - **Drug signatures**: drug × gene × signed effect size. Load for the same cell type(s) where available.
 
-Use `ciim.sif`. Read `tools/ciim/hira.md` for exact call signatures before coding.
+No precomputed signature set ships with the platform — if the task does not provide one, say so and stop.
 
 ### 2. Build candidate pool (TxGNN)
 Run `retrieve_topk_repurposing_drugs_from_disease_txgnn(disease_name=context, k=50)` using `biomni_full.sif`. Any drug present in the drug signature dataset is also included regardless of TxGNN rank — TxGNN is one evidence layer, not a gate.
@@ -45,12 +43,12 @@ For each drug × cell_type pair, compute two complementary metrics against the d
 - Numerator: # disease/aging genes where the drug effect has the opposite sign.
 - Denominator: total # genes in the disease/aging signature.
 
-Both are required and reported separately. Save to `temp/{task}/results/reversal_scores.csv` immediately after this step.
+Both are required and reported separately. Save to `{WORK-DIR}/results/reversal_scores.csv` immediately after this step.
 
 ### 4. Aging clock (conditional)
 If perturbation expression data is available for any candidate drug:
 - Read `knowhow/aging_clocks.md` for clock selection, feature coverage rules, execution commands, and output format.
-- Write and run the aging clock script inline (write to `temp/{task}/code/clock_script.py`, execute in the correct singularity image per the knowhow).
+- Write and run the aging clock script inline (write to `{WORK-DIR}/code/clock_script.py`, execute in the correct singularity image per the knowhow).
 - Add the returned predicted age delta per drug to the evidence table.
 - If no suitable data exists, skip and mark the clock column as `NA` for all drugs.
 
@@ -61,10 +59,10 @@ Run using `biomni_full.sif`:
 - `check_fda_drug_recalls(drug_name)` → active recalls flag.
 - `query_drug_interactions(drug_names)` → DDInter interaction flags.
 
-Save to `temp/{task}/results/safety_annotations.csv` immediately after this step.
+Save to `{WORK-DIR}/results/safety_annotations.csv` immediately after this step.
 
 ### 6. Assemble evidence table
-Merge all evidence into `temp/{task}/results/evidence_table.csv`. Columns:
+Merge all evidence into `{WORK-DIR}/results/evidence_table.csv`. Columns:
 
 | drug | context | cell_type | cosine_reversal | hit_ratio | n_genes_overlap | txgnn_score | clock_age_delta | admet_pass | fda_adverse_flag | fda_recall_flag | ddi_flag | data_sources |
 

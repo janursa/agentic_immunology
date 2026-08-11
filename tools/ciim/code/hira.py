@@ -1,24 +1,6 @@
 import os
 import pandas as pd
 
-from config import AGING_TF_SIGNATURES, AGING_TF_SIGNATURES_MINOR, AGING_GE_SIGNATURES, AGING_CCC_SIGNATURES, SLE_TF_SIGNATURES, SLE_TF_SIGNATURES_MINOR, SLE_GE_SIGNATURES, SLE_GE_SIGNATURES_MINOR, DRUG_TF_SIGNATURES, CYTOKINE_TF_SIGNATURES
-
-_CONTEXT_PATHS = {
-    ('sle',      'tf_activity',     'major'): SLE_TF_SIGNATURES,
-    ('sle',      'tf_activity',     'minor'): SLE_TF_SIGNATURES_MINOR,
-    ('sle',      'gene_expression', 'major'): SLE_GE_SIGNATURES,
-    ('sle',      'gene_expression', 'minor'): SLE_GE_SIGNATURES_MINOR,
-    ('drug',     'tf_activity',     'major'): DRUG_TF_SIGNATURES,
-    ('cytokine', 'tf_activity',     'major'): CYTOKINE_TF_SIGNATURES,
-}
-
-_AGING_FEATURE_PATHS = {
-    ('major', 'tf_activity'):     AGING_TF_SIGNATURES,
-    ('minor', 'tf_activity'):     AGING_TF_SIGNATURES_MINOR,
-    ('major', 'gene_expression'): AGING_GE_SIGNATURES,
-    ('major', 'ccc'):             AGING_CCC_SIGNATURES,
-}
-
 
 def predict_immune_age_grn_clock(
     adata,

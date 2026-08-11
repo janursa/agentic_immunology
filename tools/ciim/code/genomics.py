@@ -8,79 +8,8 @@ _AGENTIC_ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__
 if _AGENTIC_ROOT not in _sys.path:
     _sys.path.insert(0, _AGENTIC_ROOT)
 
-from datalake import IMMUNE_GRN, TF_ALL, DATALAKE_DIR
+from datalake import TF_ALL, DATALAKE_DIR
 PRIOR_DIR = os.path.join(DATALAKE_DIR, 'prior')
-
-def get_immune_grn(
-    cell_type=None,
-    promotor_based_only: bool = False,
-    min_weight: float = None,
-    source: str = None,
-    target: str = None,
-) -> pd.DataFrame:
-    """Load pre-computed consensus immune GRN(s) for major immune cell types.
-
-    Returns edges from the HIRA multi-cohort consensus gene regulatory networks
-    (minDegree2 filtering applied; edges present in ≥2 cohort-level networks).
-    Optionally restrict to promoter-supported edges only.
-
-    Parameters
-    ----------
-    cell_type : str or list of str, optional
-        Filter to one or more cell types. Valid values: 'CD4T', 'CD8T', 'NK', 'B', 'MONO'.
-        If None, all cell types are returned.
-    promotor_based_only : bool
-        If True, return only edges also supported by promoter-based TF binding evidence
-        (i.e. ``promotor_based == True``). Default False.
-    min_weight : float, optional
-        Keep only edges with ``|weight| >= min_weight``.
-    source : str or list of str, optional
-        Filter to specific TF source gene(s).
-    target : str or list of str, optional
-        Filter to specific target gene(s).
-
-    Returns
-    -------
-    pd.DataFrame
-        Columns: ``source``, ``target``, ``weight``, ``cell_type``, ``promotor_based``.
-
-    Examples
-    --------
-    # All CD4T consensus edges
-    df = get_immune_grn(cell_type='CD4T')
-
-    # Promoter-supported edges for FOXP1 as source across all cell types
-    df = get_immune_grn(source='FOXP1', promotor_based_only=True)
-
-    # Strong NK edges (|weight| >= 0.1)
-    df = get_immune_grn(cell_type='NK', min_weight=0.1)
-    """
-    path = IMMUNE_GRN
-    df = pd.read_csv(path)
-
-    if cell_type is not None:
-        if isinstance(cell_type, str):
-            cell_type = [cell_type]
-        df = df[df['cell_type'].isin(cell_type)]
-
-    if promotor_based_only:
-        df = df[df['promotor_based']]
-
-    if min_weight is not None:
-        df = df[df['weight'].abs() >= min_weight]
-
-    if source is not None:
-        if isinstance(source, str):
-            source = [source]
-        df = df[df['source'].isin(source)]
-
-    if target is not None:
-        if isinstance(target, str):
-            target = [target]
-        df = df[df['target'].isin(target)]
-
-    return df.reset_index(drop=True)
-
 
 def infer_grn_spearman(
     adata_path: str,
@@ -328,8 +257,8 @@ def infer_tf_activity(
         (e.g. log1p(CPM)). Raw integer counts also work but may give noisier results.
     net : pd.DataFrame
         Regulatory network with columns ``source`` (TF), ``target`` (gene), and
-        optionally ``weight`` (numeric; defaults to 1.0 if absent). Typically loaded
-        via :func:`get_immune_grn`.
+        optionally ``weight`` (numeric; defaults to 1.0 if absent). Typically the
+        output of :func:`infer_grn_spearman`.
     method : str
         Decoupler enrichment method. One of ``'ulm'``, ``'waggr'``, ``'mlm'``.
         Default is ``'ulm'`` (Univariate Linear Model).
@@ -349,8 +278,8 @@ def infer_tf_activity(
     Examples
     --------
     # Single-cell: TF activity per cell
-    from genomics import get_immune_grn, infer_tf_activity
-    net = get_immune_grn(cell_type='CD8T')
+    from genomics import infer_tf_activity
+    net = pd.read_csv('grn.csv')  # source, target, weight
     tf_scores = infer_tf_activity(adata, net=net)
 
     # Pseudobulk/bulk: TF activity per donor

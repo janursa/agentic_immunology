@@ -28,10 +28,7 @@ obs columns: donor_id, age, sex, batch_info, bulk_group, ct_major_published, dat
 As of 2026-07-29: 10,345 genes. Sub_CT (17): CD16_NK, Classic_MONO, DC2, HSC/MPP, MAIT, Memory_B, NK,
 Naive_B, NonClassic_MONO, Plasma_B, Tcm_Naive_CD4, Tcm_Naive_CD8, Tem_Effector_CD4, Tem_Temra_CD8,
 Tem_Trm_CD8, Treg, pDC. Major_CT (7): B, CD4T, CD8T, DC, HSC, MONO, NK.
-**Caveat — verify at read time**: this file's gene count and Sub_CT vocabulary have changed across
-reads on the same day (15,437 → 11,723 → 10,345 genes; 19 → 17 Sub_CT categories) with no
-corresponding doc/version update — treat this file as unstable until the data lake owner confirms a
-fixed version. Also: `donor_age` does **not** hold a donor-level numeric age — it is a categorical
+`donor_age` does **not** hold a donor-level numeric age — it is a categorical
 composite `"{age}_{donor_id}"` string (mirrors `bulk_group`, which is `"{donor_id}_{age}"` and is
 intact). Use `age` directly; do not rely on `donor_age` as a numeric fallback.
 
