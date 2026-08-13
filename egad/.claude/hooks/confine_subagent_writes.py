@@ -2,7 +2,7 @@
 """PreToolUse hook (matcher: Write, Edit): study_designer_agent, peer_reviewer_agent,
 and data_analyst_agent may only write/edit files under ${CIIM_TEMP_DIR} (default:
 temp/) — mirrors restrict_knowhow_access.py's read-side confinement, same
-RESTRICTED_AGENTS set, same reasoning (ciim_agentic.md 'only use the host project
+RESTRICTED_AGENTS set, same reasoning (egad.md 'only use the host project
 root as your workspace' plus the data lake / knowhow being read-only to these
 agents).
 
@@ -35,7 +35,7 @@ def block_reason(agent_type: str, tool_name: str, tool_input: dict) -> str | Non
     except ValueError:
         return (
             f"{agent_type} may only write/edit files under ${{CIIM_TEMP_DIR}} "
-            f"(blocked path: {resolved}) — ciim_agentic.md HARD RULE."
+            f"(blocked path: {resolved}) — egad.md HARD RULE."
         )
 
 

@@ -123,7 +123,7 @@ def test_rejects_overlong_lesson():
 
 def test_comma_space_in_agents_is_rejected():
     print("\n[test_comma_space_in_agents_is_rejected]")
-    # Regression: ciim_agentic.md's example command used to read
+    # Regression: egad.md's example command used to read
     # `--agents <agent1, agent2>`. The space survives argparse's comma-split
     # and memory_blob.py never strips it, so the second agent silently fails
     # validation instead of registering. This locks in today's strict

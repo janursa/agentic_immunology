@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """UserPromptSubmit hook: inject the orchestrator's own memory-blob lessons.
 
-ciim_agentic.md's delegation rule runs `memory_blob.py retrieve --agent <name>`
+egad.md's delegation rule runs `memory_blob.py retrieve --agent <name>`
 only when dispatching to a subagent, so lessons tagged `orchestrator` were never
 loaded — least of all at step 0 (interpretation), which happens before any Agent
 call. This puts them in front of the orchestrator as each new prompt arrives.
@@ -9,7 +9,7 @@ call. This puts them in front of the orchestrator as each new prompt arrives.
 # ponytail: injects on every prompt; ~0.5k chars today. If orchestrator lessons
 # grow past ~10, move this to SessionStart (fires on startup/resume/compact).
 
-Run from ciim_agentic/:
+Run from egad/:
     python3 .claude/hooks/inject_orchestrator_lessons.py --self-test
 """
 import json
@@ -19,7 +19,7 @@ import sys
 
 PROJECT_DIR = pathlib.Path(os.environ.get("CLAUDE_PROJECT_DIR", "."))
 # memory_bank/ lives at the host root (CIIM_MAIN_DIR), one level up from
-# PROJECT_DIR (ciim_agentic/, the launch dir).
+# PROJECT_DIR (egad/, the launch dir).
 MAIN_DIR = pathlib.Path(os.environ.get("CIIM_MAIN_DIR", str(PROJECT_DIR.resolve().parent)))
 sys.path.insert(0, str(MAIN_DIR / "memory_bank"))
 

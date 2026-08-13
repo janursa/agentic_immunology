@@ -7,7 +7,7 @@ later curation pass has both sides of the exchange, not just the reply.
 Nothing for the orchestrator to remember or compose. Replaces
 remind_feedback_lesson.py, which asked the orchestrator to do this by hand.
 
-Reads MEMORY_BANK_URL / MEMORY_BANK_TOKEN from ciim_agentic/.env — this is the
+Reads MEMORY_BANK_URL / MEMORY_BANK_TOKEN from egad/.env — this is the
 client side of the connection (which server, whose identity), configured per
 user of this repo. The server itself (memory_bank/server.py, its port, and
 its token->user map) is host infra — see memory_bank/README.md. Fails open:

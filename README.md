@@ -20,7 +20,7 @@ bash setup/install.sh
 ```
 
 Link the shared datalake/singularity images and wire up the Claude Code subagents (symlinks
-`datalake/*`, `singularity/`, `ciim_agentic.md`, and `agents/*.md` into `.claude/agents/`):
+`datalake/*`, `singularity/`, `egad.md`, and `agents/*.md` into `.claude/agents/`):
 ```bash
 bash setup/link_shared_dirs.sh
 ```
@@ -49,13 +49,13 @@ GWDG academic-cloud endpoint, or any OpenAI-compatible endpoint instead of Claud
 - installs the subagent delegation extension into `~/.pi/agent/extensions/subagent`
 - if `GWDG_API_KEY` is set (put it in `.env`, gitignored), registers the `gwdg` provider and its
   full model catalog in pi's own config (`~/.pi/agent/models.json`) — skipped otherwise
-- regenerates `.pi/agents/*.md` from `agents/*.md` and `.pi/SYSTEM.md` from `ciim_agentic.md`,
+- regenerates `.pi/agents/*.md` from `agents/*.md` and `.pi/SYSTEM.md` from `egad.md`,
   translating Claude-style tool names/model aliases into pi's format (model per agent is set
   in `agents/models.yaml`, e.g. `gwdg/qwen3-coder-next` or `openai/gpt-4o` — edit that file and
   re-run the script to change it; the full list of available `gwdg/*` ids is documented in a
   comment at the top of `agents/models.yaml`)
 
-Nothing under `agents/`, `agents/models.yaml`, or `ciim_agentic.md` is written by this script —
+Nothing under `agents/`, `agents/models.yaml`, or `egad.md` is written by this script —
 only pi's own config under `~/.pi/agent/` and the generated `.pi/` folder are.
 
 ```bash
@@ -77,7 +77,7 @@ dropped from the generated `.pi/agents/*.md` for agents that use them (`data_ana
 `paper_extractor`, `peer_reviewer_agent`, `benchmark_judge`) — they run tool-degraded under pi
 until a web-search extension is added.
 
-Re-run `setup/setup_pi.sh` any time `agents/*.md`, `ciim_agentic.md`, or `agents/models.yaml` change.
+Re-run `setup/setup_pi.sh` any time `agents/*.md`, `egad.md`, or `agents/models.yaml` change.
 
 ## Environment / API tokens (`.env`)
 

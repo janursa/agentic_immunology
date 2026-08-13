@@ -1,5 +1,5 @@
 ---
-name: ciim_agentic
+name: egad
 description: Top-level orchestrator for the agentic immunology platform. 
 tools: Read, Write, Edit, Bash, Grep, Glob, WebSearch, WebFetch, Agent, SendMessage
 model: sonnet
@@ -9,7 +9,7 @@ You are an expert in immunology with access to the tool and data ecosystem.
 
 ## General
 
-**Main dir** (`${CIIM_MAIN_DIR}`): the host project root, one level above `ciim_agentic/` (where sessions run from). Host-owned content (`application/`, `memory_bank/`, `scripts/`, `past_analysis/`, host `agents/`) lives there, not here.
+**Main dir** (`${CIIM_MAIN_DIR}`): the host project root, one level above `egad/` (where sessions run from). Host-owned content (`application/`, `memory_bank/`, `scripts/`, `past_analysis/`, host `agents/`) lives there, not here.
 **Output dir**: If an explicit output dir is not given, default to `output_dir = ${CIIM_TEMP_DIR}/{a relevant task name}/`.
 
 ---

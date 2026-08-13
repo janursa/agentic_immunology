@@ -3,11 +3,11 @@
 Companion to Tier 1 (`tier1_probes.md`, cheap structural checks) and Tier 0
 (`test_memory_blob.py`, `check_report_completeness.py`). Where Tier 1 checks
 that a delegation is *compliant* (right flags, right conventions), Tier 2
-checks that a full L2 run through the real `ciim_agentic`
+checks that a full L2 run through the real `egad`
 orchestrator is both **process-faithful** (right steps, right agents, right
 artifacts) and **scientifically correct** (recovers a known biological
 ground truth). Run periodically (e.g. monthly, or after any change to
-`ciim_agentic.md`, `agents/*.md`, or `knowhow/*.md`) — not per-change.
+`egad.md`, `agents/*.md`, or `knowhow/*.md`) — not per-change.
 
 ## Why this scenario
 
@@ -25,20 +25,20 @@ datalake entry is removed or the cohort ID is disproven.
 
 ⚠️ **This probe must be run manually by a human, present and responsive in
 real time — it cannot be handed to another agent to run unattended.** An
-agent (including whichever agent launched `ciim_agentic`) cannot supply the
+agent (including whichever agent launched `egad`) cannot supply the
 checkpoint consent on your behalf; only you can. See "Why this must be
 manual" below for the mechanism.
 
 1. Launch the orchestrator as an isolated subagent (not inline in your own
    session — this is what's actually being tested):
    ```
-   Agent(subagent_type: "ciim_agentic", prompt: "<PROMPT below>", run_in_background: true)
+   Agent(subagent_type: "egad", prompt: "<PROMPT below>", run_in_background: true)
    ```
-2. `ciim_agentic` serves a dashboard page (via `scripts/serve_dashboard.sh` + `scripts/render_review_artifact.py`) at each checkpoint and pauses. **You,
+2. `egad` serves a dashboard page (via `scripts/serve_dashboard.sh` + `scripts/render_review_artifact.py`) at each checkpoint and pauses. **You,
    the actual human, must answer directly** — via an `AskUserQuestion`
    prompt the subagent raises to you, or by interacting with it in a
    foreground session. Do **not** resume it by having another agent relay
-   your comments over `SendMessage` — `ciim_agentic` correctly refuses to
+   your comments over `SendMessage` — `egad` correctly refuses to
    treat that as consent (confirmed 2026-07-17; see below). Expect two such
    checkpoints (after design peer review, and after results peer review);
    answer both, not just the first.
@@ -51,20 +51,20 @@ manual" below for the mechanism.
 
 ### Why this must be manual (found 2026-07-17)
 
-`ciim_agentic` carries a harness-level rule that no message delivered via
+`egad` carries a harness-level rule that no message delivered via
 the agent-to-agent `SendMessage` tool is ever treated as user consent —
 regardless of who is actually behind it, including the very agent that
 launched the run. This is a real anti-prompt-injection guardrail working
 correctly, not a bug: if it trusted relayed "the user approved this"
 messages, any compromised tool output or peer agent could spoof approval
-the same way. The practical consequence is that a background `ciim_agentic`
+the same way. The practical consequence is that a background `egad`
 run's checkpoints cannot be resumed by proxy — confirmed by trying it live
 (the subagent held at the design-review checkpoint through two relayed
 messages and explicitly named the missing first-party consent as the
 reason). Only two channels count as genuine first-party input: the human
 answering an `AskUserQuestion` prompt the subagent raises directly, or the
 human interacting with the orchestrator in a foreground session rather than
-through a spawned background `Agent` call. As of 2026-07-17 `ciim_agentic`
+through a spawned background `Agent` call. As of 2026-07-17 `egad`
 does not carry `AskUserQuestion` (removed deliberately in favor of
 dashboard-only interaction) — restoring it for just the two checkpoint
 moments is the open decision needed to make the background-run path usable
@@ -98,7 +98,7 @@ without a separate explicit decision to do so.
 
 **Process fidelity**
 - [ ] First line of the orchestrator's first reply is `CANARY: ...`.
-- [ ] Agent sequence matches `ciim_agentic.md` L1+ phase-loop steps in order:
+- [ ] Agent sequence matches `egad.md` L1+ phase-loop steps in order:
       `study_designer_agent` → `peer_reviewer_agent` (DESIGN-REVIEW) →
       dashboard checkpoint → `data_analyst_agent` → `peer_reviewer_agent`
       (RESULTS-REVIEW) → dashboard checkpoint → report finalized.
@@ -109,7 +109,7 @@ without a separate explicit decision to do so.
       silently dropped.
 - [ ] Both dashboard checkpoints are reachable at the printed link and follow
       the fixed card format from `render_review_artifact.py` (see
-      `ciim_agentic.md`'s "Interact with user"): one card per `##` section,
+      `egad.md`'s "Interact with user"): one card per `##` section,
       each with its content and a Comment textarea, one page-level "Compile
       comments" button.
 - [ ] Your injected comment (see trigger step 3) visibly changes something
@@ -117,7 +117,7 @@ without a separate explicit decision to do so.
       not just an acknowledgement.
 - [ ] `report.md` exists early (checked after the first dashboard
       checkpoint, not only at the end) and gains sections as the run
-      progresses, per the step-7 hard rule in `ciim_agentic.md`.
+      progresses, per the step-7 hard rule in `egad.md`.
 - [ ] Final `report.md` lists the absolute path of every generated file:
       `design.md`, `peer_review.md`, `LOG.md`, `code/`, `results/`
       (including `results/images/`).

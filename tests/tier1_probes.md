@@ -16,7 +16,7 @@ instead of a real analysis.
 
 1. Seed a canary lesson:
    `python memory/memory_blob.py add --issue-tag <tag> --agents echo_stub_agent --task probe --lesson "Situation: probe. Lesson: canary-lesson-xyz."`
-2. Ask the `ciim_agentic` orchestrator to delegate a trivial task to
+2. Ask the `egad` orchestrator to delegate a trivial task to
    `echo_stub_agent` instead of the real specialist it would normally pick.
 3. Check the echoed `<RECEIVED>` block contains `canary-lesson-xyz` and
    `Past lessons for you:`.

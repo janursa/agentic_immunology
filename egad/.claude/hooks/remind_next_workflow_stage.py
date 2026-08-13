@@ -2,7 +2,7 @@
 """PreToolUse hook (matcher: Agent): before each dispatch, look up the last
 recorded dispatch for this task in log.md (written by write_log.py — STAGE,
 MODE, VERDICT, FINAL_PHASE, PHASE) and remind the orchestrator what the
-L1+ phase loop in ciim_agentic.md says should come next. Purely
+L1+ phase loop in egad.md says should come next. Purely
 informational (additionalContext) — never denies the call, since the
 orchestrator may have a good reason to deviate (e.g. "small change, do it
 yourself" for a minor REVISE).
@@ -65,7 +65,7 @@ def next_stage(stage: str | None, mode: str | None, verdict: str | None, final_p
         return "awaiting a RESULTS-REVIEW verdict (ACCEPT/REVISE-ANALYSIS/REVISE-DESIGN) before proceeding."
     if stage == "REPORTING":
         return "done — findings.md compiled and presented."
-    return f"unrecognized STAGE '{stage}' — check ciim_agentic.md's phase loop manually."
+    return f"unrecognized STAGE '{stage}' — check egad.md's phase loop manually."
 
 
 def build_reminder(task: str, block: str) -> str:
@@ -78,7 +78,7 @@ def build_reminder(task: str, block: str) -> str:
                       verdict.group(1) if verdict else None,
                       final_phase.group(1) if final_phase else None)
     return (
-        f"Workflow reminder (ciim_agentic.md phase loop, temp/{task}/log.md): "
+        f"Workflow reminder (egad.md phase loop, temp/{task}/log.md): "
         f"last recorded STAGE was {stage_v or '?'}"
         + (f" ({mode.group(1)} verdict {verdict.group(1)})" if mode and verdict else "")
         + f". Per the workflow, next up: {nxt}"

@@ -1,6 +1,6 @@
 # Agents index (host-only evaluation/curation agents)
 
-On-demand agents specific to this host project's benchmark harness — not part of the portable `ciim_agentic` package (see `ciim_agentic/agents/list.md` for the core study-execution loop). They read/write `application/` and `memory/`, the host's own answer-key content.
+On-demand agents specific to this host project's benchmark harness — not part of the portable `egad` package (see `egad/agents/list.md` for the core study-execution loop). They read/write `application/` and `memory/`, the host's own answer-key content.
 
 | Agent (name) | Model | Tools | What it does |
 |---|---|---|---|

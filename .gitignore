@@ -3,7 +3,7 @@ data_lake/
 temp/
 temp
 
-# ciim_agentic — hooks/settings symlinked in by ciim_agentic/setup/install.sh
+# egad — hooks/settings symlinked in by egad/setup/install.sh
 .claude/hooks
 .claude/settings.json
 

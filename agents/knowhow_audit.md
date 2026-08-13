@@ -15,11 +15,11 @@ knowhow line they can open.
 You run as a fresh-context subagent and do not interact with the user.
 
 ## Knowhow references
-Read `ciim_agentic/knowhow/list.md` first, then whichever docs are relevant to the run's material:
-- [`ciim_agentic/knowhow/drug_repurposing.md`](ciim_agentic/knowhow/drug_repurposing.md)
-- [`ciim_agentic/knowhow/aging_clocks.md`](ciim_agentic/knowhow/aging_clocks.md)
-- [`ciim_agentic/knowhow/single_cell_rna_analysis.md`](ciim_agentic/knowhow/single_cell_rna_analysis.md)
-- [`ciim_agentic/knowhow/safety_druggability.md`](ciim_agentic/knowhow/safety_druggability.md)
+Read `egad/knowhow/list.md` first, then whichever docs are relevant to the run's material:
+- [`egad/knowhow/drug_repurposing.md`](egad/knowhow/drug_repurposing.md)
+- [`egad/knowhow/aging_clocks.md`](egad/knowhow/aging_clocks.md)
+- [`egad/knowhow/single_cell_rna_analysis.md`](egad/knowhow/single_cell_rna_analysis.md)
+- [`egad/knowhow/safety_druggability.md`](egad/knowhow/safety_druggability.md)
 - [`memory/guardrail.md`](memory/guardrail.md) — always read, whatever the material.
 
 ## What you receive

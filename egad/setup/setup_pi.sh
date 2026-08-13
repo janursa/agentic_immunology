@@ -2,13 +2,13 @@
 # Sets up pi (https://github.com/earendil-works/pi) as a Claude-Code-style
 # subagent runtime for the host project: installs pi, installs the subagent
 # delegation extension, and regenerates .pi/agents/*.md + .pi/SYSTEM.md from
-# ciim_agentic/agents/*.md + the host's own agents/*.md + ciim_agentic.md,
-# translating tools/model per ciim_agentic/agents/models.yaml (Claude Code
+# egad/agents/*.md + the host's own agents/*.md + egad.md,
+# translating tools/model per egad/agents/models.yaml (Claude Code
 # keeps reading agents/*.md directly; nothing there is touched).
 set -euo pipefail
-CIIM_AGENTIC_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-REPO_ROOT="$(dirname "$CIIM_AGENTIC_DIR")"
-MODELS_YAML="$CIIM_AGENTIC_DIR/agents/models.yaml"
+EGAD_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+REPO_ROOT="$(dirname "$EGAD_DIR")"
+MODELS_YAML="$EGAD_DIR/agents/models.yaml"
 
 # 1. Install pi if missing
 if ! command -v pi >/dev/null 2>&1; then
@@ -30,7 +30,7 @@ ln -sf "$PI_PKG/examples/extensions/subagent/agents.ts" ~/.pi/agent/extensions/s
 # 2b. Register the GWDG academic-cloud endpoint as a pi provider (idempotent
 #     upsert into pi's own config, ~/.pi/agent/models.json). Needs GWDG_API_KEY
 #     in .env (gitignored) or the environment; skipped otherwise.
-[ -f "$CIIM_AGENTIC_DIR/.env" ] && set -a && source "$CIIM_AGENTIC_DIR/.env" && set +a
+[ -f "$EGAD_DIR/.env" ] && set -a && source "$EGAD_DIR/.env" && set +a
 if [ -n "${GWDG_API_KEY:-}" ]; then
   python3 - "$GWDG_API_KEY" <<'PYEOF'
 import json, os, sys
@@ -104,7 +104,7 @@ map_tools() {
   echo "${out%, }"
 }
 
-pi_model_for() {  # $1 = agent name, reads ciim_agentic/agents/models.yaml
+pi_model_for() {  # $1 = agent name, reads egad/agents/models.yaml
   # An unlisted agent used to make grep exit 1 and set -e kill the script mid-loop,
   # right after `rm -rf .pi/agents` — leaving a half-regenerated dir and no message.
   local row
@@ -122,7 +122,7 @@ body_of() {  # strip YAML frontmatter, print the rest
 }
 
 # 4/5. Regenerate project-level pi agents + system prompt, from both
-#      ciim_agentic/agents/*.md (core loop) and the host's own agents/*.md
+#      egad/agents/*.md (core loop) and the host's own agents/*.md
 #      (on-demand evaluation/curation agents). This is a shared repo
 #      checkout: only whoever owns .pi/ (or has ACL write) can rebuild it.
 #      Others just use what's already there.
@@ -136,7 +136,7 @@ else
   rm -rf "$REPO_ROOT/.pi/agents"
   mkdir -p "$REPO_ROOT/.pi/agents"
 
-  for f in "$CIIM_AGENTIC_DIR"/agents/*.md "$REPO_ROOT"/agents/*.md; do
+  for f in "$EGAD_DIR"/agents/*.md "$REPO_ROOT"/agents/*.md; do
     [ -e "$f" ] || continue
     base="$(basename "$f" .md)"
     [ "$base" = "list" ] && continue
@@ -173,14 +173,14 @@ else
     echo
     echo "---"
     echo
-    body_of "$CIIM_AGENTIC_DIR/ciim_agentic.md"
+    body_of "$EGAD_DIR/egad.md"
   } > "$REPO_ROOT/.pi/SYSTEM.md"
   echo "generated: .pi/SYSTEM.md"
 fi
 
 echo
 echo "Done. Launch with:"
-echo "  cd $REPO_ROOT && pi --model $(pi_model_for ciim_agentic)"
+echo "  cd $REPO_ROOT && pi --model $(pi_model_for egad)"
 
 echo "(model is provider-qualified, e.g. gwdg/qwen3-coder-next or openai/gpt-4o; the openai provider"
 echo " reads OPENAI_API_KEY from the environment, gwdg's key is already registered in models.json)"

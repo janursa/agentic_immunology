@@ -9,7 +9,7 @@
 #           gemma-4-31b-it, mistral-large-3-675b-instruct-2512, qwen3.5-397b-a17b,
 #           meta-llama-3.1-8b-instruct, openai-gpt-oss-120b, qwen3-30b-a3b-instruct-2507,
 #           medgemma-27b-it
-ciim_agentic:        { claude: sonnet, pi: gwdg/qwen3-coder-next }
+egad:        { claude: sonnet, pi: gwdg/qwen3-coder-next }
 study_designer_agent:{ claude: sonnet, pi: gwdg/qwen3-coder-next }
 data_analyst_agent:  { claude: sonnet, pi: gwdg/qwen3-coder-next }
 peer_reviewer_agent: { claude: opus,   pi: gwdg/qwen3-coder-next }

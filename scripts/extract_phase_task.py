@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Deterministically copy phase n's '## Plan phase n' section out of design.md
-into a standalone task.md for data_analyst_agent (ciim_agentic.md 'Execute'
+into a standalone task.md for data_analyst_agent (egad.md 'Execute'
 step). Verbatim copy, no paraphrasing — the analyst's task can't drift from
 what was actually reviewed and approved in design.md.
 

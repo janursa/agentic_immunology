@@ -1,8 +1,8 @@
-# ciim_agentic
+# egad
 
-Agentic immunology workflow: orchestrator (`ciim_agentic.md`), core subagents (`agents/`), tools, docs, and guardrail hooks for Claude Code.
+Agentic immunology workflow: orchestrator (`egad.md`), core subagents (`agents/`), tools, docs, and guardrail hooks for Claude Code.
 
-Launch `claude` from **inside this directory** — `ciim_agentic/` is a self-contained Claude Code project (its own `.claude/hooks`, `.claude/settings.json`, `.claude/agents/`). It reads/writes the host project root (one level up, `${CIIM_MAIN_DIR}`) for everything it doesn't ship itself: `application/`, `memory_bank/`, `scripts/`, `past_analysis/`, and the host's own on-demand agents (`agents/curate_paper.md` etc).
+Launch `claude` from **inside this directory** — `egad/` is a self-contained Claude Code project (its own `.claude/hooks`, `.claude/settings.json`, `.claude/agents/`). It reads/writes the host project root (one level up, `${CIIM_MAIN_DIR}`) for everything it doesn't ship itself: `application/`, `memory_bank/`, `scripts/`, `past_analysis/`, and the host's own on-demand agents (`agents/curate_paper.md` etc).
 
 ## Not shipped
 
@@ -17,23 +17,23 @@ Nothing here hardcodes a folder name for either. `setup/install.sh` reads their 
 
 1. Add as a submodule of your host project, or clone directly:
    ```
-   git submodule add <ciim_agentic-repo-url> ciim_agentic
+   git submodule add <egad-repo-url> egad
    ```
    or 
    ```
-   git clone <ciim_agentic-repo-url> 
+   git clone <egad-repo-url> 
    ```
 
-2. `cp ciim_agentic/.env.example ciim_agentic/.env` and fill it in (see below).
-3. `bash ciim_agentic/setup/install.sh`
-4. `cd ciim_agentic && claude`
+2. `cp egad/.env.example egad/.env` and fill it in (see below).
+3. `bash egad/setup/install.sh`
+4. `cd egad && claude`
 
 The install script:
 - errors out if the `claude` CLI isn't installed
 - echoes the resolved `CIIM_MAIN_DIR` / `CIIM_DATALAKE_DIR` / `CIIM_SINGULARITY_DIR` / `CIIM_TEMP_DIR`
 - writes those into `.claude/settings.local.json` (`env` block, gitignored) — so `${CIIM_MAIN_DIR}` etc. resolve for every Bash call and hook
-- symlinks `.claude/agents/` to ciim_agentic's own agents plus the host's own `agents/*.md` (e.g. `curate_paper.md`), so both are discoverable in the same session
-- cleans up any leftover host-side wiring from before ciim_agentic became self-contained
+- symlinks `.claude/agents/` to egad's own agents plus the host's own `agents/*.md` (e.g. `curate_paper.md`), so both are discoverable in the same session
+- cleans up any leftover host-side wiring from before egad became self-contained
 
 ## Agents
 
@@ -60,4 +60,4 @@ jalil.nourisa@gmail.com to connect to the shared memory_bank server.
 
 ## scAnnotAgent
 
-`ciim_agentic/scAnnotAgent/` is its own git submodule (scRNA QC/annotation pipeline) — see `ciim_agentic/scAnnotAgent/SKILL.md`. Clone with `git submodule update --init --recursive` from the host.
+`egad/scAnnotAgent/` is its own git submodule (scRNA QC/annotation pipeline) — see `egad/scAnnotAgent/SKILL.md`. Clone with `git submodule update --init --recursive` from the host.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Deterministic renderer for the fixed-structure review Artifact required by
-ciim_agentic.md's "Interact with user using Artifact" section: one card per
+egad.md's "Interact with user using Artifact" section: one card per
 `##` section of a design.md/findings.md, its content copied verbatim (rendered
 markdown, not a paraphrase), each followed by a Comment textarea, plus one
 page-level "Overall" comment card and one page-level "Compile comments"

@@ -1,10 +1,10 @@
-# Agents index (ciim_agentic core)
+# Agents index (egad core)
 
-Single index of the role-specialized subagents that make up the ciim_agentic study-execution loop. **Read only this file to learn what agents exist and what each does — do not read the individual `*_agent.md` files** (the harness loads an agent's full definition automatically when you delegate to it by name via the Agent tool). Open an individual agent file only if you must inspect its internal methodology, which is rare.
+Single index of the role-specialized subagents that make up the egad study-execution loop. **Read only this file to learn what agents exist and what each does — do not read the individual `*_agent.md` files** (the harness loads an agent's full definition automatically when you delegate to it by name via the Agent tool). Open an individual agent file only if you must inspect its internal methodology, which is rare.
 
 Delegate to an agent by its `name` (the `subagent_type`). Each runs in its own fresh context and returns a concise summary plus absolute output paths.
 
-For the host project's own on-demand evaluation/curation agents (`curate_paper`, `rubric_agent`, `knowhow_audit`, `feedback_analyser` — not shipped with ciim_agentic), see `${CIIM_MAIN_DIR}/agents/list.md`.
+For the host project's own on-demand evaluation/curation agents (`curate_paper`, `rubric_agent`, `knowhow_audit`, `feedback_analyser` — not shipped with egad), see `${CIIM_MAIN_DIR}/agents/list.md`.
 
 | Agent (name) | Model | Tools | What it does |
 |---|---|---|---|

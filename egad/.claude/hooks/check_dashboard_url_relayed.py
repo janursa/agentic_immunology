@@ -2,7 +2,7 @@
 """Stop hook: if scripts/serve_dashboard.sh printed a dashboard URL this turn,
 that URL must appear verbatim in the final reply text — tool results aren't
 shown to the user, only text output is, so a run with no URL in the text
-leaves the user with nothing to click (ciim_agentic.md 'Interact with user',
+leaves the user with nothing to click (egad.md 'Interact with user',
 which also forbids hand-building the URL instead of relaying the printed one).
 
 Run from the repo root:

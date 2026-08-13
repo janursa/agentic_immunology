@@ -1,7 +1,7 @@
 #!/bin/bash
 # Start ngrok tunnel → expose memory_bank/server.py publicly.
-# Updates MEMORY_BANK_URL in ciim_agentic/.env automatically (the client-side
-# config every ciim_agentic user reads). Same pattern as server/start_ngrok.sh,
+# Updates MEMORY_BANK_URL in egad/.env automatically (the client-side
+# config every egad user reads). Same pattern as server/start_ngrok.sh,
 # targeting a local port instead of a SLURM node.
 #
 # Usage:
@@ -12,7 +12,7 @@
 
 MAIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ENV_FILE="$MAIN_DIR/.env"
-CLIENT_ENV_FILE="$MAIN_DIR/ciim_agentic/.env"
+CLIENT_ENV_FILE="$MAIN_DIR/egad/.env"
 NGROK="$MAIN_DIR/server/ngrok"
 
 PORT=$(grep '^MEMORY_BANK_PORT=' "$ENV_FILE" 2>/dev/null | cut -d'=' -f2-)
@@ -69,6 +69,6 @@ else
 fi
 
 echo ""
-echo "Tunnel active: $PUBLIC_URL  (ciim_agentic/.env updated)"
+echo "Tunnel active: $PUBLIC_URL  (egad/.env updated)"
 echo "Stop: kill $NGROK_PID"
 wait "$NGROK_PID"

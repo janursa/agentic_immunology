@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PreToolUse hook: enforce ciim_agentic.md's Delegation HARD RULES on every
+"""PreToolUse hook: enforce egad.md's Delegation HARD RULES on every
 Agent tool call, so a dropped requirement is a hard stop, not a hoped-for
 convention.
 
@@ -8,7 +8,7 @@ convention.
    for that agent, the prompt must include "Past lessons for you:" plus each
    stored lesson verbatim.
 2. LITERATURE flag — every study_designer_agent call must pass the current
-   `LITERATURE: on`/`off` value from ciim_agentic.md's Flags section verbatim.
+   `LITERATURE: on`/`off` value from egad.md's Flags section verbatim.
 
 Run from the repo root:
     python3 .claude/hooks/check_guardrail_flag.py --self-test
@@ -22,12 +22,12 @@ import sys
 
 PROJECT_DIR = pathlib.Path(os.environ.get("CLAUDE_PROJECT_DIR", "."))
 # Host project root, one level up — where memory_bank/ and the host's own agents/
-# live. ciim_agentic/ itself is PROJECT_DIR (the launch dir).
+# live. egad/ itself is PROJECT_DIR (the launch dir).
 MAIN_DIR = pathlib.Path(os.environ.get("CIIM_MAIN_DIR", str(PROJECT_DIR.resolve().parent)))
 MEMORY_BLOB_SCRIPT = MAIN_DIR / "memory_bank" / "memory_blob.py"
 CORE_LIST_FILE = PROJECT_DIR / "agents" / "list.md"
 HOST_LIST_FILE = MAIN_DIR / "agents" / "list.md"
-ORCHESTRATOR_FILE = PROJECT_DIR / "ciim_agentic.md"
+ORCHESTRATOR_FILE = PROJECT_DIR / "egad.md"
 
 
 def _lessons_block_reason(entries: list, prompt: str) -> str | None:
@@ -37,14 +37,14 @@ def _lessons_block_reason(entries: list, prompt: str) -> str | None:
         return (
             f"{len(entries)} stored lesson(s) exist for this agent in "
             "memory_blob.jsonl but the task prompt has no 'Past lessons for "
-            "you:' section (ciim_agentic.md HARD RULE)."
+            "you:' section (egad.md HARD RULE)."
         )
     missing = [e for e in entries if e["lesson"] not in prompt]
     if missing:
         return (
             f"{len(missing)} of {len(entries)} stored lesson(s) for this "
             "agent are not present verbatim in the task prompt "
-            "(ciim_agentic.md HARD RULE)."
+            "(egad.md HARD RULE)."
         )
     return None
 
@@ -94,7 +94,7 @@ def _literature_block_reason(flag_value: str | None, subagent_type: str, prompt:
         return (
             f"study_designer_agent call must pass the current LITERATURE flag "
             f"('LITERATURE: {flag_value}') verbatim in the task prompt "
-            "(ciim_agentic.md HARD RULE)."
+            "(egad.md HARD RULE)."
         )
     return None
 

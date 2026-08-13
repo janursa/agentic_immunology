@@ -27,7 +27,7 @@ def _get(key: str, default: str = "") -> str:
 MAIN_DIR          = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 AGENT_DIR         = os.path.join(MAIN_DIR, "agent")
 TEMP_DIR          = os.path.join(MAIN_DIR, "temp")
-INSTRUCTIONS_FILE = os.path.join(MAIN_DIR, "ciim_agentic.md")
+INSTRUCTIONS_FILE = os.path.join(MAIN_DIR, "egad.md")
 
 # Provider — "gemma" (local OpenAI-compatible server) or "openai" (official API).
 # Set LLM_PROVIDER=openai in .env to switch; everything below follows from it.

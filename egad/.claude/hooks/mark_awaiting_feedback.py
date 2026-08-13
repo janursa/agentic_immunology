@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PostToolUse hook (matcher: Bash): when scripts/serve_dashboard.sh is called
 with a path (i.e. a design.md/findings.md review is being presented to the
-user, per ciim_agentic.md's "Interact with user"), record a marker (including
+user, per egad.md's "Interact with user"), record a marker (including
 the served .html path, so capture_feedback.py can find and attach the
 sibling .md content that was actually shown) so the user's next message is
 captured as feedback and sent to memory_bank. Non-blocking, informational only — see

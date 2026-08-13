@@ -26,7 +26,7 @@ import re
 import sys
 
 PROJECT_DIR = pathlib.Path(os.environ.get("CLAUDE_PROJECT_DIR", "."))
-CHECKS_FILE = PROJECT_DIR / "ciim_agentic" / "docs" / "design_review_checks.json"
+CHECKS_FILE = PROJECT_DIR / "egad" / "docs" / "design_review_checks.json"
 _temp = os.environ.get("CIIM_TEMP_DIR", "temp")
 TEMP_DIR = (pathlib.Path(_temp) if pathlib.Path(_temp).is_absolute() else PROJECT_DIR / _temp).resolve()
 MODE_RE = re.compile(r"^\s*MODE:\s*DESIGN-REVIEW\s*$", re.MULTILINE)

@@ -2,7 +2,7 @@
 """PreToolUse hook for study_designer_agent, peer_reviewer_agent, and
 data_analyst_agent: confines Read/Grep/Glob to an explicit allowlist —
 datalake_docs/, docs/, scAnnotAgent/, singularity_docs/ (all under
-PROJECT_DIR, i.e. ciim_agentic/ itself, the directory `claude` is launched
+PROJECT_DIR, i.e. egad/ itself, the directory `claude` is launched
 from) and ${CIIM_TEMP_DIR} (their own workspace: task.md, design.md,
 raw_data/, processed_data/, prior phase results) — plus the documented
 external data-lake roots (datalake/eqtl files etc. live under
@@ -29,7 +29,7 @@ call with no path (repo-wide search, cwd = project root) is not caught —
 # will match; add a content-based scan if that proves to be an actual leak vector.
 Bash is not covered — arbitrary shell text isn't reliably parseable for paths.
 
-Run from ciim_agentic/:
+Run from egad/:
     python3 .claude/hooks/restrict_knowhow_access.py --self-test
 """
 import json
@@ -38,9 +38,9 @@ import pathlib
 import sys
 
 PROJECT_DIR = pathlib.Path(os.environ.get("CLAUDE_PROJECT_DIR", ".")).resolve()
-# Host project root, one level up from ciim_agentic/ — where memory_bank/, application/
+# Host project root, one level up from egad/ — where memory_bank/, application/
 # etc. actually live. Falls back to PROJECT_DIR's parent, which is correct by
-# construction (ciim_agentic/ is always installed one level under the host root).
+# construction (egad/ is always installed one level under the host root).
 MAIN_DIR = pathlib.Path(os.environ.get("CIIM_MAIN_DIR", str(PROJECT_DIR.parent))).resolve()
 
 RESTRICTED_AGENTS = {"study_designer_agent", "peer_reviewer_agent", "data_analyst_agent"}
@@ -53,12 +53,12 @@ _temp_env = os.environ.get("CIIM_TEMP_DIR", "temp")
 TEMP_DIR = (pathlib.Path(_temp_env) if pathlib.Path(_temp_env).is_absolute() else PROJECT_DIR / _temp_env).resolve()
 
 # Answer-key dirs, named by name because they're that, not just out-of-scope
-# folders. knowhow/ lives inside PROJECT_DIR (ciim_agentic/ itself); memory_bank/
+# folders. knowhow/ lives inside PROJECT_DIR (egad/ itself); memory_bank/
 # and application/ live at the host root (MAIN_DIR), one level up.
 PROJECT_ANSWER_KEY_DIRS = ("knowhow/",)
 MAIN_ANSWER_KEY_DIRS = ("memory_bank/", "application/")
 
-# Everything else these agents may read inside PROJECT_DIR (ciim_agentic/).
+# Everything else these agents may read inside PROJECT_DIR (egad/).
 ALLOWED_DIRS = ("datalake_docs/", "docs/", "scAnnotAgent/", "singularity_docs/")
 
 # External roots datalake_docs/ actually references — everything else outside the repo is out of scope.
@@ -113,7 +113,7 @@ def block_reason(agent_type: str, tool_name: str, tool_input: dict) -> str | Non
             return None
         return (
             f"{agent_type} may only read datalake_docs/, docs/, scAnnotAgent/, "
-            f"singularity_docs/, or ${{CIIM_TEMP_DIR}} inside ciim_agentic/ — "
+            f"singularity_docs/, or ${{CIIM_TEMP_DIR}} inside egad/ — "
             f"blocked path: {rel or '.'}"
         )
 
@@ -122,7 +122,7 @@ def block_reason(agent_type: str, tool_name: str, tool_input: dict) -> str | Non
         if _in_dirs(rel_main, MAIN_ANSWER_KEY_DIRS):
             return ANSWER_KEY_MSG.format(agent=agent_type, rel=rel_main)
         return (
-            f"{agent_type} is confined to ciim_agentic/'s allowlisted folders and "
+            f"{agent_type} is confined to egad/'s allowlisted folders and "
             f"the documented data-lake roots — blocked path: {rel_main}"
         )
 
@@ -157,7 +157,7 @@ def _demo() -> None:
     real_project_dir, real_main_dir, real_temp_dir = PROJECT_DIR, MAIN_DIR, TEMP_DIR
     with tempfile.TemporaryDirectory() as tmp:
         MAIN_DIR = pathlib.Path(tmp).resolve()
-        PROJECT_DIR = (MAIN_DIR / "ciim_agentic").resolve()
+        PROJECT_DIR = (MAIN_DIR / "egad").resolve()
         PROJECT_DIR.mkdir()
         TEMP_DIR = (MAIN_DIR / "temp").resolve()
 
@@ -186,7 +186,7 @@ def _demo() -> None:
         assert block_reason("study_designer_agent", "Read", {"file_path": str(PROJECT_DIR / "agents/data_analyst_agent.md")}) is not None
         assert block_reason("data_analyst_agent", "Read", {"file_path": str(MAIN_DIR / ".claude/settings.json")}) is not None
         assert block_reason("peer_reviewer_agent", "Read", {"file_path": str(MAIN_DIR / "draw/overview.drawio")}) is not None
-        assert block_reason("study_designer_agent", "Read", {"file_path": str(PROJECT_DIR / "ciim_agentic.md")}) is not None
+        assert block_reason("study_designer_agent", "Read", {"file_path": str(PROJECT_DIR / "egad.md")}) is not None
         assert block_reason("evaluate", "Read", {"file_path": str(PROJECT_DIR / "knowhow/aging_clocks.md")}) is None
         assert block_reason("study_designer_agent", "Grep", {"pattern": "x"}) is None  # no path: known gap
         assert block_reason("", "Read", {"file_path": str(PROJECT_DIR / "knowhow/aging_clocks.md")}) is None  # main session, unrestricted

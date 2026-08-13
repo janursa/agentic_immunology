@@ -1,27 +1,27 @@
 #!/usr/bin/env python3
 """PreToolUse hook: every `Agent` call must open its prompt with
 `TASK-LEVEL: L0|L1|L2|L3`, `WORK-DIR: <path>` and `STAGE: <value>` lines, the
-tags drawn from docs/state_tags.json (ciim_agentic.md HARD RULE). This turns
+tags drawn from docs/state_tags.json (egad.md HARD RULE). This turns
 open-ended prose-guessing of "what stage is this call" into a validated, fixed
 vocabulary that write_log.py's PostToolUse hook can tag log.md entries with.
 
 Also blocks:
 - a missing WORK-DIR, or one outside temp/. Which exact folder is the
-  orchestrator's call (see ciim_agentic.md's table) — only "it exists and it's
+  orchestrator's call (see egad.md's table) — only "it exists and it's
   in the output tree" is checked, so the table can move without breaking this;
 - TASK-LEVEL silently flipping mid-task once log.md recorded a different value;
 - L0 dispatching the planning loop. L0 means the orchestrator does it itself, so
   study_designer_agent/peer_reviewer_agent at L0 is a definitional contradiction.
   Utility agents (curate_paper, knowhow_audit) stay allowed;
 - data_analyst_agent dispatched without a 'TASK-FILE: <abs path>' line pointing
-  at an existing, non-empty file — ciim_agentic.md has the orchestrator write
+  at an existing, non-empty file — egad.md has the orchestrator write
   {WORK-DIR}/task.md (scripts/extract_phase_task.py, phase n's design.md section
   verbatim) before dispatching, instead of retyping the task into the prompt.
 - peer_reviewer_agent dispatched in RESULTS-REVIEW mode (a 'MODE: RESULTS-REVIEW'
   line) without 'CYCLE:', 'RESULTS-DIR: <abs path>' (existing dir), and
   'DESIGN-FILE: <abs path>' (existing file) lines — agents/peer_reviewer_agent.md
   'What you receive' needs the cycle number and both paths to fact-check results
-  against actual output files; ciim_agentic.md step 1.5 names them explicitly.
+  against actual output files; egad.md step 1.5 names them explicitly.
 
 Whether a checkpoint is well-formed is semantic — that's DESIGN-REVIEW's job,
 deliberately not checked here.
@@ -36,7 +36,7 @@ import re
 import sys
 
 PROJECT_DIR = pathlib.Path(os.environ.get("CLAUDE_PROJECT_DIR", "."))
-TAGS_FILE = PROJECT_DIR / "ciim_agentic" / "docs" / "state_tags.json"
+TAGS_FILE = PROJECT_DIR / "egad" / "docs" / "state_tags.json"
 TASK_DIR_RE = re.compile(r"temp/([A-Za-z0-9_\-]+)/")
 WORKDIR_RE = re.compile(r"WORK-DIR:\s*(\S+)")
 TASKFILE_RE = re.compile(r"TASK-FILE:\s*(\S+)")
@@ -70,7 +70,7 @@ def block_reason_tags(prompt: str, tags: dict) -> str | None:
     if level is None or stage is None:
         return (
             "Agent call must open its prompt with 'TASK-LEVEL: L0|L1|L2|L3' "
-            "and 'STAGE: <value>' lines (ciim_agentic.md HARD RULE, docs/state_tags.json)."
+            "and 'STAGE: <value>' lines (egad.md HARD RULE, docs/state_tags.json)."
         )
     if level not in valid_level:
         return f"TASK-LEVEL '{level}' is not one of {sorted(valid_level)} (docs/state_tags.json)."
@@ -84,14 +84,14 @@ def block_reason_workdir(prompt: str) -> str | None:
     if not m:
         return (
             "Agent call must open its prompt with a 'WORK-DIR: <path>' line — the exact "
-            "folder the agent writes into (ciim_agentic.md HARD RULE)."
+            "folder the agent writes into (egad.md HARD RULE)."
         )
     workdir = m.group(1).strip("`'\"")
     rel = workdir[len(str(PROJECT_DIR)) + 1:] if workdir.startswith(str(PROJECT_DIR) + "/") else workdir
     if not rel.startswith("temp/"):
         return (
             f"WORK-DIR '{workdir}' is outside the output tree — it must be under "
-            "temp/{task}/ (ciim_agentic.md HARD RULE)."
+            "temp/{task}/ (egad.md HARD RULE)."
         )
     return None
 
@@ -127,14 +127,14 @@ def block_reason_l0(prompt: str, subagent_type: str) -> str | None:
         return None
     return (
         f"TASK-LEVEL L0 must not dispatch {subagent_type} — L0 means the orchestrator "
-        "does the analysis itself (ciim_agentic.md). Either do it directly, or "
+        "does the analysis itself (egad.md). Either do it directly, or "
         "reclassify the task to L1+ if it genuinely needs a plan."
     )
 
 
 def block_reason_rerun_slot(prompt: str, subagent_type: str) -> str | None:
     """A second review dispatched into the folder that already holds the first
-    one overwrites or clutters it — ciim_agentic.md says re-runs get a suffixed
+    one overwrites or clutters it — egad.md says re-runs get a suffixed
     folder. Only peer_reviewer_agent: study_designer_agent legitimately re-enters
     temp/{task}/ to append to design.md."""
     if subagent_type != "peer_reviewer_agent":
@@ -150,7 +150,7 @@ def block_reason_rerun_slot(prompt: str, subagent_type: str) -> str | None:
         return (
             f"WORK-DIR '{raw}' already holds a peer review — a re-run for the same slot "
             "must go to a suffixed folder (e.g. design_review_2/), not back into the "
-            "same one (ciim_agentic.md HARD RULE)."
+            "same one (egad.md HARD RULE)."
         )
     return None
 
@@ -163,11 +163,11 @@ def block_reason_task_file(prompt: str, subagent_type: str) -> str | None:
         return (
             "data_analyst_agent dispatch must include a 'TASK-FILE: <abs path>' line "
             "pointing at the {WORK-DIR}/task.md written for this phase "
-            "(ciim_agentic.md HARD RULE, scripts/extract_phase_task.py)."
+            "(egad.md HARD RULE, scripts/extract_phase_task.py)."
         )
     path = pathlib.Path(m.group(1).strip("`'\""))
     if not path.is_absolute():
-        return f"TASK-FILE '{path}' must be an absolute path (ciim_agentic.md HARD RULE)."
+        return f"TASK-FILE '{path}' must be an absolute path (egad.md HARD RULE)."
     try:
         empty = path.stat().st_size == 0
     except OSError:
@@ -203,7 +203,7 @@ def block_reason_results_review_input(prompt: str, subagent_type: str) -> str | 
     if missing:
         return (
             "peer_reviewer_agent RESULTS-REVIEW dispatch is missing: " + "; ".join(missing) +
-            " (ciim_agentic.md step 1.5, agents/peer_reviewer_agent.md 'What you receive')."
+            " (egad.md step 1.5, agents/peer_reviewer_agent.md 'What you receive')."
         )
     return None
 

@@ -101,7 +101,7 @@ agent/
 ## System Prompt Design
 
 The system prompt contains only:
-- `ciim_agentic.md` — full environment description (already references tools.md, datalake.md, etc.)
+- `egad.md` — full environment description (already references tools.md, datalake.md, etc.)
 - Session workspace path
 - Past session history (last 6 sessions)
 - Behavioural guidelines (think first, plan big tasks, be concise)

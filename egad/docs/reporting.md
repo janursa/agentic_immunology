@@ -75,5 +75,5 @@ CRITICAL: this is not a summary findings but all important findings.
 - Images in "Detailed findings" must use markdown `![alt](path)` with the path **relative to
   `findings.md`'s own directory** — the HTML render is served from `${CIIM_TEMP_DIR}/`, so an absolute filesystem
   path won't resolve in the browser. 
-- Render to HTML per `ciim_agentic.md`'s "Interact with user" section (`render_review_artifact.py`
+- Render to HTML per `egad.md`'s "Interact with user" section (`render_review_artifact.py`
   already handles `findings.md` the same way as `design.md`).

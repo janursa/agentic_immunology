@@ -1,6 +1,6 @@
 # genetics — GWAS & Genetic Variant Tools
 
-Module: `ciim_agentic/tools/ciim/code/genetics.py`
+Module: `egad/tools/ciim/code/genetics.py`
 
 ---
 
@@ -12,7 +12,7 @@ PheWAS look-up across **all** OpenGWAS indexed studies. Best for comprehensive d
 
 ```python
 import sys
-sys.path.insert(0, './ciim_agentic/tools/ciim/code')
+sys.path.insert(0, './egad/tools/ciim/code')
 from genetics import phewas_opengwas
 
 hits = phewas_opengwas(['rs10944479', 'rs1004870'], pval=1e-5)
@@ -54,7 +54,7 @@ Python wrapper around `${CIIM_TEMP_DIR}/coloc/coloc.R`. Runs GWAS × eQTL coloca
 
 ```python
 import sys
-sys.path.insert(0, 'ciim_agentic/tools/ciim/code')
+sys.path.insert(0, 'egad/tools/ciim/code')
 from genetics import run_coloc
 
 # SLE × DICE eQTL colocalization at the IRF5 locus
@@ -131,7 +131,7 @@ run_coloc(
 singularity exec \
   --bind /vol/projects:/vol/projects \
   ${CIIM_SINGULARITY_DIR}/genotype.sif \
-  Rscript ciim_agentic/tools/ciim/code/coloc.R \
+  Rscript egad/tools/ciim/code/coloc.R \
     --gene IRF5 --chr 7 --pos 128954129 \
     --lead_rsid rs10488631 \
     --outdir /tmp/coloc_irf5
@@ -144,14 +144,14 @@ singularity exec \
 
 ### `query_opentarget_platform(query, variables=None, verbose=False)`
 
-> **Replaces** the deprecated `query_opentarget` in `ciim_agentic/tools/biomni/database_biomni.py`.  
+> **Replaces** the deprecated `query_opentarget` in `egad/tools/biomni/database_biomni.py`.  
 > Open Targets Genetics Portal was shut down **9 July 2025**. All GWAS, credible-set, and L2G data is now in the unified Platform API at `api.platform.opentargets.org/api/v4/graphql`.
 
 Direct GraphQL caller — send any valid Platform v4 query and get the raw JSON response back.
 
 ```python
 import sys
-sys.path.insert(0, 'ciim_agentic/tools/ciim/code')
+sys.path.insert(0, 'egad/tools/ciim/code')
 from genetics import query_opentarget_platform
 
 q = 'query { disease(efoId: "EFO_0002690") { name } }'
@@ -225,11 +225,11 @@ df.sort_values('l2g_score', ascending=False).head(10)
 
 ### `run_mr(gene, mode, outdir, **kwargs)`
 
-Python wrapper around `ciim_agentic/tools/ciim/code/mr.R`. Runs Mendelian Randomization in two modes. Executed inside `${CIIM_SINGULARITY_DIR}/genotype.sif` (R 4.5, data.table, ggplot2, plink). MR methods implemented from scratch: Wald ratio (n=1), IVW (n≥2), MR-Egger (n≥3), Weighted Median (n≥3).
+Python wrapper around `egad/tools/ciim/code/mr.R`. Runs Mendelian Randomization in two modes. Executed inside `${CIIM_SINGULARITY_DIR}/genotype.sif` (R 4.5, data.table, ggplot2, plink). MR methods implemented from scratch: Wald ratio (n=1), IVW (n≥2), MR-Egger (n≥3), Weighted Median (n≥3).
 
 ```python
 import sys
-sys.path.insert(0, 'ciim_agentic/tools/ciim/code')
+sys.path.insert(0, 'egad/tools/ciim/code')
 from genetics import run_mr
 
 # Mode A: eQTL → disease (DICE instruments → local GWAS)
