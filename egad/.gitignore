@@ -1,5 +1,0 @@
-.env
-.env_backup
-__pycache__/
-*.pyc
-.claude/settings.local.json

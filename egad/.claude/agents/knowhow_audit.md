@@ -1,1 +1,0 @@
-../../../agents/knowhow_audit.md

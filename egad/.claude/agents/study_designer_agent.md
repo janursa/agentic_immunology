@@ -1,1 +1,0 @@
-../../agents/study_designer_agent.md

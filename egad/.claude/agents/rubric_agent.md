@@ -1,1 +1,0 @@
-../../../agents/rubric_agent.md
