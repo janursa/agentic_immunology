@@ -1,6 +1,11 @@
 # Large data files — tracked elsewhere
 data_lake/
 temp/
+temp
+
+# ciim_agentic — hooks/settings symlinked in by ciim_agentic/setup/install.sh
+.claude/hooks
+.claude/settings.json
 
 # Python
 __pycache__/
@@ -15,6 +20,9 @@ tools/tool/protocols/
 .claude/scheduled_tasks.lock
 server/ngrok
 server/logs/
+memory_bank/interactions.jsonl
+memory_bank/.server.pid
+memory_bank/server.log
 iagent_env/
 external/
 *.pdf

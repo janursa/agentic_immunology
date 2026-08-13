@@ -1,3 +1,3 @@
 [submodule "scAnnotAgent"]
-	path = scAnnotAgent
+	path = ciim_agentic/scAnnotAgent
 	url = git@github.com:janursa/scAnnotAgent.git

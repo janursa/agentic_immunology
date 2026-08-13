@@ -1,1 +1,0 @@
-../../agents/curate_paper.md

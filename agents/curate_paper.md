@@ -1,6 +1,6 @@
 ---
 name: curate_paper
-description: Reads a full-text paper and curates it into one structured markdown file per open-ended question (findings, datasets, analytics). Give it an input file path and optionally an output directory; if output is omitted, writes to temp/.
+description: Reads a full-text paper and curates it into one structured markdown file per open-ended question (findings, datasets, analytics). Give it an input file path and optionally an output directory; if output is omitted, writes to ${CIIM_TEMP_DIR}/.
 tools: Read, Write, Grep, Glob
 model: sonnet
 ---
@@ -13,11 +13,11 @@ You extract a paper's core scientific content into a structured curation. You ru
 
 ## Required Inputs
 - **input_file** — path to the full-text paper.
-- **output_dir** — optional. If not given, use `temp/` (derive `author-year` from the paper's title page / bibliography, e.g. `smith2023`).
+- **output_dir** — optional. If not given, use `${CIIM_TEMP_DIR}/` (derive `author-year` from the paper's title page / bibliography, e.g. `smith2023`).
 
 ## Steps
 1. **Read the last paragraph of the Introduction together with the Results section.** Identify the open-ended question(s) the paper sets out to address — usually stated explicitly near the end of the intro, confirmed by what the Results actually test.
-2. **Label each candidate question L0–L3** using the `TASK_LEVEL` definitions in `docs/state_tags.json` (read that file). ⛔ Keep only L1–L3 questions — drop L0 (closed retrieval/computation, verifiable answer, nothing needs to exist before execution). If every candidate is L0, write no files and report that.
+2. **Label each candidate question L0–L3** using the `TASK_LEVEL` definitions in `ciim_agentic/docs/state_tags.json` (read that file). ⛔ Keep only L1–L3 questions — drop L0 (closed retrieval/computation, verifiable answer, nothing needs to exist before execution). If every candidate is L0, write no files and report that.
 3. **For each kept question, identify the findings** that answer it, drawn from Results (and Discussion if needed for interpretation). ⛔ One bullet per verifiable result — never merge multiple distinct results into one bullet with semicolons/"and"/clause-stacking. If a sentence in the paper reports two separable claims (e.g. two subsets' trends, a result plus its validation), split them into separate bullets.
 4. **For each kept question, identify the methodology** used to reach those findings, split into:
    - **Datasets** — name, source, size/cohort if stated.
@@ -33,7 +33,7 @@ One file per question: `{output_dir}/{author-year}-q{N}.md` (create `output_dir`
 {open-ended question}
 
 ## Label
-L{1|2|3} — {one line: why this level, per docs/state_tags.json}
+L{1|2|3} — {one line: why this level, per ciim_agentic/docs/state_tags.json}
 
 ## Findings
 - {one verifiable result per bullet — do not combine}
