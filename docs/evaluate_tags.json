@@ -1,15 +1,10 @@
 {
   "_comment": "Canonical tag vocabulary for evaluate REPORT-REVIEW. Each discrepancy (a paper finding the run missed, or a run finding absent from the paper) gets one or more ROOT_CAUSE tags and exactly one GRADING tag from the list matching its direction.",
-  "ROOT_CAUSE": [
+  "CAUSE_TAG": [
     {
       "tag": "NOT-ATTEMPTED",
       "applies_to": ["missed"],
       "description": "The design never planned a step that could have produced this finding."
-    },
-    {
-      "tag": "OUT-OF-SCOPE",
-      "applies_to": ["missed"],
-      "description": "The finding belongs to a different CASE-CARD question than the one this run was given — not a platform failure."
     },
     {
       "tag": "DATA-UNAVAILABLE",

@@ -1,0 +1,74 @@
+{
+  "original_prompt": "What changes in immune cell proportions can be observed in aged ovaries compared to young ovaries?",
+  "verdict": "UNFRAMED-ADDITIVE",
+  "user_input_required": "no",
+  "clarification_message": "NA",
+  "openness_table": [
+    {
+      "span": "immune cell",
+      "tag": "SCOPE",
+      "candidates": [
+        "Coarse annotated immune lineages in obs['cell_type']: phagocyte, T cell, B cell (3 of 10 labels).",
+        "Provided finer clustering in obs['cluster.names']: Phagocytes A, Phagocytes B, T-Lymphocytes, B-Lymphocytes (4 of 15 clusters; only the phagocyte lineage actually splits).",
+        "De novo sub-clustering / re-annotation of the immune compartment to resolve subtypes not present in the delivered labels (macrophage vs monocyte vs DC within phagocytes; NK cells potentially inside the T-cell cluster; neutrophils, mast cells)."
+      ],
+      "test": "Whether the age effect is homogeneous inside each coarse lineage. If Phagocytes A and Phagocytes B (the one lineage the delivered labels split) move in the same direction with similar magnitude, the coarse lineage answer is complete; if they diverge, the lineage-level number averages away the real signal. For candidate 3, whether the immune compartment carries enough cells per donor to yield stable, marker-supported subclusters.",
+      "refuter": null,
+      "additive": {
+        "question": "Which immune populations change in relative abundance in the 9-month ovary versus the 3-month ovary?",
+        "rule": "Report one nested composition table: coarse lineage (phagocyte / T / B) as the headline row, with the provided subclusters nested underneath each lineage, and any de novo subtype resolved only where it is marker-supported and stable. A lineage-level call stands unless its nested members disagree in direction, in which case the nested level replaces it as the reported answer."
+      },
+      "verdict": "FRAMEABLE-ADDITIVE"
+    },
+    {
+      "span": "proportions",
+      "tag": "IMPLEMENTATION",
+      "candidates": [
+        "Immune population as a fraction of all cells recovered from that donor (denominator = whole ovary cell suspension).",
+        "Composition within the immune compartment only (denominator = total immune cells of that donor), i.e. the internal make-up of the immune infiltrate."
+      ],
+      "test": "Whether the non-immune compartments (stroma, granulosa, oocyte, luteal) themselves shift between OLD and YOUNG. If they do, fraction-of-total moves partly because the denominator moved, and the two denominators can disagree in sign for the same population.",
+      "refuter": null,
+      "additive": {
+        "question": "Which immune populations change in relative abundance in the 9-month ovary versus the 3-month ovary?",
+        "rule": "Compute both denominators per donor and report them side by side in the same table; flag every population where the two denominators disagree in direction and attribute that disagreement to the shift in the non-immune compartment."
+      },
+      "verdict": "UNFRAMED-ADDITIVE"
+    },
+    {
+      "span": "changes ... can be observed",
+      "tag": "IMPLEMENTATION",
+      "candidates": [
+        "Per-donor proportion comparison: one proportion per mouse, OLD vs YOUNG compared with a rank-based or t-test on the 8 donors, reported with effect size and CI.",
+        "Compositional model that respects the sum-to-one constraint and cell-count weighting (propeller / scCODA / Dirichlet-multinomial or a beta-binomial GLM with donor as the unit)."
+      ],
+      "test": "Whether the two approaches make the same call. They diverge when a population is rare (wide per-donor counts, which the count-weighted model shrinks) or when one large population's shift drags the others through the sum-to-one constraint.",
+      "refuter": null,
+      "additive": {
+        "question": "Which immune populations change in relative abundance in the 9-month ovary versus the 3-month ovary?",
+        "rule": "Run both on the same per-donor proportion matrix; report the per-donor test as the primary number and the compositional model as a concordance column. A change is called only where both agree in direction; where they disagree, report it as unresolved at this donor count rather than picking a winner."
+      },
+      "verdict": "UNFRAMED-ADDITIVE"
+    }
+  ],
+  "data_constraints": [
+    "obs['cell_type'] carries exactly three immune labels out of ten: phagocyte, T cell, B cell. No NK, DC, monocyte, neutrophil or mast label exists in the delivered annotation; obs['cluster.names'] adds only a Phagocytes A / Phagocytes B split.",
+    "obs['age'] has two levels (OLD, YOUNG) and maps one-to-one onto obs['development_stage']: 9-month-old stage vs 3-month-old stage. 'Aged' here is a reproductively-aged middle-aged mouse, not a geriatric (18-24 month) mouse; conclusions must be scoped to that window.",
+    "8 donors (obs['donor_id'] mouse_1..mouse_8, identical to obs['orig.ident']). Donor-level replication exists, so the statistical unit is the mouse, not the cell. The age split across the 8 donors is not in the metadata dump and must be read off the data; if it is 4 vs 4, only large effects are detectable.",
+    "14,349 cells total across all 8 donors and all 10 cell types. T cells, B cells and phagocytes are minor populations of the ovary, so per-donor immune counts are small - this bounds both the stability of per-donor proportions and the feasibility of de novo immune subclustering.",
+    "scRNA-seq composition is relative and sums to one per donor. Absolute immune cell number or density per ovary is not recoverable: no spike-in, no cell count per tissue mass, and dissociation efficiency differs by cell type.",
+    "Doublets already removed: DF.classifications_0.25_0.01_763 has the single level 'Singlet'.",
+    "No covariate is available to adjust for beyond donor: sex (female), strain (C57BL/6J), tissue (ovary), disease (normal), assay (10x 3' v3), suspension_type (cell) and tissue_type are all single-level. Batch is fully confounded with donor.",
+    "layers['SoupX'] holds ambient-RNA-corrected counts alongside X and raw. This matters only if the immune compartment is re-clustered de novo; it has no bearing on proportions computed from the delivered labels.",
+    "obs['leiden'] / obs['seurat_clusters'] / obs['RNA_snn_res.0.2'] are the same 15-level partition and are identical in content to cluster.names; cluster '14' is absent from all three."
+  ],
+  "dropped_candidates": {
+    "Absolute immune cell counts or immune cell density per ovary": "Not recoverable from scRNA-seq. The data are compositional (sum-to-one per donor) with no spike-in or per-tissue cell count, and cell-type-specific dissociation bias is unmeasured. Only relative abundance is answerable.",
+    "Cell-level chi-square / Fisher test on pooled OLD vs YOUNG cells": "Pseudoreplication. 8 donors are available and cells within a donor are not independent; pooling inflates n from 8 to 14,349 and manufactures significance. Dropped on the data content, not on the prompt.",
+    "Immune cell defined to include pre-annotated NK / DC / neutrophil / mast populations": "No such label exists in cell_type or cluster.names. Reachable only through de novo subclustering, which is retained as candidate 3 of the scope row rather than as a separate reading.",
+    "Non-immune cell types (stromal, granulosa, theca, endothelial, epithelial, oocyte, luteal) as an analysis target": "The prompt restricts the question to immune cells. These remain in scope only as the denominator of the fraction-of-total readout and as the explanation for denominator-driven disagreement.",
+    "Intermediate or additional age timepoints, or an age-as-continuous model": "obs['age'] and obs['development_stage'] have exactly two levels (3-month, 9-month). Only a two-group contrast is defined.",
+    "Stratification by sex, disease, strain, assay or tissue": "Every one of these obs columns is single-level (female / normal / C57BL/6J / 10x 3' v3 / ovary). No stratum to compare.",
+    "Human ovary or cross-species comparison": "uns['organism'] and the strain / development_stage ontology terms (MmusDv) fix this as a mouse dataset; no second species is supplied."
+  }
+}

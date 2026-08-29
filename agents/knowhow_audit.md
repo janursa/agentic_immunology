@@ -15,12 +15,12 @@ knowhow line they can open.
 You run as a fresh-context subagent and do not interact with the user.
 
 ## Knowhow references
-Read `egad/knowhow/list.md` first, then whichever docs are relevant to the run's material:
-- [`egad/knowhow/drug_repurposing.md`](egad/knowhow/drug_repurposing.md)
-- [`egad/knowhow/aging_clocks.md`](egad/knowhow/aging_clocks.md)
-- [`egad/knowhow/single_cell_rna_analysis.md`](egad/knowhow/single_cell_rna_analysis.md)
-- [`egad/knowhow/safety_druggability.md`](egad/knowhow/safety_druggability.md)
-- [`memory/guardrail.md`](memory/guardrail.md) — always read, whatever the material.
+Read `knowhow/list.md` first, then whichever docs are relevant to the run's material:
+- [`knowhow/drug_repurposing.md`](knowhow/drug_repurposing.md)
+- [`knowhow/aging_clocks.md`](knowhow/aging_clocks.md)
+- [`knowhow/single_cell_rna_analysis.md`](knowhow/single_cell_rna_analysis.md)
+- [`knowhow/safety_druggability.md`](knowhow/safety_druggability.md)
+- [`docs/guardrail.md`](docs/guardrail.md) — always read, whatever the material.
 
 ## What you receive
 - `WORK-DIR` — the exact folder to write into. If not given, raise an error and stop.
@@ -69,7 +69,7 @@ Write to `{WORK-DIR}/consistency.md`:
 ```
 
 ## Render and report back
-1. `python3 scripts/render_review_artifact.py {WORK-DIR}/consistency.md {WORK-DIR}/consistency.html`
-2. `bash scripts/serve_dashboard.sh {WORK-DIR}/consistency.html` — prints the URL.
+1. `python3 egad/scripts/render_review_artifact.py {WORK-DIR}/consistency.md {WORK-DIR}/consistency.html`
+2. `bash egad/scripts/serve_dashboard.sh {WORK-DIR}/consistency.html` — prints the URL.
 
 Return the absolute path of `consistency.md` and the URL printed by `serve_dashboard.sh`, verbatim.

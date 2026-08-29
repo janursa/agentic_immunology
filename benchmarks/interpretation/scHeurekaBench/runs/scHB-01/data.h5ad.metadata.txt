@@ -1,0 +1,46 @@
+top: ['X', 'layers', 'obs', 'obsm', 'obsp', 'raw', 'uns', 'var', 'varm', 'varp']
+obs cols: ['DF.classifications_0.25_0.01_763', 'G2M.Score', 'Phase', 'RNA_snn_res.0.2', 'S.Score', '_index', 'age', 'assay', 'assay_ontology_term_id', 'cell_type', 'cell_type_ontology_term_id', 'cluster.names', 'development_stage', 'development_stage_ontology_term_id', 'disease', 'disease_ontology_term_id', 'donor_id', 'is_primary_data', 'leiden', 'nCount_RNA', 'nFeature_RNA', 'observation_joinid', 'orig.ident', 'pANN_0.25_0.01_763', 'percent.mito', 'percent_hb', 'percent_plat', 'percent_ribo', 'self_reported_ethnicity', 'self_reported_ethnicity_ontology_term_id', 'seurat_clusters', 'sex', 'sex_ontology_term_id', 'strain', 'suspension_type', 'tissue', 'tissue_ontology_term_id', 'tissue_type']
+  DF.classifications_0.25_0.01_763: categorical 1 -> ['Singlet']
+  G2M.Score: dataset dtype=float64 n=14349
+  Phase: categorical 3 -> ['G1', 'G2M', 'S']
+  RNA_snn_res.0.2: categorical 15 -> ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '15']
+  S.Score: dataset dtype=float64 n=14349
+  _index: dataset dtype=object n=14349
+  age: categorical 2 -> ['OLD', 'YOUNG']
+  assay: categorical 1 -> ["10x 3' v3"]
+  assay_ontology_term_id: categorical 1 -> ['EFO:0009922']
+  cell_type: categorical 10 -> ['stromal cell', 'granulosa cell', 'theca cell', 'endothelial cell', 'phagocyte', 'T cell', 'epithelial cell', 'oocyte', 'luteal cell', 'B cell']
+  cell_type_ontology_term_id: categorical 10 -> ['CL:0000499', 'CL:0000501', 'CL:0000503', 'CL:0000115', 'CL:0000234', 'CL:0000084', 'CL:0000066', 'CL:0000023', 'CL:0000175', 'CL:0000236']
+  cluster.names: categorical 15 -> ['Stroma A', 'Granulosa A', 'Stroma B', 'Theca', 'Endothelium', 'Phagocytes A', 'T-Lymphocytes', 'Granulosa B', 'Stroma C', 'Phagocytes B', 'Epithelium A', 'Oocytes', 'Luteal', 'B-Lymphocytes', 'Epithelium B']
+  development_stage: categorical 2 -> ['3-month-old stage', '9-month-old stage']
+  development_stage_ontology_term_id: categorical 2 -> ['MmusDv:0000063', 'MmusDv:0000080']
+  disease: categorical 1 -> ['normal']
+  disease_ontology_term_id: categorical 1 -> ['PATO:0000461']
+  donor_id: categorical 8 -> ['mouse_1', 'mouse_2', 'mouse_3', 'mouse_4', 'mouse_5', 'mouse_6', 'mouse_7', 'mouse_8']
+  is_primary_data: dataset dtype=bool n=14349
+  leiden: categorical 15 -> ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '15']
+  nCount_RNA: dataset dtype=float64 n=14349
+  nFeature_RNA: dataset dtype=int32 n=14349
+  observation_joinid: dataset dtype=object n=14349
+  orig.ident: categorical 8 -> ['1', '2', '3', '4', '5', '6', '7', '8']
+  pANN_0.25_0.01_763: dataset dtype=float64 n=14349
+  percent.mito: dataset dtype=float64 n=14349
+  percent_hb: dataset dtype=float64 n=14349
+  percent_plat: dataset dtype=float64 n=14349
+  percent_ribo: dataset dtype=float64 n=14349
+  self_reported_ethnicity: categorical 1 -> ['na']
+  self_reported_ethnicity_ontology_term_id: categorical 1 -> ['na']
+  seurat_clusters: categorical 15 -> ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '15']
+  sex: categorical 1 -> ['female']
+  sex_ontology_term_id: categorical 1 -> ['PATO:0000383']
+  strain: categorical 1 -> ['C57BL/6J']
+  suspension_type: categorical 1 -> ['cell']
+  tissue: categorical 1 -> ['ovary']
+  tissue_ontology_term_id: categorical 1 -> ['UBERON:0000992']
+  tissue_type: categorical 1 -> ['tissue']
+n_obs: 14349
+var cols: ['feature_biotype', 'feature_is_filtered', 'feature_length', 'feature_name', 'feature_reference', 'feature_type', 'gene_ids', 'gene_symbols', 'vst.mean', 'vst.variable', 'vst.variance', 'vst.variance.expected', 'vst.variance.standardized']
+obsm: ['X_pca', 'X_umap']
+layers: ['SoupX']
+uns: ['citation', 'organism', 'organism_ontology_term_id', 'schema_reference', 'schema_version', 'title']
+

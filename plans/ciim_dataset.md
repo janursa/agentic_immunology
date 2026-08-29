@@ -2,8 +2,6 @@
 
 All data lives under `/vol/projects/CIIM/`.
 
-
-
 | Cohort | Location | Disease | Donors | Cells | Age | Sex | Paired RNA+ATAC | Stimulation | Modalities | Status |
 |---|---|---|---|---|---|---|---|---|---|---|
 | **IBD multiome** | `cohorts/IBD/multiome_processed/` | Crohn's Disease + Ulcerative Colitis | 79 sample visits (subset of 221 donors in phenotype) | 120,361 | 18–74 (median 36.5) | Mixed (F > M) | ✅ Yes (10x Multiome, same cells) | LPS, S. salmonella, RPMI (unstimulated) | RNA (`rna.h5ad`, 24,978 genes) + ATAC (`atac.h5ad`, 182,416 peaks) + Seurat (`seurat.rds`); clinical metadata in `phenotype.xlsx` | ✅ Ready |

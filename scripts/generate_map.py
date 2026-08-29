@@ -2,17 +2,17 @@
 """
 generate_map.py
 ---------------
-Reads map_schema.yaml and generates agentic_map.html —
+Reads docs/map_schema.yaml and generates agentic_map.html —
 an interactive D3.js force-directed graph of the full agentic ecosystem.
 
-To change the graph:  edit map_schema.yaml (no code changes needed).
-To add a new dataset: add a node under the right category in map_schema.yaml.
+To change the graph:  edit docs/map_schema.yaml (no code changes needed).
+To add a new dataset: add a node under the right category in docs/map_schema.yaml.
 To run:               python3 scripts/generate_map.py
 
 If you add a brand-new data source to the markdown files and want to
 refresh map_schema.yaml from scratch, run:
     python3 scripts/build_map_schema.py
-then edit map_schema.yaml to refine, then run generate_map.py.
+then edit docs/map_schema.yaml to refine, then run generate_map.py.
 """
 
 import json
@@ -20,7 +20,7 @@ import yaml
 from pathlib import Path
 
 BASE   = Path(__file__).resolve().parent.parent
-SCHEMA = BASE / 'map_schema.yaml'
+SCHEMA = BASE / 'docs' / 'map_schema.yaml'
 OUTPUT = BASE / 'agentic_map.html'
 
 # ── NODE DEFAULTS ──────────────────────────────────────────────────────────────

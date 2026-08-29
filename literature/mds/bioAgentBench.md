@@ -1,0 +1,54 @@
+# BioAgent Bench: An AI Agent Evaluation Suite for Bioinformatics
+
+Fa, Čuljak, Pandža, Čupić — ICML 2026 (PMLR 306), arXiv:2601.21800v4.
+
+## Abstract
+We introduce BioAgent Bench, an evaluation suite designed for measuring the performance and robustness of AI agents in common bioinformatics tasks. The suite consists of manually curated end-to-end tasks (e.g., RNA-seq, variant calling, metagenomics) accompanied by task-specific prompts and concrete output artifacts to support automated assessment. We evaluate frontier closed- and open-weight models across multiple agent harnesses, and use an LLM-based grader to score pipeline progress and outcome validity. We find that agents based on frontier LLMs can complete multi-step bioinformatics pipelines without elaborate custom scaffolding, often producing the requested final artifacts reliably. However, robustness tests reveal failure modes under controlled perturbations (corrupted inputs, decoy files, and prompt bloat), indicating that correct high-level pipeline construction does not guarantee reliable step-level reasoning. By releasing the code and the complementary resources constituting our suite, our primary goal is to accelerate the development of cost-effective yet reliable local agents, capable of handling complex bioinformatics workflows often involving sensitive patient data or unpublished intellectual property.
+
+## Methods
+
+### Benchmark Design
+Ten manually curated end-to-end tasks spanning bulk and single-cell RNA-seq, comparative genomics, variant calling, metagenomics, viral metagenomics, transcript quantification, and experimental evolution. Reference implementations are Python (3), R (2), bash (5); seven require tool interaction; **four are verifiable** (pass/fail assignable). Tasks: `alzheimer-mouse`, `comparative-genomics`, `cystic-fibrosis`, `deseq`, `evolution`, `giab`, `metagenomics`, `single-cell`, `transcript-quant`, `viral-metagenomics`.
+
+Each task = (1) a natural-language prompt specifying goal and expected output format (e.g. *"Perform metagenomic analysis of control and fertilized samples"*), and (2) the input data plus, when available, reference data. Ground truth is a concrete artifact, typically CSV/TSV.
+
+Stated design decision: **the curation deliberately makes BioAgent Bench "closer to software engineering benchmarks rather than biology data analysis benchmarks"**, to enable post-training use (RL, distillation, harness tweaks). Tasks were chosen for being widely used and easily describable as code/tool-calling pipelines. Two hard constraints shrink the eligible set: runtime <4h and ≤48 GB RAM — which excludes large-organism (e.g. human) workflows and omits finding/downloading/staging large reference resources.
+
+The paper explicitly acknowledges the multiverse problem it is designing around: "reasonable choices about design, normalization, batch correction, and statistical assumptions can yield different and even conflicting conclusions from the same data, making single-experiment outputs underdetermined" — naming short-timescale evolution, subtle differential expression, cross-batch scRNA-seq, and microbiome association as examples.
+
+### Experimental Setup
+Sandboxed hashed run directory; agent receives a system prompt, input files, and prompt instructions with goal + expected output format. Internet access allowed. Reasoning effort set to "high" where available. Models are top SWE-bench performers at run time, executed in three harnesses — Claude Code, Codex CLI, OpenCode. **Results are reported as model+harness ("agentic capability"), not as model comparisons.**
+
+### Grader
+GPT-5.1 as LLM grader, chosen because bioinformatics tasks admit multiple valid solution paths and variable step counts (GATK4 HaplotypeCaller vs DeepVariant, etc.), so no single canonical truth can be hard-coded, and because manual review of the intermediate-file volume is impractical. Grader inputs: input/reference data paths, expected outcome table, agent outcome table, agent trace (folder and file paths only), and a grading prompt that **prioritizes evidence of pipeline completion over numerical accuracy**. Outputs: steps completed, steps to completion, final result reached (binary), results match, F1 (only `giab`).
+
+Primary metric: **completion rate (%)** = percentage of required pipeline steps passing the grader's check.
+
+### Robustness conditions
+- **Multiple trials** — variation across runs.
+- **Prompt bloat** — topically related but non-essential text added to the prompt.
+- **Corrupted data** — selected inputs synthetically corrupted; does the agent detect it and refuse to proceed?
+- **Decoy data** — files the agent should ignore.
+
+## Results
+
+**Single-run completion.** Frontier models complete canonical pipelines at high rates: Claude Opus 4.5 **100%**, Gemini 3 Pro 96.6%, GPT-5.2 92.5%, Claude Sonnet 4.5 92.5%. Best open-weight is GLM-4.7 at 82.5%, with the rest ranging down to 67.9% (Devstral 2512), 68.8% (Qwen3 Coder), 73.6% (MiniMax M2.1), 80.5% (Kimi K2 Thinking), 81.7% (GPT-5.1-Codex-Max). Top results come from the Codex CLI harness. Conclusion: current frontier models reliably execute multi-step bioinformatics workflows end-to-end **without additional scaffolding**.
+
+**Planning ability.** Models were asked to produce a high-level plan without execution, scored 1–5 by GPT-5.1. Plan quality correlates with completion at **Pearson R = 0.61**, but the relation is not deterministic — Gemini 3 Pro produced weaker plans than frontier peers yet completed at a high rate. Interpretation: "successful completion can be achieved despite lower-quality explicit planning"; explicit planning is "a meaningful, though not sufficient, predictor". The open-weight deficit is attributed to agentic competence (tool-use reliability, error recovery, state tracking) more than to bioinformatics knowledge; open-weight models more often got stuck in repeated error-correction loops or terminated prematurely.
+
+**Run-to-run stability.** GPT-5.2 in Codex CLI, four trials per task. Mean **Jaccard overlap 0.43** across final results (categorical: KEGG pathways, gene IDs) and **Pearson 0.73** (numerical: p-values, abundances) — "considerable variability in the final results across trials". Per-task Jaccard ranges from 0.000 (`evolution`) and 0.004 (`comparative-genomics`) to 1.000 (`cystic-fibrosis`, `transcript-quant`). Attributed to tool non-determinism plus **between-trial differences in inferred parameters or intermediate decisions** (e.g. differing Salmon flags, differing statistical choices).
+
+**Perturbations.** Corruption correctly identified in **7/10** tasks; decoys erroneously used in **2/10**; prompt bloat caused agents to complete **28% fewer steps** on average, with total degradation (−100% completion) on `deseq`, `metagenomics`, and `single-cell`.
+
+- *Corrupted data* — three failure patterns. (i) Not detected, proceeded anyway: `alzheimer-mouse` continued differential expression despite an obviously corrupted DESeq2-style distribution; `comparative-genomics` operated indiscriminately without validating input integrity. (ii) Detected but continued regardless, "routing around" the issue via alternative analyses or reference downloads: `evolution`, `giab`, `metagenomics`, and (until a downstream tool failed) `transcript-quant`. (iii) Early termination — `deseq` (cascading, inputs unusable) and `single-cell` (the desired behaviour: detected and stopped). `cystic-fibrosis` surfaced the worst case: metadata scrambled and inconsistent with the prompt specification, agent continued and **produced incorrect results**. The paper notes the safety-relevant class is corruption that stays syntactically valid but biologically implausible — pipelines run to completion despite being scientifically invalid, though "it would typically be readily apparent to a human practitioner that the inputs are not trustworthy".
+- *Decoy files* — both failures were surface-cue selection: `comparative-genomics` globbed all `.genomic.fna` files and swept in the decoy organism; `metagenomics` picked a viral reference database where the task required a bacterial one. Both are "a failure to configure the required tool in a biological context, instead relying on surface-level cues (filenames and readily available defaults)".
+- *Prompt bloat* — the agent "repeatedly restated the task, cycled through superficial reformulations of the instructions, and then terminated early without producing substantive intermediate artifacts" — the same symptoms as weaker open-weight models.
+
+## Conclusions
+Pipeline completion **substantially overestimates reliability**: "correct higher-level pipeline construction does not imply correct step-level reasoning", so completion should be treated as a necessary but insufficient success criterion. The paper reframes the evaluation question from *"Does it produce a result?"* to *"Can it reliably detect when it should not proceed, and can it justify choices with evidence grounded in the data and context?"* — and, in the conclusion, from *"Can it produce correct outputs?"* to *"Can it produce correct outputs reliably, for the right reasons, while making correct decisions throughout the pipeline?"*
+
+Agents are expected to stabilise when given explicit constraints (fixed tool versions, parameter templates, prespecified reference datasets) and internal policies such as "prefer defaults unless justified by data-driven checks"; the suite is positioned to measure how well harnesses and prompting strategies enforce those rules. A second thrust is privacy: locally deployable open-weight agents may be preferable for patient-derived sequencing or unpublished IP even at lower aggregate scores.
+
+**Limitations.** (1) LLM grading is subjective — scores depend on rubric wording, trace verbosity, and artifact presentation, and "a grader can reward trials that look plausible even when step-level reasoning is wrong". (2) Resource caps narrow fidelity, underrepresenting large genomes, heterogeneous cohorts, messy metadata, and long pipelines, and excluding "discovering, curating, and justifying external references and best practices from primary sources". (3) Robustness testing uses a single trial per (task, condition) and narrow perturbation coverage; results are "suggestive".
+
+**Related work positioning.** Contrasted with BioML-bench, LAB-Bench (multiple choice), BixBench (data analysis in computational biology), and HeurekaBench / sc-HeurekaBench (open-ended, data-driven research questions). BioAgent Bench distinguishes itself by emphasising multi-step *pipelines* over data-analysis or text-response capability. The paper notes that in biomedical settings "multiple analysis pipelines or hypotheses can be reasonable, and success is better characterized by decision quality under constraints than by a single correct output."

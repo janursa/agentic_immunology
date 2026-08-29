@@ -1,0 +1,772 @@
+[
+  {
+    "id": "scHB-01",
+    "source": {
+      "benchmark": "sc-HeurekaBench oeq_lite",
+      "paper": "paper9",
+      "insight": "insight #14",
+      "question_index": 1
+    },
+    "data": {
+      "/vol/projects/jnourisa/egad/external/scHeurekaBench/scheurekabench/benchmark/scdata/paper9/data/data.h5ad": "A single-cell atlas of the aging mouse ovary"
+    },
+    "question": "What changes in immune cell proportions can be observed in aged ovaries compared to young ovaries?",
+    "answer": "In aged ovaries, there is a more than twofold increase in immune cells compared to young ovaries. Lymphocyte proportions increase the most in aged ovaries, compared to young ovaries.",
+    "baseline_interpretation": {
+      "verdict": "UNFRAMED-ADDITIVE",
+      "user_input_required": false,
+      "clarification_message": "NA",
+      "openness_table": [
+        {
+          "span": "immune cell proportions",
+          "tag": "SCOPE",
+          "candidates": [
+            "proportions at the major-lineage level (myeloid vs lymphoid)",
+            "proportions at the annotated cell-type level",
+            "proportions at subcluster level"
+          ],
+          "test": "different granularities give different tables, but all are windows on the same composition; no data-side check picks one",
+          "refuter": null,
+          "additive": {
+            "question": "which immune populations change in relative abundance between young and aged ovary?",
+            "rule": "one nested proportion table reported coarse-to-fine, aged vs young"
+          },
+          "verdict": "UNFRAMED-ADDITIVE"
+        }
+      ]
+    },
+    "recommendations": [
+      {
+        "rec_id": "R1",
+        "target_verdict": "UNFRAMED-ADDITIVE",
+        "edit": "widen the compartment: 'immune cell' -> 'cell type'",
+        "mutated_question": "What changes in cell type proportions can be observed in aged ovaries compared to young ovaries?",
+        "oracle_answer": "the immune compartment",
+        "gt_preserved": "the combined proportion table contains the immune rows; the >2-fold immune increase and the lymphocyte-led shift are still readable off it",
+        "interpretation": {
+          "verdict": "UNFRAMED-ADDITIVE",
+          "user_input_required": false,
+          "clarification_message": "NA",
+          "openness_table": [
+            {
+              "span": "cell type proportions",
+              "tag": "SCOPE",
+              "candidates": [
+                "the immune compartment",
+                "the somatic/stromal compartment",
+                "the germ-cell/oocyte compartment"
+              ],
+              "test": "each compartment yields a different proportion table; nothing in the prompt or the data selects one",
+              "refuter": null,
+              "additive": {
+                "question": "which cell populations change in relative abundance with age in the ovary?",
+                "rule": "one aged-vs-young proportion table over every annotated cell type, all compartments in the same table"
+              },
+              "verdict": "UNFRAMED-ADDITIVE"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R2",
+        "target_verdict": "UNFRAMED",
+        "edit": "replace the measured quantity with an unbound deliverable ('landscape ... change')",
+        "mutated_question": "How does the immune landscape of the ovary change with age?",
+        "oracle_answer": "compositional change - the proportions of immune populations",
+        "gt_preserved": "once the oracle names composition, the prompt is the original question minus its wording; A1 is unchanged",
+        "interpretation": {
+          "verdict": "UNFRAMED",
+          "user_input_required": true,
+          "clarification_message": "Do you want the compositional change (proportions of immune populations), the transcriptional change (differential expression within immune types), or the change in cell-cell interactions?",
+          "openness_table": [
+            {
+              "span": "immune landscape ... change",
+              "tag": "DELIVERABLES",
+              "candidates": [
+                "compositional change: abundance of immune populations, aged vs young",
+                "transcriptional change: DE within each immune population",
+                "interaction change: cell-cell communication rewiring"
+              ],
+              "test": "three different output objects over the same cells; delivering all three does not settle which one is the answer",
+              "refuter": null,
+              "additive": null,
+              "verdict": "UNFRAMED"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R3",
+        "target_verdict": "UNFRAMED",
+        "edit": "loosen the population definition: 'immune cell' -> 'immune-related'",
+        "mutated_question": "What changes in immune-related population proportions can be observed in aged ovaries compared to young ovaries?",
+        "oracle_answer": "leukocytes only (Ptprc+ / annotated immune cell types)",
+        "gt_preserved": "under the leukocyte definition the denominator is the original one, so the >2-fold figure is reproducible",
+        "interpretation": {
+          "verdict": "UNFRAMED",
+          "user_input_required": true,
+          "clarification_message": "How should 'immune-related' be defined: leukocytes only, leukocytes plus somatic cells with immune function, or any cell type expressing inflammatory programs?",
+          "openness_table": [
+            {
+              "span": "immune-related",
+              "tag": "CONCEPT",
+              "candidates": [
+                "leukocytes only (annotated immune cell types)",
+                "leukocytes plus somatic cells with immune function (e.g. phagocytic granulosa/epithelial cells)",
+                "any cell type scoring high on inflammatory programs"
+              ],
+              "test": "each definition changes which cells enter the numerator and the denominator, so the headline fold-change differs; reporting all three still leaves the user to say which number is the claim",
+              "refuter": null,
+              "additive": null,
+              "verdict": "UNFRAMED"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R4",
+        "target_verdict": "UNFRAMED-ADDITIVE",
+        "edit": "remove the annotation level and the comparison direction wording, leaving granularity open",
+        "mutated_question": "At which level of immune cell annotation do proportions differ between young and aged ovaries?",
+        "oracle_answer": "no question needed - report all levels",
+        "gt_preserved": "the nested table carries both the coarse immune total (>2-fold) and the lymphoid row (largest increase)",
+        "interpretation": {
+          "verdict": "UNFRAMED-ADDITIVE",
+          "user_input_required": false,
+          "clarification_message": "NA",
+          "openness_table": [
+            {
+              "span": "level of immune cell annotation",
+              "tag": "SCOPE",
+              "candidates": [
+                "major lineage (myeloid / lymphoid)",
+                "annotated cell type",
+                "subcluster"
+              ],
+              "test": "the same young-vs-aged contrast summarised at three granularities; no data-side check selects one",
+              "refuter": null,
+              "additive": {
+                "question": "which immune populations shift in abundance between young and aged ovary?",
+                "rule": "one nested proportion table, lineage -> cell type -> subcluster, with the aged/young ratio at each level"
+              },
+              "verdict": "UNFRAMED-ADDITIVE"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "scHB-02",
+    "source": {
+      "benchmark": "sc-HeurekaBench oeq_lite",
+      "paper": "paper7",
+      "insight": "insight #3",
+      "question_index": 1
+    },
+    "data": {
+      "/vol/projects/jnourisa/egad/external/scHeurekaBench/scheurekabench/benchmark/scdata/paper7/data/processed_MuSC_data.h5ad": "Mouse muscle stem cells (MuSC) data"
+    },
+    "question": "What changes in gene expression are observed in the TNFRSF12A+ (TNF+) muscle stem cells (MuSC) subpopulation with age?",
+    "answer": "The TNFRSF12A+ (TNF+) muscle stem cells (MuSC) subpopulation shows a notable decrease in ribosome biogenesis gene expression with age, including ribosome assembly genes and POLR1D.",
+    "baseline_interpretation": {
+      "verdict": "CONVERGENT",
+      "user_input_required": false,
+      "clarification_message": "NA",
+      "openness_table": [
+        {
+          "span": "changes in gene expression",
+          "tag": "IMPLEMENTATION",
+          "candidates": [
+            "cell-level DE test (Wilcoxon)",
+            "pseudobulk DE per animal",
+            "log fold-change ranking"
+          ],
+          "test": "the subpopulation and the contrast are both bound; the estimators differ in calibration but return the same top-ranked biology",
+          "refuter": null,
+          "additive": null,
+          "verdict": "CONVERGENT"
+        }
+      ]
+    },
+    "recommendations": [
+      {
+        "rec_id": "R1",
+        "target_verdict": "UNFRAMED-ADDITIVE",
+        "edit": "drop the marker binding: one named subpopulation -> all MuSC subpopulations",
+        "mutated_question": "What changes in gene expression are observed across muscle stem cell (MuSC) subpopulations with age?",
+        "oracle_answer": "the TNFRSF12A+ (TNF+) subpopulation",
+        "gt_preserved": "the stacked per-subpopulation DE table contains the TNF+ row verbatim",
+        "interpretation": {
+          "verdict": "UNFRAMED-ADDITIVE",
+          "user_input_required": false,
+          "clarification_message": "NA",
+          "openness_table": [
+            {
+              "span": "across muscle stem cell (MuSC) subpopulations",
+              "tag": "SCOPE",
+              "candidates": [
+                "each annotated MuSC subpopulation, taken one at a time"
+              ],
+              "test": "each subpopulation gives a different gene list, but all answer the same age question through a different cell subset",
+              "refuter": null,
+              "additive": {
+                "question": "which genes change with age inside a given MuSC subpopulation?",
+                "rule": "one DE table with subpopulation as a column, the aged-vs-young contrast run within each"
+              },
+              "verdict": "UNFRAMED-ADDITIVE"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R2",
+        "target_verdict": "UNFRAMED",
+        "edit": "replace 'changes in gene expression' with an unbound effect",
+        "mutated_question": "What is the effect of age on the TNFRSF12A+ (TNF+) muscle stem cell (MuSC) subpopulation?",
+        "oracle_answer": "changes in gene expression",
+        "gt_preserved": "the oracle restores the measured quantity; A1 is unchanged",
+        "interpretation": {
+          "verdict": "UNFRAMED",
+          "user_input_required": true,
+          "clarification_message": "Which effect of age do you want: the change in abundance of this subpopulation, the change in its gene expression, its functional state (e.g. senescence), or its position in the differentiation trajectory?",
+          "openness_table": [
+            {
+              "span": "effect of age",
+              "tag": "DELIVERABLES",
+              "candidates": [
+                "abundance change of the subpopulation",
+                "transcriptional change within the subpopulation",
+                "functional-state change (senescence / activation scoring)",
+                "shift in trajectory position"
+              ],
+              "test": "four different output objects; a bundle of all four does not tell the user which one is the finding",
+              "refuter": null,
+              "additive": null,
+              "verdict": "UNFRAMED"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R3",
+        "target_verdict": "UNFRAMED",
+        "edit": "delete the contrast: 'with age' -> 'in aged muscle'",
+        "mutated_question": "What changes in gene expression distinguish the TNFRSF12A+ (TNF+) muscle stem cell (MuSC) subpopulation in aged muscle?",
+        "oracle_answer": "TNF+ aged versus TNF+ young - the age contrast within the subpopulation",
+        "gt_preserved": "the age contrast is the original one; the ribosome-biogenesis decline is recovered",
+        "interpretation": {
+          "verdict": "UNFRAMED",
+          "user_input_required": true,
+          "clarification_message": "Against which reference: the same TNF+ subpopulation in young muscle, the other MuSC subpopulations within aged muscle, or all MuSCs pooled?",
+          "openness_table": [
+            {
+              "span": "distinguish ... in aged muscle",
+              "tag": "SCOPE",
+              "candidates": [
+                "TNF+ aged vs TNF+ young (age contrast)",
+                "TNF+ aged vs other MuSC subpopulations in aged muscle (identity contrast)",
+                "TNF+ aged vs all MuSCs pooled"
+              ],
+              "test": "the age contrast and the identity contrast answer different questions - what changed vs what is distinctive - so a combined gene list does not resolve the ask",
+              "refuter": null,
+              "additive": null,
+              "verdict": "UNFRAMED"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R4",
+        "target_verdict": "UNFRAMED-ADDITIVE",
+        "edit": "'gene expression' -> 'molecular programs', leaving the summarisation level open",
+        "mutated_question": "What molecular programs change in the TNFRSF12A+ (TNF+) muscle stem cell (MuSC) subpopulation with age?",
+        "oracle_answer": "no question needed - report gene level and pathway level together",
+        "gt_preserved": "the GT needs both levels ('ribosome biogenesis' as a program, 'POLR1D' as a gene), so the additive answer is a better fit than the original",
+        "interpretation": {
+          "verdict": "UNFRAMED-ADDITIVE",
+          "user_input_required": false,
+          "clarification_message": "NA",
+          "openness_table": [
+            {
+              "span": "molecular programs",
+              "tag": "SCOPE",
+              "candidates": [
+                "individual differentially expressed genes",
+                "gene-set / pathway enrichment",
+                "TF or regulon activity"
+              ],
+              "test": "three summarisation windows over one and the same aged-vs-young contrast",
+              "refuter": null,
+              "additive": {
+                "question": "what changes in the TNF+ MuSC subpopulation with age?",
+                "rule": "one report layering gene-level DE, pathway enrichment of that same DE result, and TF activity derived from it"
+              },
+              "verdict": "UNFRAMED-ADDITIVE"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "scHB-03",
+    "source": {
+      "benchmark": "sc-HeurekaBench oeq_lite",
+      "paper": "paper8",
+      "insight": "insight #12",
+      "question_index": 1
+    },
+    "data": {
+      "/vol/projects/jnourisa/egad/external/scHeurekaBench/scheurekabench/benchmark/scdata/paper8/data/mouse_data.h5ad": "Epithelial cells collected from 30 segments across the proximal (1) to distal (30) ends of the mouse small intestine.",
+      "/vol/projects/jnourisa/egad/external/scHeurekaBench/scheurekabench/benchmark/scdata/paper8/data/domain_mapping.json": "Domain names as keys mapped to segments available in the mouse dataset."
+    },
+    "question": "How do enterocyte domains (A, B, and C) respond transcriptionally to different dietary challenges?",
+    "answer": "Enterocyte domains exhibit unique transcriptional responses to different dietary challenges. Domain C expands its transcriptional activity in response to a high-carbohydrate diet. Domains A, B, and D are associated with lipid metabolism; A/B are primarily involved in fatty acid metabolism, D in phospholipid metabolism.",
+    "note": "the published GT already talks about domain D, which the question excludes - R1 removes that inconsistency rather than introducing one",
+    "baseline_interpretation": {
+      "verdict": "FRAMEABLE",
+      "user_input_required": false,
+      "clarification_message": "NA",
+      "openness_table": [
+        {
+          "span": "different dietary challenges",
+          "tag": "SCOPE",
+          "candidates": [
+            "every diet arm present in the data",
+            "a named subset of diet arms"
+          ],
+          "test": "different diet sets give different response tables",
+          "refuter": "read the diet/condition column of mouse_data.h5ad: the arms actually present fix the set",
+          "additive": null,
+          "verdict": "FRAMEABLE"
+        }
+      ]
+    },
+    "recommendations": [
+      {
+        "rec_id": "R1",
+        "target_verdict": "UNFRAMED-ADDITIVE",
+        "edit": "drop the domain enumeration '(A, B, and C)'",
+        "mutated_question": "How do enterocyte domains respond transcriptionally to different dietary challenges?",
+        "oracle_answer": "no question needed - report every domain in domain_mapping.json",
+        "gt_preserved": "the full domain x diet matrix contains A, B, C and D, so the whole published answer becomes recoverable",
+        "interpretation": {
+          "verdict": "UNFRAMED-ADDITIVE",
+          "user_input_required": false,
+          "clarification_message": "NA",
+          "openness_table": [
+            {
+              "span": "enterocyte domains",
+              "tag": "SCOPE",
+              "candidates": [
+                "each domain listed in domain_mapping.json, taken one at a time"
+              ],
+              "test": "each domain gives a different response profile; all answer the same diet question through a different segment window",
+              "refuter": null,
+              "additive": {
+                "question": "how does a given enterocyte domain respond transcriptionally to each dietary challenge?",
+                "rule": "one domain x diet response matrix, the diet contrast run within every domain"
+              },
+              "verdict": "UNFRAMED-ADDITIVE"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R2",
+        "target_verdict": "UNFRAMED",
+        "edit": "'respond transcriptionally' -> 'differ', removing the measured quantity",
+        "mutated_question": "How do enterocyte domains (A, B, and C) differ under different dietary challenges?",
+        "oracle_answer": "transcriptionally, within each domain",
+        "gt_preserved": "the oracle restores the original quantity; A1 is unchanged",
+        "interpretation": {
+          "verdict": "UNFRAMED",
+          "user_input_required": true,
+          "clarification_message": "Do you want the transcriptional response within each domain, a shift in where the domain boundaries fall along the intestine, or a change in the cell numbers assigned to each domain?",
+          "openness_table": [
+            {
+              "span": "differ under different dietary challenges",
+              "tag": "DELIVERABLES",
+              "candidates": [
+                "within-domain DE against control diet",
+                "shift of domain boundaries along segments 1-30",
+                "change in cell abundance per domain"
+              ],
+              "test": "three different objects; producing all three still leaves the user to name the finding",
+              "refuter": null,
+              "additive": null,
+              "verdict": "UNFRAMED"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R3",
+        "target_verdict": "UNFRAMED",
+        "edit": "abstract the whole task to a concept: 'zonation reprogrammed by diet'",
+        "mutated_question": "How is enterocyte zonation reprogrammed by diet?",
+        "oracle_answer": "per-domain transcriptional response to each diet",
+        "gt_preserved": "the oracle collapses 'reprogrammed' back to the per-domain diet contrast",
+        "interpretation": {
+          "verdict": "UNFRAMED",
+          "user_input_required": true,
+          "clarification_message": "What counts as reprogramming here: the genes that change within each existing domain, movement of the expression gradient along the proximal-distal axis, or a change in how many domains the tissue supports?",
+          "openness_table": [
+            {
+              "span": "zonation ... reprogrammed",
+              "tag": "CONCEPT",
+              "candidates": [
+                "per-domain differential expression under each diet",
+                "displacement of the proximal-distal expression gradient",
+                "change in the number or extent of resolvable domains"
+              ],
+              "test": "the three readings ask different scientific questions about the same axis, and no combined artefact answers all of them as one claim",
+              "refuter": null,
+              "additive": null,
+              "verdict": "UNFRAMED"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R4",
+        "target_verdict": "UNFRAMED-ADDITIVE",
+        "edit": "replace 'domains' with an unbound spatial unit",
+        "mutated_question": "How do enterocyte populations along the small intestine respond transcriptionally to different dietary challenges?",
+        "oracle_answer": "no question needed - report segment, domain and region level",
+        "gt_preserved": "the domain level of the nested profile is the original question; the published answer is a slice of it",
+        "interpretation": {
+          "verdict": "UNFRAMED-ADDITIVE",
+          "user_input_required": false,
+          "clarification_message": "NA",
+          "openness_table": [
+            {
+              "span": "populations along the small intestine",
+              "tag": "SCOPE",
+              "candidates": [
+                "per segment (1-30)",
+                "per domain (domain_mapping.json)",
+                "per region (proximal / mid / distal)"
+              ],
+              "test": "three granularities on one proximal-distal axis; no data-side check selects one",
+              "refuter": null,
+              "additive": {
+                "question": "how does the transcriptional diet response vary along the proximal-distal axis?",
+                "rule": "one nested response profile reported at segment, domain and region level"
+              },
+              "verdict": "UNFRAMED-ADDITIVE"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "scHB-04",
+    "source": {
+      "benchmark": "sc-HeurekaBench oeq_lite",
+      "paper": "paper2",
+      "insight": "insight #4",
+      "question_index": 1
+    },
+    "data": {
+      "/vol/projects/jnourisa/egad/external/scHeurekaBench/scheurekabench/benchmark/scdata/paper2/data/dataset1.h5ad": "All cells from human cardiac tissue with myocarditis and healthy controls",
+      "/vol/projects/jnourisa/egad/external/scHeurekaBench/scheurekabench/benchmark/scdata/paper2/data/my_dataset.h5ad": "Myeloid cells from human cardiac tissue with myocarditis and healthy controls"
+    },
+    "question": "What compositional changes in myeloid cell populations are observed across different myocarditis conditions?",
+    "answer": "Similar compositional changes in myeloid cell populations are observed across Non-COVID-19, Post-COVID-19, and Post-Vaccination myocarditis, including increased monocyte-derived macrophages and decreased resident macrophages.",
+    "baseline_interpretation": {
+      "verdict": "FRAMEABLE",
+      "user_input_required": false,
+      "clarification_message": "NA",
+      "openness_table": [
+        {
+          "span": "myeloid cell populations",
+          "tag": "INPUT",
+          "candidates": [
+            "dataset1.h5ad (all cells)",
+            "my_dataset.h5ad (myeloid cells)"
+          ],
+          "test": "the denominator differs, so the proportions differ",
+          "refuter": "check which file carries myeloid state annotations; the question names myeloid populations, so the annotated myeloid object is the one that supports it",
+          "additive": null,
+          "verdict": "FRAMEABLE"
+        }
+      ]
+    },
+    "recommendations": [
+      {
+        "rec_id": "R1",
+        "target_verdict": "UNFRAMED-ADDITIVE",
+        "edit": "strip the file descriptions - both .h5ad paths handed over unlabelled",
+        "mutated_question": "What compositional changes in myeloid cell populations are observed across different myocarditis conditions? [data: dataset1.h5ad, my_dataset.h5ad]",
+        "oracle_answer": "no question needed - report both denominators",
+        "gt_preserved": "the within-myeloid denominator carries the published statement (MDM up, resident macrophages down)",
+        "interpretation": {
+          "verdict": "UNFRAMED-ADDITIVE",
+          "user_input_required": false,
+          "clarification_message": "NA",
+          "openness_table": [
+            {
+              "span": "[the two supplied .h5ad files]",
+              "tag": "INPUT",
+              "candidates": [
+                "myeloid states as a fraction of all cells (dataset1.h5ad)",
+                "myeloid states as a fraction of myeloid cells (my_dataset.h5ad)"
+              ],
+              "test": "inspecting the files tells you what each contains but not which denominator the user means; both are defensible compositional readings",
+              "refuter": null,
+              "additive": {
+                "question": "how does myeloid composition differ across myocarditis conditions?",
+                "rule": "one table giving each myeloid state both as a fraction of all cells and as a fraction of myeloid cells"
+              },
+              "verdict": "UNFRAMED-ADDITIVE"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R2",
+        "target_verdict": "UNFRAMED",
+        "edit": "collapse the condition axis: 'across different myocarditis conditions' -> 'in myocarditis'",
+        "mutated_question": "What compositional changes in myeloid cell populations are observed in myocarditis?",
+        "oracle_answer": "each aetiology against control, then compared with one another",
+        "gt_preserved": "the published claim is that the change is similar across aetiologies, which needs exactly the per-aetiology-vs-control contrasts the oracle names",
+        "interpretation": {
+          "verdict": "UNFRAMED",
+          "user_input_required": true,
+          "clarification_message": "Should myocarditis be pooled against controls, each aetiology (Non-COVID-19, Post-COVID-19, Post-Vaccination) contrasted with control separately, or the aetiologies contrasted with each other?",
+          "openness_table": [
+            {
+              "span": "in myocarditis",
+              "tag": "SCOPE",
+              "candidates": [
+                "all myocarditis pooled vs healthy control",
+                "each aetiology vs healthy control, separately",
+                "aetiologies contrasted against one another"
+              ],
+              "test": "the vs-control contrasts answer what disease does; the pairwise contrasts answer whether aetiologies differ - two different claims, so a combined table does not settle the ask",
+              "refuter": null,
+              "additive": null,
+              "verdict": "UNFRAMED"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R3",
+        "target_verdict": "UNFRAMED",
+        "edit": "'myeloid cell populations' -> 'the innate immune compartment'",
+        "mutated_question": "What compositional changes in the innate immune compartment are observed across different myocarditis conditions?",
+        "oracle_answer": "the myeloid compartment (monocytes, macrophages, dendritic cells)",
+        "gt_preserved": "under the myeloid definition the denominator is the original one, so A1 is reproducible",
+        "interpretation": {
+          "verdict": "UNFRAMED",
+          "user_input_required": true,
+          "clarification_message": "Which cells count as the innate immune compartment: myeloid cells only, myeloid plus NK and innate lymphoid cells, or all non-lymphocyte immune cells?",
+          "openness_table": [
+            {
+              "span": "the innate immune compartment",
+              "tag": "CONCEPT",
+              "candidates": [
+                "myeloid only (monocytes, macrophages, DC, neutrophils)",
+                "myeloid plus NK / innate lymphoid cells",
+                "all non-lymphocyte immune cells"
+              ],
+              "test": "each definition changes the denominator and therefore every proportion; reporting all three still leaves the headline undecided",
+              "refuter": null,
+              "additive": null,
+              "verdict": "UNFRAMED"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R4",
+        "target_verdict": "UNFRAMED-ADDITIVE",
+        "edit": "leave the unit of aggregation unstated ('observed' -> 'estimated')",
+        "mutated_question": "How are the proportions of myeloid cell populations estimated to change across different myocarditis conditions?",
+        "oracle_answer": "no question needed - per-donor estimate as primary, others as agreement check",
+        "gt_preserved": "all three estimators give the same direction (MDM up, resident down); the additive answer reports it with its own robustness check",
+        "interpretation": {
+          "verdict": "UNFRAMED-ADDITIVE",
+          "user_input_required": false,
+          "clarification_message": "NA",
+          "openness_table": [
+            {
+              "span": "estimated to change",
+              "tag": "IMPLEMENTATION",
+              "candidates": [
+                "cell-level proportions pooled across donors",
+                "per-donor proportions, then group mean and test",
+                "compositional model (Dirichlet / scCODA)"
+              ],
+              "test": "different estimators of one and the same quantity; pooling ignores donor structure, so the numbers differ, but the question is identical",
+              "refuter": null,
+              "additive": {
+                "question": "how do myeloid population proportions differ between myocarditis conditions and control?",
+                "rule": "report the per-donor estimate as primary with the pooled and model-based estimates alongside as an agreement check"
+              },
+              "verdict": "UNFRAMED-ADDITIVE"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "scHB-05",
+    "source": {
+      "benchmark": "sc-HeurekaBench oeq_lite",
+      "paper": "paper12",
+      "insight": "insight #26",
+      "question_index": 1
+    },
+    "data": {
+      "/vol/projects/jnourisa/egad/external/scHeurekaBench/scheurekabench/benchmark/scdata/paper12/data/data.h5ad": "scRNA-seq data from barrel cortex (Mouse)"
+    },
+    "question": "What changes occur in microglial populations during cortical remodeling in response to developmental stress?",
+    "answer": "During cortical remodeling in response to developmental stress, there is a significant expansion of a microglial subpopulation enriched in Type I interferon (IFN-I) response genes. This IFN-I-responsive microglial subset increases 20-fold in the deprived cortex compared to controls.",
+    "baseline_interpretation": {
+      "verdict": "FRAMEABLE",
+      "user_input_required": false,
+      "clarification_message": "NA",
+      "openness_table": [
+        {
+          "span": "developmental stress",
+          "tag": "CONCEPT",
+          "candidates": [
+            "sensory deprivation of the barrel cortex",
+            "another perturbation encoded in the data",
+            "a developmental time contrast"
+          ],
+          "test": "different perturbations give different microglial shifts",
+          "refuter": "read the condition columns of data.h5ad: the perturbation actually encoded fixes the reading",
+          "additive": null,
+          "verdict": "FRAMEABLE"
+        }
+      ]
+    },
+    "recommendations": [
+      {
+        "rec_id": "R1",
+        "target_verdict": "UNFRAMED-ADDITIVE",
+        "edit": "widen the cell type: 'microglial' -> 'glial'",
+        "mutated_question": "What changes occur in glial populations during cortical remodeling in response to developmental stress?",
+        "oracle_answer": "microglia",
+        "gt_preserved": "the glia-wide abundance table contains the microglial rows, including the 20-fold IFN-I subset",
+        "interpretation": {
+          "verdict": "UNFRAMED-ADDITIVE",
+          "user_input_required": false,
+          "clarification_message": "NA",
+          "openness_table": [
+            {
+              "span": "glial populations",
+              "tag": "SCOPE",
+              "candidates": [
+                "microglia",
+                "astrocytes",
+                "oligodendrocyte lineage"
+              ],
+              "test": "each lineage gives a different set of subpopulations, but all answer the same deprivation question through a different cell-type window",
+              "refuter": null,
+              "additive": {
+                "question": "which glial subpopulations shift in abundance with developmental stress?",
+                "rule": "one deprived-vs-control subpopulation abundance table spanning every glial lineage"
+              },
+              "verdict": "UNFRAMED-ADDITIVE"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R2",
+        "target_verdict": "UNFRAMED",
+        "edit": "'changes ... in populations' -> 'the response', removing the measured quantity",
+        "mutated_question": "What is the microglial response to developmental stress in the barrel cortex?",
+        "oracle_answer": "changes in the abundance of microglial subpopulations",
+        "gt_preserved": "the oracle restores the compositional reading; the 20-fold expansion is the answer",
+        "interpretation": {
+          "verdict": "UNFRAMED",
+          "user_input_required": true,
+          "clarification_message": "Do you want the shift in abundance of microglial subpopulations, the transcriptional programs induced within microglia, or an inferred functional change such as phagocytic activity?",
+          "openness_table": [
+            {
+              "span": "the microglial response",
+              "tag": "DELIVERABLES",
+              "candidates": [
+                "abundance shift across microglial subpopulations",
+                "induced transcriptional programs within microglia",
+                "inferred functional change (phagocytosis, neuron-microglia interaction)"
+              ],
+              "test": "three different objects; the paper's own claim rests on the first, and delivering all three does not say which is the finding",
+              "refuter": null,
+              "additive": null,
+              "verdict": "UNFRAMED"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R3",
+        "target_verdict": "UNFRAMED",
+        "edit": "delete the perturbation, leaving the reference open",
+        "mutated_question": "What changes occur in microglial populations in the remodeling cortex?",
+        "oracle_answer": "deprived cortex versus control animals",
+        "gt_preserved": "the oracle restores the published contrast, which is what the 20-fold figure is measured against",
+        "interpretation": {
+          "verdict": "UNFRAMED",
+          "user_input_required": true,
+          "clarification_message": "Against which reference should the change be measured: deprived versus control animals, the deprived versus the spared hemisphere of the same animal, or a remodeling versus a baseline timepoint?",
+          "openness_table": [
+            {
+              "span": "in the remodeling cortex",
+              "tag": "SCOPE",
+              "candidates": [
+                "deprived animals vs control animals",
+                "deprived vs spared hemisphere within animal",
+                "remodeling timepoint vs baseline timepoint"
+              ],
+              "test": "each reference attributes the change to a different cause, so they are different questions rather than windows on one; the magnitudes are not comparable",
+              "refuter": null,
+              "additive": null,
+              "verdict": "UNFRAMED"
+            }
+          ]
+        }
+      },
+      {
+        "rec_id": "R4",
+        "target_verdict": "UNFRAMED-ADDITIVE",
+        "edit": "'populations' -> 'subpopulations', leaving clustering resolution unstated",
+        "mutated_question": "What changes occur in microglial subpopulations during cortical remodeling in response to developmental stress?",
+        "oracle_answer": "no question needed - report across resolutions",
+        "gt_preserved": "the IFN-I subset only separates above a sufficient resolution, so sweeping resolutions makes the published finding more recoverable, not less",
+        "interpretation": {
+          "verdict": "UNFRAMED-ADDITIVE",
+          "user_input_required": false,
+          "clarification_message": "NA",
+          "openness_table": [
+            {
+              "span": "microglial subpopulations",
+              "tag": "IMPLEMENTATION",
+              "candidates": [
+                "the existing annotation in obs",
+                "re-clustering microglia at low resolution",
+                "re-clustering microglia at high resolution"
+              ],
+              "test": "one parameterisation axis over the same cells and the same contrast; the number of subpopulations changes but the question does not",
+              "refuter": null,
+              "additive": {
+                "question": "which microglial subpopulations change in abundance with developmental stress?",
+                "rule": "run the deprived-vs-control abundance test at each resolution and report the subpopulations whose shift is stable across them"
+              },
+              "verdict": "UNFRAMED-ADDITIVE"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]
